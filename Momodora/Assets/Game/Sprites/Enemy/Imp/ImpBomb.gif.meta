@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ImpBomb_0
+      name: RightToLeft
       rect:
         serializedVersion: 2
         x: 2
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ImpBomb_1
+      name: LeftToRight
       rect:
         serializedVersion: 2
         x: 3
@@ -181,8 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ImpBomb_0: -513131370
-      ImpBomb_1: -168823423
+      LeftToRight: -168823423
+      RightToLeft: -513131370
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

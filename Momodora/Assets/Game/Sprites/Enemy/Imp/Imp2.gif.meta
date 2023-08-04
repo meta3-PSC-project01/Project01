@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Imp2_0
+      name: IdleR
       rect:
         serializedVersion: 2
         x: 7
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_1
+      name: IdleL
       rect:
         serializedVersion: 2
         x: 39
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_2
+      name: HitR
       rect:
         serializedVersion: 2
         x: 68
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_3
+      name: HitL
       rect:
         serializedVersion: 2
         x: 105
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_4
+      name: MoveR1
       rect:
         serializedVersion: 2
         x: 6
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_5
+      name: MoveR2
       rect:
         serializedVersion: 2
         x: 38
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_6
+      name: MoveR3
       rect:
         serializedVersion: 2
         x: 70
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_7
+      name: MoveR4
       rect:
         serializedVersion: 2
         x: 102
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_8
+      name: MoveR5
       rect:
         serializedVersion: 2
         x: 133
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_9
+      name: MoveR6
       rect:
         serializedVersion: 2
         x: 164
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_10
+      name: MoveL1
       rect:
         serializedVersion: 2
         x: 8
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_11
+      name: MoveL2
       rect:
         serializedVersion: 2
         x: 41
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_12
+      name: MoveL3
       rect:
         serializedVersion: 2
         x: 74
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_13
+      name: MoveL4
       rect:
         serializedVersion: 2
         x: 106
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_14
+      name: MoveL5
       rect:
         serializedVersion: 2
         x: 138
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_15
+      name: MoveL6
       rect:
         serializedVersion: 2
         x: 170
@@ -465,7 +465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_16
+      name: AttackR0
       rect:
         serializedVersion: 2
         x: 7
@@ -486,7 +486,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_17
+      name: AttackR1
       rect:
         serializedVersion: 2
         x: 36
@@ -507,7 +507,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_18
+      name: AttackR2
       rect:
         serializedVersion: 2
         x: 68
@@ -528,7 +528,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_19
+      name: AttackR3
       rect:
         serializedVersion: 2
         x: 102
@@ -549,7 +549,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_20
+      name: AttackR4
       rect:
         serializedVersion: 2
         x: 137
@@ -570,7 +570,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_21
+      name: AttackR5
       rect:
         serializedVersion: 2
         x: 167
@@ -591,7 +591,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_22
+      name: AttackR6
       rect:
         serializedVersion: 2
         x: 198
@@ -612,7 +612,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_23
+      name: AttackR7
       rect:
         serializedVersion: 2
         x: 230
@@ -633,7 +633,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_24
+      name: AttackR8
       rect:
         serializedVersion: 2
         x: 265
@@ -654,7 +654,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_25
+      name: AttackR9
       rect:
         serializedVersion: 2
         x: 296
@@ -675,7 +675,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_26
+      name: AttackL0
       rect:
         serializedVersion: 2
         x: 7
@@ -696,7 +696,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_27
+      name: AttackL1
       rect:
         serializedVersion: 2
         x: 42
@@ -717,7 +717,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_28
+      name: AttackL2
       rect:
         serializedVersion: 2
         x: 74
@@ -738,7 +738,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_29
+      name: AttackL3
       rect:
         serializedVersion: 2
         x: 102
@@ -759,7 +759,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_30
+      name: AttackL4
       rect:
         serializedVersion: 2
         x: 129
@@ -780,7 +780,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_31
+      name: AttackL5
       rect:
         serializedVersion: 2
         x: 163
@@ -801,7 +801,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_32
+      name: AttackL6
       rect:
         serializedVersion: 2
         x: 197
@@ -822,7 +822,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_33
+      name: AttackL7
       rect:
         serializedVersion: 2
         x: 229
@@ -843,7 +843,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_34
+      name: AttackL8
       rect:
         serializedVersion: 2
         x: 261
@@ -864,7 +864,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp2_35
+      name: AttackL9
       rect:
         serializedVersion: 2
         x: 294
@@ -895,42 +895,42 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Imp2_0: -1367931282
-      Imp2_1: -102286261
-      Imp2_10: -15062188
-      Imp2_11: 51120636
-      Imp2_12: -91051952
-      Imp2_13: -1287738038
-      Imp2_14: 431631488
-      Imp2_15: 1994197999
-      Imp2_16: -588640454
-      Imp2_17: 2139419353
-      Imp2_18: 295571486
-      Imp2_19: 780499333
-      Imp2_2: 1984426461
-      Imp2_20: -1301670142
-      Imp2_21: 1524717482
-      Imp2_22: 1789577624
-      Imp2_23: 1800254700
-      Imp2_24: -1514676113
-      Imp2_25: -689713461
-      Imp2_26: 673150976
-      Imp2_27: -343283048
-      Imp2_28: -1521426620
-      Imp2_29: -127339568
-      Imp2_3: 1469981246
-      Imp2_30: -1156726891
-      Imp2_31: 640605179
-      Imp2_32: 1570754508
-      Imp2_33: 339510396
-      Imp2_34: 13981306
-      Imp2_35: -1547186041
-      Imp2_4: -1516656976
-      Imp2_5: 2093191449
-      Imp2_6: 1623515796
-      Imp2_7: -686420686
-      Imp2_8: -1051103102
-      Imp2_9: -939056342
+      AttackL0: 673150976
+      AttackL1: -343283048
+      AttackL2: -1521426620
+      AttackL3: -127339568
+      AttackL4: -1156726891
+      AttackL5: 640605179
+      AttackL6: 1570754508
+      AttackL7: 339510396
+      AttackL8: 13981306
+      AttackL9: -1547186041
+      AttackR0: -588640454
+      AttackR1: 2139419353
+      AttackR2: 295571486
+      AttackR3: 780499333
+      AttackR4: -1301670142
+      AttackR5: 1524717482
+      AttackR6: 1789577624
+      AttackR7: 1800254700
+      AttackR8: -1514676113
+      AttackR9: -689713461
+      HitL: 1469981246
+      HitR: 1984426461
+      IdleL: -102286261
+      IdleR: -1367931282
+      MoveL1: -15062188
+      MoveL2: 51120636
+      MoveL3: -91051952
+      MoveL4: -1287738038
+      MoveL5: 431631488
+      MoveL6: 1994197999
+      MoveR1: -1516656976
+      MoveR2: 2093191449
+      MoveR3: 1623515796
+      MoveR4: -686420686
+      MoveR5: -1051103102
+      MoveR6: -939056342
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

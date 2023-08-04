@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: big_0
+      name: idleR
       rect:
         serializedVersion: 2
         x: 57
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_1
+      name: idleL
       rect:
         serializedVersion: 2
         x: 36
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_2
+      name: AttackR05
       rect:
         serializedVersion: 2
         x: 771
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_5
+      name: AttackR11
       rect:
         serializedVersion: 2
         x: 1864
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_6
+      name: AttackR01
       rect:
         serializedVersion: 2
         x: 57
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_8
+      name: AttackR10
       rect:
         serializedVersion: 2
         x: 1685
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_9
+      name: AttackR15
       rect:
         serializedVersion: 2
         x: 2577
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_10
+      name: AttackR16
       rect:
         serializedVersion: 2
         x: 2757
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_11
+      name: AttackR02
       rect:
         serializedVersion: 2
         x: 235
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_12
+      name: AttackR03
       rect:
         serializedVersion: 2
         x: 413
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_13
+      name: AttackR04
       rect:
         serializedVersion: 2
         x: 593
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_14
+      name: AttackR06
       rect:
         serializedVersion: 2
         x: 941
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_15
+      name: AttackR07
       rect:
         serializedVersion: 2
         x: 1115
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_16
+      name: AttackR08
       rect:
         serializedVersion: 2
         x: 1295
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_17
+      name: AttackR09
       rect:
         serializedVersion: 2
         x: 1505
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_18
+      name: AttackR12
       rect:
         serializedVersion: 2
         x: 2042
@@ -465,7 +465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_19
+      name: AttackR13
       rect:
         serializedVersion: 2
         x: 2222
@@ -486,7 +486,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_20
+      name: AttackR14
       rect:
         serializedVersion: 2
         x: 2400
@@ -507,7 +507,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_21
+      name: AttackL05
       rect:
         serializedVersion: 2
         x: 783
@@ -528,7 +528,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_24
+      name: AttackL01
       rect:
         serializedVersion: 2
         x: 36
@@ -549,7 +549,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_26
+      name: AttackL10
       rect:
         serializedVersion: 2
         x: 1621
@@ -570,7 +570,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_27
+      name: AttackL15
       rect:
         serializedVersion: 2
         x: 2555
@@ -591,10 +591,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_28
+      name: AttackL16
       rect:
         serializedVersion: 2
-        x: 2736
+        x: 2738
         y: 0
         width: 87
         height: 81
@@ -612,7 +612,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_29
+      name: AttackL02
       rect:
         serializedVersion: 2
         x: 207
@@ -633,7 +633,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_30
+      name: AttackL03
       rect:
         serializedVersion: 2
         x: 387
@@ -654,7 +654,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_31
+      name: AttackL04
       rect:
         serializedVersion: 2
         x: 567
@@ -675,7 +675,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_32
+      name: AttackL06
       rect:
         serializedVersion: 2
         x: 968
@@ -696,7 +696,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_33
+      name: AttackL07
       rect:
         serializedVersion: 2
         x: 1150
@@ -717,7 +717,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_34
+      name: AttackL08
       rect:
         serializedVersion: 2
         x: 1331
@@ -738,7 +738,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_35
+      name: AttackL09
       rect:
         serializedVersion: 2
         x: 1440
@@ -759,7 +759,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_36
+      name: AttackL11
       rect:
         serializedVersion: 2
         x: 1802
@@ -780,10 +780,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_37
+      name: AttackL12
       rect:
         serializedVersion: 2
-        x: 1982
+        x: 1984
         y: 0
         width: 116
         height: 55
@@ -801,7 +801,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_38
+      name: AttackL13
       rect:
         serializedVersion: 2
         x: 2162
@@ -822,7 +822,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: big_39
+      name: AttackL14
       rect:
         serializedVersion: 2
         x: 2360
@@ -853,46 +853,46 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      big_0: -1342441316
-      big_1: -116140528
-      big_10: -217332879
-      big_11: -1510400085
-      big_12: 1816079340
-      big_13: 713934595
-      big_14: 1575566672
-      big_15: -1373588339
-      big_16: 884486297
-      big_17: 312362643
-      big_18: -1545196259
-      big_19: -1088296682
-      big_2: -408223828
-      big_20: 920389682
-      big_21: -2084462136
+      AttackL01: 1195645114
+      AttackL02: 885301611
+      AttackL03: 1564596695
+      AttackL04: -1990821812
+      AttackL05: -2084462136
+      AttackL06: -27254262
+      AttackL07: -1017346928
+      AttackL08: -1197613235
+      AttackL09: 1359264351
+      AttackL10: 681578488
+      AttackL11: 1345235335
+      AttackL12: -1339514030
+      AttackL13: -1085763099
+      AttackL14: 1813686994
+      AttackL15: 97581472
+      AttackL16: 756858600
+      AttackR01: 1088861214
+      AttackR02: -1510400085
+      AttackR03: 1816079340
+      AttackR04: 713934595
+      AttackR05: -408223828
+      AttackR06: 1575566672
+      AttackR07: -1373588339
+      AttackR08: 884486297
+      AttackR09: 312362643
+      AttackR10: 1748596052
+      AttackR11: -1228169701
+      AttackR12: -1545196259
+      AttackR13: -1088296682
+      AttackR14: 920389682
+      AttackR15: 1311517737
+      AttackR16: -217332879
       big_22: 1555313926
       big_23: -1916254963
-      big_24: 1195645114
       big_25: -264388893
-      big_26: 681578488
-      big_27: 97581472
-      big_28: 756858600
-      big_29: 885301611
       big_3: -503296629
-      big_30: 1564596695
-      big_31: -1990821812
-      big_32: -27254262
-      big_33: -1017346928
-      big_34: -1197613235
-      big_35: 1359264351
-      big_36: 1345235335
-      big_37: -1339514030
-      big_38: -1085763099
-      big_39: 1813686994
       big_4: 545895161
-      big_5: -1228169701
-      big_6: 1088861214
       big_7: 1195602576
-      big_8: 1748596052
-      big_9: 1311517737
+      idleL: -116140528
+      idleR: -1342441316
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bigMove_0
+      name: MoveR0
       rect:
         serializedVersion: 2
         x: 26
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_1
+      name: MoveR1
       rect:
         serializedVersion: 2
         x: 151
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_2
+      name: MoveR2
       rect:
         serializedVersion: 2
         x: 270
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_3
+      name: MoveR3
       rect:
         serializedVersion: 2
         x: 391
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_4
+      name: MoveR4
       rect:
         serializedVersion: 2
         x: 510
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_5
+      name: MoveR5
       rect:
         serializedVersion: 2
         x: 626
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_6
+      name: MoveR6
       rect:
         serializedVersion: 2
         x: 742
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_7
+      name: MoveR7
       rect:
         serializedVersion: 2
         x: 862
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_8
+      name: MoveR8
       rect:
         serializedVersion: 2
         x: 983
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_9
+      name: MoveR9
       rect:
         serializedVersion: 2
         x: 1103
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_10
+      name: MoveL0
       rect:
         serializedVersion: 2
         x: 10
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_11
+      name: MoveL1
       rect:
         serializedVersion: 2
         x: 133
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_12
+      name: MoveL2
       rect:
         serializedVersion: 2
         x: 253
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_13
+      name: MoveL3
       rect:
         serializedVersion: 2
         x: 372
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_14
+      name: MoveL4
       rect:
         serializedVersion: 2
         x: 490
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_15
+      name: MoveL5
       rect:
         serializedVersion: 2
         x: 608
@@ -465,7 +465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_16
+      name: MoveL6
       rect:
         serializedVersion: 2
         x: 732
@@ -486,7 +486,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_17
+      name: MoveL7
       rect:
         serializedVersion: 2
         x: 858
@@ -507,7 +507,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_18
+      name: MoveL8
       rect:
         serializedVersion: 2
         x: 975
@@ -528,7 +528,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bigMove_19
+      name: MoveL9
       rect:
         serializedVersion: 2
         x: 1093
@@ -559,26 +559,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bigMove_0: -825110321
-      bigMove_1: 553521499
-      bigMove_10: 649426007
-      bigMove_11: -1250776565
-      bigMove_12: 1191960506
-      bigMove_13: -1986934419
-      bigMove_14: 1447598805
-      bigMove_15: 1053559130
-      bigMove_16: -2059576288
-      bigMove_17: 448508828
-      bigMove_18: -157936030
-      bigMove_19: -967384074
-      bigMove_2: -2118231003
-      bigMove_3: -840420537
-      bigMove_4: -1346857197
-      bigMove_5: -1474058654
-      bigMove_6: 1022606187
-      bigMove_7: -1601169828
-      bigMove_8: -1295052807
-      bigMove_9: 466267923
+      MoveL0: 649426007
+      MoveL1: -1250776565
+      MoveL2: 1191960506
+      MoveL3: -1986934419
+      MoveL4: 1447598805
+      MoveL5: 1053559130
+      MoveL6: -2059576288
+      MoveL7: 448508828
+      MoveL8: -157936030
+      MoveL9: -967384074
+      MoveR0: -825110321
+      MoveR1: 553521499
+      MoveR2: -2118231003
+      MoveR3: -840420537
+      MoveR4: -1346857197
+      MoveR5: -1474058654
+      MoveR6: 1022606187
+      MoveR7: -1601169828
+      MoveR8: -1295052807
+      MoveR9: 466267923
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: small_0
+      name: MoveR1
       rect:
         serializedVersion: 2
         x: 12
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_1
+      name: MoveR2
       rect:
         serializedVersion: 2
         x: 56
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_2
+      name: MoveR3
       rect:
         serializedVersion: 2
         x: 100
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_3
+      name: MoveR4
       rect:
         serializedVersion: 2
         x: 143
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_4
+      name: MoveR5
       rect:
         serializedVersion: 2
         x: 186
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_5
+      name: MoveR6
       rect:
         serializedVersion: 2
         x: 229
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_6
+      name: MoveL1
       rect:
         serializedVersion: 2
         x: 4
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_7
+      name: MoveL2
       rect:
         serializedVersion: 2
         x: 51
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_8
+      name: MoveL3
       rect:
         serializedVersion: 2
         x: 97
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_9
+      name: MoveL4
       rect:
         serializedVersion: 2
         x: 134
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_10
+      name: MoveL5
       rect:
         serializedVersion: 2
         x: 177
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_11
+      name: MoveL6
       rect:
         serializedVersion: 2
         x: 223
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_12
+      name: HitR1
       rect:
         serializedVersion: 2
         x: 12
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_13
+      name: HitR2
       rect:
         serializedVersion: 2
         x: 55
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_14
+      name: HitL1
       rect:
         serializedVersion: 2
         x: 8
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: small_15
+      name: HitL2
       rect:
         serializedVersion: 2
         x: 53
@@ -475,22 +475,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      small_0: 1399160921
-      small_1: -1564015722
-      small_10: 1199843878
-      small_11: -1059239789
-      small_12: 352021148
-      small_13: -100111981
-      small_14: -1637070680
-      small_15: 60636200
-      small_2: -913124354
-      small_3: -522551632
-      small_4: -1895396015
-      small_5: -1792500233
-      small_6: -894729567
-      small_7: -951164001
-      small_8: 1524555877
-      small_9: -1261722624
+      HitL1: -1637070680
+      HitL2: 60636200
+      HitR1: 352021148
+      HitR2: -100111981
+      MoveL1: -894729567
+      MoveL2: -951164001
+      MoveL3: 1524555877
+      MoveL4: -1261722624
+      MoveL5: 1199843878
+      MoveL6: -1059239789
+      MoveR1: 1399160921
+      MoveR2: -1564015722
+      MoveR3: -913124354
+      MoveR4: -522551632
+      MoveR5: -1895396015
+      MoveR6: -1792500233
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
