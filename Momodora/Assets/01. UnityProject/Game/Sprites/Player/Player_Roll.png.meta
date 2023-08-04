@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 503ba2fc64851514a921038fc8fc2688
+guid: 06149be4461077e49879751b35a01c23
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Right_Jump_0
+      name: Player_Roll_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 50
-        height: 47
+        width: 49.75
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1943202089abf724e833b81c2ed87ae9
-      internalID: -1808229855
+      spriteID: 4c3dae6d7bf68a245bf27de14891b709
+      internalID: 954126254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Jump_1
+      name: Player_Roll_1
       rect:
         serializedVersion: 2
-        x: 50
+        x: 49
         y: 0
         width: 50
-        height: 47
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +164,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d84f3eb89203ee4ebe3ba5e2d93dad6
-      internalID: -349891572
+      spriteID: 5b42a9e38041069409bd6afe6f713ee6
+      internalID: 2135533959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Jump_2
+      name: Player_Roll_2
       rect:
         serializedVersion: 2
-        x: 100
+        x: 98
         y: 0
-        width: 50
-        height: 47
+        width: 49.75
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,8 +185,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8da698ccee0402c4f95dc2dc1994e0e5
-      internalID: -962958692
+      spriteID: e96183911f45a9547be15fcdb0ef474a
+      internalID: 1679174023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Roll_3
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 0
+        width: 49.75
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d85f588ad3a36ca43b56213427ae01c1
+      internalID: -205579719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Roll_4
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 0
+        width: 49.75
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02df89aa481a2f744b28987f5fadfb9c
+      internalID: -928812523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Roll_5
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 0
+        width: 49.75
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f28f9c55ec90d9141b7efe1d7efc6c89
+      internalID: -393323265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Roll_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 0
+        width: 50
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9266b2be16238c449afc3e017a7934db
+      internalID: 1115799630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Roll_7
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 0
+        width: 49.75
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87c61a267b7440d4193c5744c1b8bc82
+      internalID: -92491434
       vertices: []
       indices: 
       edges: []
@@ -202,9 +307,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Right_Jump_0: -1808229855
-      Player_Right_Jump_1: -349891572
-      Player_Right_Jump_2: -962958692
+      Player_Roll_0: 954126254
+      Player_Roll_1: 2135533959
+      Player_Roll_2: 1679174023
+      Player_Roll_3: -205579719
+      Player_Roll_4: -928812523
+      Player_Roll_5: -393323265
+      Player_Roll_6: 1115799630
+      Player_Roll_7: -92491434
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
