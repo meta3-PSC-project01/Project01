@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-7085269832903027418
+--- !u!1102 &-2287273506658513814
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackR
+  m_Name: IdleL
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -20,33 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9c206682ea747d24f854d2ebf1317f70, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &-2275986765243372208
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MoveR
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3296ec71327bf8248a3979a7aac8260a, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1cf13ec5ccb90dc48b962cd8d0650d7c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -113,20 +87,14 @@ AnimatorStateMachine:
     m_State: {fileID: -2226651407439756433}
     m_Position: {x: 270, y: 0, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -2275986765243372208}
-    m_Position: {x: 235, y: 65, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 8912786315711235939}
     m_Position: {x: 270, y: 130, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 2034662107127885404}
-    m_Position: {x: 305, y: 195, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 504486989772712577}
     m_Position: {x: 340, y: 260, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -7085269832903027418}
-    m_Position: {x: 375, y: 325, z: 0}
+    m_State: {fileID: -2287273506658513814}
+    m_Position: {x: 410, y: 390, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -136,7 +104,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -2226651407439756433}
+  m_DefaultState: {fileID: -2287273506658513814}
 --- !u!1102 &504486989772712577
 AnimatorState:
   serializedVersion: 6
@@ -158,32 +126,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 963a7394d50e9a3439fed8c1d702c0b0, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &2034662107127885404
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: HitR
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c459aee3a512e8740b672ef43c862908, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
