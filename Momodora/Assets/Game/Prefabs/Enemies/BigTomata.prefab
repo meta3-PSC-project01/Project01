@@ -129,20 +129,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8691038015041949654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a13cd5230b80a54ca1561501a46d538, type: 3}
+  m_Script: {fileID: 11500000, guid: e63bc5f4ddb9ccb4eaf5485aabd337df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRigidbody: {fileID: 8691038015041949651}
-  enemyRenderer: {fileID: 8691038016699832097}
-  enemyCollider: {fileID: 8691038015041949652}
-  enemyAnimator: {fileID: 8691038016699832127}
-  attackObject: {fileID: 2476878599366180022, guid: 8833b8489f54f1447baf60c2ac49e160, type: 3}
-  attackPosition: {fileID: 7596969867334410068}
-  enemyHp: 0
-  enemyDirection: -1
-  enemySpeed: 0
-  enemyWidth: 0
-  enemyHeight: 0
 --- !u!50 &8691038015041949651
 Rigidbody2D:
   serializedVersion: 4
