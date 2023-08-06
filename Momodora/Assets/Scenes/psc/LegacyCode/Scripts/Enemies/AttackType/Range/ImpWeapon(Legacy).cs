@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ImpWeapon_Legacy : EnemyRangeWeapon_Legacy
 {
-    Rigidbody2D rigidbody;
+    new Rigidbody2D rigidbody;
 
     private void Awake()
     {

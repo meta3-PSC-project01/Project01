@@ -4,13 +4,21 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.UI;
 
+
+//테스트 용도의 확장 에디터 윈도우
+//플레이 타임중 테스트가 필요한 것들을 버튼에 연동해서 사용할 예정
 public class TestWindow : EditorWindow
 {
-    public EnemyCommon_Legacy obj;
-    Queue<GameObject> testList = new Queue<GameObject>();
+    /// <summary>
+    /// Legacy코드
+    /// </summary>
+    //public EnemyCommon_Legacy obj;
+    //Queue<GameObject> testList = new Queue<GameObject>();
+    //===========================================================================================
 
+    //메뉴에 추가
     [MenuItem("CustomMenu/BuildTest")]
-    static void BuildTestOpen()
+    static void OpenTestWindow()
     {
         TestWindow window = (TestWindow)EditorWindow.GetWindow(typeof(TestWindow));
         window.Show();
@@ -19,7 +27,10 @@ public class TestWindow : EditorWindow
 
     void OnGUI()
     {
-        if (GUILayout.Button("RandomEnemy"))
+        ///<summary>
+        /// Legacy코드
+        ///</summary>
+       /* if (GUILayout.Button("RandomEnemy"))
         {
             string[] enemiesName = EnemyPool_Legacy.instance.GetEnemiesName();
             GameObject tmp = EnemyPool_Legacy.instance.GetEnemy(enemiesName[Random.Range(0, enemiesName.Length)]);
@@ -42,6 +53,6 @@ public class TestWindow : EditorWindow
 
             obj = Instantiate(tmp, new Vector3(0,0,0), Quaternion.identity);
             obj.Attack();
-        }
+        }*/
     }
 }
