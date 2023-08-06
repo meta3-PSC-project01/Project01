@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 00500ae274474d04ba3c1b1d7308dba5
+guid: 283d2444cbf30404494a882a101440bd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -127,133 +127,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Player_Bow_0
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 3
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d5d511ea07b0d54c9bf65e6b2b90f8a
-      internalID: -1232706315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Bow_1
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 3
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93bde4b7fc39eb242b397ef94547ab7d
-      internalID: -961973116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Bow_2
-      rect:
-        serializedVersion: 2
-        x: 111
-        y: 3
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3b24ccf132e9d348bbf2e997354fc4b
-      internalID: 498184986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Bow_3
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 3
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 466868b5bca8bec4cbb6d7a991913815
-      internalID: 469213754
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Bow_4
-      rect:
-        serializedVersion: 2
-        x: 209
-        y: 3
-        width: 27
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57719e44e6f252a4a935135c8f4f58c7
-      internalID: 1686290573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Bow_5
-      rect:
-        serializedVersion: 2
-        x: 258
-        y: 3
-        width: 27
-        height: 43
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ae2e9d45079b924c85e935566976c42
-      internalID: -1501364220
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -264,13 +138,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Player_Bow_0: -1232706315
-      Player_Bow_1: -961973116
-      Player_Bow_2: 498184986
-      Player_Bow_3: 469213754
-      Player_Bow_4: 1686290573
-      Player_Bow_5: -1501364220
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

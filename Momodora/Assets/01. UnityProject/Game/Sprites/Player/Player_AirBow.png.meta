@@ -132,10 +132,10 @@ TextureImporter:
       name: Player_AirBow_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 50.166668
-        height: 50
+        x: 13
+        y: 1
+        width: 27
+        height: 45
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: Player_AirBow_1
       rect:
         serializedVersion: 2
-        x: 50
-        y: 0
-        width: 50.166668
-        height: 50
+        x: 62
+        y: 1
+        width: 27
+        height: 45
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: Player_AirBow_2
       rect:
         serializedVersion: 2
-        x: 100
-        y: 0
-        width: 50.166668
-        height: 50
+        x: 111
+        y: 1
+        width: 27
+        height: 45
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,10 +195,10 @@ TextureImporter:
       name: Player_AirBow_3
       rect:
         serializedVersion: 2
-        x: 150
-        y: 0
-        width: 50.166668
-        height: 50
+        x: 160
+        y: 1
+        width: 27
+        height: 45
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: Player_AirBow_4
       rect:
         serializedVersion: 2
-        x: 200
-        y: 0
-        width: 50.166668
-        height: 50
+        x: 209
+        y: 1
+        width: 27
+        height: 44
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: Player_AirBow_5
       rect:
         serializedVersion: 2
-        x: 250
-        y: 0
-        width: 50.166668
-        height: 50
+        x: 258
+        y: 1
+        width: 27
+        height: 43
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
