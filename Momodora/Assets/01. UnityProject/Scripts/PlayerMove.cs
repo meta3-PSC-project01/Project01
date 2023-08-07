@@ -61,7 +61,7 @@ public class PlayerMove : MonoBehaviour
         zSpeed = 0f;
         jSpeed = 0f;
         rSpeed = 0f;
-        jumpForce = 50f;
+        jumpForce = 10f;
 
         jumpCount = 0;
         isMlAttack = 0;
@@ -118,7 +118,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false)
+        if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false)
         {
             jumpCount += 1;
             jumping = true;
@@ -130,7 +130,7 @@ public class PlayerMove : MonoBehaviour
             jSpeed += jumpForce;
             playerRigidbody.AddForce(new Vector2(0, jSpeed));
 
-            if (jSpeed >= 1000f)
+            if (jSpeed >= 50f)
             {
                 jumpingForce = false;
             }
