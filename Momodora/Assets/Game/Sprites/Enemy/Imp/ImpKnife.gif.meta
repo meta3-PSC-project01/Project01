@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ImpKnife_0
+      name: RightToLeft
       rect:
         serializedVersion: 2
         x: 3
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ImpKnife_1
+      name: LeftToRight
       rect:
         serializedVersion: 2
         x: 2
@@ -181,8 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ImpKnife_0: 606275102
-      ImpKnife_1: -755377369
+      LeftToRight: -755377369
+      RightToLeft: 606275102
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

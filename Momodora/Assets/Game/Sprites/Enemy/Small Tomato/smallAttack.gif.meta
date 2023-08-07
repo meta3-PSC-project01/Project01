@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: smallAttack_0
+      name: AttackR2
       rect:
         serializedVersion: 2
         x: 110
@@ -150,13 +150,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_1
+      name: AttackR5
       rect:
         serializedVersion: 2
         x: 350
         y: 48
         width: 39
-        height: 33
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,28 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_2
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 74
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a4099d4b8f61dd747ba0b73cc2777f10
-      internalID: 1493328173
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: smallAttack_3
+      name: AttackR6
       rect:
         serializedVersion: 2
         x: 428
@@ -213,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_4
+      name: AttackR7
       rect:
         serializedVersion: 2
         x: 507
@@ -234,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_5
+      name: AttackR1
       rect:
         serializedVersion: 2
         x: 30
@@ -255,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_6
+      name: AttackR3
       rect:
         serializedVersion: 2
         x: 174
@@ -276,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_7
+      name: AttackR4
       rect:
         serializedVersion: 2
         x: 252
@@ -297,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_8
+      name: AttackR8
       rect:
         serializedVersion: 2
         x: 587
@@ -318,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_9
+      name: AttackR9
       rect:
         serializedVersion: 2
         x: 667
@@ -339,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_10
+      name: AttackL2
       rect:
         serializedVersion: 2
         x: 110
@@ -360,13 +339,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_11
+      name: AttackL5
       rect:
         serializedVersion: 2
         x: 331
         y: 0
         width: 39
-        height: 33
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,28 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_12
-      rect:
-        serializedVersion: 2
-        x: 353
-        y: 26
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4bcb1de90630fdd49adaa3f8890db484
-      internalID: -999884255
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: smallAttack_13
+      name: AttackL6
       rect:
         serializedVersion: 2
         x: 411
@@ -423,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_14
+      name: AttackL7
       rect:
         serializedVersion: 2
         x: 491
@@ -444,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_15
+      name: AttackL1
       rect:
         serializedVersion: 2
         x: 26
@@ -465,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_16
+      name: AttackL3
       rect:
         serializedVersion: 2
         x: 191
@@ -486,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_17
+      name: AttackL4
       rect:
         serializedVersion: 2
         x: 272
@@ -507,7 +465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_18
+      name: AttackL8
       rect:
         serializedVersion: 2
         x: 571
@@ -528,7 +486,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: smallAttack_19
+      name: AttackL9
       rect:
         serializedVersion: 2
         x: 651
@@ -559,26 +517,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      smallAttack_0: 731312306
-      smallAttack_1: 1935540629
-      smallAttack_10: -1081041686
-      smallAttack_11: 1832451913
+      AttackL1: -65913456
+      AttackL2: -1081041686
+      AttackL3: 722025452
+      AttackL4: -1278190059
+      AttackL5: 1832451913
+      AttackL6: 1636514555
+      AttackL7: -795556390
+      AttackL8: -889514326
+      AttackL9: -210007337
+      AttackR1: -136910096
+      AttackR2: 731312306
+      AttackR3: 2002290014
+      AttackR4: 1266963554
+      AttackR5: 1935540629
+      AttackR6: 1826547437
+      AttackR7: -483954961
+      AttackR8: 320393196
+      AttackR9: -1262335435
       smallAttack_12: -999884255
-      smallAttack_13: 1636514555
-      smallAttack_14: -795556390
-      smallAttack_15: -65913456
-      smallAttack_16: 722025452
-      smallAttack_17: -1278190059
-      smallAttack_18: -889514326
-      smallAttack_19: -210007337
       smallAttack_2: 1493328173
-      smallAttack_3: 1826547437
-      smallAttack_4: -483954961
-      smallAttack_5: -136910096
-      smallAttack_6: 2002290014
-      smallAttack_7: 1266963554
-      smallAttack_8: 320393196
-      smallAttack_9: -1262335435
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
