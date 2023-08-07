@@ -69,6 +69,8 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance.lookAtInventory == true) { return; }
+
         xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
         zInput = Input.GetAxis("Vertical");     // 수직 입력값 대입
 
@@ -192,7 +194,7 @@ public class PlayerMove : MonoBehaviour
             Debug.Log("사다리를 떠났다");
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && GameManager.instance.lookAtInventory == false)
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if (isGrounded == true)
             {

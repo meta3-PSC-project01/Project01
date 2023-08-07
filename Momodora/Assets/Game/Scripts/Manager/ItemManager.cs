@@ -244,9 +244,4 @@ public class ItemManager : MonoBehaviour
         actSlot[selectSlot].SetActive(true);
         lookAtInventorySlot = false;
     }
-
-    private void OnDisable()
-    {
-        Debug.Log("인벤토리가 비활성화 되었다.");
-    }
 }
