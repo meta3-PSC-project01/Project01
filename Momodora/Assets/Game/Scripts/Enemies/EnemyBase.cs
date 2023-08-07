@@ -55,15 +55,6 @@ public class EnemyBase : MonoBehaviour
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "AttackStart"));
     }
 
-    //몬스터 공격
-    //최하단 자식 클래스에서 구현한다.
-    //애니메이션 도중에 실행된다.
-    //충돌 후처리는(공격 성공) 해당 공격 prefab에서 처리한다.
-    public virtual void Attack()
-    {
-        Instantiate(attackData[0].prefab, attackPosition.position, transform.rotation, transform);
-    }
-
     //몬스터의 콜라이더 이벤트시
     public void Touch(TestPlayer player)
     {
