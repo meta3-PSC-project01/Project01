@@ -92,7 +92,6 @@ public class BigTomato : EnemyBase
             }
         }
 
-        StopCoroutine(routine);
         routine = null;
     }
 
