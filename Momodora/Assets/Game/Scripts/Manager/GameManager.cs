@@ -6,10 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameObject inventoryUi;
-
-    public bool lookAtInventory = false;
-
     void Awake()
     {
         if (instance == null || instance == default)

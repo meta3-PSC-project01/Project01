@@ -2,29 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Items : MonoBehaviour
+public class Items
 {
-    public string name;
-    public ItemType type;
-
-    public string title = default;
+    public string name = default;
     public string effect = default;
     public string[] explanation = new string[5];
     public int explanationX = default;
+    public int itemImage = default;
+    public ItemType type;
 
     public virtual void Init()
     {
-        /*empty*/
+        /* Empty */
     }
 
     public virtual void Print()
-    { 
-        /*empty*/ 
+    {
+        /* Empty */
     }
 
     public virtual void Use()
     {
-        /*empty*/
+        /* Empty */
     }
 }
 

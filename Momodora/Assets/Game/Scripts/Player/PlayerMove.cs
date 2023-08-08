@@ -9,7 +9,6 @@ public class PlayerMove : MonoBehaviour
     private Collider2D[] attackCollider;
 
     public GameObject arrowPrefab;
-    public GameObject itemManager;
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
@@ -69,7 +68,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.lookAtInventory == true) { return; }
+        if (ItemManager.instance.lookAtInventory == true) { return; }
 
         xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
         zInput = Input.GetAxis("Vertical");     // 수직 입력값 대입
@@ -241,15 +240,21 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.T) && GameManager.instance.lookAtInventory == false)
+        if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
         {
-            GameManager.instance.lookAtInventory = true;
-            itemManager.GetComponent<ItemManager>().enabled = true;
-            GameManager.instance.inventoryUi.SetActive(true);
+            ItemManager.instance.lookAtInventory = true;
+            ItemManager.instance.GetComponent<Inventory>().enabled = true;
+            ItemManager.instance.inventoryUi.SetActive(true);
             Time.timeScale = 0f;
+        }
 
-            //Items items = GetComponent<Items>();
-            //items.Print();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ItemManager.instance.GetComponent<Inventory>().GetItem("등가의 훈장");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
+            Debug.Log("아이템 획득!");
         }
 
         animator.SetBool("Ground", isGrounded);
@@ -472,4 +477,10 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
+
+    // 아이템 획득시 실행 함수 (1)
+    //public void GetItem(string name)
+    //{
+    //    itemManager.GetComponent<Inventory>().Division(name);
+    //}
 }
