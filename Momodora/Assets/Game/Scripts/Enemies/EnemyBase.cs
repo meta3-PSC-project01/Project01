@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //enemy관련 최상단 클래스
@@ -29,7 +30,7 @@ public class EnemyBase : MonoBehaviour
     //에너미 속성
     public int enemyHp = default;           //체력
     public float enemySpeed = default;      //속도
-    public Direction direction = Direction.LEFT;   //방향
+    public DirectionHorizen direction = DirectionHorizen.LEFT;   //방향
     public int enemyDamageRegist = default; //스턴 데미지 한도
 
     public bool isStun = false;     //경직
@@ -53,15 +54,6 @@ public class EnemyBase : MonoBehaviour
         //공격 시작 관련 재생(애니메이션, 소리)
         //enemyAnimator.SetTrigger("AttackStart");
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "AttackStart"));
-    }
-
-    //몬스터 공격
-    //최하단 자식 클래스에서 구현한다.
-    //애니메이션 도중에 실행된다.
-    //충돌 후처리는(공격 성공) 해당 공격 prefab에서 처리한다.
-    public virtual void Attack()
-    {
-        Instantiate(attackData[0].prefab, attackPosition.position, transform.rotation, transform);
     }
 
     //몬스터의 콜라이더 이벤트시
@@ -127,12 +119,12 @@ public class EnemyBase : MonoBehaviour
     //추후 확장성을 위해서 virtual로 지정(플레이어의 위치를 직접적으로 바라보는 몬스터)
     public virtual void turn()
     {
-        if (direction == Direction.LEFT)
+        if (direction == DirectionHorizen.LEFT)
         {
             transform.localEulerAngles = new Vector3(0, 0, 0);
             sight.RotateAngleZ(-90);
         }
-        else if (direction == Direction.RIGHT)
+        else if (direction == DirectionHorizen.RIGHT)
         {
             transform.localEulerAngles = new Vector3(0, 180, 0);
             sight.RotateAngleZ(90);
@@ -153,12 +145,12 @@ public class EnemyBase : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         isStun = false;
-        //enemyAnimator.SetBool("Stun", false);
-    }
+        //enemyAnimator.SetBool("Stun", false);        
+    }    
 }
 
 
-public enum Direction
+public enum DirectionHorizen
 {
     LEFT = -1,
     RIGHT = 1

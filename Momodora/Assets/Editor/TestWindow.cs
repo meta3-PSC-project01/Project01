@@ -27,32 +27,46 @@ public class TestWindow : EditorWindow
 
     void OnGUI()
     {
+        if (GUILayout.Button("RandomEnemy"))
+        {
+            //기본세팅 1 ,1
+            int width = 1;
+            int height = 1;
+
+            //스테이지, 추후 enum으로 관리
+            int stage = 0;
+
+            GameObject gameObject = new GameObject();
+            gameObject.name = "Map";      
+        }
+
+
         ///<summary>
         /// Legacy코드
         ///</summary>
-       /* if (GUILayout.Button("RandomEnemy"))
-        {
-            string[] enemiesName = EnemyPool_Legacy.instance.GetEnemiesName();
-            GameObject tmp = EnemyPool_Legacy.instance.GetEnemy(enemiesName[Random.Range(0, enemiesName.Length)]);
-            tmp.transform.position = Vector3.zero;
-            testList.Enqueue(tmp);
-        }
+            /* if (GUILayout.Button("RandomEnemy"))
+             {
+                 string[] enemiesName = EnemyPool_Legacy.instance.GetEnemiesName();
+                 GameObject tmp = EnemyPool_Legacy.instance.GetEnemy(enemiesName[Random.Range(0, enemiesName.Length)]);
+                 tmp.transform.position = Vector3.zero;
+                 testList.Enqueue(tmp);
+             }
 
-        if (GUILayout.Button("RemoveObject"))
-        {
-            GameObject tmp = testList.Dequeue();
-            EnemyPool_Legacy.instance.ReturnEnemy(tmp);
-        }
+             if (GUILayout.Button("RemoveObject"))
+             {
+                 GameObject tmp = testList.Dequeue();
+                 EnemyPool_Legacy.instance.ReturnEnemy(tmp);
+             }
 
 
-        if (GUILayout.Button("Shoot"))
-        {
-            EnemyCommon_Legacy tmp = AssetDatabase.LoadAssetAtPath<EnemyCommon_Legacy>("Assets/Game/Prefabs/Enemies/BigTomata.prefab");
+             if (GUILayout.Button("Shoot"))
+             {
+                 EnemyCommon_Legacy tmp = AssetDatabase.LoadAssetAtPath<EnemyCommon_Legacy>("Assets/Game/Prefabs/Enemies/BigTomata.prefab");
 
-            Debug.Log(tmp);
+                 Debug.Log(tmp);
 
-            obj = Instantiate(tmp, new Vector3(0,0,0), Quaternion.identity);
-            obj.Attack();
-        }*/
+                 obj = Instantiate(tmp, new Vector3(0,0,0), Quaternion.identity);
+                 obj.Attack();
+             }*/
     }
 }
