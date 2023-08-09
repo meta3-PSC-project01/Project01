@@ -64,16 +64,13 @@ public class CustomInspector_MoveTile : Editor
             GameObject child = Instantiate(moveTile.body, moveTile.transform.position, Quaternion.identity, moveTile.transform);            
             moveTile.GetList().Add(child);
             moveTile.childCount +=1;
-
-            SceneView.RepaintAll();
-            EditorApplication.RepaintHierarchyWindow();
+            EditorUtility.SetDirty(GameObject.FindObjectOfType<Transform>());
         }
 
         if (GUILayout.Button("Remove"))
         {
             moveTile.RemoveLastIndex();
-            SceneView.RepaintAll();
-            EditorApplication.RepaintHierarchyWindow();
+            EditorUtility.SetDirty(GameObject.FindObjectOfType<Transform>());
         }
     }
 }

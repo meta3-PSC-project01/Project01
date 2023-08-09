@@ -45,7 +45,8 @@ public class TestPlayer : MonoBehaviour
     public bool isCrouchBowed = false;
     public bool[] mlAttackConnect = new bool[2];
 
-    public bool test; 
+    public Rigidbody2D platformBody;
+    public bool isMovingPlatform = false;
 
     private void Awake()
     {
@@ -85,7 +86,7 @@ public class TestPlayer : MonoBehaviour
                 {
                     rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
                     Vector3 newVelocity2 = new Vector3(rSpeed, 0f, 0f);
-                    if (test)
+                    if (isMovingPlatform)
                     {
                         newVelocity2 *= 1.5f;
                     }
@@ -95,7 +96,7 @@ public class TestPlayer : MonoBehaviour
                 {
                     rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
                     Vector3 newVelocity2 = new Vector3(-rSpeed, 0f, 0f);
-                    if (test)
+                    if (isMovingPlatform)
                     {
                         newVelocity2 *= 1.5f;
                     }

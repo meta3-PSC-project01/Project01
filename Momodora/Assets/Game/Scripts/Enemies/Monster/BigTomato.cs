@@ -18,6 +18,7 @@ public class BigTomato : EnemyBase
     private EnemyAttackData attackObject = null;
 
 
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -99,7 +100,15 @@ public class BigTomato : EnemyBase
 
     public override void Move()
     {
-        enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
+        if (isMovingPlatform)
+        {
+            enemyRigidbody.velocity = new Vector2((enemySpeed * (int)direction)+platformBody.velocity.x, enemyRigidbody.velocity.y);
+        }
+        else
+        {
+            enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
+
+        }
     }
 
     //애니메이션 시작

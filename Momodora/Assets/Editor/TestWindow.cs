@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.UI;
+using UnityEngine.Tilemaps;
 
 
 //테스트 용도의 확장 에디터 윈도우
@@ -16,6 +17,8 @@ public class TestWindow : EditorWindow
     //Queue<GameObject> testList = new Queue<GameObject>();
     //===========================================================================================
 
+    string[] groundTileNames;
+
     //메뉴에 추가
     [MenuItem("CustomMenu/BuildTest")]
     static void OpenTestWindow()
@@ -24,6 +27,23 @@ public class TestWindow : EditorWindow
         window.Show();
     }
 
+    private void OnEnable()
+    {
+
+        /*string folderPath = Application.dataPath + "/Resources/Tiles/Ground";
+        string[] groundTileStrings = System.IO.Directory.GetFiles(folderPath, "*.prefab");
+
+        groundTileNames = new string[groundTileStrings.Length];
+
+        for (int i = 0; i < groundTileStrings.Length; i++)
+        {
+            string filename = System.IO.Path.GetFileNameWithoutExtension(groundTileStrings[i]);
+            groundTileNames[i] = filename;
+        }
+*/
+
+        //tilePrefab = Resources.Load<gameobject>(prefabPath);
+    }
 
     void OnGUI()
     {
@@ -34,10 +54,37 @@ public class TestWindow : EditorWindow
             int height = 1;
 
             //스테이지, 추후 enum으로 관리
-            int stage = 0;
+            int stage = 1;
 
-            GameObject gameObject = new GameObject();
-            gameObject.name = "Map";      
+            GameObject map = new GameObject();
+            map.name = "Stage"+(stage);
+
+            GameObject tileGrid = new GameObject();
+            tileGrid.AddComponent<Grid>();
+            tileGrid.transform.parent = map.transform;
+            tileGrid.name = "Grid";
+
+            GameObject tmpTileMapObject = new GameObject();
+            Tilemap tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+            tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+            tmpTileMapObject.AddComponent<TilemapRenderer>();
+            Rigidbody2D rb = tmpTileMapObject.AddComponent <Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Static;
+            TilemapCollider2D tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
+            tilemapCollider.usedByComposite = true;
+            CompositeCollider2D compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
+            compositeCollider.usedByEffector = true;
+            PlatformEffector2D platformEffector = tmpTileMapObject.AddComponent<PlatformEffector2D>();
+            platformEffector.useOneWay = false;
+
+            tmpTileMapObject.transform.parent = tileGrid.transform;
+            tmpTileMapObject.name = "BaseTile";
+
+            GridPalette
+            //tilePrefab = Resources.Load<gameobject>(prefabPath);
+            TileBase tileBase = 
+            //tmpTilemap.SetTile(new Vector3Int(0, 0, 0),   );
+
         }
 
 
