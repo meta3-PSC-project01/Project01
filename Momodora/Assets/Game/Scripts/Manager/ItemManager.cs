@@ -38,7 +38,7 @@ public class ItemManager : MonoBehaviour
         itemDataBase.Add("√ ∑’≤…", new Items4());
     }
 
-    // æ∆¿Ã≈€ ¡§∫∏ ∑ŒµÂ (3)
+    // æ∆¿Ã≈€ »πµÊ Ω√ ¡§∫∏ πﬁ±‚ (2)
     public Items ItemData(string name)
     {
         if (itemDataBase.ContainsKey(name))

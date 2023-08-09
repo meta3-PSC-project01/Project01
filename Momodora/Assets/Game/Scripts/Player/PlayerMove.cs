@@ -7,7 +7,9 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer playerRenderer = null;
     private Animator animator = default;
     private Collider2D[] attackCollider;
+    private GameObject thinFloor;
     public GameObject arrowPrefab;
+    public CapsuleCollider2D playerCollider_;
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
@@ -16,37 +18,34 @@ public class PlayerMove : MonoBehaviour
     private float moveForce = default;     // 캐릭터가 움직일 힘 수치
     private float rollForce = default;
     private float xInput = default;     // 수평 움직임 입력값
-    private float zInput = default;     // 수직 움직임 입력값
     private float xSpeed = default;     // 수평 움직임 최종값
-    private float zSpeed = default;     // 수직 움직임 최종값
     private float rSpeed = default;
-    private float jumpForce = default;
     private float[] jSpeed = new float[2];
+    private float jumpForce = default;
 
     private int jumpCount = default;
     private int isMlAttack = default;
 
-    private bool jumping = false;
-    private bool jumpingForce = false;
+    public bool jumping = false;
+    public bool jumpingForce = false;
     public bool flipX = false;
-    private bool rollFlipX = false;
-    private bool isRolled = false;
-    private bool rollingSlow = false;
-    private bool isGrounded = false;
-    private bool isCrouched = false;
-    private bool isLadder = false;
-    private bool isAirAttacked = false;
-    private bool isBowed = false;
-    private bool isAirBowed = false;
-    private bool isCrouchBowed = false;
-    private bool[] mlAttackConnect = new bool[2];
+    public bool rollFlipX = false;
+    public bool isRolled = false;
+    public bool rollingSlow = false;
+    public bool isGrounded = false;
+    public bool isCrouched = false;
+    public bool isLadder = false;
+    public bool isAirAttacked = false;
+    public bool isBowed = false;
+    public bool isAirBowed = false;
+    public bool isCrouchBowed = false;
+    public bool[] mlAttackConnect = new bool[2];
     public bool lookAtInventory = false;
-
-    private int test = 0;
+    private bool thinFloorCheck = false;
 
     void Awake()
     {
-             // { 변수 값 선언
+        // { 변수 값 선언
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -54,27 +53,29 @@ public class PlayerMove : MonoBehaviour
         attackSize = new Vector2(2f, 2f);
 
         moveForce = 10f;
-        rollForce = 9f;
+        rollForce = 0.1f;
+        jumpForce = 0.3f;
         xInput = 0f;
-        zInput = 0f;
         xSpeed = 0f;
-        zSpeed = 0f;
         rSpeed = 0f;
         jSpeed[0] = 0f;
         jSpeed[1] = 0f;
-        jumpForce = 2f;
 
         jumpCount = 0;
         isMlAttack = 0;
-             // } 변수 값 선언
+        // } 변수 값 선언
     }     // End Awake()
+
+    void Start()
+    {
+        playerRigidbody.velocity = new Vector2(0f, 0f);
+    }
 
     void Update()
     {
         if (ItemManager.instance.lookAtInventory == true) { return; }
 
         xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
-        zInput = Input.GetAxis("Vertical");     // 수직 입력값 대입
 
         if (isRolled == true)
         {
@@ -82,15 +83,17 @@ public class PlayerMove : MonoBehaviour
             {
                 if (rollFlipX == false)
                 {
-                    //rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                    playerRigidbody.AddForce(new Vector2(rollForce, 0f));
-                    test += 1;
+                    rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                    if (rSpeed > 13f) { rSpeed = 13f; }
+
+                    playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
                 }
                 else
                 {
-                    //rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                    playerRigidbody.AddForce(new Vector2(-rollForce, 0f));
-                    test += 1;
+                    rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                    if (rSpeed > 13f) { rSpeed = 13f; }
+
+                    playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
                 }
             }
         }
@@ -99,7 +102,7 @@ public class PlayerMove : MonoBehaviour
             if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
             {
                 xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
-                Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
+                Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
                 playerRigidbody.velocity = newVelocity;
                 //Debug.LogFormat("이동 힘값 : {0}", xSpeed);
             }
@@ -128,47 +131,66 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false)
         {
-            jSpeed[0] = 5;
-            jSpeed[1] = 5;
-            jumpCount += 1;
-            jumping = true;
-            jumpingForce = true;
+            if (isCrouched == true && thinFloorCheck == true)
+            {
+                if (thinFloor != null)
+                {
+                    StartCoroutine(IsTriggerFloor());
+                }
+            }
+            else
+            {
+                if (jumpCount == 0) { jSpeed[0] = 7; }
+                else if (jumpCount == 1) { jSpeed[1] = 7; }
+
+                jumpCount += 1;
+                jumping = true;
+                jumpingForce = true;
+            }
         }
 
-        if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true && isLadder == false && isAirAttacked == false && isBowed == false)
+        if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true)
         {
             if (jumpCount == 1)
             {
                 jSpeed[0] += jumpForce;
-                Vector2 newVelocity = new Vector2(0f, jSpeed[0]);
-                playerRigidbody.velocity = newVelocity;
 
-                if (jSpeed[0] >= 100f)
+                if (jSpeed[0] > 10f)
                 {
-                    jSpeed[0] = 100f;
+                    jSpeed[0] = 10f;
+                }
+            }
+            else if (jumpCount == 2)
+            {
+                jSpeed[0] += jumpForce;
+
+                if (jSpeed[1] > 10f)
+                {
+                    jSpeed[1] = 10f;
+                }
+            }
+        }
+
+        if (jumpingForce == true && isAirAttacked == false)
+        {
+            if (jumpCount == 1)
+            {
+                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[0]);
+
+                if (jSpeed[0] == 10f)
+                {
                     jumpingForce = false;
                 }
             }
             else if (jumpCount == 2)
             {
-                jSpeed[1] += jumpForce;
-                Vector2 newVelocity = new Vector2(0f, jSpeed[0]);
-                playerRigidbody.velocity = newVelocity;
+                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[1]);
 
-                if (jSpeed[1] >= 100f)
+                if (jSpeed[1] == 10f)
                 {
-                    jSpeed[1] = 100f;
                     jumpingForce = false;
                 }
             }
-            
-            //Debug.LogFormat("점프 힘값 : {0}", jSpeed);
-
-            //    어느정도가다보면 velocity의 상한을 정해준다.
-            //    else if (Input.GetMouseButtonDown(0) && 0 < playerRigid.velocity.y)
-            //    {
-            //        playerRigid.velocity = playerRigid.velocity * 1f;
-            //    }
         }
 
         if (Input.GetKeyUp(KeyCode.A))
@@ -183,7 +205,6 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 0f;
             xInput = 0f;
             isRolled = true;
-            test = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -307,7 +328,6 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("AirBow", isAirBowed);
         animator.SetBool("CrouchBow", isCrouchBowed);
         animator.SetInteger("MlAttack", isMlAttack);
-        
         animator.SetInteger("Run", (int)xSpeed);
     }
 
@@ -320,21 +340,17 @@ public class PlayerMove : MonoBehaviour
     //{
     //    return;
     //}
-   
+
     public void PlayerRollingSlow()
     {
         rollingSlow = true;
-        //rSpeed = 0f;
-        //playerRigidbody.velocity *= 0.5f;
-        Debug.Log(test);
     }
 
     public void PlayerRollingEnd()
     {
-        //rSpeed = 0f;
+        rSpeed = 0f;
         isRolled = false;
         rollingSlow = false;
-        Debug.Log(test);
     }
 
     IEnumerator RollStartCheck()
@@ -345,6 +361,7 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerBowShot()
     {
+
         if (flipX == false)
         {
             arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y);
@@ -389,12 +406,12 @@ public class PlayerMove : MonoBehaviour
     {
         if (flipX == false)
         {
-            arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y);
+            arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y - 0.5f);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
         }
         else
         {
-            arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
+            arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y - 0.5f);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
             arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
             arrow.GetComponent<ArrowMove>().flipX = true;
@@ -412,16 +429,12 @@ public class PlayerMove : MonoBehaviour
         {
             if (flipX == false)
             {
-                Vector2 attackMoveVelocity = new Vector2(+20f, 0f);
-                playerRigidbody.velocity = attackMoveVelocity;
-
+                playerRigidbody.velocity = new Vector2(+6f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
             }
             else
             {
-                Vector2 attackMoveVelocity = new Vector2(-20f, 0f);
-                playerRigidbody.velocity = attackMoveVelocity;
-
+                playerRigidbody.velocity = new Vector2(-6f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
             }
         }
@@ -429,20 +442,16 @@ public class PlayerMove : MonoBehaviour
         {
             if (flipX == false)
             {
-                Vector2 attackMoveVelocity = new Vector2(+15f, 0f);
-                playerRigidbody.velocity = attackMoveVelocity;
-
+                playerRigidbody.velocity = new Vector2(+4f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
             }
             else
             {
-                Vector2 attackMoveVelocity = new Vector2(-15f, 0f);
-                playerRigidbody.velocity = attackMoveVelocity;
-
+                playerRigidbody.velocity = new Vector2(-4f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
             }
         }
-        
+
         attackCollider = Physics2D.OverlapBoxAll(attackVector, attackSize, 0f);
 
         for (int i = 0; i < attackCollider.Length; i++)
@@ -510,10 +519,18 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("Floor") && 0.7f < collision.contacts[0].normal.y)
+        if (0.7f < collision.contacts[0].normal.y)
         {
-            isGrounded = true;
+            if (collision.gameObject.tag == ("Floor")) { thinFloorCheck = false; }
             
+            if (collision.gameObject.tag == ("ThinFloor"))
+            {
+                thinFloorCheck = true;
+                thinFloor = collision.gameObject;
+            }
+
+            isGrounded = true;
+
             if (jumping == true)
             {
                 jumpingForce = false;
@@ -524,13 +541,18 @@ public class PlayerMove : MonoBehaviour
             }
 
             if (isAirBowed == true) { isAirBowed = false; }
-
             if (isAirAttacked == true) { isAirAttacked = false; }
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == ("ThinFloor"))
+        {
+            thinFloor = null;
+            thinFloorCheck = false;
+        }
+
         isGrounded = false;
     }
 
@@ -550,9 +572,12 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    // 아이템 획득시 실행 함수 (1)
-    //public void GetItem(string name)
-    //{
-    //    itemManager.GetComponent<Inventory>().Division(name);
-    //}
+    private IEnumerator IsTriggerFloor()
+    {
+        BoxCollider2D thinFloorCollider = thinFloor.GetComponent<BoxCollider2D>();
+
+        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
+        yield return new WaitForSeconds(0.5f);
+        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
+    }
 }

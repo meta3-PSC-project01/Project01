@@ -148,14 +148,13 @@ public class TestPlayer : MonoBehaviour
                 jSpeed = 10;
             }
         }
-        if (Input.GetKeyUp(KeyCode.A) )
+        if (Input.GetKeyUp(KeyCode.A))
         {
             jumpingForce = false;
         }
 
         if (jumpingForce == true && isAirAttacked == false)
         {
-
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed);
 
             if (jSpeed == 10f)

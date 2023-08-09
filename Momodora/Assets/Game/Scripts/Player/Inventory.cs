@@ -43,7 +43,7 @@ public class Inventory : MonoBehaviour
         GetItem("[None]");
     }
 
-    // 아이템 획득 시 타입에 따라 분류 (2)
+    // 아이템 획득 시 분류 기능 (1)
     public void GetItem(string name)
     {
         Items item = ItemManager.instance.ItemData(name);
