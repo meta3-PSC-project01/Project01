@@ -52,12 +52,12 @@ public class BigTomato : EnemyBase
         {
             if (transform.position.x - target.transform.position.x > 0)
             {
-                direction = Direction.LEFT;
+                direction = DirectionHorizen.LEFT;
                 turn();
             }
             else
             {
-                direction = Direction.RIGHT;
+                direction = DirectionHorizen.RIGHT;
                 turn();
             }
             if (currDelay >= attackDelay && !isAttack)

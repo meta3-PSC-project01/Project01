@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 7450673633853130846}
   attackData:
-  - {fileID: 595508238615480874, guid: a6039717a52c7924f914f02adefe8a59, type: 3}
+  - {fileID: 4938066316447642722, guid: a6039717a52c7924f914f02adefe8a59, type: 3}
   sight: {fileID: 676820797251634342}
   target: {fileID: 0}
   enemyHp: 0
@@ -80,7 +80,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &8512634182877160520
 BoxCollider2D:
@@ -95,7 +95,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7, y: -0.76}
+  m_Offset: {x: 0.7, y: -0.8}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -106,7 +106,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3.5}
+  m_Size: {x: 3, y: 3.4}
   m_EdgeRadius: 0
 --- !u!82 &2941929044323799276
 AudioSource:
@@ -477,7 +477,63 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6108198434541331407}
         m_TargetAssemblyTypeName: BigTomato, Assembly-CSharp
-        m_MethodName: EndAttackAnimation
+        m_MethodName: RoutineEndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6108198434541331407}
+        m_TargetAssemblyTypeName: BigTomato, Assembly-CSharp
+        m_MethodName: AttackStartEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6108198434541331407}
+        m_TargetAssemblyTypeName: BigTomato, Assembly-CSharp
+        m_MethodName: AttackColliderEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6108198434541331407}
+        m_TargetAssemblyTypeName: BigTomato, Assembly-CSharp
+        m_MethodName: AttackEffectEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6108198434541331407}
+        m_TargetAssemblyTypeName: BigTomato, Assembly-CSharp
+        m_MethodName: AttackEndEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

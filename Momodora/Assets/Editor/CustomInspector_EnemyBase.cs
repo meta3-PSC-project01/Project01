@@ -7,7 +7,7 @@ using UnityEditor;
 
 //에너미 방향에 따른 각 수치들의 연동 위해서 커스텀 인스펙터창 제작
 [CustomEditor(typeof(EnemyBase), true)]
-public class TestInspector : Editor
+public class CustomInspector_EnemyBase : Editor
 {
     EnemyBase enemyObject;
 
@@ -20,11 +20,11 @@ public class TestInspector : Editor
     {
         base.OnInspectorGUI();
 
-        if (enemyObject.direction == Direction.LEFT)
+        if (enemyObject.direction == DirectionHorizen.LEFT)
         {
             enemyObject.turn();
         }
-        else if (enemyObject.direction == Direction.RIGHT)
+        else if (enemyObject.direction == DirectionHorizen.RIGHT)
         {
             enemyObject.turn();
         }

@@ -1795,8 +1795,8 @@ TextureImporter:
         y: 416
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2082,15 +2082,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_126
+      name: Test
       rect:
         serializedVersion: 2
         x: 160
         y: 400
         width: 16
         height: 16
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6523,6 +6523,7 @@ TextureImporter:
       Stage01_w11: 1714139247
       Stage01_w12: 1072393868
       Stage01_w13: 376714765
+      Test: 1957270522
       TileMap_0: 1120734772
       TileMap_1: 1959435397
       TileMap_10: 1295186343
@@ -6543,7 +6544,6 @@ TextureImporter:
       TileMap_123: 1953069532
       TileMap_124: -1529401329
       TileMap_125: -1479386346
-      TileMap_126: 1957270522
       TileMap_127: 1331630416
       TileMap_128: 1773914246
       TileMap_129: 11091016

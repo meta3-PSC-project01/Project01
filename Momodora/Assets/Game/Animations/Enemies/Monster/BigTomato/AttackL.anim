@@ -115,14 +115,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.64
+  - time: 0.56
     functionName: CallEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 2
     messageOptions: 0
-  - time: 0.72
+  - time: 0.64
     functionName: CallEvent
     data: 
     objectReferenceParameter: {fileID: 0}

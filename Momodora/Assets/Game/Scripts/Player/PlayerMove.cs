@@ -240,7 +240,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        animator.SetBool("Ground", isGrounded);
+        /*animator.SetBool("Ground", isGrounded);
         animator.SetBool("Roll", isRolled);
         animator.SetBool("Crouch", isCrouched);
         animator.SetBool("AirAttack", isAirAttacked);
@@ -248,7 +248,7 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("AirBow", isAirBowed);
         animator.SetBool("CrouchBow", isCrouchBowed);
         animator.SetInteger("MlAttack", isMlAttack);
-        animator.SetInteger("Run", (int)xSpeed);
+        animator.SetInteger("Run", (int)xSpeed);*/
     }
         
     public void PlayerRollingSlow()
