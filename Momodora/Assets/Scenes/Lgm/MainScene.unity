@@ -3469,6 +3469,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+
 --- !u!212 &1211723344
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3756,6 +3757,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+
 --- !u!212 &1351805221
 SpriteRenderer:
   m_ObjectHideFlags: 0

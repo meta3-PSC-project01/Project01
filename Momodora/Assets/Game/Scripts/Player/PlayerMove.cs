@@ -7,19 +7,18 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer playerRenderer = null;
     private Animator animator = default;
     private Collider2D[] attackCollider;
-
     public GameObject arrowPrefab;
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
     private Vector2 arrowVector = default;
 
-    private float moveForce = default;     // Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÏ Èû ¼öÄ¡
+    private float moveForce = default;     // ìºë¦­í„°ê°€ ì›€ì§ì¼ í˜ ìˆ˜ì¹˜
     private float rollForce = default;
-    private float xInput = default;     // ¼öÆò ¿òÁ÷ÀÓ ÀÔ·Â°ª
-    private float zInput = default;     // ¼öÁ÷ ¿òÁ÷ÀÓ ÀÔ·Â°ª
-    private float xSpeed = default;     // ¼öÆò ¿òÁ÷ÀÓ ÃÖÁ¾°ª
-    private float zSpeed = default;     // ¼öÁ÷ ¿òÁ÷ÀÓ ÃÖÁ¾°ª
+    private float xInput = default;     // ìˆ˜í‰ ì›€ì§ì„ ì…ë ¥ê°’
+    private float zInput = default;     // ìˆ˜ì§ ì›€ì§ì„ ì…ë ¥ê°’
+    private float xSpeed = default;     // ìˆ˜í‰ ì›€ì§ì„ ìµœì¢…ê°’
+    private float zSpeed = default;     // ìˆ˜ì§ ì›€ì§ì„ ìµœì¢…ê°’
     private float rSpeed = default;
     private float jumpForce = default;
     private float[] jSpeed = new float[2];
@@ -47,7 +46,7 @@ public class PlayerMove : MonoBehaviour
 
     void Awake()
     {
-             // { º¯¼ö °ª ¼±¾ğ
+             // { ë³€ìˆ˜ ê°’ ì„ ì–¸
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -67,15 +66,15 @@ public class PlayerMove : MonoBehaviour
 
         jumpCount = 0;
         isMlAttack = 0;
-             // } º¯¼ö °ª ¼±¾ğ
+             // } ë³€ìˆ˜ ê°’ ì„ ì–¸
     }     // End Awake()
 
     void Update()
     {
         if (ItemManager.instance.lookAtInventory == true) { return; }
 
-        xInput = Input.GetAxis("Horizontal");     // ¼öÆò ÀÔ·Â°ª ´ëÀÔ
-        zInput = Input.GetAxis("Vertical");     // ¼öÁ÷ ÀÔ·Â°ª ´ëÀÔ
+        xInput = Input.GetAxis("Horizontal");     // ìˆ˜í‰ ì…ë ¥ê°’ ëŒ€ì…
+        zInput = Input.GetAxis("Vertical");     // ìˆ˜ì§ ì…ë ¥ê°’ ëŒ€ì…
 
         if (isRolled == true)
         {
@@ -83,13 +82,13 @@ public class PlayerMove : MonoBehaviour
             {
                 if (rollFlipX == false)
                 {
-                    //rSpeed += rollForce;     // ¼öÆò ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
+                    //rSpeed += rollForce;     // ìˆ˜í‰ ì…ë ¥ì„ ìœ ì§€í•œë§Œí¼ ê°’ì´ ì¦ê°€
                     playerRigidbody.AddForce(new Vector2(rollForce, 0f));
                     test += 1;
                 }
                 else
                 {
-                    //rSpeed += rollForce;     // ¼öÆò ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
+                    //rSpeed += rollForce;     // ìˆ˜í‰ ì…ë ¥ì„ ìœ ì§€í•œë§Œí¼ ê°’ì´ ì¦ê°€
                     playerRigidbody.AddForce(new Vector2(-rollForce, 0f));
                     test += 1;
                 }
@@ -99,10 +98,10 @@ public class PlayerMove : MonoBehaviour
         {
             if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
             {
-                xSpeed = xInput * moveForce;     // ¼öÆò ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
-                Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);     // ¼öÆò, ¼öÁ÷ ÀÔ·Â°ª¸¸Å­ ÇÃ·¹ÀÌ¾î ÀÌµ¿ ÁÂÇ¥ ¼³Á¤
+                xSpeed = xInput * moveForce;     // ìˆ˜í‰ ì…ë ¥ì„ ìœ ì§€í•œë§Œí¼ ê°’ì´ ì¦ê°€
+                Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);     // ìˆ˜í‰, ìˆ˜ì§ ì…ë ¥ê°’ë§Œí¼ í”Œë ˆì´ì–´ ì´ë™ ì¢Œí‘œ ì„¤ì •
                 playerRigidbody.velocity = newVelocity;
-                //Debug.LogFormat("ÀÌµ¿ Èû°ª : {0}", xSpeed);
+                //Debug.LogFormat("ì´ë™ í˜ê°’ : {0}", xSpeed);
             }
         }
 
@@ -163,9 +162,9 @@ public class PlayerMove : MonoBehaviour
                 }
             }
             
-            //Debug.LogFormat("Á¡ÇÁ Èû°ª : {0}", jSpeed);
+            //Debug.LogFormat("ì í”„ í˜ê°’ : {0}", jSpeed);
 
-            //    ¾î´ÀÁ¤µµ°¡´Ùº¸¸é velocityÀÇ »óÇÑÀ» Á¤ÇØÁØ´Ù.
+            //    ì–´ëŠì •ë„ê°€ë‹¤ë³´ë©´ velocityì˜ ìƒí•œì„ ì •í•´ì¤€ë‹¤.
             //    else if (Input.GetMouseButtonDown(0) && 0 < playerRigid.velocity.y)
             //    {
             //        playerRigid.velocity = playerRigid.velocity * 1f;
@@ -214,7 +213,7 @@ public class PlayerMove : MonoBehaviour
             flipX = true;
             playerRenderer.flipX = true;
 
-            Debug.Log("»ç´Ù¸®¸¦ ¶°³µ´Ù");
+            Debug.Log("ì‚¬ë‹¤ë¦¬ë¥¼ ë– ë‚¬ë‹¤");
         }
 
         if (isLadder == true && Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.A))
@@ -229,7 +228,7 @@ public class PlayerMove : MonoBehaviour
             flipX = false;
             playerRenderer.flipX = false;
 
-            Debug.Log("»ç´Ù¸®¸¦ ¶°³µ´Ù");
+            Debug.Log("ì‚¬ë‹¤ë¦¬ë¥¼ ë– ë‚¬ë‹¤");
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -293,11 +292,11 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ItemManager.instance.GetComponent<Inventory>().GetItem("µî°¡ÀÇ ÈÆÀå");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("¼¼°ø ¹İÁö");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("¾Æ½ºÆ®¶ö ºÎÀû");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("ÃÊ·Õ²É");
-            Debug.Log("¾ÆÀÌÅÛ È¹µæ!");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ë“±ê°€ì˜ í›ˆì¥");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ì„¸ê³µ ë°˜ì§€");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ì•„ìŠ¤íŠ¸ë„ ë¶€ì ");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ì´ˆë¡±ê½ƒ");
+            Debug.Log("ì•„ì´í…œ íšë“!");
         }
 
         animator.SetBool("Ground", isGrounded);
@@ -308,6 +307,7 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("AirBow", isAirBowed);
         animator.SetBool("CrouchBow", isCrouchBowed);
         animator.SetInteger("MlAttack", isMlAttack);
+        
         animator.SetInteger("Run", (int)xSpeed);
     }
 
@@ -545,12 +545,12 @@ public class PlayerMove : MonoBehaviour
                 playerRigidbody.velocity = Vector2.zero;
                 playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 playerRigidbody.gravityScale = 0f;
-                Debug.Log("»ç´Ù¸®¸¦ Àâ¾Ò´Ù");
+                Debug.Log("ì‚¬ë‹¤ë¦¬ë¥¼ ì¡ì•˜ë‹¤");
             }
         }
     }
 
-    // ¾ÆÀÌÅÛ È¹µæ½Ã ½ÇÇà ÇÔ¼ö (1)
+    // ì•„ì´í…œ íšë“ì‹œ ì‹¤í–‰ í•¨ìˆ˜ (1)
     //public void GetItem(string name)
     //{
     //    itemManager.GetComponent<Inventory>().Division(name);

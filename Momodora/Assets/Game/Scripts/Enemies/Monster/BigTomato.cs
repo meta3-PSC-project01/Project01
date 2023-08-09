@@ -15,6 +15,8 @@ public class BigTomato : EnemyBase
 
     public bool isAttack = false;
 
+    private EnemyAttackData attackObject = null;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -50,12 +52,12 @@ public class BigTomato : EnemyBase
         {
             if (transform.position.x - target.transform.position.x > 0)
             {
-                direction = Direction.LEFT;
+                direction = DirectionHorizen.LEFT;
                 turn();
             }
             else
             {
-                direction = Direction.RIGHT;
+                direction = DirectionHorizen.RIGHT;
                 turn();
             }
             if (currDelay >= attackDelay && !isAttack)
@@ -100,16 +102,46 @@ public class BigTomato : EnemyBase
         enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
     }
 
+    //애니메이션 시작
     public override void AttackStart()
     {
         enemyAnimator.SetTrigger("Attack");
     }
 
-    public void EndAttackAnimation()
+    //애니메이션 중 공격 세팅
+    public void AttackStartEvent()
     {
-        if (isAttack && routine==null)
+        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation, transform).GetComponent<EnemyAttackData>();
+        
+    }
+
+    //애니메이션 중 콜라이더 세팅
+    public void AttackColliderEvent()
+    {
+        
+        attackObject.UseCollider();
+    }
+
+    //애니메이션 중 이펙트 세팅
+    public void AttackEffectEvent()
+    {
+    
+        attackObject.UseEffect();
+    }
+
+    //애니메이션 중 공격 종료
+    public void AttackEndEvent()
+    {
+       
+        Destroy(attackObject.gameObject);
+    }
+
+    public void RoutineEndEvent()
+    {
+        if (isAttack && routine == null)
         {
             routine = StartCoroutine(EndAnimation());
+        
         }
     }
 
