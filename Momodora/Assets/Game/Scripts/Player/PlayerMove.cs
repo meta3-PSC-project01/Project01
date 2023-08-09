@@ -20,16 +20,17 @@ public class PlayerMove : MonoBehaviour
     private float zInput = default;     // 수직 움직임 입력값
     private float xSpeed = default;     // 수평 움직임 최종값
     private float zSpeed = default;     // 수직 움직임 최종값
-    private float jSpeed = default;
     private float rSpeed = default;
     private float jumpForce = default;
+    private float[] jSpeed = new float[2];
 
     private int jumpCount = default;
     private int isMlAttack = default;
 
     private bool jumping = false;
     private bool jumpingForce = false;
-    private bool flipX = false;
+    public bool flipX = false;
+    private bool rollFlipX = false;
     private bool isRolled = false;
     private bool rollingSlow = false;
     private bool isGrounded = false;
@@ -42,6 +43,8 @@ public class PlayerMove : MonoBehaviour
     private bool[] mlAttackConnect = new bool[2];
     public bool lookAtInventory = false;
 
+    private int test = 0;
+
     void Awake()
     {
              // { 변수 값 선언
@@ -51,15 +54,16 @@ public class PlayerMove : MonoBehaviour
 
         attackSize = new Vector2(2f, 2f);
 
-        moveForce = 13f;
-        rollForce = 0.5f;
+        moveForce = 10f;
+        rollForce = 9f;
         xInput = 0f;
         zInput = 0f;
         xSpeed = 0f;
         zSpeed = 0f;
-        jSpeed = 0f;
         rSpeed = 0f;
-        jumpForce = 10f;
+        jSpeed[0] = 0f;
+        jSpeed[1] = 0f;
+        jumpForce = 2f;
 
         jumpCount = 0;
         isMlAttack = 0;
@@ -73,68 +77,92 @@ public class PlayerMove : MonoBehaviour
         xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
         zInput = Input.GetAxis("Vertical");     // 수직 입력값 대입
 
-        if (isRolled == true && rollingSlow == false)
+        if (isRolled == true)
         {
-            if (flipX == false)
+            if (rollingSlow == false)
             {
-                rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                Vector3 newVelocity2 = new Vector3(rSpeed, 0f, 0f);
-                playerRigidbody.velocity = newVelocity2;
-            }
-            else
-            {
-                rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                Vector3 newVelocity2 = new Vector3(-rSpeed, 0f, 0f);
-                playerRigidbody.velocity = newVelocity2;
+                if (rollFlipX == false)
+                {
+                    //rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                    playerRigidbody.AddForce(new Vector2(rollForce, 0f));
+                    test += 1;
+                }
+                else
+                {
+                    //rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                    playerRigidbody.AddForce(new Vector2(-rollForce, 0f));
+                    test += 1;
+                }
             }
         }
         else
         {
-            if (isCrouched == false && isBowed == false && isCrouchBowed == false)
+            if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
             {
                 xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
-                zSpeed = zInput * moveForce;     // 수직 입력을 유지한만큼 값이 증가
                 Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
                 playerRigidbody.velocity = newVelocity;
                 //Debug.LogFormat("이동 힘값 : {0}", xSpeed);
             }
         }
 
-        if (xSpeed > 0f)
+        if (isRolled == false)
         {
-            if (flipX == true)
+            if (xSpeed > 0f)
             {
-                flipX = false;
-                playerRenderer.flipX = false;
+                if (flipX == true)
+                {
+                    flipX = false;
+                    playerRenderer.flipX = false;
+                }
             }
-        }
 
-        if (xSpeed < 0f)
-        {
-            if (flipX == false)
+            if (xSpeed < 0f)
             {
-                flipX = true;
-                playerRenderer.flipX = true;
+                if (flipX == false)
+                {
+                    flipX = true;
+                    playerRenderer.flipX = true;
+                }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false)
         {
+            jSpeed[0] = 5;
+            jSpeed[1] = 5;
             jumpCount += 1;
             jumping = true;
             jumpingForce = true;
         }
 
-        if (jumpingForce == true && isAirAttacked == false)
+        if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true && isLadder == false && isAirAttacked == false && isBowed == false)
         {
-            jSpeed += jumpForce;
-            playerRigidbody.AddForce(new Vector2(0, jSpeed));
-
-            if (jSpeed >= 50f)
+            if (jumpCount == 1)
             {
-                jumpingForce = false;
-            }
+                jSpeed[0] += jumpForce;
+                Vector2 newVelocity = new Vector2(0f, jSpeed[0]);
+                playerRigidbody.velocity = newVelocity;
 
+                if (jSpeed[0] >= 100f)
+                {
+                    jSpeed[0] = 100f;
+                    jumpingForce = false;
+                }
+            }
+            else if (jumpCount == 2)
+            {
+                jSpeed[1] += jumpForce;
+                Vector2 newVelocity = new Vector2(0f, jSpeed[0]);
+                playerRigidbody.velocity = newVelocity;
+
+                if (jSpeed[1] >= 100f)
+                {
+                    jSpeed[1] = 100f;
+                    jumpingForce = false;
+                }
+            }
+            
             //Debug.LogFormat("점프 힘값 : {0}", jSpeed);
 
             //    어느정도가다보면 velocity의 상한을 정해준다.
@@ -144,16 +172,27 @@ public class PlayerMove : MonoBehaviour
             //    }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false)
+        if (Input.GetKeyUp(KeyCode.A))
         {
+            jumpingForce = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && rollingSlow == false && isGrounded == true)
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            rollFlipX = flipX;
+            xSpeed = 0f;
+            xInput = 0f;
             isRolled = true;
+            test = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            isCrouched = true;
             playerRigidbody.velocity = Vector2.zero;
             xSpeed = 0f;
+            xInput = 0f;
+            isCrouched = true;
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow))
@@ -199,6 +238,10 @@ public class PlayerMove : MonoBehaviour
             {
                 if (isMlAttack < 3)
                 {
+                    playerRigidbody.velocity = Vector2.zero;
+                    xSpeed = 0f;
+                    xInput = 0f;
+
                     if (isMlAttack == 0)
                     {
                         isMlAttack = 1;
@@ -267,24 +310,37 @@ public class PlayerMove : MonoBehaviour
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
     }
-        
+
+    public bool IsJump()
+    {
+        return (isGrounded == false && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false);
+    }
+
+    //public bool isAttack()
+    //{
+    //    return;
+    //}
+   
     public void PlayerRollingSlow()
     {
-        if (isRolled == true)
-        {
-            rollingSlow = true;
-            playerRigidbody.velocity *= 1f;
-            StartCoroutine(SlowEnd());
-        }
+        rollingSlow = true;
+        //rSpeed = 0f;
+        //playerRigidbody.velocity *= 0.5f;
+        Debug.Log(test);
     }
 
     public void PlayerRollingEnd()
     {
-        if (isRolled == true)
-        {
-            isRolled = false;
-            rSpeed = 0f;
-        }
+        //rSpeed = 0f;
+        isRolled = false;
+        rollingSlow = false;
+        Debug.Log(test);
+    }
+
+    IEnumerator RollStartCheck()
+    {
+        yield return new WaitForSeconds(0.2f);
+        ItemManager.instance.lookAtInventory = false;
     }
 
     public void PlayerBowShot()
@@ -352,21 +408,41 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerMlAttack()
     {
-        if (flipX == false)
+        if (isMlAttack == 3)
         {
-            Vector2 attackMoveVelocity = new Vector2(+40f, 0f);
-            playerRigidbody.velocity = attackMoveVelocity;
+            if (flipX == false)
+            {
+                Vector2 attackMoveVelocity = new Vector2(+20f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
 
-            attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+            }
+            else
+            {
+                Vector2 attackMoveVelocity = new Vector2(-20f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
+
+                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+            }
         }
         else
         {
-            Vector2 attackMoveVelocity = new Vector2(-40f, 0f);
-            playerRigidbody.velocity = attackMoveVelocity;
+            if (flipX == false)
+            {
+                Vector2 attackMoveVelocity = new Vector2(+15f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
 
-            attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+            }
+            else
+            {
+                Vector2 attackMoveVelocity = new Vector2(-15f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
+
+                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+            }
         }
-
+        
         attackCollider = Physics2D.OverlapBoxAll(attackVector, attackSize, 0f);
 
         for (int i = 0; i < attackCollider.Length; i++)
@@ -432,12 +508,6 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    IEnumerator SlowEnd()
-    {
-        yield return new WaitForSeconds(0.2f);
-        rollingSlow = false;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == ("Floor") && 0.7f < collision.contacts[0].normal.y)
@@ -446,9 +516,11 @@ public class PlayerMove : MonoBehaviour
             
             if (jumping == true)
             {
+                jumpingForce = false;
                 jumping = false;
                 jumpCount = 0;
-                jSpeed = 0f;
+                jSpeed[0] = 0f;
+                jSpeed[1] = 0f;
             }
 
             if (isAirBowed == true) { isAirBowed = false; }
