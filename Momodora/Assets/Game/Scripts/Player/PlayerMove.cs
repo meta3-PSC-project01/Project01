@@ -1,8 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -17,22 +13,23 @@ public class PlayerMove : MonoBehaviour
     private Vector2 attackVector = default;
     private Vector2 arrowVector = default;
 
-    private float moveForce = default;     // Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÏ Èû ¼öÄ¡
+    private float moveForce = default;     // ìºë¦­í„°ê°€ ì›€ì§ì¼ í˜ ìˆ˜ì¹˜
     private float rollForce = default;
-    private float xInput = default;     // ¼öÆò ¿òÁ÷ÀÓ ÀÔ·Â°ª
-    private float zInput = default;     // ¼öÁ÷ ¿òÁ÷ÀÓ ÀÔ·Â°ª
-    private float xSpeed = default;     // ¼öÆò ¿òÁ÷ÀÓ ÃÖÁ¾°ª
-    private float zSpeed = default;     // ¼öÁ÷ ¿òÁ÷ÀÓ ÃÖÁ¾°ª
-    private float jSpeed = default;
+    private float xInput = default;     // ìˆ˜í‰ ì›€ì§ì„ ì…ë ¥ê°’
+    private float zInput = default;     // ìˆ˜ì§ ì›€ì§ì„ ì…ë ¥ê°’
+    private float xSpeed = default;     // ìˆ˜í‰ ì›€ì§ì„ ìµœì¢…ê°’
+    private float zSpeed = default;     // ìˆ˜ì§ ì›€ì§ì„ ìµœì¢…ê°’
     private float rSpeed = default;
     private float jumpForce = default;
+    private float[] jSpeed = new float[2];
 
     private int jumpCount = default;
     private int isMlAttack = default;
 
     private bool jumping = false;
     private bool jumpingForce = false;
-    private bool flipX = false;
+    public bool flipX = false;
+    private bool rollFlipX = false;
     private bool isRolled = false;
     private bool rollingSlow = false;
     private bool isGrounded = false;
@@ -43,117 +40,158 @@ public class PlayerMove : MonoBehaviour
     private bool isAirBowed = false;
     private bool isCrouchBowed = false;
     private bool[] mlAttackConnect = new bool[2];
+    public bool lookAtInventory = false;
 
-    private void Awake()
+    private int test = 0;
+
+    void Awake()
     {
-             // { º¯¼ö °ª ¼±¾ğ
+             // { ë³€ìˆ˜ ê°’ ì„ ì–¸
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
         attackSize = new Vector2(2f, 2f);
 
-        moveForce = 13f;
-        rollForce = 0.5f;
+        moveForce = 10f;
+        rollForce = 9f;
         xInput = 0f;
         zInput = 0f;
         xSpeed = 0f;
         zSpeed = 0f;
-        jSpeed = 0f;
         rSpeed = 0f;
-        jumpForce = 10f;
+        jSpeed[0] = 0f;
+        jSpeed[1] = 0f;
+        jumpForce = 2f;
 
         jumpCount = 0;
         isMlAttack = 0;
-             // } º¯¼ö °ª ¼±¾ğ
+             // } ë³€ìˆ˜ ê°’ ì„ ì–¸
     }     // End Awake()
 
     void Update()
     {
-        xInput = Input.GetAxis("Horizontal");     // ¼öÆò ÀÔ·Â°ª ´ëÀÔ
-        zInput = Input.GetAxis("Vertical");     // ¼öÁ÷ ÀÔ·Â°ª ´ëÀÔ
+        if (ItemManager.instance.lookAtInventory == true) { return; }
 
-        if (isRolled == true && rollingSlow == false)
+        xInput = Input.GetAxis("Horizontal");     // ìˆ˜í‰ ì…ë ¥ê°’ ëŒ€ì…
+        zInput = Input.GetAxis("Vertical");     // ìˆ˜ì§ ì…ë ¥ê°’ ëŒ€ì…
+
+        if (isRolled == true)
         {
-            if (flipX == false)
+            if (rollingSlow == false)
             {
-                rSpeed += rollForce;     // ¼öÆò ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
-                Vector3 newVelocity2 = new Vector3(rSpeed, 0f, 0f);
-                playerRigidbody.velocity = newVelocity2;
-            }
-            else
-            {
-                rSpeed += rollForce;     // ¼öÆò ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
-                Vector3 newVelocity2 = new Vector3(-rSpeed, 0f, 0f);
-                playerRigidbody.velocity = newVelocity2;
+                if (rollFlipX == false)
+                {
+                    //rSpeed += rollForce;     // ìˆ˜í‰ ì…ë ¥ì„ ìœ ì§€í•œë§Œí¼ ê°’ì´ ì¦ê°€
+                    playerRigidbody.AddForce(new Vector2(rollForce, 0f));
+                    test += 1;
+                }
+                else
+                {
+                    //rSpeed += rollForce;     // ìˆ˜í‰ ì…ë ¥ì„ ìœ ì§€í•œë§Œí¼ ê°’ì´ ì¦ê°€
+                    playerRigidbody.AddForce(new Vector2(-rollForce, 0f));
+                    test += 1;
+                }
             }
         }
         else
         {
-            if (isCrouched == false && isBowed == false && isCrouchBowed == false)
+            if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
             {
-                xSpeed = xInput * moveForce;     // ¼öÆò ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
-                zSpeed = zInput * moveForce;     // ¼öÁ÷ ÀÔ·ÂÀ» À¯ÁöÇÑ¸¸Å­ °ªÀÌ Áõ°¡
-                Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);     // ¼öÆò, ¼öÁ÷ ÀÔ·Â°ª¸¸Å­ ÇÃ·¹ÀÌ¾î ÀÌµ¿ ÁÂÇ¥ ¼³Á¤
+                xSpeed = xInput * moveForce;     // ìˆ˜í‰ ì…ë ¥ì„ ìœ ì§€í•œë§Œí¼ ê°’ì´ ì¦ê°€
+                Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);     // ìˆ˜í‰, ìˆ˜ì§ ì…ë ¥ê°’ë§Œí¼ í”Œë ˆì´ì–´ ì´ë™ ì¢Œí‘œ ì„¤ì •
                 playerRigidbody.velocity = newVelocity;
-                //Debug.LogFormat("ÀÌµ¿ Èû°ª : {0}", xSpeed);
+                //Debug.LogFormat("ì´ë™ í˜ê°’ : {0}", xSpeed);
             }
         }
 
-        if (xSpeed > 0f)
+        if (isRolled == false)
         {
-            if (flipX == true)
+            if (xSpeed > 0f)
             {
-                flipX = false;
-                playerRenderer.flipX = false;
+                if (flipX == true)
+                {
+                    flipX = false;
+                    playerRenderer.flipX = false;
+                }
             }
-        }
 
-        if (xSpeed < 0f)
-        {
-            if (flipX == false)
+            if (xSpeed < 0f)
             {
-                flipX = true;
-                playerRenderer.flipX = true;
+                if (flipX == false)
+                {
+                    flipX = true;
+                    playerRenderer.flipX = true;
+                }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false)
         {
+            jSpeed[0] = 5;
+            jSpeed[1] = 5;
             jumpCount += 1;
             jumping = true;
             jumpingForce = true;
         }
 
-        if (jumpingForce == true && isAirAttacked == false)
+        if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true && isLadder == false && isAirAttacked == false && isBowed == false)
         {
-            jSpeed += jumpForce;
-            playerRigidbody.AddForce(new Vector2(0, jSpeed));
-
-            if (jSpeed >= 50f)
+            if (jumpCount == 1)
             {
-                jumpingForce = false;
+                jSpeed[0] += jumpForce;
+                Vector2 newVelocity = new Vector2(0f, jSpeed[0]);
+                playerRigidbody.velocity = newVelocity;
+
+                if (jSpeed[0] >= 100f)
+                {
+                    jSpeed[0] = 100f;
+                    jumpingForce = false;
+                }
             }
+            else if (jumpCount == 2)
+            {
+                jSpeed[1] += jumpForce;
+                Vector2 newVelocity = new Vector2(0f, jSpeed[0]);
+                playerRigidbody.velocity = newVelocity;
 
-            //Debug.LogFormat("Á¡ÇÁ Èû°ª : {0}", jSpeed);
+                if (jSpeed[1] >= 100f)
+                {
+                    jSpeed[1] = 100f;
+                    jumpingForce = false;
+                }
+            }
+            
+            //Debug.LogFormat("ì í”„ í˜ê°’ : {0}", jSpeed);
 
-            //    ¾î´ÀÁ¤µµ°¡´Ùº¸¸é velocityÀÇ »óÇÑÀ» Á¤ÇØÁØ´Ù.
+            //    ì–´ëŠì •ë„ê°€ë‹¤ë³´ë©´ velocityì˜ ìƒí•œì„ ì •í•´ì¤€ë‹¤.
             //    else if (Input.GetMouseButtonDown(0) && 0 < playerRigid.velocity.y)
             //    {
             //        playerRigid.velocity = playerRigid.velocity * 1f;
             //    }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false)
+        if (Input.GetKeyUp(KeyCode.A))
         {
+            jumpingForce = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && rollingSlow == false && isGrounded == true)
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            rollFlipX = flipX;
+            xSpeed = 0f;
+            xInput = 0f;
             isRolled = true;
+            test = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            isCrouched = true;
             playerRigidbody.velocity = Vector2.zero;
             xSpeed = 0f;
+            xInput = 0f;
+            isCrouched = true;
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow))
@@ -175,7 +213,7 @@ public class PlayerMove : MonoBehaviour
             flipX = true;
             playerRenderer.flipX = true;
 
-            Debug.Log("»ç´Ù¸®¸¦ ¶°³µ´Ù");
+            Debug.Log("ì‚¬ë‹¤ë¦¬ë¥¼ ë– ë‚¬ë‹¤");
         }
 
         if (isLadder == true && Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.A))
@@ -190,7 +228,7 @@ public class PlayerMove : MonoBehaviour
             flipX = false;
             playerRenderer.flipX = false;
 
-            Debug.Log("»ç´Ù¸®¸¦ ¶°³µ´Ù");
+            Debug.Log("ì‚¬ë‹¤ë¦¬ë¥¼ ë– ë‚¬ë‹¤");
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -199,6 +237,10 @@ public class PlayerMove : MonoBehaviour
             {
                 if (isMlAttack < 3)
                 {
+                    playerRigidbody.velocity = Vector2.zero;
+                    xSpeed = 0f;
+                    xInput = 0f;
+
                     if (isMlAttack == 0)
                     {
                         isMlAttack = 1;
@@ -240,7 +282,24 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        /*animator.SetBool("Ground", isGrounded);
+        if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
+        {
+            ItemManager.instance.lookAtInventory = true;
+            ItemManager.instance.GetComponent<Inventory>().enabled = true;
+            ItemManager.instance.inventoryUi.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ë“±ê°€ì˜ í›ˆì¥");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ì„¸ê³µ ë°˜ì§€");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ì•„ìŠ¤íŠ¸ë„ ë¶€ì ");
+            ItemManager.instance.GetComponent<Inventory>().GetItem("ì´ˆë¡±ê½ƒ");
+            Debug.Log("ì•„ì´í…œ íšë“!");
+        }
+
+        animator.SetBool("Ground", isGrounded);
         animator.SetBool("Roll", isRolled);
         animator.SetBool("Crouch", isCrouched);
         animator.SetBool("AirAttack", isAirAttacked);
@@ -248,26 +307,40 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("AirBow", isAirBowed);
         animator.SetBool("CrouchBow", isCrouchBowed);
         animator.SetInteger("MlAttack", isMlAttack);
-        animator.SetInteger("Run", (int)xSpeed);*/
-    }
         
+        animator.SetInteger("Run", (int)xSpeed);
+    }
+
+    public bool IsJump()
+    {
+        return (isGrounded == false && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false);
+    }
+
+    //public bool isAttack()
+    //{
+    //    return;
+    //}
+   
     public void PlayerRollingSlow()
     {
-        if (isRolled == true)
-        {
-            rollingSlow = true;
-            playerRigidbody.velocity *= 1f;
-            StartCoroutine(SlowEnd());
-        }
+        rollingSlow = true;
+        //rSpeed = 0f;
+        //playerRigidbody.velocity *= 0.5f;
+        Debug.Log(test);
     }
 
     public void PlayerRollingEnd()
     {
-        if (isRolled == true)
-        {
-            isRolled = false;
-            rSpeed = 0f;
-        }
+        //rSpeed = 0f;
+        isRolled = false;
+        rollingSlow = false;
+        Debug.Log(test);
+    }
+
+    IEnumerator RollStartCheck()
+    {
+        yield return new WaitForSeconds(0.2f);
+        ItemManager.instance.lookAtInventory = false;
     }
 
     public void PlayerBowShot()
@@ -335,21 +408,41 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerMlAttack()
     {
-        if (flipX == false)
+        if (isMlAttack == 3)
         {
-            Vector2 attackMoveVelocity = new Vector2(+40f, 0f);
-            playerRigidbody.velocity = attackMoveVelocity;
+            if (flipX == false)
+            {
+                Vector2 attackMoveVelocity = new Vector2(+20f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
 
-            attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+            }
+            else
+            {
+                Vector2 attackMoveVelocity = new Vector2(-20f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
+
+                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+            }
         }
         else
         {
-            Vector2 attackMoveVelocity = new Vector2(-40f, 0f);
-            playerRigidbody.velocity = attackMoveVelocity;
+            if (flipX == false)
+            {
+                Vector2 attackMoveVelocity = new Vector2(+15f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
 
-            attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+            }
+            else
+            {
+                Vector2 attackMoveVelocity = new Vector2(-15f, 0f);
+                playerRigidbody.velocity = attackMoveVelocity;
+
+                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+            }
         }
-
+        
         attackCollider = Physics2D.OverlapBoxAll(attackVector, attackSize, 0f);
 
         for (int i = 0; i < attackCollider.Length; i++)
@@ -415,12 +508,6 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    IEnumerator SlowEnd()
-    {
-        yield return new WaitForSeconds(0.2f);
-        rollingSlow = false;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == ("Floor") && 0.7f < collision.contacts[0].normal.y)
@@ -429,9 +516,11 @@ public class PlayerMove : MonoBehaviour
             
             if (jumping == true)
             {
+                jumpingForce = false;
                 jumping = false;
                 jumpCount = 0;
-                jSpeed = 0f;
+                jSpeed[0] = 0f;
+                jSpeed[1] = 0f;
             }
 
             if (isAirBowed == true) { isAirBowed = false; }
@@ -456,8 +545,14 @@ public class PlayerMove : MonoBehaviour
                 playerRigidbody.velocity = Vector2.zero;
                 playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
                 playerRigidbody.gravityScale = 0f;
-                Debug.Log("»ç´Ù¸®¸¦ Àâ¾Ò´Ù");
+                Debug.Log("ì‚¬ë‹¤ë¦¬ë¥¼ ì¡ì•˜ë‹¤");
             }
         }
     }
+
+    // ì•„ì´í…œ íšë“ì‹œ ì‹¤í–‰ í•¨ìˆ˜ (1)
+    //public void GetItem(string name)
+    //{
+    //    itemManager.GetComponent<Inventory>().Division(name);
+    //}
 }

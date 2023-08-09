@@ -11,7 +11,7 @@ public class ArrowMove : MonoBehaviour
 
     private float arrowSpeed = default;
 
-    private void Awake()
+    void Awake()
     {
         arrowRigidbody = GetComponent<Rigidbody2D>();
         arrowRenderer = GetComponent<SpriteRenderer>();

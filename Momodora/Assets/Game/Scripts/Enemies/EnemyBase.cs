@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 //enemy관련 최상단 클래스
 
+
+//trigger -> collider체력-공격력
+//collider hit()
 public class EnemyBase : MonoBehaviour
 {
     //에너미 기본 컴포넌트
