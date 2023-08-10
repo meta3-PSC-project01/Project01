@@ -8,9 +8,16 @@ public class ItemManager : MonoBehaviour
     public static ItemManager instance;
 
     public GameObject inventoryUi;
+    public Items[] equipItems = new Items[5];
+    //획득한 아이템은 다 이곳에 저장
+    public List<Items> activeItems;
+    public List<Items> durationItems;
+
+    public int leaf = default;
 
     public bool lookAtInventory = false;
     public bool inventoryCheckTime = false;
+    public bool[] equipCheck = new bool[5];
 
     // 아이템 관리 베이스
     Dictionary<string, Items> itemDataBase = new Dictionary<string, Items>();
@@ -25,6 +32,16 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        for (int i = 0; i < 5; i++)
+        {
+            equipCheck[i] = false;
+        }
+
+        activeItems = new List<Items>();
+        durationItems = new List<Items>();
+
+        leaf = 0;
     }
 
     void Start()
