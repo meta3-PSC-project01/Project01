@@ -121,9 +121,9 @@ public class MoveTile : MonoBehaviour
 
 public enum DirectionAxis
 {
-    EAST = 0,
-    WEST = 1,
-    NORTH = 2,
-    SOUTH = 3,
+    RIGHT = 0,
+    LEFT = 1,
+    UP = 2,
+    DOWN = 3,
     NONE
 }

@@ -4245,7 +4245,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_359
+      name: LadderUp
       rect:
         serializedVersion: 2
         x: 0
@@ -4287,7 +4287,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_386
+      name: LadderDown
       rect:
         serializedVersion: 2
         x: 0
@@ -6502,6 +6502,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      LadderDown: -2071088727
+      LadderUp: 2043678110
       Stage01_U02: 1612826890
       Stage01_U03: 1300700316
       Stage01_U04: 319333898
@@ -6795,7 +6797,6 @@ TextureImporter:
       TileMap_356: -202225579
       TileMap_357: -1957467551
       TileMap_358: 1232391807
-      TileMap_359: 2043678110
       TileMap_36: -1260719937
       TileMap_360: -1326042572
       TileMap_361: 908143355
@@ -6825,7 +6826,6 @@ TextureImporter:
       TileMap_383: -336452081
       TileMap_384: 2146583467
       TileMap_385: -1087989801
-      TileMap_386: -2071088727
       TileMap_387: -1973481290
       TileMap_388: -1895192861
       TileMap_389: 1412260130

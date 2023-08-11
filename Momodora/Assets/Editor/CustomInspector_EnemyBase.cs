@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 //
 
@@ -20,6 +22,7 @@ public class CustomInspector_EnemyBase : Editor
     {
         base.OnInspectorGUI();
 
+#if UNITY_EDITOR
         if (enemyObject.direction == DirectionHorizen.LEFT)
         {
             enemyObject.turn();
@@ -28,5 +31,6 @@ public class CustomInspector_EnemyBase : Editor
         {
             enemyObject.turn();
         }
+#endif
     }
 }

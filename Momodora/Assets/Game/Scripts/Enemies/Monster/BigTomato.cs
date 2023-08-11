@@ -10,7 +10,9 @@ public class BigTomato : EnemyBase
     public Coroutine routine = default;
 
     private float moveDelay = 1f;
-    private float attackDelay = 1f;
+    private float attackDelay = 1.5f;
+    //공격후 일정 시간 대기
+    private float wait = 1f;
     private float currDelay = 0;
 
     public bool isAttack = false;
@@ -74,6 +76,7 @@ public class BigTomato : EnemyBase
                         AttackStart();
                         isAttack = true;
                         currDelay = 0;
+                        break;
                     }
                 }
                 if (isAttack)
@@ -156,7 +159,7 @@ public class BigTomato : EnemyBase
 
     IEnumerator EndAnimation()
     {
-        yield return new WaitForSeconds(attackDelay);
+        yield return new WaitForSeconds(wait);
         isAttack = false;
         routine = null;
     }

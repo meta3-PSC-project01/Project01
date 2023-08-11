@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8512634182877160520}
   - component: {fileID: 2941929044323799276}
   m_Layer: 0
-  m_Name: BigTomata
+  m_Name: BigTomato
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,6 +60,8 @@ MonoBehaviour:
   direction: -1
   enemyDamageRegist: 0
   isStun: 0
+  platformBody: {fileID: 0}
+  isMovingPlatform: 0
   isAttack: 0
 --- !u!50 &4457733344600371222
 Rigidbody2D:

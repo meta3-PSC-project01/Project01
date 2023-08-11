@@ -134,8 +134,8 @@ TextureImporter:
         serializedVersion: 2
         x: 12
         y: 96
-        width: 28
-        height: 23
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,8 +155,8 @@ TextureImporter:
         serializedVersion: 2
         x: 56
         y: 96
-        width: 25
-        height: 24
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,8 +176,8 @@ TextureImporter:
         serializedVersion: 2
         x: 100
         y: 96
-        width: 23
-        height: 25
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,8 +197,8 @@ TextureImporter:
         serializedVersion: 2
         x: 143
         y: 96
-        width: 31
-        height: 23
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,7 +219,7 @@ TextureImporter:
         x: 186
         y: 96
         width: 33
-        height: 25
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,8 +239,8 @@ TextureImporter:
         serializedVersion: 2
         x: 229
         y: 96
-        width: 32
-        height: 26
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,12 +258,12 @@ TextureImporter:
       name: MoveL1
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 64
-        width: 28
-        height: 23
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 33
+        height: 28
+      alignment: 9
+      pivot: {x: 0.46969697, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -279,10 +279,10 @@ TextureImporter:
       name: MoveL2
       rect:
         serializedVersion: 2
-        x: 51
+        x: 43
         y: 64
-        width: 25
-        height: 24
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: MoveL3
       rect:
         serializedVersion: 2
-        x: 97
+        x: 87
         y: 64
-        width: 23
-        height: 25
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,10 +321,10 @@ TextureImporter:
       name: MoveL4
       rect:
         serializedVersion: 2
-        x: 134
+        x: 132
         y: 64
-        width: 31
-        height: 23
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -345,7 +345,7 @@ TextureImporter:
         x: 177
         y: 64
         width: 33
-        height: 25
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,10 +363,10 @@ TextureImporter:
       name: MoveL6
       rect:
         serializedVersion: 2
-        x: 223
+        x: 222
         y: 64
-        width: 32
-        height: 26
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,9 +384,9 @@ TextureImporter:
       name: HitR1
       rect:
         serializedVersion: 2
-        x: 12
+        x: 9
         y: 32
-        width: 24
+        width: 33
         height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -405,10 +405,10 @@ TextureImporter:
       name: HitR2
       rect:
         serializedVersion: 2
-        x: 55
+        x: 48
         y: 32
-        width: 24
-        height: 27
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,9 +426,9 @@ TextureImporter:
       name: HitL1
       rect:
         serializedVersion: 2
-        x: 8
+        x: 2
         y: 0
-        width: 24
+        width: 33
         height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -447,10 +447,10 @@ TextureImporter:
       name: HitL2
       rect:
         serializedVersion: 2
-        x: 53
+        x: 51
         y: 0
-        width: 24
-        height: 27
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
