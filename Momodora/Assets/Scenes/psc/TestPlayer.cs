@@ -307,8 +307,6 @@ public class TestPlayer : MonoBehaviour
         {
             arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
         }
     }
 
@@ -328,8 +326,6 @@ public class TestPlayer : MonoBehaviour
         {
             arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
         }
     }
 
@@ -349,8 +345,6 @@ public class TestPlayer : MonoBehaviour
         {
             arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
         }
     }
 

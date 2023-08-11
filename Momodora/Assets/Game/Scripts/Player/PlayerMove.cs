@@ -10,15 +10,13 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer playerRenderer = null;
     private Animator animator = default;
     private Collider2D[] attackCollider;
-    private GameObject thinFloor;
-    private GameObject ladder;
     public GameObject arrowPrefab;
     public CapsuleCollider2D playerCollider_;
-    private BoxCollider2D thinFloorCollider;
+    private GameObject thinFloor;
+    public Transform playerContainer;
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
-    private Vector2 arrowVector = default;
 
     private float moveForce = default;     // 캐릭터가 움직일 힘 수치
     private float rollForce = default;
@@ -30,31 +28,36 @@ public class PlayerMove : MonoBehaviour
     private float climbSpeed = default;
     private float climbDirection = default;
     private float ladderUpSpeed = default;
-    private float ladderDownSpeed = default;
+    private float chargeForce = default;
+    private float chargeAddForce = default;
+    private float chargeMax = default;
 
     private int jumpCount = default;
     private int isMlAttack = default;
 
-    public bool jumping = false;
-    public bool jumpingForce = false;
-    public bool flipX = false;
-    public bool rollFlipX = false;
-    public bool isRolled = false;
-    public bool rollingSlow = false;
-    public bool isGrounded = false;
-    public bool isCrouched = false;
-    public bool isLadder = false;
-    public bool isAirAttacked = false;
-    public bool isBowed = false;
-    public bool isAirBowed = false;
-    public bool isCrouchBowed = false;
-    public bool[] mlAttackConnect = new bool[2];
-    public bool lookAtInventory = false;
-    public bool onLadderTop = false;
-    public bool onLadderBot = false;
-    public bool isLadderUp = false;
-    public bool isLadderDown = false;
-    private bool thinFloorCheck = false;
+    private bool jumping = false;
+    private bool jumpingForce = false;
+    private bool flipX = false;
+    private bool rollFlipX = false;
+    private bool isRolled = false;
+    private bool rollingSlow = false;
+    private bool isGrounded = false;
+    private bool isCrouched = false;
+    private bool isLadder = false;
+    private bool isAirAttacked = false;
+    private bool isBowed = false;
+    private bool isChargeBowed = false;
+    private bool isAirBowed = false;
+    private bool isChargeAirBowed = false;
+    private bool isCrouchBowed = false;
+    private bool isChargeCrouchBowed = false;
+    private bool[] mlAttackConnect = new bool[2];
+    private bool onLadderTop = false;
+    private bool onLadderBot = false;
+    private bool isLadderUp = false;
+    private bool LadderUping = false;
+    private bool isCharged = false;
+    [SerializeField] private bool thinFloorCheck = false;
     private bool forcingLadder = false;
 
     void Awake()
@@ -77,7 +80,9 @@ public class PlayerMove : MonoBehaviour
         climbSpeed = 3f;
         climbDirection = 0f;
         ladderUpSpeed = 5f;
-        ladderDownSpeed = 7f;
+        chargeForce = 0f;
+        chargeAddForce = 1f;
+        chargeMax = 2000f;
 
         jumpCount = 0;
         isMlAttack = 0;
@@ -94,7 +99,6 @@ public class PlayerMove : MonoBehaviour
         if (ItemManager.instance.lookAtInventory == true) { return; }
 
         xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
-
         if (isRolled == true)
         {
             if (rollingSlow == false)
@@ -117,25 +121,21 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
+            if (isBowed == false)
             {
-                xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
-                Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
-                playerRigidbody.velocity = newVelocity;
-                //Debug.LogFormat("이동 힘값 : {0}", xSpeed);
+                if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
+                {
+                    xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
+                    Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
+                    playerRigidbody.velocity = newVelocity;
+                }
             }
         }
 
-        if (isLadderUp == true)
-        {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, ladderUpSpeed);
-            StartCoroutine(LadderUpEnd());
-        }
+        if (isLadderUp == true) { playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, ladderUpSpeed); }
 
-        if (isLadderDown == true)
-        {
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, -ladderDownSpeed);
-        }
+           // : Fix Add LadderDownSpeed
+        //if (isLadderDown == true) { playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, ladderUpSpeed); }
 
         if (isRolled == false)
         {
@@ -161,15 +161,8 @@ public class PlayerMove : MonoBehaviour
         if (forcingLadder == true && isLadder == true && isLadderUp == false)
         {
             climbDirection = climbSpeed * Input.GetAxisRaw("Vertical");
-
-            if (climbDirection > 0f)
-            {
-                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, climbDirection);
-            }
-            else if (climbDirection < 0f)
-            {
-                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, climbDirection * 5f);
-            }
+            if (climbDirection > 0f) { playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, climbDirection); }
+            else if (climbDirection < 0f) { playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, climbDirection * 5f); }
             else
             {
                 playerRigidbody.velocity = Vector2.zero;
@@ -179,12 +172,9 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false)
         {
-            if (isCrouched == true && thinFloorCheck == true)
+            if (isCrouched == true && thinFloorCheck == true && thinFloor != null)
             {
-                if (thinFloor != null)
-                {
-                    StartCoroutine(IsTriggerFloor());
-                }
+                StartCoroutine(ThinFloorEnter());
             }
             else
             {
@@ -202,20 +192,12 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 jSpeed[0] += jumpForce;
-
-                if (jSpeed[0] > 10f)
-                {
-                    jSpeed[0] = 10f;
-                }
+                if (jSpeed[0] > 10f) { jSpeed[0] = 10f; }
             }
             else if (jumpCount == 2)
             {
                 jSpeed[0] += jumpForce;
-
-                if (jSpeed[1] > 10f)
-                {
-                    jSpeed[1] = 10f;
-                }
+                if (jSpeed[1] > 10f) { jSpeed[1] = 10f; }
             }
         }
 
@@ -224,27 +206,16 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[0]);
-
-                if (jSpeed[0] == 10f)
-                {
-                    jumpingForce = false;
-                }
+                if (jSpeed[0] == 10f) { jumpingForce = false; }
             }
             else if (jumpCount == 2)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[1]);
-
-                if (jSpeed[1] == 10f)
-                {
-                    jumpingForce = false;
-                }
+                if (jSpeed[1] == 10f) { jumpingForce = false; }
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            jumpingForce = false;
-        }
+        if (Input.GetKeyUp(KeyCode.A)) { jumpingForce = false; }
 
         if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && rollingSlow == false && isGrounded == true)
         {
@@ -257,12 +228,14 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            playerRigidbody.velocity = Vector2.zero;
-            xSpeed = 0f;
-            xInput = 0f;
-            isCrouched = true;
-            
             if (isLadder == true) { forcingLadder = true; }
+            else
+            {
+                playerRigidbody.velocity = Vector2.zero;
+                xSpeed = 0f;
+                xInput = 0f;
+                isCrouched = true;
+            }
         }
 
         if (Input.GetKey(KeyCode.DownArrow) && isLadder == true && onLadderBot == true)
@@ -271,14 +244,11 @@ public class PlayerMove : MonoBehaviour
             playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             playerRigidbody.gravityScale = 3f;
             isLadder = false;
-
-            Debug.Log("사다리를 떠났다");
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             isCrouched = false;
-
             if (isCrouchBowed == true) { isCrouchBowed = false; }
 
             if (isLadder == true)
@@ -289,21 +259,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (isLadder == true) { forcingLadder = true; }
-        }
-
-        if (Input.GetKey(KeyCode.UpArrow) && isLadder == true && onLadderTop == true)
-        {
-            playerRigidbody.constraints = RigidbodyConstraints2D.None;
-            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            playerRigidbody.gravityScale = 3f;
-            isLadder = false;
-            isLadderUp = true;
-
-            Debug.Log("사다리를 떠났다");
-        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)) { if (isLadder == true) { forcingLadder = true; } }
 
         if (Input.GetKeyUp(KeyCode.UpArrow))
         {
@@ -327,8 +283,6 @@ public class PlayerMove : MonoBehaviour
             xSpeed = -50f;
             flipX = true;
             playerRenderer.flipX = true;
-
-            Debug.Log("사다리를 떠났다");
         }
 
         if (isLadder == true && Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.A))
@@ -343,8 +297,6 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 50f;
             flipX = false;
             playerRenderer.flipX = false;
-
-            Debug.Log("사다리를 떠났다");
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -357,45 +309,48 @@ public class PlayerMove : MonoBehaviour
                     xSpeed = 0f;
                     xInput = 0f;
 
-                    if (isMlAttack == 0)
-                    {
-                        isMlAttack = 1;
-                    }
-                    else if (isMlAttack == 1)
-                    {
-                        mlAttackConnect[0] = true;
-                    }
-                    else if (isMlAttack == 2)
-                    {
-                        mlAttackConnect[1] = true;
-                    }
+                    if (isMlAttack == 0) { isMlAttack = 1; }
+                    else if (isMlAttack == 1) { mlAttackConnect[0] = true; }
+                    else if (isMlAttack == 2) { mlAttackConnect[1] = true; }
                 }
             }
-            else
+            else if (isAirAttacked == false) { isAirAttacked = true; }
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false && isChargeBowed == false && 
+            isChargeCrouchBowed == false) { isCharged = true; }
+
+        if (Input.GetKey(KeyCode.D) && isCharged == true)
+        {
+            chargeForce += chargeAddForce;
+            if (chargeForce >= chargeMax)
             {
-                if (isAirAttacked == false)
-                {
-                    isAirAttacked = true;
-                }
+                chargeForce = chargeMax;
+                Debug.Log("풀차지 상태");
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false)
+        if (Input.GetKeyUp(KeyCode.D) && isCharged == true)
         {
             if (isCrouched == true)
             {
-                isCrouchBowed = true;
+                if (chargeForce >= chargeMax) { isChargeCrouchBowed = true; }
+                else { isCrouchBowed = true; }
             }
             else if (isGrounded == false)
             {
-                isAirBowed = true;
+                if (chargeForce >= chargeMax) { isChargeAirBowed = true; }
+                else { isAirBowed = true; }
             }
-            else
+            else if (isGrounded == true)
             {
-                isBowed = true;
-                playerRigidbody.velocity = Vector2.zero;
-                xSpeed = 0f;
+                if (chargeForce >= chargeMax) { isChargeBowed = true; }
+                else { isBowed = true; }
             }
+            
+            isCharged = false;
+            chargeForce = 0f;
+            xSpeed = 0f;
         }
 
         if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
@@ -420,8 +375,11 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Crouch", isCrouched);
         animator.SetBool("AirAttack", isAirAttacked);
         animator.SetBool("Bow", isBowed);
+        animator.SetBool("ChargeBow", isChargeBowed);
         animator.SetBool("AirBow", isAirBowed);
+        animator.SetBool("ChargeAirBow", isChargeAirBowed);
         animator.SetBool("CrouchBow", isCrouchBowed);
+        animator.SetBool("ChargeCrouchBow", isChargeCrouchBowed);
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
     }
@@ -431,15 +389,7 @@ public class PlayerMove : MonoBehaviour
         return (isGrounded == false && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false);
     }
 
-    //public bool isAttack()
-    //{
-    //    return;
-    //}
-
-    public void PlayerRollingSlow()
-    {
-        rollingSlow = true;
-    }
+    public void PlayerRollingSlow() { rollingSlow = true; }
 
     public void PlayerRollingEnd()
     {
@@ -454,69 +404,148 @@ public class PlayerMove : MonoBehaviour
         ItemManager.instance.lookAtInventory = false;
     }
 
+    public void PlayerBowCheck()
+    {
+        if (isBowed == true) { PlayerBowShot(); }
+        else if (isChargeBowed == true) { PlayerChargeBowShot(); }
+    }
+
     public void PlayerBowShot()
     {
-
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+        Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
-            arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y);
-            GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
+            tempObject.transform.right = direction;
+            tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
-            arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
-            GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
+            tempObject.transform.right = -direction;
+            tempObject.transform.position = transform.position + 1f * -direction;
+        }
+        
+        // : Legacy
+        //if (flipX == false)
+        //{
+        //    arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y);
+        //    GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
+        //}
+        //else
+        //{
+        //    arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
+        //    GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
+        //    arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
+        //    arrow.GetComponent<ArrowMove>().flipX = true;
+        //}
+    }
+
+    public void PlayerChargeBowShot()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+            Vector3 direction = new Vector2(Mathf.Cos((-8 + 8 * i) * Mathf.Deg2Rad), Mathf.Sin((-8 + 8 * i) * Mathf.Deg2Rad));
+            if (flipX == false)
+            {
+                tempObject.transform.right = direction;
+                tempObject.transform.position = transform.position + 1f * direction;
+            }
+            else
+            {
+                tempObject.transform.right = -direction;
+                tempObject.transform.position = transform.position + 1f * -direction;
+            }
         }
     }
 
-    public void PlayerBowEnd()
+    public void PlayerBowEnd() { isBowed = false; isChargeBowed = false; }
+
+    public void PlayerAirBowCheck()
     {
-        isBowed = false;
+        if (isAirBowed == true) { PlayerAirBowShot(); }
+        else if (isChargeAirBowed == true) { PlayerChargeAirBowShot(); }
     }
 
     public void PlayerAirBowShot()
     {
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+        Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
-            arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y);
-            GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
+            tempObject.transform.right = direction;
+            tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
-            arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
-            GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
+            tempObject.transform.right = -direction;
+            tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
-    public void PlayerAirBowEnd()
+    public void PlayerChargeAirBowShot()
     {
-        if (isAirBowed == true) { isAirBowed = false; }
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+            Vector3 direction = new Vector2(Mathf.Cos((-8 + 8 * i) * Mathf.Deg2Rad), Mathf.Sin((-8 + 8 * i) * Mathf.Deg2Rad));
+            if (flipX == false)
+            {
+                tempObject.transform.right = direction;
+                tempObject.transform.position = transform.position + 1f * direction;
+            }
+            else
+            {
+                tempObject.transform.right = -direction;
+                tempObject.transform.position = transform.position + 1f * -direction;
+            }
+        }
+    }
+
+    public void PlayerAirBowEnd() { isAirBowed = false; isChargeAirBowed = false; }
+
+    public void PlayerCrouchBowCheck()
+    {
+        if (isCrouchBowed == true) { PlayerCrouchBowShot(); }
+        else if (isChargeCrouchBowed == true) { PlayerChargeCrouchBowShot(); }
     }
 
     public void PlayerCrouchBowShot()
     {
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+        Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
-            arrowVector = new Vector2(playerRigidbody.position.x + 1.5f, playerRigidbody.position.y - 0.5f);
-            GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
+            tempObject.transform.right = direction;
+            tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
-            arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y - 0.5f);
-            GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
+            tempObject.transform.right = -direction;
+            tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
-    public void PlayerCrouchBowEnd()
+    public void PlayerChargeCrouchBowShot()
     {
-        isCrouchBowed = false;
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+            Vector3 direction = new Vector2(Mathf.Cos((-8 + 8 * i) * Mathf.Deg2Rad), Mathf.Sin((-8 + 8 * i) * Mathf.Deg2Rad));
+            if (flipX == false)
+            {
+                tempObject.transform.right = direction;
+                tempObject.transform.position = transform.position + 1f * direction;
+            }
+            else
+            {
+                tempObject.transform.right = -direction;
+                tempObject.transform.position = transform.position + 1f * -direction;
+            }
+        }
     }
+
+    public void PlayerCrouchBowEnd() { isCrouchBowed = false; isChargeCrouchBowed = false; }
 
     public void PlayerMlAttack()
     {
@@ -551,32 +580,19 @@ public class PlayerMove : MonoBehaviour
 
         for (int i = 0; i < attackCollider.Length; i++)
         {
-            if (attackCollider[i].tag == ("Enemy"))
-            {
-                Debug.LogFormat("{0}", attackCollider[i].name);
-            }
+            if (attackCollider[i].tag == ("Enemy")) { Debug.LogFormat("{0}", attackCollider[i].name); }
         }
     }
 
     public void PlayerAirAttack()
     {
-        if (flipX == false)
-        {
-            attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
-        }
-        else
-        {
-            attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
-        }
+        if (flipX == false) { attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y); }
+        else { attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y); }
 
         attackCollider = Physics2D.OverlapBoxAll(attackVector, attackSize, 0f);
-
         for (int i = 0; i < attackCollider.Length; i++)
         {
-            if (attackCollider[i].tag == ("Enemy"))
-            {
-                Debug.LogFormat("{0}", attackCollider[i].name);
-            }
+            if (attackCollider[i].tag == ("Enemy")) { Debug.LogFormat("{0}", attackCollider[i].name); }
         }
     }
 
@@ -584,70 +600,56 @@ public class PlayerMove : MonoBehaviour
     {
         if (isMlAttack == 1)
         {
-            if (mlAttackConnect[0] == true)
-            {
-                isMlAttack = 2;
-                mlAttackConnect[0] = false;
-            }
-            else
-            {
-                isMlAttack = 0;
-            }
+            if (mlAttackConnect[0] == true) { isMlAttack = 2; mlAttackConnect[0] = false; }
+            else { isMlAttack = 0; }
         }
         else if (isMlAttack == 2)
         {
-            if (mlAttackConnect[1] == true)
-            {
-                isMlAttack = 3;
-                mlAttackConnect[1] = false;
-            }
-            else
-            {
-                isMlAttack = 0;
-            }
+            if (mlAttackConnect[1] == true) { isMlAttack = 3; mlAttackConnect[1] = false; }
+            else { isMlAttack = 0; }
         }
-        else if (isMlAttack == 3)
-        {
-            isMlAttack = 0;
-        }
+        else if (isMlAttack == 3) { isMlAttack = 0; }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (0.7f < collision.contacts[0].normal.y)
+        if (collision.gameObject.tag == ("ThinFloor"))
         {
-            if (collision.gameObject.tag == ("Floor")) { thinFloorCheck = false; }
-            
-            if (collision.gameObject.tag == ("ThinFloor"))
+            thinFloorCheck = true;
+            thinFloor = collision.gameObject;
+            if (0.7f < collision.contacts[0].normal.y)
             {
-                thinFloorCheck = true;
-                thinFloor = collision.gameObject;
-            }
-
-            isGrounded = true;
-
-            if (jumping == true)
-            {
+                isGrounded = true;
                 jumpingForce = false;
                 jumping = false;
                 jumpCount = 0;
                 jSpeed[0] = 0f;
                 jSpeed[1] = 0f;
+                isAirBowed = false;
+                isChargeAirBowed = false;
+                isAirAttacked = false;
             }
+        }
 
-            if (isAirBowed == true) { isAirBowed = false; }
-            if (isAirAttacked == true) { isAirAttacked = false; }
+        if (collision.gameObject.tag == ("Floor") && 0.7f < collision.contacts[0].normal.y)
+        {
+            isGrounded = true;
+            jumpingForce = false;
+            jumping = false;
+            jumpCount = 0;
+            jSpeed[0] = 0f;
+            jSpeed[1] = 0f;
+            isAirBowed = false;
+            isChargeAirBowed = false;
+            isAirAttacked = false;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == ("ThinFloor"))
-        {
-            StartCoroutine(ThinFloorEnd());
-        }
+        if (collision.gameObject.tag == ("ThinFloor") && jumping == true) { isGrounded = false; }
 
-        isGrounded = false;
+        if (collision.gameObject.tag == ("Floor") && jumping == true) { isGrounded = false; }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -655,109 +657,74 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.name == ("LadderTop"))
         {
             onLadderTop = true;
-            Debug.Log("사다리 상단 콜라이더에 도착");
-
-            if (isLadder == true)
-            {
-                climbDirection = 0f;
-                playerRigidbody.velocity = Vector2.zero;
-            }
         }
 
         if (collision.gameObject.name == ("LadderBot"))
         {
             onLadderBot = true;
-            Debug.Log("사다리 하단 콜라이더에 도착");
-
-            if (isLadder == true)
-            {
-                climbDirection = 0f;
-            }
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == ("Ladder") && Input.GetKey(KeyCode.UpArrow))
+        if (collision.gameObject.name == ("LadderUp") && Input.GetKey(KeyCode.UpArrow) && isLadder == true && LadderUping == false)
         {
-            if (isLadder == false)
-            {
-                isLadder = true;
-                jumpCount = 0;
-                playerRigidbody.velocity = Vector2.zero;
-                playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                playerRigidbody.gravityScale = 0f;
-                transform.position = new Vector2(collision.gameObject.transform.position.x, transform.position.y);
-                Debug.Log("사다리를 잡았다");
-
-                // Lerp 사용하여 부드럽게 사다리 잡기
-                //Lerp<>(transform.position, collision.gameObject.transform.position.x);
-            }
+            Debug.Log("사다리 오르기");
+            isLadderUp = true;
+            LadderUping = true;
+            StartCoroutine(LadderUp());
         }
 
-        if(collision.gameObject.tag == ("Ladder") && Input.GetKey(KeyCode.DownArrow))
+        if (collision.gameObject.tag == ("Ladder") && Input.GetKey(KeyCode.UpArrow) && isLadder == false)
         {
-            if (isLadder == false)
-            {
-                playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
-                playerRigidbody.gravityScale = 0f;
-                ladder = collision.gameObject;
-                isLadderDown = true;
-                StartCoroutine(LadderDownEnd());
+            isLadder = true;
+            jumpCount = 0;
+            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
+            playerRigidbody.gravityScale = 0f;
+            transform.position = new Vector2(collision.gameObject.transform.position.x, transform.position.y);
+            // Lerp 사용하여 부드럽게 사다리 잡기
+            //Lerp<>(transform.position, collision.gameObject.transform.position.x);
+        }
 
-                Debug.Log("사다리를 잡았다");
-            }
+        if (collision.gameObject.tag == ("Ladder") && Input.GetKey(KeyCode.DownArrow) && isLadder == false && onLadderTop == true)
+        {
+            isLadder = true;
+            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
+            playerRigidbody.gravityScale = 0f;
+            transform.position = new Vector2(collision.gameObject.transform.position.x, transform.position.y);
+            StartCoroutine(ThinFloorEnter());
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == ("LadderTop"))
-        {
-            onLadderTop = false;
-            Debug.Log("사다리 상단 콜라이더에서 나감");
-        }
+        if (collision.gameObject.name == ("LadderTop")) { onLadderTop = false; }
 
-        if (collision.gameObject.name == ("LadderBot"))
-        {
-            onLadderBot = false;
-            Debug.Log("사다리 하단 콜라이더에서 나감");
-        }
+        if (collision.gameObject.name == ("LadderBot")) { onLadderBot = false; }
     }
 
-    private IEnumerator IsTriggerFloor()
+    IEnumerator LadderUp()
     {
-        thinFloorCollider = thinFloor.GetComponent<BoxCollider2D>();
-
-        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
-        yield return new WaitForSeconds(0.5f);
-        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
-    }
-
-    private IEnumerator LadderDownEnd()
-    {
-        thinFloorCollider = thinFloor.GetComponent<BoxCollider2D>();
-
-        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
-        yield return new WaitForSeconds(0.5f);
-        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
-        isLadderDown = false;
-        playerRigidbody.velocity = Vector2.zero;
-        ladderDownSpeed = 0f;
-        transform.position = new Vector2(ladder.transform.position.x, transform.position.y);
-        isLadder = true;
-    }
-
-    private IEnumerator LadderUpEnd()
-    {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
+        playerRigidbody.constraints = RigidbodyConstraints2D.None;
+        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerRigidbody.gravityScale = 3f;
+        isLadder = false;
         isLadderUp = false;
+        LadderUping = false;
+        ladderUpSpeed = 0f;
     }
 
-    private IEnumerator ThinFloorEnd()
+    IEnumerator ThinFloorEnter()
     {
-        yield return new WaitForSeconds(3f);
-        thinFloor = null;
-        thinFloorCheck = false;
+        BoxCollider2D thinFloorCollider = thinFloor.GetComponent<BoxCollider2D>();
+        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
+
+        yield return new WaitForSeconds(1f);
+
+        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
+
     }
 }
