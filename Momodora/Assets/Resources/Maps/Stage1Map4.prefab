@@ -835,7 +835,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 0}
+  nextTile: {fileID: 7040437491486479867, guid: 53c66dd51fb54314c9a57b31dc1611d0, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 1
   escapeIndex: 0
@@ -905,7 +905,11 @@ CompositeCollider2D:
       - X: 130000000
         Y: -70000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 13.999971, y: -7}
+      - {x: 13.999971, y: 7}
+      - {x: 13, y: 6.9999704}
+      - {x: 13.00003, y: -7}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &8708845348913651821

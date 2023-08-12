@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmallTomato : EnemyBase
+public class ShieldImp : EnemyBase
 {
     //계속 플레이어에게 접근하다가
     //(move 딜레이마다 1번씩 움직임)
@@ -149,7 +149,7 @@ public class SmallTomato : EnemyBase
                 Debug.Log("2");
                 {
                     Debug.Log("3");
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition.position, new Vector2(1.5f,1), 0);
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition.position, new Vector2(1.5f, 1), 0);
 
                     //hit배열을 모두 돈다
                     foreach (Collider2D hit in hits)

@@ -16,8 +16,8 @@ public class CustomInspector_EscapeArea : Editor
     List<EscapeTile> escapeList;
     List<string> direction = null;
     string[] listName;
-    int fieldSelect = 0;
-    int escapeSelect = 0;
+    int fieldSelect = -1;
+    int escapeSelect = -1;
 
     void OnEnable()
     {
@@ -43,7 +43,6 @@ public class CustomInspector_EscapeArea : Editor
         if (direction != null && direction.Count > 0)
         {
             string[] tmp = direction.ToArray();
-            EditorGUI.BeginChangeCheck();
             escapeSelect = EditorGUILayout.Popup("선택 영역", escapeSelect, tmp);
         }
 
@@ -84,11 +83,11 @@ public class CustomInspector_EscapeArea : Editor
                 }
             }
 
-
-            currEscapeArea.nextTile = escapeList[escapeSelect];
-            escapeList[escapeSelect].nextTile = currEscapeArea;
-
-            serializedObject.ApplyModifiedProperties();
+            if (escapeSelect != -1)
+            {
+                currEscapeArea.nextTile = escapeList[escapeSelect];
+                escapeList[escapeSelect].nextTile = currEscapeArea;
+            }
         }
 
 

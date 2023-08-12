@@ -549,7 +549,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_28
+      name: Stone
       rect:
         serializedVersion: 2
         x: 448
@@ -4098,7 +4098,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_275
+      name: BellBody
       rect:
         serializedVersion: 2
         x: 0
@@ -6502,6 +6502,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BellBody: -2027782243
       LadderDown: -2071088727
       LadderUp: 2043678110
       Stage01_U02: 1612826890
@@ -6525,6 +6526,7 @@ TextureImporter:
       Stage01_w11: 1714139247
       Stage01_w12: 1072393868
       Stage01_w13: 376714765
+      Stone: 713878921
       Test: 1957270522
       TileMap_0: 1120734772
       TileMap_1: 1959435397
@@ -6704,12 +6706,10 @@ TextureImporter:
       TileMap_272: -261835503
       TileMap_273: 975175510
       TileMap_274: 873985019
-      TileMap_275: -2027782243
       TileMap_276: -1785812482
       TileMap_277: -1393058462
       TileMap_278: 433030055
       TileMap_279: 1099964764
-      TileMap_28: 713878921
       TileMap_280: 944673540
       TileMap_281: -1096052842
       TileMap_282: -245621053

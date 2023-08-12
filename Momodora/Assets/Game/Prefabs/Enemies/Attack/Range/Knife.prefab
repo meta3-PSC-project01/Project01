@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2476878599366180020}
   - component: {fileID: 2476878599366180023}
   - component: {fileID: 2476878599366180024}
+  - component: {fileID: 1606723722357933096}
+  - component: {fileID: -1484469607115291993}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
@@ -133,3 +135,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6875, y: 0.3125}
   m_EdgeRadius: 0
+--- !u!114 &1606723722357933096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476878599366180018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe28f5b74d4038409f4973a05b36c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  attackSprite: {fileID: 0}
+  animator: {fileID: 0}
+  isActive: 0
+  damage: 0
+--- !u!114 &-1484469607115291993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476878599366180018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b7430ec75aaeb4ba51d8b17dbb0fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: []
