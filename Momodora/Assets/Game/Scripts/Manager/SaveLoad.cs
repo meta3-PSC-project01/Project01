@@ -14,8 +14,8 @@ public class SaveLoad
     public int durationItemsX;
     public int[] startingPoint = new int[2];
 
-    public SaveLoad(int leaf_, int time_, string[] equipItems_, string[] activeItems_, int activeItemsX_, string[] durationItems_, int durationItemsX_,
-        int[] startingPoint_)
+    public SaveLoad(int leaf_, int time_, string[] equipItems_, string[] activeItems_, int activeItemsX_, string[] durationItems_, 
+        int durationItemsX_, int[] startingPoint_)
     {
         leaf = leaf_;
         time = time_;

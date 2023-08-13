@@ -24,19 +24,10 @@ public class ItemManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null || instance == default)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null || instance == default) { instance = this; }
+        else { Destroy(gameObject); }
 
-        for (int i = 0; i < 5; i++)
-        {
-            equipCheck[i] = false;
-        }
+        for (int i = 0; i < 5; i++) { equipCheck[i] = false; }
 
         activeItems = new List<Items>();
         durationItems = new List<Items>();
@@ -58,25 +49,18 @@ public class ItemManager : MonoBehaviour
     // æ∆¿Ã≈€ »πµÊ Ω√ ¡§∫∏ πﬁ±‚ (2)
     public Items ItemData(string name)
     {
-        if (itemDataBase.ContainsKey(name))
-        {
-            Items item = itemDataBase[name];
-
-            return item;
-        }
-        else
-        {
-            return null;
-        }
+        if (itemDataBase.ContainsKey(name)) { Items item = itemDataBase[name]; return item; }
+        else { return null; }
     }
 
     IEnumerator InventoryCheck()
     {
         inventoryCheckTime = true;
         ItemManager.instance.GetComponent<Inventory>().enabled = true;
+
         yield return new WaitForSeconds(0.5f);
+
         ItemManager.instance.GetComponent<Inventory>().enabled = false;
         inventoryCheckTime = false;
-
     }
 }

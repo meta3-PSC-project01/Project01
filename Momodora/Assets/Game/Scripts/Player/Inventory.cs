@@ -29,7 +29,6 @@ public class Inventory : MonoBehaviour
     public void GetItem(string name)
     {
         Items item = ItemManager.instance.ItemData(name);
-
         if (item == null) { return; }
 
         if (item.name == "[None]")
@@ -40,14 +39,8 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        if (item.type == ItemType.ACTIVE)
-        {
-            ItemManager.instance.activeItems.Add(item);
-        }
-        else if (item.type == ItemType.DURATION)
-        {
-            ItemManager.instance.durationItems.Add(item);
-        }
+        if (item.type == ItemType.ACTIVE) { ItemManager.instance.activeItems.Add(item); }
+        else if (item.type == ItemType.DURATION) { ItemManager.instance.durationItems.Add(item); }
     }
     
     public void SelectItems()
@@ -55,37 +48,39 @@ public class Inventory : MonoBehaviour
         //활성 아이템 슬롯
         if (selectSlot <= 2)
         {
-            for (int i = 0; i < ItemManager.instance.activeItems.Count; i++)
-            {
-                inventorySlot[i].text = string.Format(ItemManager.instance.activeItems[i].name);
-            }
+            for (int i = 0; i < ItemManager.instance.activeItems.Count; i++) { inventorySlot[i].text = 
+                    string.Format(ItemManager.instance.activeItems[i].name); }
         }
         else
         {
-            for (int i = 0; i < ItemManager.instance.durationItems.Count; i++)
+            for (int i = 0; i < ItemManager.instance.durationItems.Count; i++) { inventorySlot[i].text = 
+                    string.Format(ItemManager.instance.durationItems[i].name); }
+        }
+
+        if (ItemManager.instance.equipCheck[selectSlot] == true)
+        {
+            for (int i = 0; i < ItemManager.instance.equipItems[selectSlot].explanationX; i++)
             {
-                inventorySlot[i].text = string.Format(ItemManager.instance.durationItems[i].name);
+                if (i == 0) { itemString[i].text = string.Format(ItemManager.instance.equipItems[selectSlot].name); }
+                else if (i == 1) { itemString[i].text = string.Format(ItemManager.instance.equipItems[selectSlot].effect); }
+                else { itemString[i].text = string.Format(ItemManager.instance.equipItems[selectSlot].explanation[i - 2]); }
             }
         }
+        else { for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); } }
     }
 
     public void CleanSlot()
     {
         if (selectSlot <= 2)
         {
-            for (int i = 0; i < inventorySlot.Length; i++)
-            {
-                inventorySlot[i].text = string.Format(" ");
-            }
+            for (int i = 0; i < inventorySlot.Length; i++) { inventorySlot[i].text = string.Format(" "); }
         }
         else
         {
-            for (int i = 0; i < inventorySlot.Length; i++)
-            {
-                inventorySlot[i].text = string.Format(" ");
-
-            }
+            for (int i = 0; i < inventorySlot.Length; i++) { inventorySlot[i].text = string.Format(" "); }
         }
+
+        for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
     }
 
     //해당 인벤토리 목록에서 확인키를 누를경우 아이템 장착
@@ -93,14 +88,8 @@ public class Inventory : MonoBehaviour
     {
         List<Items> list;
         //활성 아이템 슬롯
-        if (selectSlot <= 2)
-        {
-            list = ItemManager.instance.activeItems;
-        }
-        else
-        {
-            list = ItemManager.instance.durationItems;
-        }
+        if (selectSlot <= 2) { list = ItemManager.instance.activeItems; }
+        else { list = ItemManager.instance.durationItems; }
 
         if (selectInventory == 0)
         {
@@ -110,10 +99,7 @@ public class Inventory : MonoBehaviour
                 ItemManager.instance.equipItems[selectSlot] = null;
                 ItemManager.instance.equipCheck[selectSlot] = false;
 
-                for (int i = 0; i < 5; i++)
-                {
-                    itemString[i].text = string.Format(" ");
-                }
+                for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                 itemSpace[selectSlot].sprite = noneImage.sprite;
 
@@ -131,10 +117,7 @@ public class Inventory : MonoBehaviour
                 ItemManager.instance.equipItems[selectSlot] = list[selectInventory];
                 list.RemoveAt(selectInventory);
 
-                for (int i = 0; i < 5; i++)
-                {
-                    itemString[i].text = string.Format(" ");
-                }
+                for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                 itemSpace[selectSlot].sprite = itemImage[ItemManager.instance.equipItems[selectSlot].itemImage].sprite;
             }
@@ -144,15 +127,11 @@ public class Inventory : MonoBehaviour
                 list.RemoveAt(selectInventory);
                 ItemManager.instance.equipCheck[selectSlot] = true;
 
-                for (int i = 0; i < 5; i++)
-                {
-                    itemString[i].text = string.Format(" ");
-                }
+                for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                 Color color = itemSpace[selectSlot].GetComponent<Image>().color;
                 color.a = 1f;
                 itemSpace[selectSlot].GetComponent<Image>().color = color;
-
                 itemSpace[selectSlot].sprite = itemImage[ItemManager.instance.equipItems[selectSlot].itemImage].sprite;
             }
         }
@@ -160,12 +139,10 @@ public class Inventory : MonoBehaviour
         inventoryColor[selectInventory].SetActive(false);
         noneSlot[selectSlot].SetActive(false);
         actSlot[selectSlot].SetActive(true);
-
         selectInventory = 0;
         lookAtInventorySlot = false;
 
         CleanSlot();
-
         SelectItems();
     }
 
@@ -177,16 +154,9 @@ public class Inventory : MonoBehaviour
         {
             if (lookAtInventorySlot == false)
             {
-                for (int i = 0; i < ItemManager.instance.activeItems.Count; i++)
-                {
-                    inventorySlot[i].text = string.Format(" ");
-                }
+                for (int i = 0; i < ItemManager.instance.activeItems.Count; i++) { inventorySlot[i].text = string.Format(" "); }
 
-                for (int i = 0; i < ItemManager.instance.durationItems.Count; i++)
-                {
-                    inventorySlot[i].text = string.Format(" ");
-
-                }
+                for (int i = 0; i < ItemManager.instance.durationItems.Count; i++) { inventorySlot[i].text = string.Format(" "); }
 
                 Time.timeScale = 1f;
                 actSlot[selectSlot].SetActive(false);
@@ -203,10 +173,7 @@ public class Inventory : MonoBehaviour
                 actSlot[selectSlot].SetActive(true);
                 selectInventory = 0;
 
-                for (int i = 0; i < 5; i++)
-                {
-                    itemString[i].text = string.Format(" ");
-                }
+                for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
             }
         }
 
@@ -266,21 +233,12 @@ public class Inventory : MonoBehaviour
                 {
                     inventoryColor[selectInventory].SetActive(false);
 
-                    if (itemTypeCheck == true)
-                    {
-                        selectInventory = ItemManager.instance.activeItems.Count - 1;
-                    }
-                    else
-                    {
-                        selectInventory = ItemManager.instance.durationItems.Count - 1;
-                    }
+                    if (itemTypeCheck == true) { selectInventory = ItemManager.instance.activeItems.Count - 1; }
+                    else { selectInventory = ItemManager.instance.durationItems.Count - 1; }
                     
                     inventoryColor[selectInventory].SetActive(true);
 
-                    for (int i = 0; i < 5; i++)
-                    {
-                        itemString[i].text = string.Format(" ");
-                    }
+                    for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                     if (selectInventory != 0)
                     {
@@ -312,10 +270,7 @@ public class Inventory : MonoBehaviour
 
                     inventoryColor[selectInventory].SetActive(true);
 
-                    for (int i = 0; i < 5; i++)
-                    {
-                        itemString[i].text = string.Format(" ");
-                    }
+                    for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                     if (selectInventory != 0)
                     {
@@ -372,10 +327,7 @@ public class Inventory : MonoBehaviour
 
                         inventoryColor[selectInventory].SetActive(true);
 
-                        for (int i = 0; i < 5; i++)
-                        {
-                            itemString[i].text = string.Format(" ");
-                        }
+                        for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
                     }
                     else
                     {
@@ -385,10 +337,7 @@ public class Inventory : MonoBehaviour
 
                         inventoryColor[selectInventory].SetActive(true);
 
-                        for (int i = 0; i < 5; i++)
-                        {
-                            itemString[i].text = string.Format(" ");
-                        }
+                        for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                         if (selectInventory != 0)
                         {
@@ -411,10 +360,7 @@ public class Inventory : MonoBehaviour
 
                         inventoryColor[selectInventory].SetActive(true);
 
-                        for (int i = 0; i < 5; i++)
-                        {
-                            itemString[i].text = string.Format(" ");
-                        }
+                        for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
                     }
                     else
                     {
@@ -424,10 +370,7 @@ public class Inventory : MonoBehaviour
 
                         inventoryColor[selectInventory].SetActive(true);
 
-                        for (int i = 0; i < 5; i++)
-                        {
-                            itemString[i].text = string.Format(" ");
-                        }
+                        for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
 
                         if (selectInventory != 0)
                         {
@@ -451,27 +394,21 @@ public class Inventory : MonoBehaviour
                 actSlot[selectSlot].SetActive(false);
                 noneSlot[selectSlot].SetActive(true);
 
-                if (selectSlot <= 2)
-                {
-                    itemTypeCheck = true;
-                }
-                else
-                {
-                    itemTypeCheck = false;
-                }
+                if (selectSlot <= 2) { itemTypeCheck = true; }
+                else { itemTypeCheck = false; }
 
                 inventoryColor[selectInventory].SetActive(true);
+
+                for (int i = 0; i < 5; i++) { itemString[i].text = string.Format(" "); }
             }
-            else
-            {
-                EquipItem();
-            }
+            else { EquipItem(); }
         }
     }
 
     IEnumerator InventoryClosed()
     {
         yield return new WaitForSeconds(0.2f);
+
         ItemManager.instance.lookAtInventory = false;
     }
 
@@ -488,10 +425,7 @@ public class Inventory : MonoBehaviour
 
     public string[] SaveEquipItem(string[] saveEquipItems)
     {
-        for (int i = 0; i < 5; i++)
-        {
-            saveEquipItems[i] = ItemManager.instance.equipItems[i].name;
-        }
+        for (int i = 0; i < 5; i++) { saveEquipItems[i] = ItemManager.instance.equipItems[i].name; }
 
         return saveEquipItems;
     }

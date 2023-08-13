@@ -430,7 +430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60889985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.775, z: 0}
+  m_LocalPosition: {x: 0, y: 0.961, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2473,7 +2473,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786712192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34, y: 6.15, z: 0}
+  m_LocalPosition: {x: -1.61, y: 6.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2496,7 +2496,10 @@ MonoBehaviour:
   arrowPrefab: {fileID: 5716301537474485006, guid: e29ab16689129134b9117c004990228b, type: 3}
   playerCollider_: {fileID: 898644855}
   playerContainer: {fileID: 786712196}
+  isGrounded: 0
+  isLadder: 0
   thinFloorCheck: 0
+  forceLadder: 0
 --- !u!114 &786712198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4498,7 +4501,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012709498, y: 0.094790846}
+  m_Offset: {x: 0.012709498, y: 0.03263615}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4509,7 +4512,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9470577, y: 1.186497}
+  m_Size: {x: 0.9470577, y: 1.0621876}
   m_EdgeRadius: 0
 --- !u!50 &1525361541
 Rigidbody2D:
