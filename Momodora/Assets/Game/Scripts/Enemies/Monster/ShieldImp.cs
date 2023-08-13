@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ShieldImp : EnemyBase
 {
-    //계속 플레이어에게 접근하다가
-    //(move 딜레이마다 1번씩 움직임)
-    //공격 범위 + 공격 타이밍일 경우 공격한다.
-    //
+    //플레이어를 인식한곳, 배치된 위치에서 크게 벗어나지않은 범위내에서 앞뒤로 랜덤하게 움직인다.
+    //이동->방어->공격 식의 루틴
+    //튜토리얼 용으로 바라보는 위치가 고정되는 옵션이 필요
+    //움직이는 동안 플레이어를 바라보게 턴한다.    
+    //방패를 들고있거나 공격중에는 턴을 하지않는다.
+    //공격 범위 높이 : 자신보다 2칸 이하(아래부분은 상관없음), 카메라 범위정도
+
     [SerializeField]
     public Coroutine routine = default;
 
@@ -17,19 +20,15 @@ public class ShieldImp : EnemyBase
     private float currDelay = 0;
     //현재 공격 딜레이
     private float wait = 1f;
-
-    //대시 공격 활성화 여부
-    private bool onDashAttack = false;
-    private bool upFloor = true;
-    private float dashDistance = 4;
-    private float dashSpeed = 10;
-    private float dashJump = 3;
-
-    //이동 가속도
-    private float accel = 0f;
+    //현재 공격 딜레이
+    private float defenceTime = 0;
 
     //공격중인지 판별
     public bool isAttack = false;
+    //방어중인지
+    public bool isDefence = false;
+    //이동중인지
+    public bool isMove = false;
 
     //공격 이펙트
     //인스펙터창에서 저장한다.
@@ -59,21 +58,8 @@ public class ShieldImp : EnemyBase
                 //공격 진행중 x
                 if (!isAttack)
                 {
-                    if (Random.Range(0, 100) >= 90)
-                    {
-                        onDashAttack = true;
-                    }
-                    else
-                    {
-                        onDashAttack = false;
-                    }
-
-                    if (!enemyAnimator.GetBool("Move"))
-                    {
-                        enemyAnimator.SetBool("Move", true);
-                    }
-                    enemyRigidbody.velocity = Vector2.zero;
                     //루틴 시작
+                    isDefence = true;
                     routine = StartCoroutine(MonsterRoutine());
                 }
             }
@@ -82,6 +68,22 @@ public class ShieldImp : EnemyBase
             if (currDelay < attackDelay)
             {
                 currDelay += Time.deltaTime;
+            }
+
+            //이동 상태일경우
+            if (isMove)
+            {
+                //좌표 비교후 회전
+                if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+                {
+                    direction = DirectionHorizen.LEFT;
+                    turn();
+                }
+                else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
+                {
+                    direction = DirectionHorizen.RIGHT;
+                    turn();
+                }
             }
         }
     }
@@ -92,90 +94,35 @@ public class ShieldImp : EnemyBase
         //항상
         while (true)
         {
-
-            //좌표 비교후 회전
-            if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
-            {
-                direction = DirectionHorizen.LEFT;
-                turn();
-                accel *= .75f;
-            }
-            else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
-            {
-                direction = DirectionHorizen.RIGHT;
-                turn();
-                accel *= .75f;
-            }
-
             //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
             if (currDelay >= attackDelay && !isAttack)
             {
-                Debug.Log("1");
-                if (onDashAttack)
+                Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position+((int)direction*Vector3.right*4), new Vector2(8, 1), 0);
+
+                //hit배열을 모두 돈다
+                foreach (Collider2D hit in hits)
                 {
-                    //해당 영역에 있는 적 정보 가져옴(공격 범위)
-
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(new Vector2(transform.position.x + (dashDistance - .25f) * (int)direction, transform.position.y), new Vector2(.5f, .8f), 0);
-
-                    //hit배열을 모두 돈다
-                    foreach (Collider2D hit in hits)
+                    //player 검출시
+                    if (hit.tag == "Player")
                     {
-                        //player 검출시
-                        if (hit.tag == "Player")
-                        {
-                            //대시공격 활성화+ 몬스터 땅에 있어야함
-                            //특정거리+
-                            //플레이어 점프안함
-                            if (onDashAttack && upFloor)
-                            {
-                                Debug.Log("특수공격");
-                                //정지
-                                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                                AttackStart();
-                                isAttack = true;
-                                break;
-                            }
-                        }
-                    }
-                    //공격 시작했을 경우
-                    if (isAttack)
-                    {
-                        //공격 딜레이
-                        currDelay = 0;
-                        //루틴 종료
+                        Debug.Log("일반공격");
+                        enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                        isAttack = true;
+                        isMove = false;
+                        isDefence = false;
+                        AttackStart();
                         break;
                     }
                 }
-                Debug.Log("2");
+
+                //공격 시작했을 경우
+                if (isAttack)
                 {
-                    Debug.Log("3");
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition.position, new Vector2(1.5f, 1), 0);
-
-                    //hit배열을 모두 돈다
-                    foreach (Collider2D hit in hits)
-                    {
-                        Debug.Log("4");
-                        //player 검출시
-                        if (hit.tag == "Player")
-                        {
-                            Debug.Log("일반공격");
-                            enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                            AttackStart();
-                            onDashAttack = false;
-                            isAttack = true;
-                            break;
-                        }
-                    }
-
-                    //공격 시작했을 경우
-                    if (isAttack)
-                    {
-                        //공격 딜레이
-                        currDelay = 0;
-                        //루틴 종료
-                        break;
-                    }
-                }
+                    //공격 딜레이
+                    currDelay = 0;
+                    //루틴 종료
+                    break;
+                }              
 
 
             }
@@ -194,6 +141,12 @@ public class ShieldImp : EnemyBase
                 //아직 안만듬
                 yield return new WaitForEndOfFrame();
             }
+            if (isMove && Mathf.Approximately(enemyRigidbody.velocity.x, 0))
+            {
+                isMove = false;
+                enemyRigidbody.velocity = Vector2.zero;
+                yield return new WaitForSeconds(defenceTime);
+            }
         }
 
         //루틴 종료
@@ -203,36 +156,25 @@ public class ShieldImp : EnemyBase
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector2(transform.position.x + (dashDistance - .25f) * (int)direction, transform.position.y), new Vector2(.5f, .8f));
-        Gizmos.DrawWireCube(attackPosition.position, new Vector2(1.5f, 1));
+        Gizmos.DrawWireCube(transform.position + ((int)direction * Vector3.right * 4), new Vector2(8, 1));
 
     }
 
     //이동 재정의
     public override void Move()
     {
-        if (direction == DirectionHorizen.LEFT)
-        {
-            accel -= Time.deltaTime;
-        }
-        else if (direction == DirectionHorizen.RIGHT)
-        {
-            accel += Time.deltaTime;
-        }
-
-        accel = Mathf.Clamp(accel, -1, 1);
-
         //무빙 플랫폼에서의 움직임
         //무빙 플랫폼의 힘만큼 더해서 움직인다.
         if (isMovingPlatform)
         {
-            enemyRigidbody.velocity = new Vector2(enemySpeed * accel + platformBody.velocity.x, enemyRigidbody.velocity.y);
+            enemyRigidbody.velocity = new Vector2(enemySpeed*(int)direction + platformBody.velocity.x, enemyRigidbody.velocity.y);
         }
         //기본 플랫폼에서의 움직임
         else
         {
-            enemyRigidbody.velocity = new Vector2(enemySpeed * accel, enemyRigidbody.velocity.y);
+            enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
         }
+        isMove = true;
     }
 
     //애니메이션 시작
@@ -243,6 +185,7 @@ public class ShieldImp : EnemyBase
     }
 
     //애니메이션 중 이펙트 인스탄트 = 공격 시작
+    //레인지 공격일 경우 투척 타이밍때 생성할것
     public void AttackStartEvent()
     {
         Debug.Log("인스턴스생성");
@@ -251,29 +194,25 @@ public class ShieldImp : EnemyBase
     }
 
     //애니메이션 중 이펙트 세팅 = 이펙트 발생
-    //스몰토마토는 이펙트 대신 날라가는 모션
+    //레인지 공격일 경우 추가 이펙트 존재시 추가로 생성 
     public void AttackEffectEvent()
     {
-        if (onDashAttack)
-        {
-            Debug.Log("모션");
-            enemyRigidbody.AddForce(new Vector2((int)direction * dashSpeed, dashJump), ForceMode2D.Impulse);
-        }
+        //임프는 사용안함
     }
 
     //애니메이션 중 콜라이더 ON = 공격 타이밍
+    //레인지 공격일 경우 사용 안함(투사체가 자체적으로 사용)
     public void AttackColliderEvent()
     {
-        Debug.Log("콜라이더");
-        attackObject.UseCollider();
+        //임프는 사용안함
     }
 
 
     //애니메이션 중 공격 종료 = 공격 종료
+    //레인지 공격일 경우 사용 안함(투사체가 자체적으로 사용)
     public void AttackEndEvent()
     {
-        Debug.Log("인스턴스 파괴");
-        Destroy(attackObject.gameObject);
+        //임프는 사용안함
     }
 
     //공격 종료 = 루틴 종료
@@ -283,8 +222,6 @@ public class ShieldImp : EnemyBase
         //공격중이고 루틴이 없다면
         if (isAttack && routine == null)
         {
-            accel = 0f;
-            enemyAnimator.SetBool("Move", false);
             //딜레이 이벤트 시작
             routine = StartCoroutine(EndAnimation());
         }
