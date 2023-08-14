@@ -51,7 +51,7 @@ public class TestWindow : EditorWindow
             {
                 basTilePalette = AssetDatabase.LoadAssetAtPath("Assets/Game/TilePalette/Stage01/Stage01_BaseTile_RuleTile.prefab", typeof(GameObject)) as GameObject;
                 Tilemap tmp = basTilePalette.GetComponentInChildren<Tilemap>();
-                baseTile = tmp.GetTile(new Vector3Int(-6, 0, 0));
+                baseTile = tmp.GetTile(new Vector3Int(1, 1, 0));
 
 
                 basTilePalette = AssetDatabase.LoadAssetAtPath("Assets/Game/TilePalette/Stage01/Stage01_Others_SpriteTile.prefab", typeof(GameObject)) as GameObject;
