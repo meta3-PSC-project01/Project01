@@ -14,4 +14,16 @@ public class BigTomatoAttack : EnemyAttackData
         isActive = true;
     }
 
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isActive && collision.tag == "Player")
+        {
+            isActive = false;
+            collision.GetComponent<TestPlayer>().hp -= damage;
+            //플레이어 반응 
+            //player.Hit();
+        }
+
+    }
+
 }

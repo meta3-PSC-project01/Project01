@@ -15,13 +15,15 @@ public class ShieldImp : EnemyBase
     public Coroutine routine = default;
 
     //공격 딜레이
-    private float attackDelay = .6f;
+    private float attackDelay = 5f;
     //현재 공격 딜레이
     private float currDelay = 0;
-    //현재 공격 딜레이
+    //행동 딜레이
     private float wait = 1f;
-    //현재 공격 딜레이
-    private float defenceTime = 0;
+    //방어 딜레이
+    private float defenceTime = .5F;
+    //이동 딜레이
+    private float moveTime = .5F;
 
     //공격중인지 판별
     public bool isAttack = false;
@@ -29,6 +31,8 @@ public class ShieldImp : EnemyBase
     public bool isDefence = false;
     //이동중인지
     public bool isMove = false;
+
+    Vector2 firstPoint;
 
     //공격 이펙트
     //인스펙터창에서 저장한다.
@@ -44,6 +48,7 @@ public class ShieldImp : EnemyBase
 
         //초기 딜레이 값
         currDelay = attackDelay * .8f;
+        firstPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -84,6 +89,7 @@ public class ShieldImp : EnemyBase
                     direction = DirectionHorizen.RIGHT;
                     turn();
                 }
+                Move();
             }
         }
     }
@@ -97,13 +103,13 @@ public class ShieldImp : EnemyBase
             //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
             if (currDelay >= attackDelay && !isAttack)
             {
-                Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position+((int)direction*Vector3.right*4), new Vector2(8, 1), 0);
+                Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position+((int)direction*Vector3.right*4), new Vector2(8, 28), 0);
 
                 //hit배열을 모두 돈다
                 foreach (Collider2D hit in hits)
                 {
                     //player 검출시
-                    if (hit.tag == "Player")
+                    if (hit.tag == "Player" && hit.transform.position.y-transform.position.y <= 2)
                     {
                         Debug.Log("일반공격");
                         enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
@@ -120,61 +126,70 @@ public class ShieldImp : EnemyBase
                 {
                     //공격 딜레이
                     currDelay = 0;
-                    //루틴 종료
-                    break;
+                    yield return new WaitForEndOfFrame();
+                    //루틴 초기화
+                    continue;
                 }              
 
 
             }
 
             //스턴 상태 아닐경우
-            if (!isStun)
+            if (!isStun && !isAttack)
             {
                 //이동
-                Move();
-                yield return new WaitForSeconds(Time.deltaTime);
+                isMove = true;
+                yield return new WaitForSeconds(moveTime);
+                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                isMove = false;
+
+                //방어타임
+                yield return new WaitForSeconds(defenceTime);
 
             }
             //스턴 상태일 경우
-            else
+            else if(isStun)
             {
                 //아직 안만듬
                 yield return new WaitForEndOfFrame();
             }
-            if (isMove && Mathf.Approximately(enemyRigidbody.velocity.x, 0))
+            else
             {
-                isMove = false;
-                enemyRigidbody.velocity = Vector2.zero;
-                yield return new WaitForSeconds(defenceTime);
-            }
-        }
+                //그외 예외처리
+                yield return new WaitForEndOfFrame();
 
-        //루틴 종료
-        routine = null;
+            }
+
+        }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position + ((int)direction * Vector3.right * 4), new Vector2(8, 1));
+        Gizmos.DrawWireCube(transform.position + ((int)direction * Vector3.right * 4), new Vector2(8, 28));
 
     }
 
     //이동 재정의
     public override void Move()
     {
-        //무빙 플랫폼에서의 움직임
-        //무빙 플랫폼의 힘만큼 더해서 움직인다.
-        if (isMovingPlatform)
+        if(Mathf.Abs(transform.position.x - firstPoint.x) >= 2)
         {
-            enemyRigidbody.velocity = new Vector2(enemySpeed*(int)direction + platformBody.velocity.x, enemyRigidbody.velocity.y);
+            enemyRigidbody.velocity = new Vector2(firstPoint.x - transform.position.x, enemyRigidbody.velocity.y);
         }
-        //기본 플랫폼에서의 움직임
         else
         {
-            enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
+            if (isMovingPlatform)
+            {
+                enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction + platformBody.velocity.x, enemyRigidbody.velocity.y);
+            }
+            //기본 플랫폼에서의 움직임
+            else
+            {
+                enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
+            }
+
         }
-        isMove = true;
     }
 
     //애니메이션 시작
@@ -189,7 +204,7 @@ public class ShieldImp : EnemyBase
     public void AttackStartEvent()
     {
         Debug.Log("인스턴스생성");
-        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation, transform).GetComponent<EnemyAttackData>();
+        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
 
     }
 
@@ -209,30 +224,23 @@ public class ShieldImp : EnemyBase
 
 
     //애니메이션 중 공격 종료 = 공격 종료
-    //레인지 공격일 경우 사용 안함(투사체가 자체적으로 사용)
     public void AttackEndEvent()
     {
-        //임프는 사용안함
+        StartCoroutine(EndAnimation());
     }
 
     //공격 종료 = 루틴 종료
     //공격 후 잠시의 딜레이를 위해 작성(wait)
     public void RoutineEndEvent()
     {
-        //공격중이고 루틴이 없다면
-        if (isAttack && routine == null)
-        {
-            //딜레이 이벤트 시작
-            routine = StartCoroutine(EndAnimation());
-        }
+        //임프는 사용하지않음
     }
 
     //딜레이가 지난뒤에 다시 이동/공격 함
-    //idle 상태에서 실행
     IEnumerator EndAnimation()
     {
         yield return new WaitForSeconds(wait);
         isAttack = false;
-        routine = null;
+        isDefence = true;
     }
 }

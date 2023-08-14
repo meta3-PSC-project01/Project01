@@ -19,9 +19,10 @@ public class EnemyAttackData : MonoBehaviour
     public void Awake()
     {
         Init();
+        Destroy(gameObject, 10f);
     }
 
-    public void Init()
+    public virtual void Init()
     {
         attackSprite = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
@@ -37,16 +38,6 @@ public class EnemyAttackData : MonoBehaviour
 
         animator.SetTrigger("Attack");
 
-    }
-    public void OnTriggerStay2D(Collider2D collision)
-    {
-        if (isActive && collision.tag == "Player")
-        {
-            isActive = false;
-            collision.GetComponent<TestPlayer>().hp -= damage;
-            //플레이어 반응 
-            //player.Hit();
-        }
 
     }
 
