@@ -48,11 +48,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   externDirection: 4
+  body: {fileID: 6976967803527030474}
+  childCount: 0
   speed: 0
   roopTime: 0
   distance: 0
   direction: 0
-  body: {fileID: 6976967803527030474}
+  startPos: {x: 0, y: 0}
+  endPos: {x: 0, y: 0}
 --- !u!50 &2196627889499210569
 Rigidbody2D:
   serializedVersion: 4
@@ -61,7 +64,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9019320015892090880}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -73,7 +76,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!66 &7781647849608355364
 CompositeCollider2D:
   m_ObjectHideFlags: 0

@@ -549,7 +549,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_28
+      name: Stone
       rect:
         serializedVersion: 2
         x: 448
@@ -4098,7 +4098,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_275
+      name: BellBody
       rect:
         serializedVersion: 2
         x: 0
@@ -4245,7 +4245,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_359
+      name: LadderUp
       rect:
         serializedVersion: 2
         x: 0
@@ -4287,7 +4287,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_386
+      name: LadderDown
       rect:
         serializedVersion: 2
         x: 0
@@ -6502,6 +6502,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BellBody: -2027782243
+      LadderDown: -2071088727
+      LadderUp: 2043678110
       Stage01_U02: 1612826890
       Stage01_U03: 1300700316
       Stage01_U04: 319333898
@@ -6523,6 +6526,7 @@ TextureImporter:
       Stage01_w11: 1714139247
       Stage01_w12: 1072393868
       Stage01_w13: 376714765
+      Stone: 713878921
       Test: 1957270522
       TileMap_0: 1120734772
       TileMap_1: 1959435397
@@ -6702,12 +6706,10 @@ TextureImporter:
       TileMap_272: -261835503
       TileMap_273: 975175510
       TileMap_274: 873985019
-      TileMap_275: -2027782243
       TileMap_276: -1785812482
       TileMap_277: -1393058462
       TileMap_278: 433030055
       TileMap_279: 1099964764
-      TileMap_28: 713878921
       TileMap_280: 944673540
       TileMap_281: -1096052842
       TileMap_282: -245621053
@@ -6795,7 +6797,6 @@ TextureImporter:
       TileMap_356: -202225579
       TileMap_357: -1957467551
       TileMap_358: 1232391807
-      TileMap_359: 2043678110
       TileMap_36: -1260719937
       TileMap_360: -1326042572
       TileMap_361: 908143355
@@ -6825,7 +6826,6 @@ TextureImporter:
       TileMap_383: -336452081
       TileMap_384: 2146583467
       TileMap_385: -1087989801
-      TileMap_386: -2071088727
       TileMap_387: -1973481290
       TileMap_388: -1895192861
       TileMap_389: 1412260130

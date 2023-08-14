@@ -38,6 +38,10 @@ public class EnemyBase : MonoBehaviour
 
     public bool isStun = false;     //경직
 
+
+    public Rigidbody2D platformBody;
+    public bool isMovingPlatform = false;
+
     //초기화
     public virtual void Init()
     {

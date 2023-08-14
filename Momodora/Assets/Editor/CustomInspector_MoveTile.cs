@@ -23,7 +23,7 @@ public class CustomInspector_MoveTile : Editor
         int size = 1;
         switch (moveTile.externDirection)
         {
-            case DirectionAxis.EAST :
+            case DirectionAxis.RIGHT :
 
                 foreach (var child in moveTile.GetList())
                 {
@@ -31,7 +31,7 @@ public class CustomInspector_MoveTile : Editor
                     size += 1;
                 }
                 break;
-            case DirectionAxis.WEST:
+            case DirectionAxis.LEFT:
 
                 foreach (var child in moveTile.GetList())
                 {
@@ -39,7 +39,7 @@ public class CustomInspector_MoveTile : Editor
                     size += 1;
                 }
                 break;
-            case DirectionAxis.NORTH:
+            case DirectionAxis.UP:
 
                 foreach (var child in moveTile.GetList())
                 {
@@ -47,7 +47,7 @@ public class CustomInspector_MoveTile : Editor
                     size += 1;
                 }
                 break;
-            case DirectionAxis.SOUTH:
+            case DirectionAxis.DOWN:
 
                 foreach (var child in moveTile.GetList())
                 {
@@ -64,16 +64,13 @@ public class CustomInspector_MoveTile : Editor
             GameObject child = Instantiate(moveTile.body, moveTile.transform.position, Quaternion.identity, moveTile.transform);            
             moveTile.GetList().Add(child);
             moveTile.childCount +=1;
-
-            SceneView.RepaintAll();
-            EditorApplication.RepaintHierarchyWindow();
+            EditorUtility.SetDirty(GameObject.FindObjectOfType<Transform>());
         }
 
         if (GUILayout.Button("Remove"))
         {
             moveTile.RemoveLastIndex();
-            SceneView.RepaintAll();
-            EditorApplication.RepaintHierarchyWindow();
+            EditorUtility.SetDirty(GameObject.FindObjectOfType<Transform>());
         }
     }
 }

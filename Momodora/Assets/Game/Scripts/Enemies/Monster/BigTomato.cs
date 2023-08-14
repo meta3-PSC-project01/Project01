@@ -10,12 +10,15 @@ public class BigTomato : EnemyBase
     public Coroutine routine = default;
 
     private float moveDelay = 1f;
-    private float attackDelay = 1f;
+    private float attackDelay = 1.5f;
+    //공격후 일정 시간 대기
+    private float wait = 1f;
     private float currDelay = 0;
 
     public bool isAttack = false;
 
     private EnemyAttackData attackObject = null;
+
 
 
     // Start is called before the first frame update
@@ -73,6 +76,7 @@ public class BigTomato : EnemyBase
                         AttackStart();
                         isAttack = true;
                         currDelay = 0;
+                        break;
                     }
                 }
                 if (isAttack)
@@ -99,7 +103,15 @@ public class BigTomato : EnemyBase
 
     public override void Move()
     {
-        enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
+        if (isMovingPlatform)
+        {
+            enemyRigidbody.velocity = new Vector2((enemySpeed * (int)direction)+platformBody.velocity.x, enemyRigidbody.velocity.y);
+        }
+        else
+        {
+            enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
+
+        }
     }
 
     //애니메이션 시작
@@ -147,7 +159,7 @@ public class BigTomato : EnemyBase
 
     IEnumerator EndAnimation()
     {
-        yield return new WaitForSeconds(attackDelay);
+        yield return new WaitForSeconds(wait);
         isAttack = false;
         routine = null;
     }
