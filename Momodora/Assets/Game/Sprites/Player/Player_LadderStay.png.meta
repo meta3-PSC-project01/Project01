@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 09871367160f1e6478578f2b5bebbed8
+guid: fe82c05afd31eb246867883d1325eeb3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -127,7 +127,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Player_LadderStay_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 3
+        width: 17
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09e59760a00eeb54184abd2cdf5fe0bc
+      internalID: -1481387894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +159,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Player_LadderStay_0: -1481387894
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

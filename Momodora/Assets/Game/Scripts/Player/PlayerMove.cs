@@ -67,7 +67,7 @@ public class PlayerMove : MonoBehaviour
         attackSize = new Vector2(2f, 2f);
 
         moveForce = 10f;
-        rollForce = 0.1f;
+        rollForce = 0.05f;
         jumpForce = 0.3f;
         xInput = 0f;
         xSpeed = 0f;
@@ -387,8 +387,8 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void PlayerBowShot()
-    {
-        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+    {      // Fix : Vector3 up
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer.position+Vector3.up * 0.5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
