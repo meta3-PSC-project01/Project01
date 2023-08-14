@@ -149,14 +149,13 @@ public class TestPlayer : MonoBehaviour
                 jSpeed = 10;
             }
         }
-        if (Input.GetKeyUp(KeyCode.A) )
+        if (Input.GetKeyUp(KeyCode.A))
         {
             jumpingForce = false;
         }
 
         if (jumpingForce == true && isAirAttacked == false)
         {
-
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed);
 
             if (jSpeed == 10f)
@@ -309,8 +308,6 @@ public class TestPlayer : MonoBehaviour
         {
             arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
         }
     }
 
@@ -330,8 +327,6 @@ public class TestPlayer : MonoBehaviour
         {
             arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
         }
     }
 
@@ -351,8 +346,6 @@ public class TestPlayer : MonoBehaviour
         {
             arrowVector = new Vector2(playerRigidbody.position.x - 1.5f, playerRigidbody.position.y);
             GameObject arrow = Instantiate(arrowPrefab, arrowVector, transform.rotation);
-            arrow.GetComponent<ArrowMove>().arrowRenderer.flipX = true;
-            arrow.GetComponent<ArrowMove>().flipX = true;
         }
     }
 
