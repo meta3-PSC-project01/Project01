@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     Vector2Int fieldSize = Vector2Int.one;
-    Vector2 mapSize = new Vector2(7* Screen.width / Screen.height, 7);
+    Vector2 mapSize = new Vector2(7 * Screen.width / Screen.height, 7);
     TestPlayer player;
 
     Coroutine coroutine;
@@ -19,7 +19,7 @@ public class CameraMove : MonoBehaviour
     {
         if (position.x == 1 && position.y == 1)
         {
-            transform.position = new Vector3(0, 0, -10)+ shaking;
+            transform.position = new Vector3(0, 0, -10) + shaking;
         }
         if (position.x > 1 && position.y == 1)
         {
@@ -43,7 +43,7 @@ public class CameraMove : MonoBehaviour
 
     IEnumerator ShakeCoroutine()
     {
-        shaking = Vector2.right * Random.Range(0f,1f);
+        shaking = Vector2.right * Random.Range(0f, 1f);
         yield return new WaitForEndOfFrame();
 
         shaking = Vector2.left * Random.Range(0f, 1f);
@@ -88,7 +88,7 @@ public class CameraMove : MonoBehaviour
             }
         }
 
-        if(player==null)
+        if (player == null)
         {
             player = FindObjectOfType<TestPlayer>();
         }
@@ -99,12 +99,12 @@ public class CameraMove : MonoBehaviour
         }
 
 
-        if (player.transform.position.x > 0 && player.transform.position.x < (fieldSize.x - 1)*camWidth*2+(fieldSize.x - 1)*(13-camWidth) *2)
+        if (player.transform.position.x > 0 && player.transform.position.x < (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2)
         {
             transform.position = new Vector3(player.transform.position.x, transform.position.y, -10) + shaking;
 
         }
-        else if(player.transform.position.x <= 0)
+        else if (player.transform.position.x <= 0)
         {
             transform.position = new Vector3(0, transform.position.y, -10) + shaking;
         }
