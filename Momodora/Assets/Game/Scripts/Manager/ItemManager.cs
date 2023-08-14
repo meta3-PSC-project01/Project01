@@ -8,23 +8,31 @@ public class ItemManager : MonoBehaviour
     public static ItemManager instance;
 
     public GameObject inventoryUi;
+    public Items[] equipItems = new Items[5];
+    //획득한 아이템은 다 이곳에 저장
+    public List<Items> activeItems;
+    public List<Items> durationItems;
+
+    public int leaf = default;
 
     public bool lookAtInventory = false;
     public bool inventoryCheckTime = false;
+    public bool[] equipCheck = new bool[5];
 
     // 아이템 관리 베이스
     Dictionary<string, Items> itemDataBase = new Dictionary<string, Items>();
 
     void Awake()
     {
-        if (instance == null || instance == default)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null || instance == default) { instance = this; }
+        else { Destroy(gameObject); }
+
+        for (int i = 0; i < 5; i++) { equipCheck[i] = false; }
+
+        activeItems = new List<Items>();
+        durationItems = new List<Items>();
+
+        leaf = 0;
     }
 
     void Start()
@@ -38,28 +46,21 @@ public class ItemManager : MonoBehaviour
         itemDataBase.Add("초롱꽃", new Items4());
     }
 
-    // 아이템 정보 로드 (3)
+    // 아이템 획득 시 정보 받기 (2)
     public Items ItemData(string name)
     {
-        if (itemDataBase.ContainsKey(name))
-        {
-            Items item = itemDataBase[name];
-
-            return item;
-        }
-        else
-        {
-            return null;
-        }
+        if (itemDataBase.ContainsKey(name)) { Items item = itemDataBase[name]; return item; }
+        else { return null; }
     }
 
     IEnumerator InventoryCheck()
     {
         inventoryCheckTime = true;
         ItemManager.instance.GetComponent<Inventory>().enabled = true;
+
         yield return new WaitForSeconds(0.5f);
+
         ItemManager.instance.GetComponent<Inventory>().enabled = false;
         inventoryCheckTime = false;
-
     }
 }
