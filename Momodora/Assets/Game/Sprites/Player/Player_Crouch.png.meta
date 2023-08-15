@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Right_Crouch_0
+      name: Player_Crouch_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 17
         y: 0
-        width: 50.25
-        height: 44
+        width: 18
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,71 +143,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae5f686d554145142b98797082f82696
-      internalID: -1702106739
+      spriteID: b8eae148c61aacf4c8fb9b3108abcb0c
+      internalID: -1678506993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Crouch_1
+      name: Player_Crouch_1
       rect:
         serializedVersion: 2
-        x: 50
+        x: 66
         y: 0
-        width: 50.25
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 18
+        height: 28
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d92db28d88a506149a1e5209cc43e044
-      internalID: -547231544
+      spriteID: fedc9e2b047182a46a0e9f4ba6546beb
+      internalID: -708943673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Crouch_2
+      name: Player_Crouch_2
       rect:
         serializedVersion: 2
-        x: 100
+        x: 115
         y: 0
-        width: 50.25
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 19
+        height: 28
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6982c09ee22ed340b010d9d75e42195
-      internalID: 1421343979
+      spriteID: 636776f21b0ac60428132f0605341a34
+      internalID: -822604003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Crouch_3
+      name: Player_Crouch_3
       rect:
         serializedVersion: 2
-        x: 150
+        x: 164
         y: 0
-        width: 50.25
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 19
+        height: 28
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53506e24341010644a6759578bd11815
-      internalID: -1850098898
+      spriteID: 767324731de4d194fa50fc295c636ff1
+      internalID: -153968596
       vertices: []
       indices: 
       edges: []
@@ -223,10 +223,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Right_Crouch_0: -1702106739
-      Player_Right_Crouch_1: -547231544
-      Player_Right_Crouch_2: 1421343979
-      Player_Right_Crouch_3: -1850098898
+      Player_Crouch_0: -1678506993
+      Player_Crouch_1: -708943673
+      Player_Crouch_2: -822604003
+      Player_Crouch_3: -153968596
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
