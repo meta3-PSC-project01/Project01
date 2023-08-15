@@ -46,8 +46,11 @@ public class BombImp : EnemyBase
             //루틴 진행중 x
             if (routine == null)
             {
-                //루틴 시작
-                routine = StartCoroutine(MonsterRoutine());
+                if (!isStun)
+                {
+                    //루틴 시작
+                    routine = StartCoroutine(MonsterRoutine());
+                }
             }
 
             //플레이어 타겟 지정중에 항상 공격 딜레이 증감
@@ -56,18 +59,25 @@ public class BombImp : EnemyBase
                 currDelay += Time.deltaTime;
             }
 
-            //계속 플레이어를 바라봄
-            if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+            if (!isStun)
             {
-                direction = DirectionHorizen.LEFT;
-                turn();
-            }
-            else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
-            {
-                direction = DirectionHorizen.RIGHT;
-                turn();
+                //계속 플레이어를 바라봄
+                if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+                {
+                    direction = DirectionHorizen.LEFT;
+                    turn();
+                }
+                else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
+                {
+                    direction = DirectionHorizen.RIGHT;
+                    turn();
+                }
             }
 
+            if (isStun && currDelay > attackDelay)
+            {
+                currDelay = attackDelay * .6f;
+            }
         }
     }
 
@@ -77,16 +87,6 @@ public class BombImp : EnemyBase
         //항상
         while (true)
         {
-            //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
-            if (currDelay >= attackDelay && !isAttack)
-            {
-                AttackStart();
-                isAttack = true;
-                //공격 딜레이
-                currDelay = 0;
-                yield return new WaitForEndOfFrame();
-                //루틴 초기화
-            }
 
             //스턴 상태일 경우
             if (isStun)
@@ -96,9 +96,16 @@ public class BombImp : EnemyBase
             }
             else
             {
-                //그외 예외처리
-                yield return new WaitForEndOfFrame();
-
+                //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
+                if (currDelay >= attackDelay && !isAttack)
+                {
+                    AttackStart();
+                    isAttack = true;
+                    //공격 딜레이
+                    currDelay = 0;
+                    yield return new WaitForEndOfFrame();
+                        //루틴 초기화
+                }
             }
 
         }

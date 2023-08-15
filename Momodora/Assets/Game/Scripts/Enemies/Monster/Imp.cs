@@ -48,9 +48,12 @@ public class Imp : EnemyBase
             //루틴 진행중 x
             if (routine == null)
             {
+                if (!isStun)
+                {
                     //루틴 시작
-                routine = StartCoroutine(MonsterRoutine());
-                enemyAnimator.SetBool("Move", true);
+                    routine = StartCoroutine(MonsterRoutine());
+                    enemyAnimator.SetBool("Move", true);
+                }
             }
 
             //플레이어 타겟 지정중에 항상 공격 딜레이 증감
@@ -58,28 +61,37 @@ public class Imp : EnemyBase
             {
                 currDelay += Time.deltaTime;
             }
-            if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
-            {
-                direction = DirectionHorizen.LEFT;
-                turn();
-            }
-            else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
-            {
-                direction = DirectionHorizen.RIGHT;
-                turn();
-            }
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up * -1, .52f);
-            
-            foreach(var hit in hits)
+            if (!isStun)
             {
-                //바닥에 닿을 경우
-                if(hit.collider.tag == "Floor")
+                if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
                 {
-                    isJump = false;
-                    Move();
+                    direction = DirectionHorizen.LEFT;
+                    turn();
+                }
+                else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
+                {
+                    direction = DirectionHorizen.RIGHT;
+                    turn();
                 }
 
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up * -1, .52f);
+
+                foreach (var hit in hits)
+                {
+                    //바닥에 닿을 경우
+                    if (hit.collider.tag == "Floor")
+                    {
+                        isJump = false;
+                        Move();
+                    }
+
+                }
+            }
+
+            if (isStun && currDelay > attackDelay)
+            {
+                currDelay = attackDelay * .6f;
             }
         }
     }
@@ -90,37 +102,6 @@ public class Imp : EnemyBase
         //항상
         while (true)
         {
-            //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
-            if (currDelay >= attackDelay && !isAttack)
-            {
-                Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position + ((int)direction * Vector3.right * 8), new Vector2(16, 28), 0);
-
-                //hit배열을 모두 돈다
-                foreach (Collider2D hit in hits)
-                {
-                    //player 검출시
-                    if (hit.tag == "Player")
-                    {
-                        Debug.Log("일반공격");
-                        AttackStart();
-                        isAttack = true;
-                        break;
-                    }
-                }
-
-                //공격 시작했을 경우
-                if (isAttack)
-                {
-                    //공격 딜레이
-                    currDelay = 0;
-                    yield return new WaitForEndOfFrame();
-                    //루틴 초기화
-                    continue;
-                }
-
-
-            }
-
             //스턴 상태일 경우
             if (isStun)
             {
@@ -129,10 +110,37 @@ public class Imp : EnemyBase
             }
             else
             {
-                //그외 예외처리
-                yield return new WaitForEndOfFrame();
+                //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
+                if (currDelay >= attackDelay && !isAttack)
+                {
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position + ((int)direction * Vector3.right * 8), new Vector2(16, 28), 0);
+
+                    //hit배열을 모두 돈다
+                    foreach (Collider2D hit in hits)
+                    {
+                        //player 검출시
+                        if (hit.tag == "Player")
+                        {
+                            Debug.Log("일반공격");
+                            AttackStart();
+                            isAttack = true;
+                            break;
+                        }
+                    }
+
+                    //공격 시작했을 경우
+                    if (isAttack)
+                    {
+                        //공격 딜레이
+                        currDelay = 0;
+                        yield return new WaitForEndOfFrame();
+                        //루틴 초기화
+                        continue;
+                    }
+                }
 
             }
+
 
         }
     }

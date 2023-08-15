@@ -63,9 +63,12 @@ public class ShieldImp : EnemyBase
                 //공격 진행중 x
                 if (!isAttack)
                 {
-                    //루틴 시작
-                    isDefence = true;
-                    routine = StartCoroutine(MonsterRoutine());
+                    if (!isStun)
+                    {
+                        //루틴 시작
+                        isDefence = true;
+                        routine = StartCoroutine(MonsterRoutine());
+                    }
                 }
             }
 
@@ -75,21 +78,30 @@ public class ShieldImp : EnemyBase
                 currDelay += Time.deltaTime;
             }
 
-            //이동 상태일경우
-            if (isMove)
+            if (!isStun)
             {
-                //좌표 비교후 회전
-                if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+                //이동 상태일경우
+                if (isMove)
                 {
-                    direction = DirectionHorizen.LEFT;
-                    turn();
+                    //좌표 비교후 회전
+                    if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+                    {
+                        direction = DirectionHorizen.LEFT;
+                        turn();
+                    }
+                    else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
+                    {
+                        direction = DirectionHorizen.RIGHT;
+                        turn();
+                    }
+                    Move();
                 }
-                else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
-                {
-                    direction = DirectionHorizen.RIGHT;
-                    turn();
-                }
-                Move();
+            }
+
+
+            if (isStun && currDelay > attackDelay)
+            {
+                currDelay = attackDelay * .6f;
             }
         }
     }
@@ -100,66 +112,63 @@ public class ShieldImp : EnemyBase
         //항상
         while (true)
         {
-            //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
-            if (currDelay >= attackDelay && !isAttack)
-            {
-                Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position+((int)direction*Vector3.right*4), new Vector2(8, 28), 0);
 
-                //hit배열을 모두 돈다
-                foreach (Collider2D hit in hits)
-                {
-                    //player 검출시
-                    if (hit.tag == "Player" && hit.transform.position.y-transform.position.y <= 2)
-                    {
-                        Debug.Log("일반공격");
-                        enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                        isAttack = true;
-                        isMove = false;
-                        isDefence = false;
-                        AttackStart();
-                        break;
-                    }
-                }
-
-                //공격 시작했을 경우
-                if (isAttack)
-                {
-                    //공격 딜레이
-                    currDelay = 0;
-                    yield return new WaitForEndOfFrame();
-                    //루틴 초기화
-                    continue;
-                }              
-
-
-            }
-
-            //스턴 상태 아닐경우
-            if (!isStun && !isAttack)
-            {
-                //이동
-                isMove = true;
-                yield return new WaitForSeconds(moveTime);
-                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                isMove = false;
-
-                //방어타임
-                yield return new WaitForSeconds(defenceTime);
-
-            }
             //스턴 상태일 경우
-            else if(isStun)
+            if (isStun)
             {
                 //아직 안만듬
                 yield return new WaitForEndOfFrame();
             }
             else
             {
-                //그외 예외처리
-                yield return new WaitForEndOfFrame();
+                //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
+                if (currDelay >= attackDelay && !isAttack)
+                {
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position + ((int)direction * Vector3.right * 4), new Vector2(8, 28), 0);
 
+                    //hit배열을 모두 돈다
+                    foreach (Collider2D hit in hits)
+                    {
+                        //player 검출시
+                        if (hit.tag == "Player" && hit.transform.position.y - transform.position.y <= 2)
+                        {
+                            Debug.Log("일반공격");
+                            enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                            isAttack = true;
+                            isMove = false;
+                            isDefence = false;
+                            AttackStart();
+                            break;
+                        }
+                    }
+
+                    //공격 시작했을 경우
+                    if (isAttack)
+                    {
+                        //공격 딜레이
+                        currDelay = 0;
+                        yield return new WaitForEndOfFrame();
+                        //루틴 초기화
+                        continue;
+                    }
+
+
+                }
+
+                //스턴 상태 아닐경우
+                if (!isAttack)
+                {
+                    //이동
+                    isMove = true;
+                    yield return new WaitForSeconds(moveTime);
+                    enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                    isMove = false;
+
+                    //방어타임
+                    yield return new WaitForSeconds(defenceTime);
+
+                }
             }
-
         }
     }
 

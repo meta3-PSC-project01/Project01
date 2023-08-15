@@ -34,7 +34,11 @@ public class EnemyBase : MonoBehaviour
     public int enemyHp = default;           //체력
     public float enemySpeed = default;      //속도
     public DirectionHorizen direction = DirectionHorizen.LEFT;   //방향
-    public int enemyDamageRegist = default; //스턴 데미지 한도
+
+    private Coroutine stunCoroutine = null;
+    public int enemyStunRegistValue = default; //스턴 데미지 한도
+    public int enemyStunRegistMaxCount = default; //스턴 데미지 횟수
+    public int enemyStunRegistCurrCount = default; //스턴 데미지 횟수
 
     public bool isStun = false;     //경직
 
@@ -74,10 +78,22 @@ public class EnemyBase : MonoBehaviour
     //해당 몬스터가 플레이어 공격 맞을시(플레이어의 ontrigger이벤트)
     //상대가 호출한다.
     //데미지 높은 공격시에 스턴에 걸린다.
-    public void Hit(bool isStun)
+    public void Hit(int damage)
     {
+        enemyHp -= damage;
+
+        if (enemyStunRegistValue < damage)
+        {
+            enemyStunRegistCurrCount += 1;
+            if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
+            {
+                enemyStunRegistCurrCount = 0;
+                isStun = true;
+                enemyAnimator.SetTrigger("Hit");
+            }
+        }
+
         //피격관련 재생(애니메이션, 소리)
-        //enemyAnimator.SetTrigger("Hit");
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Hit"));
 
         //플레이어의 공격으로 체력이 적용된 상태로 온다.
@@ -87,15 +103,18 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
-        //플레이어 인식
+        //맞으면 무조건 플레이어 인식
         target = FindObjectOfType<TestPlayer>();
 
         if (isStun)
         {
-            this.isStun = true;
+            if (stunCoroutine != null)
+            {
+                StopCoroutine(stunCoroutine);
+            }
             //일정시간 경직
-            //enemyAnimator.SetBool("Stun", true);
-            StartCoroutine(StunDelay(1f));
+            enemyAnimator.SetBool("Stun", true);
+            stunCoroutine = StartCoroutine(StunDelay(1f));
         }
     }
 
@@ -152,7 +171,7 @@ public class EnemyBase : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         isStun = false;
-        //enemyAnimator.SetBool("Stun", false);        
+        enemyAnimator.SetBool("Stun", false);        
     }    
 }
 

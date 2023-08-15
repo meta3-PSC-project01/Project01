@@ -58,7 +58,9 @@ MonoBehaviour:
   enemyHp: 0
   enemySpeed: 6
   direction: -1
-  enemyDamageRegist: 0
+  enemyStunRegistValue: 2
+  enemyStunRegistMaxCount: 3
+  enemyStunRegistCurrCount: 0
   isStun: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
