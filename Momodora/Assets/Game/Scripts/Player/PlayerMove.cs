@@ -179,12 +179,12 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 jSpeed[0] += jumpForce;
-                if (jSpeed[0] > 10f) { jSpeed[0] = 10f; }
+                if (jSpeed[0] > 10f) { jSpeed[0] = 10f; jumpingForce = false; }
             }
             else if (jumpCount == 2)
             {
-                jSpeed[0] += jumpForce;
-                if (jSpeed[1] > 10f) { jSpeed[1] = 10f; }
+                jSpeed[1] += jumpForce;
+                if (jSpeed[1] > 10f) { jSpeed[1] = 10; jumpingForce = false; }
             }
         }
 
@@ -193,12 +193,14 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[0]);
-                if (jSpeed[0] == 10f) { jumpingForce = false; }
+
+                Debug.Log(jSpeed[0]);
             }
             else if (jumpCount == 2)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[1]);
-                if (jSpeed[1] == 10f) { jumpingForce = false; }
+
+                Debug.Log(jSpeed[1]);
             }
         }
 
@@ -374,12 +376,14 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("CrouchBow", isCrouchBowed);
         animator.SetBool("ChargeCrouchBow", isChargeCrouchBowed);
         animator.SetBool("Hurt", hitMoveTime);
+        animator.SetBool("Jump", jumpingForce);
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
     }
 
     public void Hit(int damage, int location)
     {
+        if (isRolled == true) { return; }
         if (isHited == true) { return; }
 
         playerHp -= damage;
@@ -394,18 +398,15 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 0f;
             jSpeed[0] = 0f;
             jSpeed[1] = 0f;
-
             isHited = true;
             hitMoveTime = true;
+            isMlAttack = 0;
+            mlAttackConnect[0] = false;
+            mlAttackConnect[1] = false;
+            chargeForce = 0f;
 
-            if (location == 1)
-            {
-                playerRigidbody.velocity = new Vector2(-6f, 11f);
-            }
-            else if (location == -1)
-            {
-                playerRigidbody.velocity = new Vector2(6f, 11f);
-            }
+            if (location == 1) { playerRigidbody.velocity = new Vector2(-6f, 11f); }
+            else if (location == -1) { playerRigidbody.velocity = new Vector2(6f, 11f); }
 
             StartCoroutine(InvinTime());
             StartCoroutine(HitMoveTime());
