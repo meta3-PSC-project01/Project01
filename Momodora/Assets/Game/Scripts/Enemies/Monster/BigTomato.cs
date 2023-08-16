@@ -106,7 +106,14 @@ public class BigTomato : EnemyBase
                 else 
                 {
 
-                    Move();
+                    if (isTouch)
+                    {
+                        enemyRigidbody.velocity = Vector2.zero;
+                    }
+                    else
+                    {
+                        Move();
+                    }
                     enemyAnimator.SetTrigger("Move");
                     yield return new WaitForSeconds(moveDelay);
                     enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);

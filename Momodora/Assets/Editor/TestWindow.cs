@@ -74,7 +74,7 @@ public class TestWindow : EditorWindow
 
             foreach (EnemyBase enemy in tmp)
             {
-                enemy.Hit(1);
+                enemy.Hit(1,1);
             }
         }
         if (GUILayout.Button("MosterHit_Strong"))
@@ -83,7 +83,7 @@ public class TestWindow : EditorWindow
 
             foreach (EnemyBase enemy in tmp)
             {
-                enemy.Hit(2);
+                enemy.Hit(2,1);
             }
         }
 

@@ -40,7 +40,7 @@ public class EscapeTile : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerMove player = collision.GetComponent<PlayerMove>();
+            PlayerMove player = collision.GetComponentInParent<PlayerMove>();
 
             if (checkMinimap)
             {

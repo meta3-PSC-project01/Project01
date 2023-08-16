@@ -41,6 +41,7 @@ public class EnemyBase : MonoBehaviour
     public int enemyStunRegistCurrCount = default; //스턴 데미지 횟수
 
     public bool isStun = false;     //경직
+    public bool isTouch = false;
 
 
     public Rigidbody2D platformBody;
@@ -70,18 +71,16 @@ public class EnemyBase : MonoBehaviour
     //몬스터의 콜라이더 이벤트시
     public void Touch(PlayerMove player)
     {
-        player.playerHp -= 1;
         //플레이어 반응 
-        //player.Hit();
+        player.Hit(1, -(int)direction);
     }
 
     //해당 몬스터가 플레이어 공격 맞을시(플레이어의 ontrigger이벤트)
     //상대가 호출한다.
     //데미지 높은 공격시에 스턴에 걸린다.
-    public void Hit(int damage)
+    public void Hit(int damage, int direction)
     {
         enemyRigidbody.velocity = Vector3.zero;
-        enemyHp -= damage;
         
 
         if (enemyStunRegistValue <= damage)
@@ -90,7 +89,7 @@ public class EnemyBase : MonoBehaviour
             enemyStunRegistCurrCount += 1;
             if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
             {
-                HitReaction();
+                HitReaction(direction);
                 Debug.Log("스턴");
                 enemyStunRegistCurrCount = 0;
                 isStun = true;
@@ -125,7 +124,7 @@ public class EnemyBase : MonoBehaviour
 
     //몬스터 hit시 반응
     //기본은 색 바뀌기
-    public virtual void HitReaction()
+    public virtual void HitReaction(int direction)
     {
         //색 바뀌는 리액션
     }
@@ -175,8 +174,18 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            Touch(collision.collider.GetComponent<PlayerMove>());
+            isTouch = true;
+            Touch(collision.collider.GetComponentInParent<PlayerMove>());
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player")
+        {
+            isTouch = false;
+        }
+
     }
 
     //일정시간동안 스턴이 걸린다.

@@ -49,7 +49,7 @@ public class ImpBomb : EnemyAttackData
         {
             isBoom = true;
             CameraMove.ShakingCamera(Camera.main.GetComponent<CameraMove>());
-            PlayerMove player = collision.GetComponent<PlayerMove>();
+            PlayerMove player = collision.GetComponentInParent<PlayerMove>();
             if (player != null)
             {
                 //player.hp -= damage;

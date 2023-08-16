@@ -10,8 +10,8 @@ public class BossAttack : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerMove player = collision.GetComponent<PlayerMove>();
-            //player.Hit(damage, -1);            
+            PlayerMove player = collision.GetComponentInParent<PlayerMove>();
+            player.Hit(damage, 1);            
         }        
     }
 }

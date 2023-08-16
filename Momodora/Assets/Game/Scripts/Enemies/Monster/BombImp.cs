@@ -40,6 +40,10 @@ public class BombImp : EnemyBase
     // Update is called once per frame
     void Update()
     {
+        if (isTouch)
+        {
+            enemyRigidbody.velocity = Vector2.zero;
+        }
         //플레이어 타겟 지정
         if (target != null)
         {

@@ -94,7 +94,15 @@ public class ShieldImp : EnemyBase
                         direction = DirectionHorizen.RIGHT;
                         turn();
                     }
-                    Move();
+
+                    if (isTouch) 
+                    {
+                        enemyRigidbody.velocity = new Vector2(0,enemyRigidbody.velocity.y);
+                    }
+                    else
+                    {
+                        Move();
+                    }
                 }
             }
 

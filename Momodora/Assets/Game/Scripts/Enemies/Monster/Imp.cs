@@ -136,6 +136,7 @@ public class Imp : EnemyBase
                         //루틴 초기화
                         continue;
                     }
+                    yield return new WaitForEndOfFrame();
                 }
                 else
                 {
@@ -161,10 +162,17 @@ public class Imp : EnemyBase
     {
         isJump = true;
         float jumpResult = enemyRigidbody.velocity.y + jumpPower;
+        
         if(jumpResult > 5f)
         {
             jumpResult = 5f;
         }
+
+        if (isTouch)
+        {
+            enemySpeed = 0f;
+        }
+
         if (isMovingPlatform)
         {
             enemyRigidbody.velocity = new Vector2(-enemySpeed * (int)direction + platformBody.velocity.x, jumpResult);
