@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d287fcee3e51f0d4293320eb0d607b27
+guid: 4c8ec9257c824fe4fa71b723930b72c1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,169 +129,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Right_Run_0
+      name: Player_Rise_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 15
         y: 0
-        width: 49.125
-        height: 53
+        width: 20
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91664bd68f8c6f14a9b10476e4903bb6
-      internalID: -1159157527
+      spriteID: e3b8421d35d3f4f4a9bd73d2a4ff345a
+      internalID: 269803301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Run_1
+      name: Player_Rise_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 65
         y: 0
-        width: 49.125
-        height: 53
+        width: 19
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a6ed26b2f47cd84197edbaca1e0f15f
-      internalID: -1352234753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right_Run_2
-      rect:
-        serializedVersion: 2
-        x: 98
-        y: 0
-        width: 49.125
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ccc1febd22ef3444ac0a1a6fd9b38e1
-      internalID: 160467478
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right_Run_3
-      rect:
-        serializedVersion: 2
-        x: 147
-        y: 0
-        width: 49.125
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36fdbeabdf81d264dad403211cae3401
-      internalID: 2093291602
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right_Run_4
-      rect:
-        serializedVersion: 2
-        x: 196
-        y: 0
-        width: 49.125
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a4c0e6d519244c84aa53b51a95022741
-      internalID: -922410592
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right_Run_5
-      rect:
-        serializedVersion: 2
-        x: 245
-        y: 0
-        width: 49.125
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2dd63f828bc42114592f55d55e77fbe8
-      internalID: 2015832086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right_Run_6
-      rect:
-        serializedVersion: 2
-        x: 294
-        y: 0
-        width: 49.125
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 961899f2414e91b46a7c136dd8f7bb32
-      internalID: -931792158
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right_Run_7
-      rect:
-        serializedVersion: 2
-        x: 343
-        y: 0
-        width: 49.125
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2237075cc21721d47a44c8bd341e0686
-      internalID: -2133819610
+      spriteID: e8bd3c1d8a5c20a4c904df86725bdb6b
+      internalID: 1940666613
       vertices: []
       indices: 
       edges: []
@@ -307,14 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Right_Run_0: -1159157527
-      Player_Right_Run_1: -1352234753
-      Player_Right_Run_2: 160467478
-      Player_Right_Run_3: 2093291602
-      Player_Right_Run_4: -922410592
-      Player_Right_Run_5: 2015832086
-      Player_Right_Run_6: -931792158
-      Player_Right_Run_7: -2133819610
+      Player_Rise_0: 269803301
+      Player_Rise_1: 1940666613
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

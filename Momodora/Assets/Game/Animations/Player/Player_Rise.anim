@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_CrouchBow
+  m_Name: Player_Rise
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,22 +20,14 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -551633366, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - time: 0.1
-      value: {fileID: 1589807269, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - time: 0.2
-      value: {fileID: 176412984, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - time: 0.3
-      value: {fileID: -1318307948, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - time: 0.4
-      value: {fileID: -1861391086, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - time: 0.5
-      value: {fileID: -1688449290, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
+      value: {fileID: 269803301, guid: 4c8ec9257c824fe4fa71b723930b72c1, type: 3}
+    - time: 0.25
+      value: {fileID: 1940666613, guid: 4c8ec9257c824fe4fa71b723930b72c1, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 60
+  m_SampleRate: 4
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -50,18 +42,14 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -551633366, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - {fileID: 1589807269, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - {fileID: 176412984, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - {fileID: -1318307948, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - {fileID: -1861391086, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
-    - {fileID: -1688449290, guid: 721798ea50e0e21468ddc4e160974ae9, type: 3}
+    - {fileID: 269803301, guid: 4c8ec9257c824fe4fa71b723930b72c1, type: 3}
+    - {fileID: 1940666613, guid: 4c8ec9257c824fe4fa71b723930b72c1, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -80,18 +68,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.1
-    functionName: PlayerCrouchBowCheck
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5
-    functionName: PlayerCrouchBowEnd
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
