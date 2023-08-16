@@ -1,14 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Momodora/Assets/Game/TilePalette/RuleTile/Test.asset.meta
-guid: 3cab3feadcec7954fb4a4938fefce5f6
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 11400000
-========
 guid: 516a233d7b5bb5b4abfe7017fc0694f4
 PrefabImporter:
   externalObjects: {}
->>>>>>>> main:Momodora/Assets/Game/Prefabs/Player/CrashCollider.prefab.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
             mapDatabase.Add(mapData.name, mapData);
         }
 
-        currMap = Instantiate(mapDatabase["Stage1Start"], Vector2.zero, Quaternion.identity);
+        //currMap = Instantiate(mapDatabase["Stage1Start"], Vector2.zero, Quaternion.identity);
     }
 
     void Update()

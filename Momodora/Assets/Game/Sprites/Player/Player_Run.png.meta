@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78d03c5701f93be4abb9f59e33df5151
+guid: 5aec9b0a27de064439b1f38572306c7b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,85 +129,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Right_Crouch_0
+      name: Player_Run_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 110
         y: 0
-        width: 50.25
-        height: 44
+        width: 28
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae5f686d554145142b98797082f82696
-      internalID: -1702106739
+      spriteID: c0323134b64989d48b79e92a40ac1b92
+      internalID: -1122811245
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Crouch_1
+      name: Player_Run_1
       rect:
         serializedVersion: 2
-        x: 50
+        x: 161
         y: 0
-        width: 50.25
-        height: 44
+        width: 26
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d92db28d88a506149a1e5209cc43e044
-      internalID: -547231544
+      spriteID: 99228d6c021d6a04e9a1592f23787b35
+      internalID: -582326655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Crouch_2
+      name: Player_Run_2
       rect:
         serializedVersion: 2
-        x: 100
+        x: 213
         y: 0
-        width: 50.25
-        height: 44
+        width: 22
+        height: 36
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6982c09ee22ed340b010d9d75e42195
-      internalID: 1421343979
+      spriteID: d026d0a22953d3246995971d2c55aff4
+      internalID: -1092251113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Crouch_3
+      name: Player_Run_3
       rect:
         serializedVersion: 2
-        x: 150
+        x: 261
         y: 0
-        width: 50.25
-        height: 44
+        width: 23
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53506e24341010644a6759578bd11815
-      internalID: -1850098898
+      spriteID: e55830616fd32c040b73a830dd1ce75c
+      internalID: -580847075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Run_4
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 0
+        width: 27
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 719c5a5eb9cb68b4c9249c151e4fe20f
+      internalID: -262525667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Run_5
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 0
+        width: 26
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 046fcdb3eb925c847aae978aedfed45a
+      internalID: 193096723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Run_6
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 0
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7211b0edbfded7f44b490dc323d6c56a
+      internalID: -1439425642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Run_7
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 0
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d54606723793156438116632c2234524
+      internalID: -1735449375
       vertices: []
       indices: 
       edges: []
@@ -223,10 +307,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Right_Crouch_0: -1702106739
-      Player_Right_Crouch_1: -547231544
-      Player_Right_Crouch_2: 1421343979
-      Player_Right_Crouch_3: -1850098898
+      Player_Run_0: -1122811245
+      Player_Run_1: -582326655
+      Player_Run_2: -1092251113
+      Player_Run_3: -580847075
+      Player_Run_4: -262525667
+      Player_Run_5: 193096723
+      Player_Run_6: -1439425642
+      Player_Run_7: -1735449375
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -11,9 +11,10 @@ public class PlayerMove : MonoBehaviour
     private Animator animator = default;
     private Collider2D[] attackCollider;
     public GameObject arrowPrefab;
-    public CapsuleCollider2D playerCollider_;
+    public Collider2D playerCollider_;
     private GameObject thinFloor;
     public Transform playerContainer;
+    private GameObject monster;
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
@@ -57,6 +58,8 @@ public class PlayerMove : MonoBehaviour
     private bool isCharged = false;
     [SerializeField] private bool thinFloorCheck = false;
     [SerializeField] private bool forceLadder = false;
+    private bool isHited = false;
+    private bool hitMoveTime = false;
 
 
     public Rigidbody2D platformBody;
@@ -72,7 +75,7 @@ public class PlayerMove : MonoBehaviour
         attackSize = new Vector2(2f, 2f);
 
         moveForce = 10f;
-        rollForce = 0.1f;
+        rollForce = 0.05f;
         jumpForce = 0.3f;
         xInput = 0f;
         xSpeed = 0f;
@@ -84,6 +87,7 @@ public class PlayerMove : MonoBehaviour
         chargeForce = 0f;
         chargeAddForce = 1f;
         chargeMax = 2000f;
+        playerHp = 100;
 
         jumpCount = 0;
         isMlAttack = 0;
@@ -99,41 +103,45 @@ public class PlayerMove : MonoBehaviour
     {
         if (ItemManager.instance.lookAtInventory == true) { return; }
 
-        xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
-        if (isRolled == true)
+        if (hitMoveTime == false)
         {
-            if (rollingSlow == false)
+            xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
+            if (isRolled == true)
             {
-                if (rollFlipX == false)
+                if (rollingSlow == false)
                 {
-                    rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                    if (rSpeed > 13f) { rSpeed = 13f; }
+                    if (rollFlipX == false)
+                    {
+                        rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                        if (rSpeed > 13f) { rSpeed = 13f; }
 
-                    playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
+                        playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
+                    }
+                    else
+                    {
+                        rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                        if (rSpeed > 13f) { rSpeed = 13f; }
+
+                        playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (isBowed == false)
                 {
-                    rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                    if (rSpeed > 13f) { rSpeed = 13f; }
-
-                    playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
+                    if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
+                    {
+                        xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
+                        Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
+                        playerRigidbody.velocity = newVelocity;
+                    }
                 }
             }
         }
-        else
-        {
-            if (isBowed == false)
-            {
-                if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
-                {
-                    xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
-                    Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
-                    playerRigidbody.velocity = newVelocity;
-                }
-            }
-        }
+        
 
-        if (isRolled == false)
+        if (isRolled == false && hitMoveTime == false)
         {
             if (xSpeed > 0f) { if (flipX == true) { flipX = false; playerRenderer.flipX = false; } }
 
@@ -152,7 +160,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false)
+        if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false)
         {
             if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
             else
@@ -350,6 +358,11 @@ public class PlayerMove : MonoBehaviour
             Debug.Log("아이템 획득!");
         }
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Hit(0, 1);
+        }
+
         animator.SetBool("Ground", isGrounded);
         animator.SetBool("Roll", isRolled);
         animator.SetBool("Crouch", isCrouched);
@@ -360,11 +373,69 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("ChargeAirBow", isChargeAirBowed);
         animator.SetBool("CrouchBow", isCrouchBowed);
         animator.SetBool("ChargeCrouchBow", isChargeCrouchBowed);
+        animator.SetBool("Hurt", hitMoveTime);
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
     }
 
-       // Fix : 플레이어 행동 조건 요약
+    public void Hit(int damage, int location)
+    {
+        if (isHited == true) { return; }
+
+        playerHp -= damage;
+
+        if (playerHp <= 0)
+        {
+
+        }
+        else
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            xSpeed = 0f;
+            jSpeed[0] = 0f;
+            jSpeed[1] = 0f;
+
+            isHited = true;
+            hitMoveTime = true;
+
+            if (location == 1)
+            {
+                playerRigidbody.velocity = new Vector2(-6f, 11f);
+            }
+            else if (location == -1)
+            {
+                playerRigidbody.velocity = new Vector2(6f, 11f);
+            }
+
+            StartCoroutine(InvinTime());
+            StartCoroutine(HitMoveTime());
+        }
+
+        Debug.Log("히트!");
+    }
+
+    IEnumerator InvinTime()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            playerRenderer.enabled = false;
+            yield return new WaitForSeconds(0.05f);
+            playerRenderer.enabled = true;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        isHited = false;
+        Debug.Log("무적시간 종료");
+    }
+
+    IEnumerator HitMoveTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        hitMoveTime = false;
+    }
+
+    // Fix : 플레이어 행동 조건 요약
     public bool IsJump()
     {
         return (isGrounded == false && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false);
@@ -392,8 +463,8 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void PlayerBowShot()
-    {
-        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+    {      // Fix : Vector3 up
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer.position+Vector3.up * 0.5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
@@ -547,7 +618,11 @@ public class PlayerMove : MonoBehaviour
 
         for (int i = 0; i < attackCollider.Length; i++)
         {
-            if (attackCollider[i].tag == ("Enemy")) { Debug.LogFormat("{0}", attackCollider[i].name); }
+            if (attackCollider[i].tag == ("Enemy"))
+            {
+                monster = attackCollider[i].gameObject;
+                monster.GetComponent<Test>().Hit(5, 1);
+            }
         }
     }
 
@@ -559,7 +634,11 @@ public class PlayerMove : MonoBehaviour
         attackCollider = Physics2D.OverlapBoxAll(attackVector, attackSize, 0f);
         for (int i = 0; i < attackCollider.Length; i++)
         {
-            if (attackCollider[i].tag == ("Enemy")) { Debug.LogFormat("{0}", attackCollider[i].name); }
+            if (attackCollider[i].tag == ("Enemy"))
+            {
+                monster = attackCollider[i].gameObject;
+                monster.GetComponent<Test>().Hit(5, 1);
+            }
         }
     }
 
