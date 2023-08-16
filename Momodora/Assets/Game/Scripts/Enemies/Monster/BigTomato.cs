@@ -38,13 +38,21 @@ public class BigTomato : EnemyBase
             {
                 if (!isAttack)
                 {
-                    routine = StartCoroutine(MonsterRoutine());
+                    if (!isStun)
+                    {
+                        routine = StartCoroutine(MonsterRoutine());
+                    }
                 }
             }
 
             if (currDelay < attackDelay)
             {
                 currDelay += Time.deltaTime;
+            }
+
+            if (isStun && currDelay > attackDelay)
+            {
+                currDelay = attackDelay * .6f;
             }
         }
     }
@@ -53,52 +61,70 @@ public class BigTomato : EnemyBase
     {
         while (true)
         {
-            if (transform.position.x - target.transform.position.x > 0)
-            {
-                direction = DirectionHorizen.LEFT;
-                turn();
-            }
-            else
-            {
-                direction = DirectionHorizen.RIGHT;
-                turn();
-            }
-            if (currDelay >= attackDelay && !isAttack)
-            {
-                Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition.position, 2);
-
-                //hit배열을 모두 돈다
-                foreach (Collider2D hit in hits)
-                {
-                    if (hit.tag == "Player")
-                    {
-                        enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                        AttackStart();
-                        isAttack = true;
-                        currDelay = 0;
-                        break;
-                    }
-                }
-                if (isAttack)
-                {
-                    break;
-                }
-            }
-            
-            if (!isStun)
-            {
-                Move();
-                enemyAnimator.SetTrigger("Move");
-                yield return new WaitForSeconds(moveDelay);
-                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-            }
-            else
+            if (isStun)
             {
                 yield return new WaitForEndOfFrame();
             }
+            else
+            {
+
+                if (transform.position.x - target.transform.position.x > 0)
+                {
+                    direction = DirectionHorizen.LEFT;
+                    turn();
+                }
+                else
+                {
+                    direction = DirectionHorizen.RIGHT;
+                    turn();
+                }
+
+                if (currDelay >= attackDelay && !isAttack)
+                {
+                    Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition.position, 2);
+
+                    //hit배열을 모두 돈다
+                    foreach (Collider2D hit in hits)
+                    {
+                        Debug.Log("!");
+                        if (hit.tag == "Player")
+                        {
+                            Debug.Log("!");
+                            enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                            AttackStart();
+                            isAttack = true;
+                            currDelay = 0;
+                            break;
+                        }
+                    }
+                    if (isAttack)
+                    {
+                        break;
+                    }
+                    yield return new WaitForEndOfFrame();
+                }
+                else 
+                {
+
+                    Move();
+                    enemyAnimator.SetTrigger("Move");
+                    yield return new WaitForSeconds(moveDelay);
+                    enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                }
+                    
+
+            }
+            
         }
 
         routine = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(attackPosition.position, 2);
+
     }
 
     public override void Move()

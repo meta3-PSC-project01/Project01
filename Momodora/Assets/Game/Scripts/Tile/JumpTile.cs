@@ -9,16 +9,13 @@ public class JumpTile : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("충돌?");
         if (collision.collider.tag == "Player")
         {
-            Debug.Log("충돌!");
             if (!isChewing)
             {
-                Debug.Log("시작");
                 isChewing = true;
                 StartCoroutine(Chewing());
-                collision.collider.GetComponent<TestPlayer>().playerRigidbody.AddForce(new Vector2(0, 30f), ForceMode2D.Impulse);
+                collision.collider.GetComponent<PlayerMove>().playerRigidbody.AddForce(new Vector2(0, 30f), ForceMode2D.Impulse);
             }
         }
     }

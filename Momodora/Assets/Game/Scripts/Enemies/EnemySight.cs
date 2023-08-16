@@ -85,11 +85,11 @@ public class EnemySight : MonoBehaviour
                 //타겟 지정 완료
                 //한번 타겟이 지정되면 맵을 벗어날때까지 쫓아온다.
                 EnemyBase tmp = GetComponentInParent<EnemyBase>();
-                tmp.target = other.GetComponent<TestPlayer>();
+                tmp.target = other.GetComponent<PlayerMove>();
 
                 //타겟이 지정되면 해당 기능을 쓸 필요가 없기때문에 비활성화 시킨다.
                 gameObject.SetActive(false);
-                Debug.Log("인식완료");
+                //Debug.Log("인식완료");
             }
         }
     }

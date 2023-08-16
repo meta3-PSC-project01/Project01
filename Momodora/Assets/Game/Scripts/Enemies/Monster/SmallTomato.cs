@@ -59,22 +59,25 @@ public class SmallTomato : EnemyBase
                 //공격 진행중 x
                 if (!isAttack)
                 {
-                    if (Random.Range(0, 100) >= 90)
+                    if (!isStun)
                     {
-                        onDashAttack = true;
-                    }
-                    else
-                    {
-                        onDashAttack = false;
-                    }
+                        if (Random.Range(0, 100) >= 90)
+                        {
+                            onDashAttack = true;
+                        }
+                        else
+                        {
+                            onDashAttack = false;
+                        }
 
-                    if (!enemyAnimator.GetBool("Move"))
-                    {
-                        enemyAnimator.SetBool("Move", true);
+                        if (!enemyAnimator.GetBool("Move"))
+                        {
+                            enemyAnimator.SetBool("Move", true);
+                        }
+                        enemyRigidbody.velocity = Vector2.zero;
+                        //루틴 시작
+                        routine = StartCoroutine(MonsterRoutine());
                     }
-                    enemyRigidbody.velocity = Vector2.zero;
-                    //루틴 시작
-                    routine = StartCoroutine(MonsterRoutine());
                 }
             }
 
@@ -82,6 +85,11 @@ public class SmallTomato : EnemyBase
             if (currDelay < attackDelay)
             {
                 currDelay += Time.deltaTime;
+            }
+
+            if (isStun && currDelay > attackDelay)
+            {
+                currDelay = attackDelay * .6f;
             }
         }
     }
@@ -93,107 +101,107 @@ public class SmallTomato : EnemyBase
         while (true)
         {
 
-            //좌표 비교후 회전
-            if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
-            {
-                direction = DirectionHorizen.LEFT;
-                turn();
-                accel *= .75f;
-            }
-            else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
-            {
-                direction = DirectionHorizen.RIGHT;
-                turn();
-                accel *= .75f;
-            }
-
-            //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
-            if (currDelay >= attackDelay && !isAttack)
-            {
-                Debug.Log("1");
-                if (onDashAttack)
-                {
-                    //해당 영역에 있는 적 정보 가져옴(공격 범위)
-
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(new Vector2(transform.position.x + (dashDistance - .25f) * (int)direction, transform.position.y), new Vector2(.5f, .8f), 0);
-
-                    //hit배열을 모두 돈다
-                    foreach (Collider2D hit in hits)
-                    {
-                        //player 검출시
-                        if (hit.tag == "Player")
-                        {
-                            //대시공격 활성화+ 몬스터 땅에 있어야함
-                            //특정거리+
-                            //플레이어 점프안함
-                            if (onDashAttack && upFloor)
-                            {
-                                Debug.Log("특수공격");
-                                //정지
-                                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                                AttackStart();
-                                isAttack = true;
-                                break;
-                            }
-                        }
-                    }
-                    //공격 시작했을 경우
-                    if (isAttack)
-                    {
-                        //공격 딜레이
-                        currDelay = 0;
-                        //루틴 종료
-                        break;
-                    }
-                }
-                Debug.Log("2");
-                {
-                    Debug.Log("3");
-                    Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition.position, new Vector2(1.5f,1), 0);
-
-                    //hit배열을 모두 돈다
-                    foreach (Collider2D hit in hits)
-                    {
-                        Debug.Log("4");
-                        //player 검출시
-                        if (hit.tag == "Player")
-                        {
-                            Debug.Log("일반공격");
-                            enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
-                            AttackStart();
-                            onDashAttack = false;
-                            isAttack = true;
-                            break;
-                        }
-                    }
-
-                    //공격 시작했을 경우
-                    if (isAttack)
-                    {
-                        //공격 딜레이
-                        currDelay = 0;
-                        //루틴 종료
-                        break;
-                    }
-                }
-
-
-            }
-
             //스턴 상태 아닐경우
-            if (!isStun)
+            if (isStun)
             {
-                //이동
-                Move();
-                yield return new WaitForSeconds(Time.deltaTime);
+                //아직 안만듬
+                yield return new WaitForEndOfFrame();
+                continue;
 
             }
             //스턴 상태일 경우
             else
             {
-                //아직 안만듬
-                yield return new WaitForEndOfFrame();
+
+
+                //좌표 비교후 회전
+                if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+                {
+                    direction = DirectionHorizen.LEFT;
+                    turn();
+                    accel *= .75f;
+                }
+                else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
+                {
+                    direction = DirectionHorizen.RIGHT;
+                    turn();
+                    accel *= .75f;
+                }
+
+                //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
+                if (currDelay >= attackDelay && !isAttack)
+                {
+                    if (onDashAttack)
+                    {
+                        //해당 영역에 있는 적 정보 가져옴(공격 범위)
+
+                        Collider2D[] hits = Physics2D.OverlapBoxAll(new Vector2(transform.position.x + (dashDistance - .25f) * (int)direction, transform.position.y), new Vector2(.5f, .8f), 0);
+
+                        //hit배열을 모두 돈다
+                        foreach (Collider2D hit in hits)
+                        {
+                            //player 검출시
+                            if (hit.tag == "Player")
+                            {
+                                //대시공격 활성화+ 몬스터 땅에 있어야함
+                                //특정거리+
+                                //플레이어 점프안함
+                                if (onDashAttack && upFloor)
+                                {
+                                    //정지
+                                    enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                                    AttackStart();
+                                    isAttack = true;
+                                    break;
+                                }
+                            }
+                        }
+                        //공격 시작했을 경우
+                        if (isAttack)
+                        {
+                            //공격 딜레이
+                            currDelay = 0;
+                            //루틴 종료
+                            break;
+                        }
+                    }
+                    {
+                        Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition.position, new Vector2(1.5f, 1), 0);
+
+                        //hit배열을 모두 돈다
+                        foreach (Collider2D hit in hits)
+                        {
+                            //player 검출시
+                            if (hit.tag == "Player")
+                            {
+                                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                                AttackStart();
+                                onDashAttack = false;
+                                isAttack = true;
+                                break;
+                            }
+                        }
+
+                        //공격 시작했을 경우
+                        if (isAttack)
+                        {
+                            //공격 딜레이
+                            currDelay = 0;
+                            //루틴 종료
+                            break;
+                        }
+                    }
+
+                    //이동
+                    Move();
+                    yield return new WaitForSeconds(Time.deltaTime);
+                }
+                else
+                {
+                    yield return new WaitForEndOfFrame();
+                }
             }
+
         }
 
         //루틴 종료
@@ -205,6 +213,35 @@ public class SmallTomato : EnemyBase
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector2(transform.position.x + (dashDistance - .25f) * (int)direction, transform.position.y), new Vector2(.5f, .8f));
         Gizmos.DrawWireCube(attackPosition.position, new Vector2(1.5f, 1));
+
+    }
+
+    Coroutine hitReactionCoroutine = null;
+
+    public override void HitReaction()
+    {
+        base.HitReaction();
+        if (hitReactionCoroutine != null)
+        {
+            StopCoroutine(hitReactionCoroutine);
+        }
+        hitReactionCoroutine = StartCoroutine(ReactionRoutine());
+    }
+
+    IEnumerator ReactionRoutine()
+    {
+        Vector3 tmp;
+        //.2초 떨림
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = new Vector3(Random.Range(0, .2f), Random.Range(0, .2f));
+            transform.position = transform.position + tmp;
+            yield return new WaitForSeconds(.02f);
+            transform.position = transform.position - tmp;
+        }
+        yield return new WaitForEndOfFrame();
+
+        enemyRigidbody.velocity = new Vector2(5, 3);
 
     }
 
@@ -238,14 +275,12 @@ public class SmallTomato : EnemyBase
     //애니메이션 시작
     public override void AttackStart()
     {
-        Debug.Log("공격시작");
         enemyAnimator.SetTrigger("Attack");
     }
 
     //애니메이션 중 이펙트 인스탄트 = 공격 시작
     public void AttackStartEvent()
     {
-        Debug.Log("인스턴스생성");
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation, transform).GetComponent<EnemyAttackData>();
 
     }
@@ -256,7 +291,6 @@ public class SmallTomato : EnemyBase
     {
         if (onDashAttack)
         {
-            Debug.Log("모션");
             enemyRigidbody.AddForce(new Vector2((int)direction * dashSpeed, dashJump), ForceMode2D.Impulse);
         }
     }
@@ -264,7 +298,6 @@ public class SmallTomato : EnemyBase
     //애니메이션 중 콜라이더 ON = 공격 타이밍
     public void AttackColliderEvent()
     {
-        Debug.Log("콜라이더");
         attackObject.UseCollider();
     }
 
@@ -272,7 +305,6 @@ public class SmallTomato : EnemyBase
     //애니메이션 중 공격 종료 = 공격 종료
     public void AttackEndEvent()
     {
-        Debug.Log("인스턴스 파괴");
         Destroy(attackObject.gameObject);
     }
 

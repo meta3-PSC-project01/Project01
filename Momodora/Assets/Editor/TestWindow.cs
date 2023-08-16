@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor.UI;
 using UnityEditor.Tilemaps;
@@ -46,12 +47,11 @@ public class TestWindow : EditorWindow
         {
             string filename = System.IO.Path.GetFileNameWithoutExtension(groundTilePalette[i]);
             groundTileNames[i] = filename;
-            Debug.Log(filename);
             if (filename.Equals("Stage01_BaseTile_RuleTile"))
             {
                 basTilePalette = AssetDatabase.LoadAssetAtPath("Assets/Game/TilePalette/Stage01/Stage01_BaseTile_RuleTile.prefab", typeof(GameObject)) as GameObject;
                 Tilemap tmp = basTilePalette.GetComponentInChildren<Tilemap>();
-                baseTile = tmp.GetTile(new Vector3Int(-6, 0, 0));
+                baseTile = tmp.GetTile(new Vector3Int(1, 1, 0));
 
 
                 basTilePalette = AssetDatabase.LoadAssetAtPath("Assets/Game/TilePalette/Stage01/Stage01_Others_SpriteTile.prefab", typeof(GameObject)) as GameObject;
@@ -67,6 +67,26 @@ public class TestWindow : EditorWindow
 
     void OnGUI()
     {
+
+        if (GUILayout.Button("MosterHit_Weak"))
+        {
+            List<EnemyBase> tmp = GameObject.FindObjectsOfType<EnemyBase>().ToList();
+
+            foreach (EnemyBase enemy in tmp)
+            {
+                enemy.Hit(1);
+            }
+        }
+        if (GUILayout.Button("MosterHit_Strong"))
+        {
+            List<EnemyBase> tmp = GameObject.FindObjectsOfType<EnemyBase>().ToList();
+
+            foreach (EnemyBase enemy in tmp)
+            {
+                enemy.Hit(2);
+            }
+        }
+
         mapParent = EditorGUILayout.ObjectField("부모 필드", mapParent, typeof(GameObject), true) as GameObject;
 
         if (mapParent!=null)
@@ -81,7 +101,9 @@ public class TestWindow : EditorWindow
             }
             int type = 1;//horizen
 
-            if (GUILayout.Button("RandomEnemy"))
+
+
+            if (GUILayout.Button("CreateMap"))
             {
                 Debug.Log(before.name);
                 if (currSize > 0)

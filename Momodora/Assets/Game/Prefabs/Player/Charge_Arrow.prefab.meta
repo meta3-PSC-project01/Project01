@@ -1,14 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Momodora/Assets/Game/TilePalette/RuleTile/Stage01.asset.meta
-guid: 4136947f12cde9647b83fcb707cc6d31
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 11400000
-========
 guid: 33e3aa45c8318d747a6437b8742c68e1
 PrefabImporter:
   externalObjects: {}
->>>>>>>> main:Momodora/Assets/Game/Prefabs/Player/Charge_Arrow.prefab.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

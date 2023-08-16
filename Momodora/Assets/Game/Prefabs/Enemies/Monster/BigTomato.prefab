@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 744239296075775470}
-  - component: {fileID: 6108198434541331407}
   - component: {fileID: 4457733344600371222}
   - component: {fileID: 8512634182877160520}
   - component: {fileID: 2941929044323799276}
+  - component: {fileID: 6108198434541331407}
   m_Layer: 0
   m_Name: BigTomato
   m_TagString: Enemy
@@ -38,31 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6108198434541331407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575781307936458288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a99389331cca9964585d3ca48c1d26c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPosition: {fileID: 7450673633853130846}
-  attackData:
-  - {fileID: 4938066316447642722, guid: a6039717a52c7924f914f02adefe8a59, type: 3}
-  sight: {fileID: 676820797251634342}
-  target: {fileID: 0}
-  enemyHp: 0
-  enemySpeed: 6
-  direction: -1
-  enemyDamageRegist: 0
-  isStun: 0
-  platformBody: {fileID: 0}
-  isMovingPlatform: 0
-  isAttack: 0
 --- !u!50 &4457733344600371222
 Rigidbody2D:
   serializedVersion: 4
@@ -206,6 +181,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6108198434541331407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575781307936458288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99389331cca9964585d3ca48c1d26c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPosition: {fileID: 7450673633853130846}
+  attackData:
+  - {fileID: 4435714255859018065, guid: a6039717a52c7924f914f02adefe8a59, type: 3}
+  sight: {fileID: 676820797251634342}
+  target: {fileID: 0}
+  enemyHp: 50
+  enemySpeed: 6
+  direction: -1
+  enemyStunRegistValue: 2
+  enemyStunRegistMaxCount: 3
+  enemyStunRegistCurrCount: 0
+  isStun: 0
+  platformBody: {fileID: 0}
+  isMovingPlatform: 0
+  isAttack: 0
 --- !u!1 &954475587919097548
 GameObject:
   m_ObjectHideFlags: 0

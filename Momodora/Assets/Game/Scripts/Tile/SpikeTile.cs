@@ -10,25 +10,21 @@ public class SpikeTile : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("?"+collision.contacts[0].point.y);
-            Debug.Log("!"+collision.transform.position.y);
             if (collision.contacts[0].point.y < collision.transform.position.y)
             {
 
-                TestPlayer test = collision.transform.GetComponent<TestPlayer>();
+                PlayerMove test = collision.transform.GetComponent<PlayerMove>();
                 TileBase tile = transform.GetComponent<Tilemap>().GetTile(Vector3Int.FloorToInt(collision.transform.position - new Vector3Int(0, 1, 0)));
 
                 if (tile == null) return;
-                Debug.Log(transform.GetComponent<Tilemap>());
-                Debug.Log(tile.name);
                 if (transform.tag == "")
                 {
-                    test.hp -= 10;
+                    test.playerHp -= 10;
                     //플레이어 히트
                 }
                 else if (transform.tag == "")
                 {
-                    test.hp = -100;
+                    test.playerHp = -100;
                     //플레이어 히트
                 }
             }

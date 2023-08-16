@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 98816428730168614}
   - component: {fileID: 6656800308223701222}
+  - component: {fileID: -9144295508712530042}
+  - component: {fileID: 4298266886203749926}
   - component: {fileID: 670078529262013141}
   - component: {fileID: 1536804538908239001}
   - component: {fileID: 1995816998593716413}
@@ -87,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &670078529262013141
+--- !u!114 &-9144295508712530042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,6 +97,46 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3344135783608696966}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fabc4609269d49488b20382dcf73720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUi: {fileID: 5716301537474485006, guid: e29ab16689129134b9117c004990228b, type: 3}
+  leaf: 0
+  lookAtInventory: 0
+  inventoryCheckTime: 0
+  equipCheck: 0000000000
+--- !u!114 &4298266886203749926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3344135783608696966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3396650f03458864bbd3212409d7a2ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRigidbody: {fileID: 0}
+  arrowPrefab: {fileID: 0}
+  playerCollider_: {fileID: 0}
+  playerContainer: {fileID: 0}
+  playerHp: 0
+  isGrounded: 0
+  isLadder: 0
+  thinFloorCheck: 0
+  forceLadder: 0
+  platformBody: {fileID: 0}
+  isMovingPlatform: 0
+--- !u!114 &670078529262013141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3344135783608696966}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ca3704f5a67df140ba85d15dd9d4543, type: 3}
   m_Name: 
@@ -119,7 +161,7 @@ MonoBehaviour:
   jumpForce: 0
   jumpCount: 0
   isMlAttack: 0
-  hp: 0
+  playerHp: 0
   jumping: 0
   jumpingForce: 0
   flipX: 0

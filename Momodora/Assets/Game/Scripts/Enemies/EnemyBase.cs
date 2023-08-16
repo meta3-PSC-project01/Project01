@@ -28,13 +28,17 @@ public class EnemyBase : MonoBehaviour
     public EnemySight sight;
 
     //적 prefab 하단의 sight 스크립트가 해당 변수를 컨트롤한다. 
-    public TestPlayer target = null;
+    public PlayerMove target = null;
 
     //에너미 속성
     public int enemyHp = default;           //체력
     public float enemySpeed = default;      //속도
     public DirectionHorizen direction = DirectionHorizen.LEFT;   //방향
-    public int enemyDamageRegist = default; //스턴 데미지 한도
+
+    private Coroutine stunCoroutine = null;
+    public int enemyStunRegistValue = default; //스턴 데미지 한도
+    public int enemyStunRegistMaxCount = default; //스턴 데미지 횟수
+    public int enemyStunRegistCurrCount = default; //스턴 데미지 횟수
 
     public bool isStun = false;     //경직
 
@@ -64,9 +68,9 @@ public class EnemyBase : MonoBehaviour
     }
 
     //몬스터의 콜라이더 이벤트시
-    public void Touch(TestPlayer player)
+    public void Touch(PlayerMove player)
     {
-        player.hp -= 1;
+        player.playerHp -= 1;
         //플레이어 반응 
         //player.Hit();
     }
@@ -74,10 +78,27 @@ public class EnemyBase : MonoBehaviour
     //해당 몬스터가 플레이어 공격 맞을시(플레이어의 ontrigger이벤트)
     //상대가 호출한다.
     //데미지 높은 공격시에 스턴에 걸린다.
-    public void Hit(bool isStun)
+    public void Hit(int damage)
     {
+        enemyRigidbody.velocity = Vector3.zero;
+        enemyHp -= damage;
+        
+
+        if (enemyStunRegistValue <= damage)
+        {
+            Debug.Log("스턴카운트+1");
+            enemyStunRegistCurrCount += 1;
+            if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
+            {
+                HitReaction();
+                Debug.Log("스턴");
+                enemyStunRegistCurrCount = 0;
+                isStun = true;
+                enemyAnimator.SetTrigger("Hit");
+            }
+        }
+
         //피격관련 재생(애니메이션, 소리)
-        //enemyAnimator.SetTrigger("Hit");
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Hit"));
 
         //플레이어의 공격으로 체력이 적용된 상태로 온다.
@@ -87,16 +108,26 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
-        //플레이어 인식
-        target = FindObjectOfType<TestPlayer>();
+        //맞으면 무조건 플레이어 인식
+        target = FindObjectOfType<PlayerMove>();
 
         if (isStun)
         {
-            this.isStun = true;
+            if (stunCoroutine != null)
+            {
+                StopCoroutine(stunCoroutine);
+            }
             //일정시간 경직
-            //enemyAnimator.SetBool("Stun", true);
-            StartCoroutine(StunDelay(1f));
+            enemyAnimator.SetBool("Stun", true);
+            stunCoroutine = StartCoroutine(StunDelay(1f));
         }
+    }
+
+    //몬스터 hit시 반응
+    //기본은 색 바뀌기
+    public virtual void HitReaction()
+    {
+        //색 바뀌는 리액션
     }
 
     //몬스터 죽을시
@@ -104,9 +135,10 @@ public class EnemyBase : MonoBehaviour
     public virtual void Dead()
     {
         //죽음관련 재생(애니메이션, 소리)
-        //enemyAnimator.SetTrigger("Dead");
+        enemyAnimator.SetBool("Dead", true);
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Dead"));
 
+        Debug.Log(gameObject.name+"죽음");
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         enemyCollider.enabled = false;
         Destroy(gameObject,.5f);
@@ -143,7 +175,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            Touch(collision.collider.GetComponent<TestPlayer>());
+            Touch(collision.collider.GetComponent<PlayerMove>());
         }
     }
 
@@ -152,7 +184,7 @@ public class EnemyBase : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         isStun = false;
-        //enemyAnimator.SetBool("Stun", false);        
+        enemyAnimator.SetBool("Stun", false);        
     }    
 }
 

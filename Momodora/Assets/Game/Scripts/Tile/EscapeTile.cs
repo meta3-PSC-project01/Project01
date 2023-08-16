@@ -24,7 +24,6 @@ public class EscapeTile : MonoBehaviour
     {
         GetComponent<CompositeCollider2D>().GenerateGeometry();
         pivot = GetComponent<CompositeCollider2D>().bounds.center;
-        Debug.Log(gameObject.name+"pivot "+pivot);
     }
 
     public MapData GetMapData()
@@ -39,10 +38,9 @@ public class EscapeTile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("µé¾î¿È?");
         if (collision.CompareTag("Player"))
         {
-            TestPlayer player = collision.GetComponent<TestPlayer>();
+            PlayerMove player = collision.GetComponent<PlayerMove>();
 
             if (checkMinimap)
             {
@@ -61,7 +59,7 @@ public class EscapeTile : MonoBehaviour
                 }
                 else if (canDead)
                 {
-                    player.hp = 0;
+                    player.playerHp = 0;
                     //player.Hit();
                 }
             }
@@ -69,7 +67,7 @@ public class EscapeTile : MonoBehaviour
     }
     
 
-    IEnumerator loadingMap(GameObject nextMap, TestPlayer player)
+    IEnumerator loadingMap(GameObject nextMap, PlayerMove player)
     {
         player.transform.localScale = Vector3.zero;
         GameManager.instance.CameraOnceMove();

@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
         MapData[] map = Resources.LoadAll<MapData>("Maps");
         foreach (MapData mapData in map)
         {
-            Debug.Log(mapData);
             mapDatabase.Add(mapData.name, mapData);
         }
 
