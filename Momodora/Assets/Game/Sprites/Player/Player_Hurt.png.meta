@@ -132,19 +132,19 @@ TextureImporter:
       name: Player_Hurt_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 10
         y: 0
-        width: 49
-        height: 44
+        width: 24
+        height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 835b774e88d3a4247a2c48b94814824b
-      internalID: -364407217
+      spriteID: dc1f210db94ee0d4ea18b1b162dbb804
+      internalID: -152446158
       vertices: []
       indices: 
       edges: []
@@ -160,7 +160,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Hurt_0: -364407217
+      Player_Hurt_0: -152446158
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

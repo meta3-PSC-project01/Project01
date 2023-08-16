@@ -133,18 +133,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 15
-        y: 3
+        y: 0
         width: 27
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e75a9d7f57917ee4a975e1f6fea29b2f
-      internalID: 211678822
+      spriteID: 7227f856569160a4b989f9fc3df0fec2
+      internalID: -551633366
       vertices: []
       indices: 
       edges: []
@@ -154,18 +154,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 3
+        y: 0
         width: 27
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b6d782c6e56ef64b9917368adbd6131
-      internalID: 704060010
+      spriteID: cbecd5ed9a8ad634d9b3f0e49672aa24
+      internalID: 1589807269
       vertices: []
       indices: 
       edges: []
@@ -175,18 +175,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 113
-        y: 3
+        y: 0
         width: 27
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 403a1aa1fe5cd774f9770ec9d33d0993
-      internalID: 631869245
+      spriteID: 8d0dfd9e3cc604842b2743591d13131f
+      internalID: 176412984
       vertices: []
       indices: 
       edges: []
@@ -196,18 +196,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 162
-        y: 3
+        y: 0
         width: 27
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ab2b2e1afe754d4f8726561352cbb0b
-      internalID: -1400053462
+      spriteID: 0e52816b3a9c91245892ea2beeba64ec
+      internalID: -1318307948
       vertices: []
       indices: 
       edges: []
@@ -217,18 +217,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 211
-        y: 3
+        y: 0
         width: 27
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17d10aac638eda04e9c1d455ee3fdd58
-      internalID: 1366538803
+      spriteID: 9c574e6557b5312489bbdaf7a6ae1c94
+      internalID: -1861391086
       vertices: []
       indices: 
       edges: []
@@ -238,18 +238,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 260
-        y: 3
+        y: 0
         width: 27
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ed50025268c98e4d9bfe52108b3819d
-      internalID: -823325556
+      spriteID: e7d4b7131fc59de4cb979c4cddfb5d39
+      internalID: -1688449290
       vertices: []
       indices: 
       edges: []
@@ -265,12 +265,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_CrouchBow_0: 211678822
-      Player_CrouchBow_1: 704060010
-      Player_CrouchBow_2: 631869245
-      Player_CrouchBow_3: -1400053462
-      Player_CrouchBow_4: 1366538803
-      Player_CrouchBow_5: -823325556
+      Player_CrouchBow_0: -551633366
+      Player_CrouchBow_1: 1589807269
+      Player_CrouchBow_2: 176412984
+      Player_CrouchBow_3: -1318307948
+      Player_CrouchBow_4: -1861391086
+      Player_CrouchBow_5: -1688449290
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

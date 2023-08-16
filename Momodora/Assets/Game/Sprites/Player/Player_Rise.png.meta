@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 020a9c668da163247b2e90195ddab1c7
+guid: 4c8ec9257c824fe4fa71b723930b72c1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,43 +129,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Right_Rise_0
+      name: Player_Rise_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 15
         y: 0
-        width: 51
-        height: 45
+        width: 20
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6409282a132e4d446a721acbeef87592
-      internalID: -952298497
+      spriteID: e3b8421d35d3f4f4a9bd73d2a4ff345a
+      internalID: 269803301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Right_Rise_1
+      name: Player_Rise_1
       rect:
         serializedVersion: 2
-        x: 51
+        x: 65
         y: 0
-        width: 51
-        height: 45
+        width: 19
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d32859bc4b8f0a459c670d85b299e87
-      internalID: 1373208778
+      spriteID: e8bd3c1d8a5c20a4c904df86725bdb6b
+      internalID: 1940666613
       vertices: []
       indices: 
       edges: []
@@ -181,8 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Right_Rise_0: -952298497
-      Player_Right_Rise_1: 1373208778
+      Player_Rise_0: 269803301
+      Player_Rise_1: 1940666613
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
