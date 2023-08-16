@@ -28,7 +28,7 @@ public class EnemyBase : MonoBehaviour
     public EnemySight sight;
 
     //적 prefab 하단의 sight 스크립트가 해당 변수를 컨트롤한다. 
-    public TestPlayer target = null;
+    public PlayerMove target = null;
 
     //에너미 속성
     public int enemyHp = default;           //체력
@@ -68,9 +68,9 @@ public class EnemyBase : MonoBehaviour
     }
 
     //몬스터의 콜라이더 이벤트시
-    public void Touch(TestPlayer player)
+    public void Touch(PlayerMove player)
     {
-        player.hp -= 1;
+        player.playerHp -= 1;
         //플레이어 반응 
         //player.Hit();
     }
@@ -109,7 +109,7 @@ public class EnemyBase : MonoBehaviour
         }
 
         //맞으면 무조건 플레이어 인식
-        target = FindObjectOfType<TestPlayer>();
+        target = FindObjectOfType<PlayerMove>();
 
         if (isStun)
         {
@@ -175,7 +175,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            Touch(collision.collider.GetComponent<TestPlayer>());
+            Touch(collision.collider.GetComponent<PlayerMove>());
         }
     }
 

@@ -29,7 +29,7 @@ public class TestPlayer : MonoBehaviour
 
     public int jumpCount = default;
     public int isMlAttack = default;
-    public int hp;
+    public int playerHp;
 
     public bool jumping = false;
     public bool jumpingForce = false;

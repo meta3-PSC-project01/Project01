@@ -40,7 +40,7 @@ public class EscapeTile : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            TestPlayer player = collision.GetComponent<TestPlayer>();
+            PlayerMove player = collision.GetComponent<PlayerMove>();
 
             if (checkMinimap)
             {
@@ -59,7 +59,7 @@ public class EscapeTile : MonoBehaviour
                 }
                 else if (canDead)
                 {
-                    player.hp = 0;
+                    player.playerHp = 0;
                     //player.Hit();
                 }
             }
@@ -67,7 +67,7 @@ public class EscapeTile : MonoBehaviour
     }
     
 
-    IEnumerator loadingMap(GameObject nextMap, TestPlayer player)
+    IEnumerator loadingMap(GameObject nextMap, PlayerMove player)
     {
         player.transform.localScale = Vector3.zero;
         GameManager.instance.CameraOnceMove();

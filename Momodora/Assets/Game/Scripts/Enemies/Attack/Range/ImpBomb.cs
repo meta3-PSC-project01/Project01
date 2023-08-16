@@ -10,6 +10,7 @@ public class ImpBomb : EnemyAttackData
     public bool isBoom = false;
 
     public float speed = 10;
+    int direction;
 
     public override void UseEffect()
     {
@@ -29,7 +30,6 @@ public class ImpBomb : EnemyAttackData
     // Start is called before the first frame update
     void Start()
     {
-        int direction;
         if (transform.right.x > 0)
         {
             direction = -1;
@@ -49,11 +49,11 @@ public class ImpBomb : EnemyAttackData
         {
             isBoom = true;
             CameraMove.ShakingCamera(Camera.main.GetComponent<CameraMove>());
-            TestPlayer player = collision.GetComponent<TestPlayer>();
+            PlayerMove player = collision.GetComponent<PlayerMove>();
             if (player != null)
             {
-                player.hp -= damage;
-                //player.Hit();
+                //player.hp -= damage;
+                //player.Hit(damage, direction);
             }
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;

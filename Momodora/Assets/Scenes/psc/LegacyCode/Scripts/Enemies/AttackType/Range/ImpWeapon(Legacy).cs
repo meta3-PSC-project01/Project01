@@ -28,8 +28,8 @@ public class ImpWeapon_Legacy : EnemyRangeWeapon_Legacy
         if (collision.tag.Equals("Player"))
         {
             Destroy(gameObject);
-            TestPlayer player = collision.gameObject.GetComponent<TestPlayer>();
-            player.hp -= weaponDamage;
+            PlayerMove player = collision.gameObject.GetComponent<PlayerMove>();
+            player.playerHp -= weaponDamage;
         }
 
         if (collision.tag.Equals("Finish"))

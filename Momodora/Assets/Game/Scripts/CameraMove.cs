@@ -7,7 +7,7 @@ public class CameraMove : MonoBehaviour
 {
     Vector2Int fieldSize = Vector2Int.one;
     Vector2 mapSize = new Vector2(7 * Screen.width / Screen.height, 7);
-    TestPlayer player;
+    PlayerMove player;
 
     Coroutine coroutine;
     Vector3 shaking;
@@ -90,7 +90,7 @@ public class CameraMove : MonoBehaviour
 
         if (player == null)
         {
-            player = FindObjectOfType<TestPlayer>();
+            player = FindObjectOfType<PlayerMove>();
         }
 
         if (GameManager.instance.cameraStop)

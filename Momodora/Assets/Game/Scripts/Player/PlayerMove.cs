@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Rigidbody2D playerRigidbody = default;
+    public Rigidbody2D playerRigidbody = default;
     private SpriteRenderer playerRenderer = null;
     private Animator animator = default;
     private Collider2D[] attackCollider;
@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
 
     private int jumpCount = default;
     private int isMlAttack = default;
+    public int playerHp = default;
 
     private bool jumping = false;
     private bool jumpingForce = false;
@@ -56,6 +57,10 @@ public class PlayerMove : MonoBehaviour
     private bool isCharged = false;
     [SerializeField] private bool thinFloorCheck = false;
     [SerializeField] private bool forceLadder = false;
+
+
+    public Rigidbody2D platformBody;
+    public bool isMovingPlatform = false;
 
     void Awake()
     {

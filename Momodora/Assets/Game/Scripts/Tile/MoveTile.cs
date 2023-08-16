@@ -41,13 +41,13 @@ public class MoveTile : MonoBehaviour
     private Vector2 directionPos;
     private bool isReverse = false;
 
-    private TestPlayer player;
+    private PlayerMove player;
     private Rigidbody2D rb;
     private CompositeCollider2D comCollider;
 
     private void Awake()
     {
-        player = FindObjectOfType< TestPlayer >();
+        player = FindObjectOfType< PlayerMove >();
         startPos = transform.position;
         endPos = new Vector2(transform.position.x, transform.position.y) + (new Vector2(dx[(int)direction], dy[(int)direction]) * distance);
         rb = GetComponent<Rigidbody2D>();
