@@ -61,12 +61,9 @@ public class BigTomato : EnemyBase
     {
         while (true)
         {
-            if (!isStun)
+            if (isStun)
             {
-                Move();
-                enemyAnimator.SetTrigger("Move");
-                yield return new WaitForSeconds(moveDelay);
-                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                yield return new WaitForEndOfFrame();
             }
             else
             {
@@ -81,6 +78,7 @@ public class BigTomato : EnemyBase
                     direction = DirectionHorizen.RIGHT;
                     turn();
                 }
+
                 if (currDelay >= attackDelay && !isAttack)
                 {
                     Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition.position, 2);
@@ -88,8 +86,10 @@ public class BigTomato : EnemyBase
                     //hit배열을 모두 돈다
                     foreach (Collider2D hit in hits)
                     {
+                        Debug.Log("!");
                         if (hit.tag == "Player")
                         {
+                            Debug.Log("!");
                             enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
                             AttackStart();
                             isAttack = true;
@@ -101,12 +101,30 @@ public class BigTomato : EnemyBase
                     {
                         break;
                     }
+                    yield return new WaitForEndOfFrame();
                 }
+                else 
+                {
+
+                    Move();
+                    enemyAnimator.SetTrigger("Move");
+                    yield return new WaitForSeconds(moveDelay);
+                    enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                }
+                    
+
             }
             
         }
 
         routine = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(attackPosition.position, 2);
+
     }
 
     public override void Move()

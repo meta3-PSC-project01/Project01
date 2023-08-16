@@ -7,6 +7,7 @@ public class ImpBomb : EnemyAttackData
     Rigidbody2D bulletRigidbody;
 
     public GameObject poisonFloor;
+    public bool isBoom = false;
 
     public float speed = 10;
 
@@ -44,9 +45,9 @@ public class ImpBomb : EnemyAttackData
     public void OnTriggerStay2D(Collider2D collision)
     {
         //부딫칠 경우 장판영역 생성
-        if ((collision.tag == "Player" || collision.tag == "Wall" || collision.tag == "Floor"))
+        if ((collision.tag == "Player" || collision.tag == "Wall" || collision.tag == "Floor") && !isBoom)
         {
-            Debug.Log("?");
+            isBoom = true;
             CameraMove.ShakingCamera(Camera.main.GetComponent<CameraMove>());
             TestPlayer player = collision.GetComponent<TestPlayer>();
             if (player != null)
@@ -54,8 +55,11 @@ public class ImpBomb : EnemyAttackData
                 player.hp -= damage;
                 //player.Hit();
             }
-            Destroy(gameObject, .5f);
+            bulletRigidbody.velocity = Vector3.zero;
+            bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             Instantiate(poisonFloor, collision.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+
             //맞을경우 뭔가 뜨게하는거 추가
             //플레이어 반응 
         }

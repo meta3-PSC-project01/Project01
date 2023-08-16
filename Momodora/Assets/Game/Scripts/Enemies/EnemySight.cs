@@ -89,7 +89,7 @@ public class EnemySight : MonoBehaviour
 
                 //타겟이 지정되면 해당 기능을 쓸 필요가 없기때문에 비활성화 시킨다.
                 gameObject.SetActive(false);
-                Debug.Log("인식완료");
+                //Debug.Log("인식완료");
             }
         }
     }

@@ -89,7 +89,7 @@ public class MoveTile : MonoBehaviour
     {
         foreach(var tmp in collision.contacts)
         {
-            Debug.Log(collision.contacts[0].point.x + "  " + comCollider.bounds.min + "/" + comCollider.bounds.max +"/" + comCollider.bounds.size);
+           // Debug.Log(collision.contacts[0].point.x + "  " + comCollider.bounds.min + "/" + comCollider.bounds.max +"/" + comCollider.bounds.size);
 
         }
 
@@ -99,7 +99,7 @@ public class MoveTile : MonoBehaviour
             comCollider.bounds.max.x + .01f > collision.contacts[0].point.x)
 
         {
-            Debug.Log("in");
+            //Debug.Log("in");
             player.isMovingPlatform = true;
             player.platformBody = rb;
             player.playerRigidbody.gravityScale *= 4;
@@ -110,7 +110,7 @@ public class MoveTile : MonoBehaviour
     {
         if (collision.transform.tag == "Player" && player.isMovingPlatform)
         {
-            Debug.Log("out");
+            //Debug.Log("out");
             player.isMovingPlatform = false;
             player.playerRigidbody.gravityScale *= .25f;
 

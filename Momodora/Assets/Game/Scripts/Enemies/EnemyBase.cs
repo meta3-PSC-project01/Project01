@@ -80,13 +80,18 @@ public class EnemyBase : MonoBehaviour
     //데미지 높은 공격시에 스턴에 걸린다.
     public void Hit(int damage)
     {
+        enemyRigidbody.velocity = Vector3.zero;
         enemyHp -= damage;
+        
 
-        if (enemyStunRegistValue < damage)
+        if (enemyStunRegistValue <= damage)
         {
+            Debug.Log("스턴카운트+1");
             enemyStunRegistCurrCount += 1;
             if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
             {
+                HitReaction();
+                Debug.Log("스턴");
                 enemyStunRegistCurrCount = 0;
                 isStun = true;
                 enemyAnimator.SetTrigger("Hit");
@@ -118,14 +123,22 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    //몬스터 hit시 반응
+    //기본은 색 바뀌기
+    public virtual void HitReaction()
+    {
+        //색 바뀌는 리액션
+    }
+
     //몬스터 죽을시
     //추후 확장성을 위해서 virtual로 지정(죽을때 효과있는 몬스터)
     public virtual void Dead()
     {
         //죽음관련 재생(애니메이션, 소리)
-        //enemyAnimator.SetTrigger("Dead");
+        enemyAnimator.SetBool("Dead", true);
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Dead"));
 
+        Debug.Log(gameObject.name+"죽음");
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         enemyCollider.enabled = false;
         Destroy(gameObject,.5f);

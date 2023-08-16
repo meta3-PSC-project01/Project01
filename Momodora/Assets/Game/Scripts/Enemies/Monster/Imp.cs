@@ -121,7 +121,6 @@ public class Imp : EnemyBase
                         //player 검출시
                         if (hit.tag == "Player")
                         {
-                            Debug.Log("일반공격");
                             AttackStart();
                             isAttack = true;
                             break;
@@ -137,6 +136,10 @@ public class Imp : EnemyBase
                         //루틴 초기화
                         continue;
                     }
+                }
+                else
+                {
+                    yield return new WaitForEndOfFrame();
                 }
 
             }
@@ -176,7 +179,6 @@ public class Imp : EnemyBase
     //애니메이션 시작
     public override void AttackStart()
     {
-        Debug.Log("_공격시작");
         enemyAnimator.SetTrigger("Attack");
     }
 
@@ -184,7 +186,6 @@ public class Imp : EnemyBase
     //레인지 공격일 경우 투척 타이밍때 생성할것
     public void AttackStartEvent()
     {
-        Debug.Log("인스턴스생성");
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
 
     }

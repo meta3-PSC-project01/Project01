@@ -10,8 +10,6 @@ public class SpikeTile : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("?"+collision.contacts[0].point.y);
-            Debug.Log("!"+collision.transform.position.y);
             if (collision.contacts[0].point.y < collision.transform.position.y)
             {
 
@@ -19,8 +17,6 @@ public class SpikeTile : MonoBehaviour
                 TileBase tile = transform.GetComponent<Tilemap>().GetTile(Vector3Int.FloorToInt(collision.transform.position - new Vector3Int(0, 1, 0)));
 
                 if (tile == null) return;
-                Debug.Log(transform.GetComponent<Tilemap>());
-                Debug.Log(tile.name);
                 if (transform.tag == "")
                 {
                     test.hp -= 10;

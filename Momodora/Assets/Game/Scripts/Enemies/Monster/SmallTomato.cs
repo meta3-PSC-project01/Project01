@@ -112,21 +112,21 @@ public class SmallTomato : EnemyBase
             //스턴 상태일 경우
             else
             {
-            
 
-            //좌표 비교후 회전
-            if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
-            {
-                direction = DirectionHorizen.LEFT;
-                turn();
-                accel *= .75f;
-            }
-            else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
-            {
-                direction = DirectionHorizen.RIGHT;
-                turn();
-                accel *= .75f;
-            }
+
+                //좌표 비교후 회전
+                if (transform.position.x - target.transform.position.x > 0 && direction != DirectionHorizen.LEFT)
+                {
+                    direction = DirectionHorizen.LEFT;
+                    turn();
+                    accel *= .75f;
+                }
+                else if (transform.position.x - target.transform.position.x < 0 && direction != DirectionHorizen.RIGHT)
+                {
+                    direction = DirectionHorizen.RIGHT;
+                    turn();
+                    accel *= .75f;
+                }
 
                 //공격중이지 않고 현재 딜레이가 어택 딜레이보다 높을경우 조건 만족
                 if (currDelay >= attackDelay && !isAttack)
@@ -174,7 +174,6 @@ public class SmallTomato : EnemyBase
                             //player 검출시
                             if (hit.tag == "Player")
                             {
-                                Debug.Log("일반공격");
                                 enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
                                 AttackStart();
                                 onDashAttack = false;
@@ -197,6 +196,10 @@ public class SmallTomato : EnemyBase
                     Move();
                     yield return new WaitForSeconds(Time.deltaTime);
                 }
+                else
+                {
+                    yield return new WaitForEndOfFrame();
+                }
             }
 
         }
@@ -210,6 +213,35 @@ public class SmallTomato : EnemyBase
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector2(transform.position.x + (dashDistance - .25f) * (int)direction, transform.position.y), new Vector2(.5f, .8f));
         Gizmos.DrawWireCube(attackPosition.position, new Vector2(1.5f, 1));
+
+    }
+
+    Coroutine hitReactionCoroutine = null;
+
+    public override void HitReaction()
+    {
+        base.HitReaction();
+        if (hitReactionCoroutine != null)
+        {
+            StopCoroutine(hitReactionCoroutine);
+        }
+        hitReactionCoroutine = StartCoroutine(ReactionRoutine());
+    }
+
+    IEnumerator ReactionRoutine()
+    {
+        Vector3 tmp;
+        //.2초 떨림
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = new Vector3(Random.Range(0, .2f), Random.Range(0, .2f));
+            transform.position = transform.position + tmp;
+            yield return new WaitForSeconds(.02f);
+            transform.position = transform.position - tmp;
+        }
+        yield return new WaitForEndOfFrame();
+
+        enemyRigidbody.velocity = new Vector2(5, 3);
 
     }
 
@@ -243,14 +275,12 @@ public class SmallTomato : EnemyBase
     //애니메이션 시작
     public override void AttackStart()
     {
-        Debug.Log("공격시작");
         enemyAnimator.SetTrigger("Attack");
     }
 
     //애니메이션 중 이펙트 인스탄트 = 공격 시작
     public void AttackStartEvent()
     {
-        Debug.Log("인스턴스생성");
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation, transform).GetComponent<EnemyAttackData>();
 
     }
@@ -261,7 +291,6 @@ public class SmallTomato : EnemyBase
     {
         if (onDashAttack)
         {
-            Debug.Log("모션");
             enemyRigidbody.AddForce(new Vector2((int)direction * dashSpeed, dashJump), ForceMode2D.Impulse);
         }
     }
@@ -269,7 +298,6 @@ public class SmallTomato : EnemyBase
     //애니메이션 중 콜라이더 ON = 공격 타이밍
     public void AttackColliderEvent()
     {
-        Debug.Log("콜라이더");
         attackObject.UseCollider();
     }
 
@@ -277,7 +305,6 @@ public class SmallTomato : EnemyBase
     //애니메이션 중 공격 종료 = 공격 종료
     public void AttackEndEvent()
     {
-        Debug.Log("인스턴스 파괴");
         Destroy(attackObject.gameObject);
     }
 

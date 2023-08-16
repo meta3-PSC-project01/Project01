@@ -385,13 +385,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPosition: {fileID: 7803448314492549333}
   attackData:
-  - {fileID: 4938066316447642722, guid: 10d2dd8191c0a6a48b7fd3faeb90b4a1, type: 3}
+  - {fileID: 5630753343291915602, guid: 10d2dd8191c0a6a48b7fd3faeb90b4a1, type: 3}
   sight: {fileID: 7803448314443162997}
   target: {fileID: 0}
-  enemyHp: 0
+  enemyHp: 10
   enemySpeed: 4
   direction: -1
-  enemyDamageRegist: 0
+  enemyStunRegistValue: 2
+  enemyStunRegistMaxCount: 1
+  enemyStunRegistCurrCount: 0
   isStun: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0

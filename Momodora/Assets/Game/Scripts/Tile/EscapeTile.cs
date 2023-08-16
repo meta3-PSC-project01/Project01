@@ -24,7 +24,6 @@ public class EscapeTile : MonoBehaviour
     {
         GetComponent<CompositeCollider2D>().GenerateGeometry();
         pivot = GetComponent<CompositeCollider2D>().bounds.center;
-        Debug.Log(gameObject.name+"pivot "+pivot);
     }
 
     public MapData GetMapData()
@@ -39,7 +38,6 @@ public class EscapeTile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("µé¾î¿È?");
         if (collision.CompareTag("Player"))
         {
             TestPlayer player = collision.GetComponent<TestPlayer>();

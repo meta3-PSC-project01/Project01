@@ -15,11 +15,9 @@ public class MapData : MonoBehaviour
     public Transform FindChildTransform(int fieldIndex, string name)
     {
         Transform tmpField = transform.Find("Field" + fieldIndex);
-        Debug.Log(tmpField);
         if(tmpField==null) return null;
         Transform result = tmpField.GetChild(0).Find(name);
-        Debug.Log(transform.GetChild(0));
-        Debug.Log(result);
+
         return result;
     }
 

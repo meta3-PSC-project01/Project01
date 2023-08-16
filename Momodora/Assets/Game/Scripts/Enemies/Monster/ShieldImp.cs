@@ -132,7 +132,6 @@ public class ShieldImp : EnemyBase
                         //player 검출시
                         if (hit.tag == "Player" && hit.transform.position.y - transform.position.y <= 2)
                         {
-                            Debug.Log("일반공격");
                             enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
                             isAttack = true;
                             isMove = false;
@@ -167,6 +166,11 @@ public class ShieldImp : EnemyBase
                     //방어타임
                     yield return new WaitForSeconds(defenceTime);
 
+                }
+
+                else
+                {
+                    yield return new WaitForEndOfFrame();
                 }
             }
         }
@@ -204,7 +208,6 @@ public class ShieldImp : EnemyBase
     //애니메이션 시작
     public override void AttackStart()
     {
-        Debug.Log("공격시작");
         enemyAnimator.SetTrigger("Attack");
     }
 
@@ -212,7 +215,6 @@ public class ShieldImp : EnemyBase
     //레인지 공격일 경우 투척 타이밍때 생성할것
     public void AttackStartEvent()
     {
-        Debug.Log("인스턴스생성");
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
 
     }

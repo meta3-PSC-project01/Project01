@@ -495,10 +495,12 @@ MonoBehaviour:
   - {fileID: 4222924744831459426, guid: 8833b8489f54f1447baf60c2ac49e160, type: 3}
   sight: {fileID: 1930159045515907122}
   target: {fileID: 0}
-  enemyHp: 0
+  enemyHp: 3
   enemySpeed: 5
   direction: -1
-  enemyDamageRegist: 0
+  enemyStunRegistValue: 2
+  enemyStunRegistMaxCount: 1
+  enemyStunRegistCurrCount: 0
   isStun: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
