@@ -147,6 +147,39 @@ public class BigTomato : EnemyBase
         }
     }
 
+    Coroutine hitReactionCoroutine = null;
+
+    public override void HitReaction(int direction)
+    {
+        base.HitReaction(direction);
+        if (hitReactionCoroutine != null)
+        {
+            StopCoroutine(hitReactionCoroutine);
+        }
+        if (attackObject != null)
+        {
+            AttackEndEvent();
+        }
+        hitReactionCoroutine = StartCoroutine(ReactionRoutine(direction));
+    }
+
+    IEnumerator ReactionRoutine(int direction)
+    {
+        Vector3 tmp;
+        //.2초 떨림
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = new Vector3(Random.Range(0, .2f), Random.Range(0, .2f));
+            transform.position = transform.position + tmp;
+            yield return new WaitForSeconds(.02f);
+            transform.position = transform.position - tmp;
+        }
+        yield return new WaitForEndOfFrame();
+
+        enemyRigidbody.velocity = new Vector2(-direction * 5, 3);
+
+    }
+
     //애니메이션 시작
     public override void AttackStart()
     {
@@ -177,8 +210,9 @@ public class BigTomato : EnemyBase
     //애니메이션 중 공격 종료
     public void AttackEndEvent()
     {
-       
+
         Destroy(attackObject.gameObject);
+        attackObject = null;
     }
 
     public void RoutineEndEvent()

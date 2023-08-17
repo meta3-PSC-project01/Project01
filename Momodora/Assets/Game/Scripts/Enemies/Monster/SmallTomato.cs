@@ -233,10 +233,14 @@ public class SmallTomato : EnemyBase
         {
             StopCoroutine(hitReactionCoroutine);
         }
-        hitReactionCoroutine = StartCoroutine(ReactionRoutine());
+        if (attackObject != null)
+        {
+            AttackEndEvent();
+        }
+        hitReactionCoroutine = StartCoroutine(ReactionRoutine(direction));
     }
 
-    IEnumerator ReactionRoutine()
+    IEnumerator ReactionRoutine(int direction)
     {
         Vector3 tmp;
         //.2초 떨림
@@ -249,7 +253,7 @@ public class SmallTomato : EnemyBase
         }
         yield return new WaitForEndOfFrame();
 
-        enemyRigidbody.velocity = new Vector2(5, 3);
+        enemyRigidbody.velocity = new Vector2(-direction* 5, 3);
 
     }
 
@@ -314,6 +318,7 @@ public class SmallTomato : EnemyBase
     public void AttackEndEvent()
     {
         Destroy(attackObject.gameObject);
+        attackObject = null;
     }
 
     //공격 종료 = 루틴 종료

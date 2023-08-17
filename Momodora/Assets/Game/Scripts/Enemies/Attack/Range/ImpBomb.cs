@@ -6,7 +6,7 @@ public class ImpBomb : EnemyAttackData
 {
     Rigidbody2D bulletRigidbody;
 
-    public GameObject poisonFloor;
+    public GameObject poison;
     public bool isBoom = false;
 
     public float speed = 10;
@@ -57,7 +57,7 @@ public class ImpBomb : EnemyAttackData
             }
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-            Instantiate(poisonFloor, collision.transform.position, Quaternion.identity);
+            Instantiate(poison, collision.ClosestPoint(transform.position), Quaternion.identity);
             Destroy(gameObject);
 
             //맞을경우 뭔가 뜨게하는거 추가
