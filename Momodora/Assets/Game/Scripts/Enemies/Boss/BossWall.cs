@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class BossWall : MonoBehaviour
 {
-    public bool isTouch = false;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
         {
-            isTouch = true;
+            Debug.Log("!");
+            transform.parent.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
         {
-            isTouch = false;
+            Debug.Log("?");
+            transform.parent.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         }
-
     }
 }

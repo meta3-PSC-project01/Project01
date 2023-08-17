@@ -53,11 +53,11 @@ public class ImpBomb : EnemyAttackData
             if (player != null)
             {
                 //player.hp -= damage;
-                //player.Hit(damage, direction);
+                player.Hit(damage, -direction);
             }
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-            Instantiate(poison, collision.ClosestPoint(transform.position), Quaternion.identity);
+            Instantiate(poison, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
             //맞을경우 뭔가 뜨게하는거 추가
