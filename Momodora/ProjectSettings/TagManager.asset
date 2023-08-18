@@ -11,6 +11,12 @@ TagManager:
   - Ladder
   - Arrow
   - ThinFloor
+  - Spike
+  - Gold
+  - Bell
+  - Item
+  - Npc
+  - Water
   layers:
   - Default
   - TransparentFX

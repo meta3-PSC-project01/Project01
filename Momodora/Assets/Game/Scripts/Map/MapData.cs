@@ -33,12 +33,12 @@ public class MapData : MonoBehaviour
 
         if (type == 1)
         {
-            fieldSize = new Vector2Int(transform.childCount, 1);
+            fieldSize = new Vector2Int(transform.childCount-1, 1);
         }
         else
         if (type == 2)
         {
-            fieldSize = new Vector2Int(1, transform.childCount);
+            fieldSize = new Vector2Int(1, transform.childCount-1);
         }
         GameManager.instance.checkMapUpdate = true;
 

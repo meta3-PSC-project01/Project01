@@ -57,9 +57,9 @@ public class GameManager : MonoBehaviour
         return currMap.isLoadEnd;
     }
 
-    public void CameraOnceMove()
+    public void CameraOnceMove(int fieldIndex, int type)
     {
-        Camera.main.GetComponent<CameraMove>().CameraOnceMove(currMap.fieldSize);
+        Camera.main.GetComponent<CameraMove>().CameraOnceMove(fieldIndex, type);
     }
     public static SaveLoad Load(string saveFileName)
     {

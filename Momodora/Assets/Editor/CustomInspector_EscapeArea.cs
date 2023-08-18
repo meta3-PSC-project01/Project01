@@ -51,13 +51,13 @@ public class CustomInspector_EscapeArea : Editor
             if (mapObject != null && mapObject.transform.childCount > 0)
             {
                 fieldList = new List<FieldData>();
-                listName = new string[mapObject.transform.childCount];
+                listName = new string[mapObject.transform.childCount-1];
                 // StageType에 맞는 Sprite이미지로 교체해준다.
 
-                for (int i = 0; i < mapObject.transform.childCount; i++)
+                for (int i = 1; i < mapObject.transform.childCount; i++)
                 {
                     fieldList.Add(mapObject.transform.GetChild(i).GetComponent<FieldData>());
-                    listName[i] = mapObject.transform.GetChild(i).name;
+                    listName[i-1] = mapObject.transform.GetChild(i).name;
                 }
             }
 

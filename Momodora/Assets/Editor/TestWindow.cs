@@ -94,6 +94,7 @@ public class TestWindow : EditorWindow
 
         if (mapParent!=null)
         {
+            mapParent.transform.position = Vector3.zero;
 
             int currSize = mapParent.transform.childCount==0?0: mapParent.transform.childCount-1;
 
@@ -374,7 +375,7 @@ public class TestWindow : EditorWindow
 
 
                     tmpTileMapObject = new GameObject();
-                    tmpTileMapObject.tag = "Floor";
+                    tmpTileMapObject.tag = "Spike";
                     tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
                     tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
                     tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
@@ -394,7 +395,7 @@ public class TestWindow : EditorWindow
 
 
                     tmpTileMapObject = new GameObject();
-                    tmpTileMapObject.tag = "Floor";
+                    tmpTileMapObject.tag = "ThinFloor";
                     tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
                     tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
                     tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
@@ -416,6 +417,7 @@ public class TestWindow : EditorWindow
 
 
                     tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.tag = "Ladder";
                     tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
                     tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
                     tmpTilemap.tileAnchor = new Vector3(0, 1, 0);

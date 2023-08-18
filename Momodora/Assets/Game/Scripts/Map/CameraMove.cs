@@ -15,17 +15,17 @@ public class CameraMove : MonoBehaviour
     float camHeight;
     float camWidth;
 
-    public void CameraOnceMove(Vector2 position)
+    public void CameraOnceMove(int fieldIndex, int type)
     {
-        if (position.x == 1 && position.y == 1)
+        if (fieldIndex == 1)
         {
             transform.position = new Vector3(0, 0, -10) + shaking;
         }
-        if (position.x > 1 && position.y == 1)
+        else if (fieldIndex >1 && type==1)
         {
             transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10) + shaking;
         }
-        if (position.x == 1 && position.y > 1)
+        else if (fieldIndex > 1 && type == 2)
         {
             transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
         }

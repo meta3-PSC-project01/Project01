@@ -3704,7 +3704,7 @@ GameObject:
   - component: {fileID: 6904093596053848326}
   - component: {fileID: 6904093596053848325}
   m_Layer: 0
-  m_Name: Stage1Map1
+  m_Name: Stage1Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
