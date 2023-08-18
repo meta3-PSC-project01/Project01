@@ -61,6 +61,8 @@ public class PlayerMove : MonoBehaviour
     private bool isHited = false;
     private bool hitMoveTime = false;
 
+    private string test = default;
+    private int test2 = default;
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
@@ -88,6 +90,8 @@ public class PlayerMove : MonoBehaviour
         chargeAddForce = 1f;
         chargeMax = 2000f;
         playerHp = 100;
+
+        test2 = 1;
 
         jumpCount = 0;
         isMlAttack = 0;
@@ -139,7 +143,6 @@ public class PlayerMove : MonoBehaviour
                 }
             }
         }
-        
 
         if (isRolled == false && hitMoveTime == false)
         {
@@ -362,7 +365,9 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Hit(0, 1);
+            test = "save" + test2;
+
+            Debug.Log(test);
         }
 
         animator.SetBool("Ground", isGrounded);

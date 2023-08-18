@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
         string saveFilePath = SavePath + saveFileName + ".json";
         if (!File.Exists(saveFilePath))
         {
-
             Debug.LogError("No such saveFile exists");
             return null;
         }
@@ -73,5 +72,19 @@ public class GameManager : MonoBehaviour
         string saveFile = File.ReadAllText(saveFilePath);
         SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
         return saveData;
+    }
+
+    public static bool SaveCheck(string saveFileName)
+    {
+        string saveFilePath = SavePath + saveFileName + ".json";
+
+        if (File.Exists(saveFilePath))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
