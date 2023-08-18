@@ -65,6 +65,9 @@ public class TestWindow : EditorWindow
 
     GameObject mapParent;
 
+    [Range(1, 2)]
+    public int type = 1;
+
     void OnGUI()
     {
 
@@ -92,21 +95,27 @@ public class TestWindow : EditorWindow
         if (mapParent!=null)
         {
 
-            int currSize = mapParent.transform.childCount;
+            int currSize = mapParent.transform.childCount==0?0: mapParent.transform.childCount-1;
 
             Transform before = mapParent.transform;
+            
             if (currSize > 0)
             {
-                before = mapParent.transform.GetChild(currSize - 1);
+                type = mapParent.GetComponent<MapData>().type;
+                before = mapParent.transform.GetChild(currSize);
             }
-            int type = 1;//horizen
-
-
 
             if (GUILayout.Button("CreateMap"))
             {
-                Debug.Log(before.name);
-                if (currSize > 0)
+                GameObject tmpTileMapObject;
+                Tilemap tmpTilemap;
+                Rigidbody2D rb;
+                TilemapCollider2D tilemapCollider;
+                CompositeCollider2D compositeCollider;
+                PlatformEffector2D platformEffector;
+                EscapeTile tmpTile;
+
+                if (currSize >0)
                 {
                     if (type == 1)
                     {
@@ -120,17 +129,26 @@ public class TestWindow : EditorWindow
 
                     }
                 }
-                else
+                else if (currSize == 0)
                 {
-                    mapParent.AddComponent<MapData>();
-                    type = 0;
+                    mapParent.AddComponent<MapData>().type = type;
                 }
 
                 //기본세팅 1 ,1
                 int height = 7;
                 int width = 13;
 
-                Vector2Int CenterPos = new Vector2Int(currSize * width * 2, 0);
+                Vector2Int CenterPos;
+                if (type == 1)
+                {
+                    CenterPos = new Vector2Int((currSize) * width * 2, 0);
+                }
+                else
+                {
+                    CenterPos = new Vector2Int(0, -(currSize) * height * 2);
+
+                }
+                Debug.Log("CenterPos"+CenterPos);
 
                 //스테이지, 추후 enum으로 관리
                 int stageIndex = 1;
@@ -140,8 +158,8 @@ public class TestWindow : EditorWindow
 
                 GameObject map = new GameObject();
                 map.transform.parent = mapParent.transform;
-                map.name = "Field" + (currSize + 1);
-                map.AddComponent<FieldData>().depth = currSize + 1;
+                map.name = "Field" + (currSize+1);
+                map.AddComponent<FieldData>().depth = currSize+1;
 
                 GameObject tileGrid = new GameObject();
                 tileGrid.AddComponent<Grid>();
@@ -149,135 +167,13 @@ public class TestWindow : EditorWindow
                 tileGrid.name = "Grid";
 
 
-                GameObject tmpTileMapObject = new GameObject();
-                tmpTileMapObject.tag = "Floor";
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                Tilemap tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-                Rigidbody2D rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
-                rb.bodyType = RigidbodyType2D.Static;
-                TilemapCollider2D tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
-                tilemapCollider.usedByComposite = true;
-                CompositeCollider2D compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
-                compositeCollider.usedByEffector = true;
-                PlatformEffector2D platformEffector = tmpTileMapObject.AddComponent<PlatformEffector2D>();
-                platformEffector.useOneWay = false;
-                compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
-                compositeCollider.GenerateGeometry();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "BaseTile";
-
-
-                for (int dy = CenterPos.y - (height); dy < CenterPos.y + height; dy++)
-                {
-                    for (int dx = CenterPos.x - (width); dx < CenterPos.x + width; dx++)
-                    {
-                        tmpTilemap.SetTile(new Vector3Int(dx, dy, 0), baseTile);
-                    }
-                }
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "ObjectTile";
-
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "ScriptTile";
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.tag = "Floor";
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-                rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
-                rb.bodyType = RigidbodyType2D.Static;
-                tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
-                tilemapCollider.usedByComposite = true;
-                compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
-                compositeCollider.isTrigger = true;
-                tmpTileMapObject.AddComponent<SpikeTile>();
-                compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
-                compositeCollider.GenerateGeometry();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "DamagerTile";
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.tag = "Floor";
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-                rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
-                rb.bodyType = RigidbodyType2D.Static;
-                tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
-                tilemapCollider.usedByComposite = true;
-                compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
-                compositeCollider.usedByEffector = true;
-                platformEffector = tmpTileMapObject.AddComponent<PlatformEffector2D>();
-                platformEffector.useOneWay = true;
-                platformEffector.surfaceArc = 170f;
-                compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
-                compositeCollider.GenerateGeometry();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "ThineTile";
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "LadderTile";
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "PaintTile";
-
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "WaterArea";
-
                 tmpTileMapObject = new GameObject();
                 tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
                 tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
                 tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
                 tmpTilemap.color = new Color(0f, 0f, 0f, 0f);
                 tmpTileMapObject.AddComponent<TilemapRenderer>();
-                EscapeTile tmpTile = tmpTileMapObject.AddComponent<EscapeTile>();
+                tmpTile = tmpTileMapObject.AddComponent<EscapeTile>();
                 tmpTile.fieldIndex = currSize + 1;
                 tmpTile.escapeIndex = 3;
                 tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
@@ -306,7 +202,7 @@ public class TestWindow : EditorWindow
                 }
 
 
-                if (type != 2 || (type == 2 && currSize < 1))
+                if (type != 2 || (type == 2 && currSize == 0))
                 {
                     tmpTileMapObject = new GameObject();
                     tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
@@ -343,7 +239,7 @@ public class TestWindow : EditorWindow
                     }
                 }
 
-                if (type != 1 || (type == 1 && currSize < 1))
+                if (type != 1 || (type == 1 && currSize == 0))
                 {
                     tmpTileMapObject = new GameObject();
                     tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
@@ -413,6 +309,165 @@ public class TestWindow : EditorWindow
                     tileChangeData.position = new Vector3Int(+CenterPos.x + width, dy, 0);
                     tmpTilemap.SetTile(tileChangeData, false);
                 }
+
+
+                if (currSize == 0)
+                {
+                    map = new GameObject();
+                    map.transform.parent = mapParent.transform;
+                    map.name = "Common";
+
+                    tileGrid = new GameObject();
+                    tileGrid.AddComponent<Grid>();
+                    tileGrid.transform.parent = map.transform;
+                    tileGrid.name = "Grid";
+
+
+                     tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.tag = "Floor";
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                     tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+                     rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
+                    rb.bodyType = RigidbodyType2D.Static;
+                     tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
+                    tilemapCollider.usedByComposite = true;
+                     compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
+                    compositeCollider.usedByEffector = true;
+                     platformEffector = tmpTileMapObject.AddComponent<PlatformEffector2D>();
+                    platformEffector.useOneWay = false;
+                    compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
+                    compositeCollider.GenerateGeometry();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "BaseTile";
+
+
+                    for (int dy = CenterPos.y - (height); dy < CenterPos.y + height; dy++)
+                    {
+                        for (int dx = CenterPos.x - (width); dx < CenterPos.x + width; dx++)
+                        {
+                            tmpTilemap.SetTile(new Vector3Int(dx, dy, 0), baseTile);
+                        }
+                    }
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "ObjectTile";
+
+
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "ScriptTile";
+
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.tag = "Floor";
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+                    rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
+                    rb.bodyType = RigidbodyType2D.Static;
+                    tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
+                    tilemapCollider.usedByComposite = true;
+                    compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
+                    compositeCollider.isTrigger = true;
+                    tmpTileMapObject.AddComponent<SpikeTile>();
+                    compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
+                    compositeCollider.GenerateGeometry();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "DamagerTile";
+
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.tag = "Floor";
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+                    rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
+                    rb.bodyType = RigidbodyType2D.Static;
+                    tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
+                    tilemapCollider.usedByComposite = true;
+                    compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
+                    compositeCollider.usedByEffector = true;
+                    platformEffector = tmpTileMapObject.AddComponent<PlatformEffector2D>();
+                    platformEffector.useOneWay = true;
+                    platformEffector.surfaceArc = 170f;
+                    compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
+                    compositeCollider.GenerateGeometry();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "ThineTile";
+
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "LadderTile";
+
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "PaintTile";
+
+
+
+                    tmpTileMapObject = new GameObject();
+                    tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                    tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                    tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                    tmpTileMapObject.AddComponent<TilemapRenderer>();
+
+                    tmpTileMapObject.transform.parent = tileGrid.transform;
+                    tmpTileMapObject.name = "WaterArea";
+                }
+                else
+                {
+                    map = mapParent.transform.Find("Common").gameObject;
+
+                    tileGrid = map.transform.GetChild(0).gameObject;
+
+
+                    tmpTileMapObject = tileGrid.transform.Find("BaseTile").gameObject;
+                    tmpTilemap = tmpTileMapObject.GetComponent<Tilemap>();
+
+                    for (int dy = CenterPos.y - (height); dy < CenterPos.y + height; dy++)
+                    {
+                        for (int dx = CenterPos.x - (width); dx < CenterPos.x + width; dx++)
+                        {
+                            tmpTilemap.SetTile(new Vector3Int(dx, dy, 0), baseTile);
+                        }
+                    }
+
+                }
+
+
+                mapParent.transform.Find("Common").SetAsFirstSibling();
+
 
 
 
