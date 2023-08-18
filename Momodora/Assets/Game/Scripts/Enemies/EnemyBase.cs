@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 
@@ -13,7 +14,8 @@ public class EnemyBase : MonoBehaviour
 {
     //에너미 기본 컴포넌트
     protected Rigidbody2D enemyRigidbody;
-    protected BoxCollider2D enemyCollider;
+    protected BoxCollider2D parentColiider;
+    protected BoxCollider2D childColiider;
     protected SpriteRenderer enemyRenderer;
     protected Animator enemyAnimator;
     protected AudioSource enemyAudio;
@@ -46,6 +48,7 @@ public class EnemyBase : MonoBehaviour
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
+    
 
     //초기화
     public virtual void Init()
@@ -55,8 +58,11 @@ public class EnemyBase : MonoBehaviour
         enemyAnimator = GetComponentInChildren<Animator>();
 
         enemyAudio = GetComponent<AudioSource>();
-        enemyCollider = GetComponent<BoxCollider2D>();
+        parentColiider = GetComponent<BoxCollider2D>();
+        childColiider = transform.Find("Collider").GetComponent<BoxCollider2D>();
         enemyRigidbody = GetComponent<Rigidbody2D>();
+
+        Physics2D.IgnoreCollision(parentColiider, childColiider);
     }
 
     //몬스터 공격시 애니메이션 재생
@@ -139,7 +145,8 @@ public class EnemyBase : MonoBehaviour
 
         Debug.Log(gameObject.name+"죽음");
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-        enemyCollider.enabled = false;
+        parentColiider.enabled = false;
+        childColiider.enabled = false;
         Destroy(gameObject,.5f);
     }
 
@@ -179,13 +186,13 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
         {
             isTouch = false;
         }
-
     }
 
     //일정시간동안 스턴이 걸린다.

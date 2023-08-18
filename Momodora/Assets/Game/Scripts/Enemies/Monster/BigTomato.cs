@@ -86,7 +86,6 @@ public class BigTomato : EnemyBase
                     //hit배열을 모두 돈다
                     foreach (Collider2D hit in hits)
                     {
-                        Debug.Log("!");
                         if (hit.tag == "Player")
                         {
                             Debug.Log("!");
@@ -97,29 +96,19 @@ public class BigTomato : EnemyBase
                             break;
                         }
                     }
+
                     if (isAttack)
                     {
                         break;
                     }
-                    yield return new WaitForEndOfFrame();
-                }
-                else 
-                {
 
-                    if (isTouch)
-                    {
-                        enemyRigidbody.velocity = Vector2.zero;
-                    }
-                    else
-                    {
-                        Move();
-                    }
-                    enemyAnimator.SetTrigger("Move");
-                    yield return new WaitForSeconds(moveDelay);
-                    enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
                 }
-                    
 
+                Debug.Log("?");
+                Move();
+                enemyAnimator.SetTrigger("Move");
+                yield return new WaitForSeconds(moveDelay);
+                enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
             }
             
         }
