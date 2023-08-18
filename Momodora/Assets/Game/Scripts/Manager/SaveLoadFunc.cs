@@ -10,9 +10,9 @@ public class SaveLoadFunc : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            //SaveLoad character = new SaveLoad(ItemManager.instance.leaf, (int)GameManager.instance.gameTime);
+            SaveLoad character = new SaveLoad(1);
 
-            //GameManager.Save(character, "save_001");
+            GameManager.Save(character, "save_001");
         }
 
         /////////////////////////////////////////////////////////////////////////

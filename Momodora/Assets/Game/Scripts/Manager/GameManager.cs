@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public MapData currMap;
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
+    public bool[] saveCheck = new bool[5];
+    public int userSaveServer = default;
 
     public Image loadingImage;
     public float gameTime = default;
@@ -25,7 +27,15 @@ public class GameManager : MonoBehaviour
         if (instance == null || instance == default) { instance = this; DontDestroyOnLoad(instance.gameObject); }
         else { Destroy(gameObject); }
 
+        if (!Directory.Exists(SavePath)) { Directory.CreateDirectory(SavePath); }
+
         gameTime = 0f;
+        userSaveServer = 0;
+
+        for (int i = 0; i < 5; i++)
+        {
+            saveCheck[i] = false;
+        }
 
         mapDatabase = new Dictionary<string, MapData>();
         MapData[] map = Resources.LoadAll<MapData>("Maps");
@@ -44,8 +54,6 @@ public class GameManager : MonoBehaviour
 
     public static void Save(SaveLoad saveData, string saveFileName)
     {
-        if (!Directory.Exists(SavePath)) { Directory.CreateDirectory(SavePath); }
-
         string saveJson = JsonUtility.ToJson(saveData);
         string saveFilePath = SavePath + saveFileName + ".json";
         File.WriteAllText(saveFilePath, saveJson);
@@ -75,17 +83,17 @@ public class GameManager : MonoBehaviour
         return saveData;
     }
 
-    public static bool SaveCheck(string saveFileName)
+    public void SaveFileCheck(string saveFileName, int checkCount)
     {
         string saveFilePath = SavePath + saveFileName + ".json";
 
         if (File.Exists(saveFilePath))
         {
-            return true;
+            saveCheck[checkCount] = true;
         }
         else
         {
-            return false;
+            saveCheck[checkCount] = false;
         }
     }
 }

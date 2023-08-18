@@ -41,6 +41,9 @@ public class Title : MonoBehaviour
     private bool startTitle = false;
     private bool[] savedSlot = new bool[5];
 
+    private string saveCheckString = default;
+    private string testSaveString = default;
+
     void Awake()
     {
         logoAlphaX = 0f;
@@ -103,11 +106,40 @@ public class Title : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow) && startTitle == true) { StartTitleRight(); }
         if (Input.GetKeyDown(KeyCode.A) && startTitle == true) { StartTitleOn(); }
         if (Input.GetKeyDown(KeyCode.S) && startTitle == true) { StartTitleOut(); }
+
+        if (Input.GetKeyDown(KeyCode.P) && startTitle == true) { TestCreateSave(); }
+        if (Input.GetKeyDown(KeyCode.T) && startTitle == true) { SaveCheck(); }
     }
 
     public void SaveCheck()
     {
-        GameManager.SaveCheck("save1");
+        for (int i = 0; i < 5; i++)
+        {
+            saveCheckString = "save_" + i;
+            GameManager.instance.SaveFileCheck(saveCheckString, i);
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (GameManager.instance.saveCheck[i] == false)
+            {
+                Debug.Log("세이브 파일 없음");
+            }
+            else
+            {
+                Debug.Log("세이브 파일 존재함");
+            }
+        }
+    }
+
+    public void TestCreateSave()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            testSaveString = "save_" + i;
+            SaveLoad save = new SaveLoad(i);
+            GameManager.Save(save, testSaveString);
+        }
     }
 
     public void StartTitleUp()
