@@ -6,9 +6,14 @@ public class AttackReactionController : ControlBase
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Arrow")
+        if (!isPlay && collision.tag == "Arrow")
         {
             PlayEvent();
+
+            if (!isPreserve)
+            {
+                isPlay = true;
+            }
         }
     }
 }

@@ -94,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9059547999058919888}
   - component: {fileID: 9059547999058919889}
-  - component: {fileID: 9059547999058919890}
   - component: {fileID: 6950089346273013280}
+  - component: {fileID: 2090289182}
   m_Layer: 0
   m_Name: OrbTile
   m_TagString: Untagged
@@ -145,18 +145,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &9059547999058919890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9059547999058919894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e6d00f2fbaafbc449545d1ee36b8077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &6950089346273013280
 Animator:
   serializedVersion: 5
@@ -178,3 +166,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2090289182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9059547999058919894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc4cb2bcb5011c41a8394d49e15cf5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPreserve: 0
+  isPlay: 0
+  mode: 0

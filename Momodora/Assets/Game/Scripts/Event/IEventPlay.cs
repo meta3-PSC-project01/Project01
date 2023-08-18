@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEventPlay
 {
-    void Play();
+    void Play(int mode);
 }
