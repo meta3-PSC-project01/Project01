@@ -37,7 +37,7 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(InventoryCheck());
+        //StartCoroutine(InventoryCheck());
 
         itemDataBase.Add("[None]", new None());
         itemDataBase.Add("µÓ∞°¿« »∆¿Â", new Items1());

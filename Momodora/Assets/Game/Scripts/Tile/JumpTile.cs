@@ -15,7 +15,7 @@ public class JumpTile : MonoBehaviour
             {
                 isChewing = true;
                 StartCoroutine(Chewing());
-                collision.collider.GetComponent<PlayerMove>().playerRigidbody.AddForce(new Vector2(0, 30f), ForceMode2D.Impulse);
+                collision.collider.GetComponentInParent<PlayerMove>().playerRigidbody.AddForce(new Vector2(0, 30f), ForceMode2D.Impulse);
             }
         }
     }

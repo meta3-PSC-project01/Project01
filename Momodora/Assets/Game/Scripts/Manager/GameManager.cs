@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public Image loadingImage;
     public float gameTime = default;
-    
+
     public static string SavePath => Application.persistentDataPath + "/Save/";
 
     void Awake()
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         else { Destroy(gameObject); }
 
         gameTime = 0f;
-        
+
         mapDatabase = new Dictionary<string, MapData>();
         MapData[] map = Resources.LoadAll<MapData>("Maps");
         foreach (MapData mapData in map)
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
             mapDatabase.Add(mapData.name, mapData);
         }
 
-        //currMap = Instantiate(mapDatabase["Stage1Start"], Vector2.zero, Quaternion.identity);
+        currMap = Instantiate(mapDatabase["Stage1Start"], Vector2.zero, Quaternion.identity);
     }
 
     void Update()
@@ -51,14 +51,15 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(saveFilePath, saveJson);
         Debug.Log("Save Success : " + saveFilePath);
     }
- public bool LoadSuccess()
+
+    public bool LoadSuccess()
     {
         return currMap.isLoadEnd;
-        Debug.Log("??");
     }
-  public void CameraOnceMove()
+
+    public void CameraOnceMove(int fieldIndex, int type)
     {
-        Camera.main.GetComponent<CameraMove>().CameraOnceMove(currMap.fieldSize);
+        Camera.main.GetComponent<CameraMove>().CameraOnceMove(fieldIndex, type);
     }
     public static SaveLoad Load(string saveFileName)
     {

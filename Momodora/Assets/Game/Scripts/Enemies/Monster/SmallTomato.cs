@@ -50,6 +50,7 @@ public class SmallTomato : EnemyBase
     // Update is called once per frame
     void Update()
     {
+
         //플레이어 타겟 지정
         if (target != null)
         {
@@ -192,8 +193,15 @@ public class SmallTomato : EnemyBase
                         }
                     }
 
-                    //이동
-                    Move();
+                    if (isTouch)
+                    {
+                        enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
+                    }
+                    else
+                    {
+                        //이동
+                        Move();
+                    }
                     yield return new WaitForSeconds(Time.deltaTime);
                 }
                 else
@@ -218,17 +226,21 @@ public class SmallTomato : EnemyBase
 
     Coroutine hitReactionCoroutine = null;
 
-    public override void HitReaction()
+    public override void HitReaction(int direction)
     {
-        base.HitReaction();
+        base.HitReaction(direction);
         if (hitReactionCoroutine != null)
         {
             StopCoroutine(hitReactionCoroutine);
         }
-        hitReactionCoroutine = StartCoroutine(ReactionRoutine());
+        if (attackObject != null)
+        {
+            AttackEndEvent();
+        }
+        hitReactionCoroutine = StartCoroutine(ReactionRoutine(direction));
     }
 
-    IEnumerator ReactionRoutine()
+    IEnumerator ReactionRoutine(int direction)
     {
         Vector3 tmp;
         //.2초 떨림
@@ -241,7 +253,7 @@ public class SmallTomato : EnemyBase
         }
         yield return new WaitForEndOfFrame();
 
-        enemyRigidbody.velocity = new Vector2(5, 3);
+        enemyRigidbody.velocity = new Vector2(-direction* 5, 3);
 
     }
 
@@ -306,6 +318,7 @@ public class SmallTomato : EnemyBase
     public void AttackEndEvent()
     {
         Destroy(attackObject.gameObject);
+        attackObject = null;
     }
 
     //공격 종료 = 루틴 종료

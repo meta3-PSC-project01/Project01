@@ -40,6 +40,10 @@ public class BombImp : EnemyBase
     // Update is called once per frame
     void Update()
     {
+        if (isTouch)
+        {
+            enemyRigidbody.velocity = Vector2.zero;
+        }
         //플레이어 타겟 지정
         if (target != null)
         {
@@ -120,6 +124,40 @@ public class BombImp : EnemyBase
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position + ((int)direction * Vector3.right * 4), new Vector2(8, 28));
         Debug.DrawRay(transform.position, transform.up * -1, Color.green);
+
+    }
+
+
+    Coroutine hitReactionCoroutine = null;
+
+    public override void HitReaction(int direction)
+    {
+        base.HitReaction(direction);
+        if (hitReactionCoroutine != null)
+        {
+            StopCoroutine(hitReactionCoroutine);
+        }
+        //if (attackObject != null)
+        {
+            AttackEndEvent();
+        }
+        hitReactionCoroutine = StartCoroutine(ReactionRoutine(direction));
+    }
+
+    IEnumerator ReactionRoutine(int direction)
+    {
+        Vector3 tmp;
+        //.2초 떨림
+        for (int i = 0; i < 10; i++)
+        {
+            tmp = new Vector3(Random.Range(0, .2f), Random.Range(0, .2f));
+            transform.position = transform.position + tmp;
+            yield return new WaitForSeconds(.02f);
+            transform.position = transform.position - tmp;
+        }
+        yield return new WaitForEndOfFrame();
+
+       // enemyRigidbody.velocity = new Vector2(-direction * 5, 3);
 
     }
 

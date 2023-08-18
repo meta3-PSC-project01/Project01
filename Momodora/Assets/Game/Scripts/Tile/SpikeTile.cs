@@ -13,7 +13,7 @@ public class SpikeTile : MonoBehaviour
             if (collision.contacts[0].point.y < collision.transform.position.y)
             {
 
-                PlayerMove test = collision.transform.GetComponent<PlayerMove>();
+                PlayerMove test = collision.transform.GetComponentInParent<PlayerMove>();
                 TileBase tile = transform.GetComponent<Tilemap>().GetTile(Vector3Int.FloorToInt(collision.transform.position - new Vector3Int(0, 1, 0)));
 
                 if (tile == null) return;

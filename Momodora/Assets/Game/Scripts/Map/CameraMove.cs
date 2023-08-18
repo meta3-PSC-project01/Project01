@@ -7,7 +7,7 @@ public class CameraMove : MonoBehaviour
 {
     Vector2Int fieldSize = Vector2Int.one;
     Vector2 mapSize = new Vector2(7 * Screen.width / Screen.height, 7);
-    TestPlayer player;
+    PlayerMove player;
 
     Coroutine coroutine;
     Vector3 shaking;
@@ -15,19 +15,19 @@ public class CameraMove : MonoBehaviour
     float camHeight;
     float camWidth;
 
-    public void CameraOnceMove(Vector2 position)
+    public void CameraOnceMove(int fieldIndex, int type)
     {
-        if (position.x == 1 && position.y == 1)
+        if (fieldIndex == 1)
         {
             transform.position = new Vector3(0, 0, -10) + shaking;
         }
-        if (position.x > 1 && position.y == 1)
+        else if (fieldIndex >1 && type==1)
         {
             transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10) + shaking;
         }
-        if (position.x == 1 && position.y > 1)
+        else if (fieldIndex > 1 && type == 2)
         {
-            transform.position = new Vector3(transform.position.x, (camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
+            transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
         }
     }
 
@@ -90,7 +90,7 @@ public class CameraMove : MonoBehaviour
 
         if (player == null)
         {
-            player = FindObjectOfType<TestPlayer>();
+            player = FindObjectOfType<PlayerMove>();
         }
 
         if (GameManager.instance.cameraStop)
@@ -114,18 +114,18 @@ public class CameraMove : MonoBehaviour
         }
 
 
-        if (player.transform.position.y > 0 && player.transform.position.y < (camHeight * (fieldSize.y - 1) * 2))
+        if (player.transform.position.y < 0 && player.transform.position.y > -(camHeight * (fieldSize.y - 1) * 2))
         {
             transform.position = new Vector3(transform.position.x, player.transform.position.y, -10) + shaking;
 
         }
-        else if (player.transform.position.y <= 0)
+        else if (player.transform.position.y >= 0)
         {
             transform.position = new Vector3(transform.position.x, 0, -10) + shaking;
         }
-        else if (player.transform.position.y >= (camHeight * (fieldSize.y - 1) * 2))
+        else if (player.transform.position.y <= -(camHeight * (fieldSize.y - 1) * 2))
         {
-            transform.position = new Vector3(transform.position.x, (camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
+            transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
         }
     }
 }

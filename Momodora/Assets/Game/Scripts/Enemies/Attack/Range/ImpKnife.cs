@@ -42,7 +42,7 @@ public class ImpKnife : EnemyAttackData
         if (isActive && collision.tag == "Player")
         {
             isActive = false;
-            collision.GetComponent<PlayerMove>().playerHp -= damage;
+            collision.GetComponentInParent<PlayerMove>().playerHp -= damage;
             //맞을경우 뭔가 뜨게하는거 추가
             //플레이어 반응 
             //player.Hit();

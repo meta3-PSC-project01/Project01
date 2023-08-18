@@ -755,10 +755,10 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator ThinFloorEnter()
     {
-        BoxCollider2D thinFloorCollider = thinFloor.GetComponent<BoxCollider2D>();
+        CompositeCollider2D thinFloorCollider = thinFloor.GetComponent<CompositeCollider2D>();
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
 
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
         thinFloorCheck = false;
