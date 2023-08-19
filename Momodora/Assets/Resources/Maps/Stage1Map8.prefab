@@ -6904,6 +6904,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1859356313686667824}
     m_Modifications:
+    - target: {fileID: 1299599549472097074, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650682, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_Name
       value: SavePoint

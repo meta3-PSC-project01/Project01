@@ -72,21 +72,17 @@ public class CustomInspector_EscapeArea : Editor
                 Transform t = fieldList[fieldSelect].transform.GetChild(0);
                 t = t.Find(direction[i]);
 
+                EscapeTile tile = null;
                 if (t != null)
                 {
-                    EscapeTile tile = t.GetComponent<EscapeTile>();
-                    escapeList.Insert(0,tile);
+                    tile = t.GetComponent<EscapeTile>();
                 }
-                else
-                {
-                    direction.RemoveAt(i);
-                }
+                escapeList.Insert(0, tile);
             }
 
             if (escapeSelect != -1)
             {
                 currEscapeArea.nextTile = escapeList[escapeSelect];
-                escapeList[escapeSelect].nextTile = currEscapeArea;
             }
         }
 

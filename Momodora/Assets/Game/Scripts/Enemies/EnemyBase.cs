@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 
@@ -48,11 +49,14 @@ public class EnemyBase : MonoBehaviour
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
-    
+
+    public Vector3 firstPosition;
 
     //초기화
     public virtual void Init()
     {
+        firstPosition = transform.position;
+
         sight = GetComponentInChildren<EnemySight>();
         enemyRenderer = GetComponentInChildren<SpriteRenderer>();
         enemyAnimator = GetComponentInChildren<Animator>();
@@ -64,6 +68,13 @@ public class EnemyBase : MonoBehaviour
 
         Physics2D.IgnoreCollision(parentColiider, childColiider);
     }
+
+    private void Start()
+    {
+        transform.position = firstPosition;
+        transform.localPosition = firstPosition;
+    }
+
 
     //몬스터 공격시 애니메이션 재생
     //2개 이상의 공격 방식을 가진 적이 있을 수 있다.
@@ -91,12 +102,12 @@ public class EnemyBase : MonoBehaviour
 
         if (enemyStunRegistValue <= damage)
         {
-            Debug.Log("스턴카운트+1");
+            //Debug.Log("스턴카운트+1");
             enemyStunRegistCurrCount += 1;
             if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
             {
                 HitReaction(direction);
-                Debug.Log("스턴");
+                //Debug.Log("스턴");
                 enemyStunRegistCurrCount = 0;
                 isStun = true;
                 enemyAnimator.SetTrigger("Hit");
@@ -143,7 +154,7 @@ public class EnemyBase : MonoBehaviour
         enemyAnimator.SetBool("Dead", true);
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Dead"));
 
-        Debug.Log(gameObject.name+"죽음");
+        //Debug.Log(gameObject.name+"죽음");
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         parentColiider.enabled = false;
         childColiider.enabled = false;

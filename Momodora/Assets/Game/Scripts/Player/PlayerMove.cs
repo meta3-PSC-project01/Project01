@@ -197,13 +197,13 @@ public class PlayerMove : MonoBehaviour
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[0]);
 
-                Debug.Log(jSpeed[0]);
+               // Debug.Log(jSpeed[0]);
             }
             else if (jumpCount == 2)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[1]);
 
-                Debug.Log(jSpeed[1]);
+               // Debug.Log(jSpeed[1]);
             }
         }
 
@@ -319,7 +319,7 @@ public class PlayerMove : MonoBehaviour
             if (chargeForce >= chargeMax)
             {
                 chargeForce = chargeMax;
-                Debug.Log("풀차지 상태");
+                //Debug.Log("풀차지 상태");
             }
         }
 
@@ -360,14 +360,14 @@ public class PlayerMove : MonoBehaviour
             ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
             ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
             ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
-            Debug.Log("아이템 획득!");
+           // Debug.Log("아이템 획득!");
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             test = "save" + test2;
 
-            Debug.Log(test);
+           // Debug.Log(test);
         }
 
         animator.SetBool("Ground", isGrounded);
@@ -417,7 +417,7 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(HitMoveTime());
         }
 
-        Debug.Log("히트!");
+     //   Debug.Log("히트!");
     }
 
     IEnumerator InvinTime()
@@ -431,7 +431,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         isHited = false;
-        Debug.Log("무적시간 종료");
+       // Debug.Log("무적시간 종료");
     }
 
     IEnumerator HitMoveTime()

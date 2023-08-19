@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
             mapDatabase.Add(mapData.name, mapData);
         }
 
-        currMap = Instantiate(mapDatabase["Stage1Start"], Vector2.zero, Quaternion.identity);
+        currMap = Instantiate(mapDatabase["Stage1Map14"], Vector2.zero, Quaternion.identity);
     }
 
     void Update()
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         string saveJson = JsonUtility.ToJson(saveData);
         string saveFilePath = SavePath + saveFileName + ".json";
         File.WriteAllText(saveFilePath, saveJson);
-        Debug.Log("Save Success : " + saveFilePath);
+       // Debug.Log("Save Success : " + saveFilePath);
     }
 
     public bool LoadSuccess()
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         string saveFilePath = SavePath + saveFileName + ".json";
         if (!File.Exists(saveFilePath))
         {
-            Debug.LogError("No such saveFile exists");
+            //Debug.LogError("No such saveFile exists");
             return null;
         }
 

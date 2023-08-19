@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class MapData : MonoBehaviour
 {
+    public static readonly Vector2Int FIELD_SIZE = new Vector2Int(13, 7);
+
     public bool isLoadEnd=false;
 
     public Transform player;

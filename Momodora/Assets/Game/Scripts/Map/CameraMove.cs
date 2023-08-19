@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    Vector2Int fieldSize = Vector2Int.one;
+    public Vector2Int fieldSize = Vector2Int.one;
     Vector2 mapSize = new Vector2(7 * Screen.width / Screen.height, 7);
     PlayerMove player;
 
@@ -43,30 +42,12 @@ public class CameraMove : MonoBehaviour
 
     IEnumerator ShakeCoroutine()
     {
-        shaking = Vector2.right * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.left * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.up * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.down * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.right * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
-        shaking = Vector2.left * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
-        shaking = Vector2.up * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
-        shaking = Vector2.down * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
+        for (int i = 0; i < 8; i++)
+        {
+            shaking = Random.insideUnitCircle;
+            yield return new WaitForEndOfFrame();
+            shaking = Vector3.zero;
+        }
         shaking = Vector3.zero;
     }
 
