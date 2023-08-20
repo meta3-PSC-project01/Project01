@@ -12,12 +12,15 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, MapData> mapDatabase;
     public Vector2Int currMapPosition;
     public MapData currMap;
+    public Image loadingImage;
+
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
     public bool[] saveCheck = new bool[5];
-    public int userSaveServer = default;
 
-    public Image loadingImage;
+    public int userSaveServer = default;
+    public int[] savePoint = new int[2];
+
     public float gameTime = default;
 
     public static string SavePath => Application.persistentDataPath + "/Save/";
@@ -94,6 +97,20 @@ public class GameManager : MonoBehaviour
         else
         {
             saveCheck[checkCount] = false;
+        }
+    }
+
+    public void SaveFileDelete(string saveFileName)
+    {
+        string saveFilePath = SavePath + saveFileName + ".json";
+
+        if (File.Exists(saveFilePath))
+        {
+            File.Delete(saveFilePath);
+        }
+        else
+        {
+            Debug.Log("파일 삭제 중 오류가 발생하였습니다.");
         }
     }
 }
