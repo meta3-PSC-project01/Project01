@@ -46,6 +46,10 @@ public class MapData : MonoBehaviour
 
         foreach(var compCollider in GetComponentsInChildren<CompositeCollider2D>())
         {
+            if (compCollider.gameObject.name == "ThineTile")
+            {
+                compCollider.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            }
             compCollider.GenerateGeometry();
         }
     }
