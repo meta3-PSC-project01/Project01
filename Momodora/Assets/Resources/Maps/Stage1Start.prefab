@@ -3741,7 +3741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoadEnd: 0
-  player: {fileID: 0}
+  player: {fileID: 6889628450502011906, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
   fieldSize: {x: 2, y: 1}
   type: 1
   enterArea: {fileID: 0}

@@ -57,6 +57,8 @@ public class EscapeTile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("?");
+
         if (collision.CompareTag("Player"))
         {
             PlayerMove player = collision.GetComponentInParent<PlayerMove>();
@@ -71,7 +73,7 @@ public class EscapeTile : MonoBehaviour
                     if (!GameManager.instance.loadingImage.gameObject.activeInHierarchy)
                     {
                         GameManager.instance.cameraStop = true;
-                        GameManager.instance.loadingImage.gameObject.SetActive(true);
+                        //GameManager.instance.loadingImage.gameObject.SetActive(true);
 
                         GameObject nextMap = Instantiate(GameManager.instance.mapDatabase[nextTile.GetMapData().name].gameObject, Vector3Int.zero, Quaternion.identity);
                         //nextMap.transform.localScale = Vector3.zero;
@@ -95,36 +97,36 @@ public class EscapeTile : MonoBehaviour
         //player.transform.localScale = Vector3.zero;
         GameManager.instance.CameraOnceMove(nextTile.fieldIndex, nextMap.GetComponent<MapData>().type);
         yield return new WaitForSeconds(.1f);
-       // Debug.Log(nextMap.name + "¸Ê");
-       //Debug.Log(nextTile.fieldIndex+"ÀÎµ¦½º");
-       // Debug.Log(nextTile.name+"ÀÌ¸§");
+       // Debug.Log(nextMap.name + "ï¿½ï¿½");
+       //Debug.Log(nextTile.fieldIndex+"ï¿½Îµï¿½ï¿½ï¿½");
+       // Debug.Log(nextTile.name+"ï¿½Ì¸ï¿½");
         Transform tmp = nextMap.GetComponent<MapData>().FindChildTransform(nextTile.fieldIndex, nextTile.name);
        // Debug.Log(tmp + "tmp");
         EscapeTile _nextTile = tmp.GetComponent<EscapeTile>();
        // Debug.Log(_nextTile + "EscapeTile");
         Vector2 currDiff = GetDistanceVector2();
         Vector2 nextDiff = _nextTile.GetDistanceVector2();
-        Debug.Log(currDiff + " ÇöÀçdiff");
-        Debug.Log(nextDiff + " ´ÙÀ½diff");
-        Debug.Log(player.transform.position + " ÇÃ·¹ÀÌ¾îÀ§Ä¡");
-        Debug.Log((player.transform.position.y + currDiff.y - nextDiff.y) + " º¯È¯À§Ä¡");
+        Debug.Log(currDiff + " ï¿½ï¿½ï¿½ï¿½diff");
+        Debug.Log(nextDiff + " ï¿½ï¿½ï¿½ï¿½diff");
+        Debug.Log(player.transform.position + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½Ä¡");
+        Debug.Log((player.transform.position.y + currDiff.y - nextDiff.y) + " ï¿½ï¿½È¯ï¿½ï¿½Ä¡");
 
-        //¿ì->ÁÂ
+        //ï¿½ï¿½->ï¿½ï¿½
         if (escapeIndex == 0)
         {
             player.transform.position = new Vector3(_nextTile.pivot.x + 1, player.transform.position.y + currDiff.y - nextDiff.y, 0);
         }
-        //ÁÂ->¿ì
+        //ï¿½ï¿½->ï¿½ï¿½
         else if(escapeIndex == 1)
         {
             player.transform.position = new Vector3(_nextTile.pivot.x - 1, player.transform.position.y + currDiff.y - nextDiff.y, 0);
         }
-        //ÇÏ->»ó
+        //ï¿½ï¿½->ï¿½ï¿½
         else if(escapeIndex == 2)
         {
             player.transform.position = new Vector3(player.transform.position.x + currDiff.x - nextDiff.x, _nextTile.pivot.y - 2, 0);
         }
-        //»ó->ÇÏ
+        //ï¿½ï¿½->ï¿½ï¿½
         else if (escapeIndex == 3)
         {
             player.transform.position = new Vector3(player.transform.position.x + currDiff.x - nextDiff.x, _nextTile.pivot.y+2, 0);
@@ -133,6 +135,5 @@ public class EscapeTile : MonoBehaviour
         Destroy(mapData.gameObject);
         GameManager.instance.loadingImage.gameObject.SetActive(false);
         GameManager.instance.cameraStop = false;
-        player.transform.localScale = Vector3.one;
     }
 }
