@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
     private GameObject thinFloor;
     public Transform playerContainer;
     private GameObject monster;
+    public GameObject playerUi;
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
@@ -462,7 +463,7 @@ public class PlayerMove : MonoBehaviour
 
         if (playerHp <= 0)
         {
-
+            // 게임 오버 씬 실행
         }
         else
         {
@@ -480,6 +481,7 @@ public class PlayerMove : MonoBehaviour
             if (location == 1) { playerRigidbody.velocity = new Vector2(-6f, 11f); }
             else if (location == -1) { playerRigidbody.velocity = new Vector2(6f, 11f); }
 
+            playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
             StartCoroutine(InvinTime());
             StartCoroutine(HitMoveTime());
         }
@@ -780,7 +782,16 @@ public class PlayerMove : MonoBehaviour
 
         if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
 
-        if (collision.gameObject.name == ("LadderDown")) { onLadderBot = true; }
+        if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
+
+        if (collision.tag == "Gold")
+        {
+            ItemManager.instance.leaf += 1;
+            playerUi.GetComponent<PlayerUi>().PlayerMoney();
+
+            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject, 1f);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -13,37 +13,46 @@ public class ItemManager : MonoBehaviour
     public List<Items> durationItems;
 
     public int leaf = default;
+    public int activeItemNum = default;
 
     public bool lookAtInventory = false;
+    public bool lookAtGameMenu = false;
     public bool inventoryCheckTime = false;
     public bool[] equipCheck = new bool[5];
 
     // 아이템 관리 베이스
     Dictionary<string, Items> itemDataBase = new Dictionary<string, Items>();
 
-    public static ItemManager CreateInstance() 
-    {         
-        GameObject manager = new GameObject("ItemManager");
-        instance = manager.AddComponent<ItemManager>();
+    //public static ItemManager CreateInstance() 
+    //{
+    //    GameObject manager = new GameObject("ItemManager");
+    //    instance = manager.AddComponent<ItemManager>();
 
-        if (instance == null || instance == default) 
-        {
-            return instance;
-        }
-        else { 
-            Destroy(manager); 
-            return instance;
-        }        
-    } 
+    //    if (instance == null || instance == default)
+    //    {
+    //        
+    //        return instance;
+    //    }
+    //    else
+    //    {
+    //        
+    //        Destroy(manager);
+    //        return instance;
+    //    }
+    //} 
 
     void Awake()
-    {        
+    {
+        if (instance == null || instance == default) { instance = this; DontDestroyOnLoad(instance.gameObject); }
+        else { Destroy(gameObject); }
+
         for (int i = 0; i < 5; i++) { equipCheck[i] = false; }
 
         activeItems = new List<Items>();
         durationItems = new List<Items>();
 
         leaf = 0;
+        activeItemNum = 0;
     }
 
     void Start()

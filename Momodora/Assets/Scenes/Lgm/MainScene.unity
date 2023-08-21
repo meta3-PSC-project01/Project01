@@ -6444,6 +6444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUi: {fileID: 1972802613}
   leaf: 0
+  activeItemNum: 0
   lookAtInventory: 0
   inventoryCheckTime: 0
   equipCheck: 0000000000
