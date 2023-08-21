@@ -59,6 +59,7 @@ public class TrapTile : MonoBehaviour
         for (int i = 0; i< effectCount; i++)
         {
             GameObject tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
+            tmp.transform.parent = transform;
             float degree = Random.Range(0, endDegree);
             if (degree != 0)
             {
@@ -79,6 +80,7 @@ public class TrapTile : MonoBehaviour
             }
             Destroy(tmp, 1f);
             tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
+            tmp.transform.parent = transform;
             degree = Random.Range(0, endDegree);
             if (degree != 0)
             {
@@ -100,6 +102,7 @@ public class TrapTile : MonoBehaviour
             Destroy(tmp, 1f);
             yield return new WaitForSeconds(endTime/ (effectCount+10) * 2);
             tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
+            tmp.transform.parent = transform;
             degree = Random.Range(0, endDegree);
             if (degree != 0)
             {
@@ -120,6 +123,7 @@ public class TrapTile : MonoBehaviour
             }
             Destroy(tmp, 1f);
             tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
+            tmp.transform.parent = transform;
             degree = Random.Range(0, endDegree);
             if (degree != 0)
             {

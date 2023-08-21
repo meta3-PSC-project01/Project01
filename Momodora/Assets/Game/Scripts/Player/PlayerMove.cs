@@ -71,6 +71,16 @@ public class PlayerMove : MonoBehaviour
     {
         // { 변수 값 선언
         playerRigidbody = GetComponent<Rigidbody2D>();
+
+        playerCollider_ = transform.Find("CrashCollider").GetComponent<BoxCollider2D>();
+        BoxCollider2D FloorDetectCollider = transform.Find("FloorDetectCollider").GetComponent<BoxCollider2D>();
+        BoxCollider2D BorderCollider = transform.Find("BorderCollider").GetComponent<BoxCollider2D>();
+
+        Physics2D.IgnoreCollision(playerCollider_, FloorDetectCollider, true);
+        Physics2D.IgnoreCollision(FloorDetectCollider, BorderCollider, true);
+        Physics2D.IgnoreCollision(BorderCollider, playerCollider_, true);
+
+
         playerRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
@@ -229,13 +239,13 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 jSpeed[0] += jumpForce;
-                if (jSpeed[0] > 10f) { jSpeed[0] = 10f; jumpingForce = false; }
+                if (jSpeed[0] > 12f) { jSpeed[0] = 12f; jumpingForce = false; }
             }
             //2단 점프시 파워 제한
             else if (jumpCount == 2)
             {
                 jSpeed[1] += jumpForce;
-                if (jSpeed[1] > 10f*0.8f) { jSpeed[1] = 10*0.8f; jumpingForce = false; }
+                if (jSpeed[1] > 12f*0.8f) { jSpeed[1] = 12*0.8f; jumpingForce = false; }
             }
         }
 
@@ -363,7 +373,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         //버그 :
-        //1.공격중 구리기됨
+        //1.공격중 구르기됨
 
         if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false && isChargeBowed == false && 
             isChargeCrouchBowed == false) { isCharged = true; }
@@ -527,17 +537,19 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerBowShot()
     {      // Fix : Vector3 up
-        GameObject tempObject = Instantiate(arrowPrefab, playerContainer.position+Vector3.up * 0.5f, Quaternion.identity);
+        Debug.Log(playerContainer.position);
+        Debug.Log(playerContainer.position + Vector3.up * .5f);
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer.position+Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
             tempObject.transform.right = direction;
-            tempObject.transform.position = transform.position + 1f * direction;
+            //tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
             tempObject.transform.right = -direction;
-            tempObject.transform.position = transform.position + 1f * -direction;
+            //tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
@@ -545,17 +557,17 @@ public class PlayerMove : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+            GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position + Vector3.up * .5f, Quaternion.identity);
             Vector3 direction = new Vector2(Mathf.Cos((-8 + 8 * i) * Mathf.Deg2Rad), Mathf.Sin((-8 + 8 * i) * Mathf.Deg2Rad));
             if (flipX == false)
             {
                 tempObject.transform.right = direction;
-                tempObject.transform.position = transform.position + 1f * direction;
+              //  tempObject.transform.position = transform.position + 1f * direction;
             }
             else
             {
                 tempObject.transform.right = -direction;
-                tempObject.transform.position = transform.position + 1f * -direction;
+              //  tempObject.transform.position = transform.position + 1f * -direction;
             }
         }
     }
@@ -570,17 +582,17 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerAirBowShot()
     {
-        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position + Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
             tempObject.transform.right = direction;
-            tempObject.transform.position = transform.position + 1f * direction;
+           // tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
             tempObject.transform.right = -direction;
-            tempObject.transform.position = transform.position + 1f * -direction;
+          //  tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
@@ -588,17 +600,17 @@ public class PlayerMove : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+            GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position + Vector3.up * .5f, Quaternion.identity);
             Vector3 direction = new Vector2(Mathf.Cos((-8 + 8 * i) * Mathf.Deg2Rad), Mathf.Sin((-8 + 8 * i) * Mathf.Deg2Rad));
             if (flipX == false)
             {
                 tempObject.transform.right = direction;
-                tempObject.transform.position = transform.position + 1f * direction;
+               // tempObject.transform.position = transform.position + 1f * direction;
             }
             else
             {
                 tempObject.transform.right = -direction;
-                tempObject.transform.position = transform.position + 1f * -direction;
+               // tempObject.transform.position = transform.position + 1f * -direction;
             }
         }
     }
@@ -613,17 +625,17 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerCrouchBowShot()
     {
-        GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+        GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position - Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
         {
             tempObject.transform.right = direction;
-            tempObject.transform.position = transform.position + 1f * direction;
+            //tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
             tempObject.transform.right = -direction;
-            tempObject.transform.position = transform.position + 1f * -direction;
+            //tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
@@ -631,17 +643,17 @@ public class PlayerMove : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            GameObject tempObject = Instantiate(arrowPrefab, playerContainer);
+            GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position - Vector3.up * .5f, Quaternion.identity);
             Vector3 direction = new Vector2(Mathf.Cos((-8 + 8 * i) * Mathf.Deg2Rad), Mathf.Sin((-8 + 8 * i) * Mathf.Deg2Rad));
             if (flipX == false)
             {
                 tempObject.transform.right = direction;
-                tempObject.transform.position = transform.position + 1f * direction;
+               // tempObject.transform.position = transform.position + 1f * direction;
             }
             else
             {
                 tempObject.transform.right = -direction;
-                tempObject.transform.position = transform.position + 1f * -direction;
+               // tempObject.transform.position = transform.position + 1f * -direction;
             }
         }
     }
@@ -737,7 +749,6 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("??");
         if (collision.tag == "Floor" )
         {
             isGrounded = true;
@@ -748,12 +759,11 @@ public class PlayerMove : MonoBehaviour
             jSpeed[1] = 0f;
             isAirBowed = false;
             isChargeAirBowed = false;
-            isAirAttacked = false;
-
-        
+            isAirAttacked = false;        
         }
         if ( collision.tag == "ThinFloor")
         {
+            Debug.Log(collision.transform.position+"들어감");
             thinFloorCheck = true;
             thinFloor = collision.gameObject;
             isGrounded = true;
@@ -768,14 +778,14 @@ public class PlayerMove : MonoBehaviour
 
         }
 
-        if (collision.gameObject.name == ("LadderTop")) { onLadderTop = true; }
+        if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
 
-        if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
+        if (collision.gameObject.name == ("LadderDown")) { onLadderBot = true; }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.name == ("LadderUp") && isLadder == true)
+        if (collision.gameObject.tag == ("Ladder") && isLadder == true)
         {
             forceLadder = false;
             isLadder = false;
@@ -810,8 +820,9 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag=="ThinFloor" && thinFloor.Equals( collision))
+        if(collision.tag=="ThinFloor" && thinFloor.Equals(collision))
         {
+            Debug.Log(collision.transform.position + "나감");
             collision = null;
         }
 

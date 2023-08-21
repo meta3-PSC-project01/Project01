@@ -256,6 +256,7 @@ public class ShieldImp : EnemyBase
     public void AttackStartEvent()
     {
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
+        attackObject.transform.SetParent(GameManager.instance.currMap.transform);
 
     }
 

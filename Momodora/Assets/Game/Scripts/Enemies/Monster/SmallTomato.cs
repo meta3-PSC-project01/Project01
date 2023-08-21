@@ -293,7 +293,8 @@ public class SmallTomato : EnemyBase
     //애니메이션 중 이펙트 인스탄트 = 공격 시작
     public void AttackStartEvent()
     {
-        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation, transform).GetComponent<EnemyAttackData>();
+        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
+        attackObject.transform.SetParent(GameManager.instance.currMap.transform);
 
     }
 

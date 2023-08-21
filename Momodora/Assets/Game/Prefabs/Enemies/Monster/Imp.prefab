@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 5573648268572405874}
   - component: {fileID: 112392525747611246}
   - component: {fileID: 2151800844292403614}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -375,8 +375,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &4121549600718788212
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,9 +390,9 @@ GameObject:
   - component: {fileID: 4121549600718788213}
   - component: {fileID: 4121549600718788109}
   - component: {fileID: 4121549600718788151}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Imp
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -576,9 +576,11 @@ MonoBehaviour:
   - {fileID: 4222924744831459426, guid: 8833b8489f54f1447baf60c2ac49e160, type: 3}
   sight: {fileID: 1930159045515907122}
   target: {fileID: 0}
+  gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
   enemyHp: 3
   enemySpeed: 5
   direction: -1
+  goldCount: 5
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0

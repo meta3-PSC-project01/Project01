@@ -58,10 +58,9 @@ public class ImpBomb : EnemyAttackData
             }
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-            Instantiate(poison, transform.position, Quaternion.identity);
+            Instantiate(poison, transform.position, Quaternion.identity, GameManager.instance.currMap.transform);
             Debug.Log(transform.position);
             Destroy(gameObject);
-
         }
     }
 

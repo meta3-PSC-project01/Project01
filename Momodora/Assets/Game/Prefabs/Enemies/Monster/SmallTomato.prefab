@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1194034638653708390}
   - component: {fileID: 8056377750398515545}
   - component: {fileID: 2652152441012129280}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -78,8 +78,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &7803448313553919939
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7803448313553919939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -283,9 +283,9 @@ GameObject:
   - component: {fileID: 7803448313627624858}
   - component: {fileID: 7803448313627624853}
   - component: {fileID: 7475492061865481613}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SmallTomato
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +343,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3, y: -0.49}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -469,9 +469,11 @@ MonoBehaviour:
   - {fileID: 5630753343291915602, guid: 10d2dd8191c0a6a48b7fd3faeb90b4a1, type: 3}
   sight: {fileID: 7803448314443162997}
   target: {fileID: 0}
+  gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
   enemyHp: 10
   enemySpeed: 4
   direction: -1
+  goldCount: 5
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0

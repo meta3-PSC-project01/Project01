@@ -178,8 +178,8 @@ public class BigTomato : EnemyBase
     //애니메이션 중 공격 세팅
     public void AttackStartEvent()
     {
-        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation, transform).GetComponent<EnemyAttackData>();
-        
+        attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
+        attackObject.transform.SetParent(GameManager.instance.currMap.transform);
     }
 
     //애니메이션 중 콜라이더 세팅
