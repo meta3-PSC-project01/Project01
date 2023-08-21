@@ -437,6 +437,14 @@ public class PlayerMove : MonoBehaviour
            // Debug.Log(test);
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (ItemManager.instance.lookAtGameMenu == false)
+            {
+                playerUi.GetComponent<PlayerUi>().GameMenuOn();
+            }
+        }
+
         animator.SetBool("Ground", isGrounded);
         animator.SetBool("Roll", isRolled);
         animator.SetBool("Crouch", isCrouched);
