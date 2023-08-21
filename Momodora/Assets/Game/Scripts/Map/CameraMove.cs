@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    Vector2Int fieldSize = Vector2Int.one;
+    public Vector2Int fieldSize = Vector2Int.one;
     Vector2 mapSize = new Vector2(7 * Screen.width / Screen.height, 7);
     PlayerMove player;
 
@@ -15,19 +14,25 @@ public class CameraMove : MonoBehaviour
     float camHeight;
     float camWidth;
 
+    public float smoothTime = 1f;
+
+    //카메라 위치 재설정
     public void CameraOnceMove(int fieldIndex, int type)
     {
         if (fieldIndex == 1)
         {
             transform.position = new Vector3(0, 0, -10) + shaking;
         }
-        else if (fieldIndex >1 && type==1)
+        else if (fieldIndex >1)
         {
-            transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10) + shaking;
-        }
-        else if (fieldIndex > 1 && type == 2)
-        {
-            transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
+            if (type == 1)
+            {
+                transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10) + shaking;
+            }
+            else if(type == 2)
+            {
+                transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
+            }
         }
     }
 
@@ -43,30 +48,12 @@ public class CameraMove : MonoBehaviour
 
     IEnumerator ShakeCoroutine()
     {
-        shaking = Vector2.right * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.left * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.up * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.down * Random.Range(0f, 1f);
-        yield return new WaitForEndOfFrame();
-
-        shaking = Vector2.right * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
-        shaking = Vector2.left * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
-        shaking = Vector2.up * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
-        shaking = Vector2.down * Random.Range(0f, 1f);
-        yield return new WaitForSeconds(.02f);
-
+        for (int i = 0; i < 8; i++)
+        {
+            shaking = Random.insideUnitCircle;
+            yield return new WaitForEndOfFrame();
+            shaking = Vector3.zero;
+        }
         shaking = Vector3.zero;
     }
 
@@ -97,35 +84,10 @@ public class CameraMove : MonoBehaviour
         {
             return;
         }
-
-
-        if (player.transform.position.x > 0 && player.transform.position.x < (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2)
-        {
-            transform.position = new Vector3(player.transform.position.x, transform.position.y, -10) + shaking;
-
-        }
-        else if (player.transform.position.x <= 0)
-        {
-            transform.position = new Vector3(0, transform.position.y, -10) + shaking;
-        }
-        else if (player.transform.position.x >= (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2)
-        {
-            transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10) + shaking;
-        }
-
-
-        if (player.transform.position.y < 0 && player.transform.position.y > -(camHeight * (fieldSize.y - 1) * 2))
-        {
-            transform.position = new Vector3(transform.position.x, player.transform.position.y, -10) + shaking;
-
-        }
-        else if (player.transform.position.y >= 0)
-        {
-            transform.position = new Vector3(transform.position.x, 0, -10) + shaking;
-        }
-        else if (player.transform.position.y <= -(camHeight * (fieldSize.y - 1) * 2))
-        {
-            transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
-        }
+        float cameraX =Mathf.Clamp(player.transform.position.x, 0, (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2);
+        float cameraY = Mathf.Clamp(player.transform.position.y, -(camHeight * (fieldSize.y - 1) * 2), 0);
+        Vector3 velocity = Vector3.zero;
+        Vector3 targetPosition = new Vector3(cameraX, cameraY, -10)+shaking;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 }

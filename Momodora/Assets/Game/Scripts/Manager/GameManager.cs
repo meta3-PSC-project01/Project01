@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
             mapDatabase.Add(mapData.name, mapData);
         }
 
-        
     }
 
     void Update()
@@ -70,7 +69,7 @@ public class GameManager : MonoBehaviour
         string saveJson = JsonUtility.ToJson(saveData);
         string saveFilePath = SavePath + saveFileName + ".json";
         File.WriteAllText(saveFilePath, saveJson);
-        Debug.Log("Save Success : " + saveFilePath);
+       // Debug.Log("Save Success : " + saveFilePath);
     }
 
     public bool LoadSuccess()
@@ -87,7 +86,7 @@ public class GameManager : MonoBehaviour
         string saveFilePath = SavePath + saveFileName + ".json";
         if (!File.Exists(saveFilePath))
         {
-            Debug.LogError("No such saveFile exists");
+            //Debug.LogError("No such saveFile exists");
             return null;
         }
 
@@ -120,7 +119,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÆÄÀÏ »èÁ¦ Áß ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.");
+            Debug.Log("íŒŒì¼ ì‚­ì œ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
         }
     }
 }

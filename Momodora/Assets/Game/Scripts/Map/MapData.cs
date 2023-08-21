@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class MapData : MonoBehaviour
 {
+    public static readonly Vector2Int FIELD_SIZE = new Vector2Int(13, 7);
+
     public bool isLoadEnd=false;
 
     public Transform player;
@@ -44,6 +46,10 @@ public class MapData : MonoBehaviour
 
         foreach(var compCollider in GetComponentsInChildren<CompositeCollider2D>())
         {
+            if (compCollider.gameObject.name == "ThineTile")
+            {
+                compCollider.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            }
             compCollider.GenerateGeometry();
         }
     }

@@ -77,7 +77,7 @@ public class PlayerMove : MonoBehaviour
         attackSize = new Vector2(2f, 2f);
 
         moveForce = 10f;
-        rollForce = 0.05f;
+        rollForce = 10f;
         jumpForce = 0.3f;
         xInput = 0f;
         xSpeed = 0f;
@@ -107,38 +107,82 @@ public class PlayerMove : MonoBehaviour
     {
         if (ItemManager.instance.lookAtInventory == true) { return; }
 
+        //안맞은 상태
         if (hitMoveTime == false)
         {
+
             xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
+            
+            //버그
+            //1.앉아서 구를시 무한 이동됨
+            //2.구르다가 점프 가능
+
+            //구르는 키 입력
             if (isRolled == true)
             {
+                //rollslow 삭제 요청
+                //사유 : 애니메이션 속도로 조절해야함
                 if (rollingSlow == false)
                 {
+                    //rollflip 삭제 요청
+                    //flip과 rollflip중 하나만 사용
+
+                    //구르기시 마지막에 velocity = vector.zero 추가 요청
                     if (rollFlipX == false)
                     {
-                        rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                        if (rSpeed > 13f) { rSpeed = 13f; }
+                        //rspeed = rollforce로 변경
+                        //구르는 거리는 항상 동일함
+                        //구르는 속도를 조절하고싶으면 애니메이션에서 처리 
+                        rSpeed = rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                        //if (rSpeed > 13f) { rSpeed = 13f; }
 
-                        playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
+                        //이동식 플랫폼 위에 있는거 처리
+                        //platform 위에 있을 경우 플랫폼 이동 속도만큼 추가로 이동해야함
+                        if (isMovingPlatform)
+                        {
+                            playerRigidbody.velocity = new Vector2(rSpeed + platformBody.velocity.x, playerRigidbody.velocity.y);
+                        }
+                        else
+                        {
+                            playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
+                        }
                     }
                     else
                     {
-                        rSpeed += rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                        if (rSpeed > 13f) { rSpeed = 13f; }
+                        rSpeed = rollForce;     // 수평 입력을 유지한만큼 값이 증가
 
-                        playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
+                        if (isMovingPlatform)
+                        {
+                            playerRigidbody.velocity = new Vector2(-rSpeed + platformBody.velocity.x, playerRigidbody.velocity.y);
+                        }
+                        else
+                        {
+                            playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
+                        }
                     }
                 }
             }
             else
             {
+                //활 차징 상태 아닐경우
                 if (isBowed == false)
                 {
-                    if (isCrouched == false && isBowed == false && isCrouchBowed == false && isMlAttack == 0)
+                    //앉은 상태 아님, 앉아서 차징상태 아님, 공격 상태아님
+                    //중복처리되있던 isbowed 삭제
+                    if (isCrouched == false && isCrouchBowed == false && isMlAttack == 0)
                     {
                         xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
                         Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
-                        playerRigidbody.velocity = newVelocity;
+
+                        //땅에서 일어나는 velocity이동엔 플랫폼 이동을 고려해야함
+                        if (isMovingPlatform)
+                        {
+                            playerRigidbody.velocity = new Vector2(xSpeed+platformBody.velocity.x, playerRigidbody.velocity.y);
+                        }
+                        else
+                        {
+                            playerRigidbody.velocity = newVelocity;
+                        }
                     }
                 }
             }
@@ -163,19 +207,22 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
+
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false)
         {
             if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
             else
             {
+                //2단 점프시 파워 제한
                 if (jumpCount == 0) { jSpeed[0] = 7; }
-                else if (jumpCount == 1) { jSpeed[1] = 7; }
+                else if (jumpCount == 1) { jSpeed[1] = 7 * 0.8f; }
 
                 jumpCount += 1;
                 jumping = true;
                 jumpingForce = true;
             }
         }
+
 
         if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true)
         {
@@ -184,10 +231,11 @@ public class PlayerMove : MonoBehaviour
                 jSpeed[0] += jumpForce;
                 if (jSpeed[0] > 10f) { jSpeed[0] = 10f; jumpingForce = false; }
             }
+            //2단 점프시 파워 제한
             else if (jumpCount == 2)
             {
                 jSpeed[1] += jumpForce;
-                if (jSpeed[1] > 10f) { jSpeed[1] = 10; jumpingForce = false; }
+                if (jSpeed[1] > 10f*0.8f) { jSpeed[1] = 10*0.8f; jumpingForce = false; }
             }
         }
 
@@ -197,13 +245,13 @@ public class PlayerMove : MonoBehaviour
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[0]);
 
-                Debug.Log(jSpeed[0]);
+               // Debug.Log(jSpeed[0]);
             }
             else if (jumpCount == 2)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[1]);
 
-                Debug.Log(jSpeed[1]);
+               // Debug.Log(jSpeed[1]);
             }
         }
 
@@ -285,12 +333,16 @@ public class PlayerMove : MonoBehaviour
             playerRigidbody.gravityScale = 3f;
             isLadder = false;
             jumping = true;
-            jumpingForce = true;
+            jumpingForce = true; 
             jumpCount += 1;
             xSpeed = 50f;
             flipX = false;
             playerRenderer.flipX = false;
         }
+
+        //버그 :
+        //1.공격중 점프됨
+        //2.공격중 구리기됨
 
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -310,6 +362,9 @@ public class PlayerMove : MonoBehaviour
             else if (isAirAttacked == false) { isAirAttacked = true; }
         }
 
+        //버그 :
+        //1.공격중 구리기됨
+
         if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false && isChargeBowed == false && 
             isChargeCrouchBowed == false) { isCharged = true; }
 
@@ -319,7 +374,7 @@ public class PlayerMove : MonoBehaviour
             if (chargeForce >= chargeMax)
             {
                 chargeForce = chargeMax;
-                Debug.Log("풀차지 상태");
+                //Debug.Log("풀차지 상태");
             }
         }
 
@@ -354,20 +409,21 @@ public class PlayerMove : MonoBehaviour
             Time.timeScale = 0f;
         }
 
+        //테스트 코드1
         if (Input.GetKeyDown(KeyCode.I))
         {
             ItemManager.instance.GetComponent<Inventory>().GetItem("등가의 훈장");
             ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
             ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
             ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
-            Debug.Log("아이템 획득!");
+           // Debug.Log("아이템 획득!");
         }
 
+        //테스트 코드2
         if (Input.GetKeyDown(KeyCode.F))
         {
             test = "save" + test2;
-
-            Debug.Log(test);
+           // Debug.Log(test);
         }
 
         animator.SetBool("Ground", isGrounded);
@@ -386,6 +442,7 @@ public class PlayerMove : MonoBehaviour
         animator.SetInteger("Run", (int)xSpeed);
     }
 
+    //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
     public void Hit(int damage, int location)
     {
         if (isRolled == true) { return; }
@@ -417,7 +474,7 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(HitMoveTime());
         }
 
-        Debug.Log("히트!");
+     //   Debug.Log("히트!");
     }
 
     IEnumerator InvinTime()
@@ -431,7 +488,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         isHited = false;
-        Debug.Log("무적시간 종료");
+       // Debug.Log("무적시간 종료");
     }
 
     IEnumerator HitMoveTime()
@@ -683,18 +740,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == ("Floor") && 0.7f < collision.contacts[0].normal.y)
-        {
-            isGrounded = true;
-            jumpingForce = false;
-            jumping = false;
-            jumpCount = 0;
-            jSpeed[0] = 0f;
-            jSpeed[1] = 0f;
-            isAirBowed = false;
-            isChargeAirBowed = false;
-            isAirAttacked = false;
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -706,6 +751,19 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag == "floor")
+        {
+            isGrounded = true;
+            jumpingForce = false;
+            jumping = false;
+            jumpCount = 0;
+            jSpeed[0] = 0f;
+            jSpeed[1] = 0f;
+            isAirBowed = false;
+            isChargeAirBowed = false;
+            isAirAttacked = false;
+        }
+
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = true; }
 
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }

@@ -6,6 +6,7 @@ public class JumpTile : MonoBehaviour
 {
 
     bool isChewing = false;
+    float power=30f;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -15,7 +16,7 @@ public class JumpTile : MonoBehaviour
             {
                 isChewing = true;
                 StartCoroutine(Chewing());
-                collision.collider.GetComponentInParent<PlayerMove>().playerRigidbody.AddForce(new Vector2(0, 30f), ForceMode2D.Impulse);
+                collision.collider.GetComponentInParent<PlayerMove>().playerRigidbody.AddForce(new Vector2(0, power), ForceMode2D.Impulse);
             }
         }
     }

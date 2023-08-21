@@ -78,7 +78,47 @@ public class TrapTile : MonoBehaviour
                 tmp.GetComponent<Rigidbody2D>().velocity = new Vector3(x, y, 0f);
             }
             Destroy(tmp, 1f);
+            tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
+            degree = Random.Range(0, endDegree);
+            if (degree != 0)
+            {
+                x = 7 * Mathf.Tan(degree * Mathf.Deg2Rad);
+            }
+            else
+            {
+                x = 0;
+            }
+            if (bossType)
+            {
+
+                tmp.GetComponent<Rigidbody2D>().velocity = new Vector3(-y, x, 0f);
+            }
+            else
+            {
+                tmp.GetComponent<Rigidbody2D>().velocity = new Vector3(x, y, 0f);
+            }
+            Destroy(tmp, 1f);
             yield return new WaitForSeconds(endTime/ (effectCount+10) * 2);
+            tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
+            degree = Random.Range(0, endDegree);
+            if (degree != 0)
+            {
+                x = 7 * Mathf.Tan(degree * Mathf.Deg2Rad);
+            }
+            else
+            {
+                x = 0;
+            }
+            if (bossType)
+            {
+
+                tmp.GetComponent<Rigidbody2D>().velocity = new Vector3(-y, x, 0f);
+            }
+            else
+            {
+                tmp.GetComponent<Rigidbody2D>().velocity = new Vector3(x, y, 0f);
+            }
+            Destroy(tmp, 1f);
             tmp = Instantiate(gasEffect, transform.position + Vector3.right * Random.Range(-startPosition, startPosition) - Vector3.up * yOffset, Quaternion.identity);
             degree = Random.Range(0, endDegree);
             if (degree != 0)

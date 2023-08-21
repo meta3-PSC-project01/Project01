@@ -88,7 +88,7 @@ public class BigTomato : EnemyBase
                     {
                         if (hit.tag == "Player")
                         {
-                            Debug.Log("!");
+                          //  Debug.Log("!");
                             enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
                             AttackStart();
                             isAttack = true;
@@ -104,7 +104,7 @@ public class BigTomato : EnemyBase
 
                 }
 
-                Debug.Log("?");
+              //  Debug.Log("?");
                 Move();
                 enemyAnimator.SetTrigger("Move");
                 yield return new WaitForSeconds(moveDelay);

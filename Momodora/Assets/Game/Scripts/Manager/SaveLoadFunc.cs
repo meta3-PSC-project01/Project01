@@ -29,11 +29,11 @@ public class SaveLoadFunc : MonoBehaviour
             {
                 if (ItemManager.instance.equipCheck[i] == true)
                 {
-                    Debug.Log(ItemManager.instance.equipItems[i].name);
+                   // Debug.Log(ItemManager.instance.equipItems[i].name);
                 }
                 else
                 {
-                    Debug.Log("Null");
+                    //Debug.Log("Null");
                 }
             }
         }
@@ -42,20 +42,20 @@ public class SaveLoadFunc : MonoBehaviour
         {
             for (int i = 0; i < ItemManager.instance.activeItems.Count; i++)
             {
-                Debug.Log(ItemManager.instance.activeItems[i].name);
+               // Debug.Log(ItemManager.instance.activeItems[i].name);
             }
 
-            Debug.Log(ItemManager.instance.activeItems.Count);
+            //Debug.Log(ItemManager.instance.activeItems.Count);
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
             for (int i = 0; i < ItemManager.instance.durationItems.Count; i++)
             {
-                Debug.Log(ItemManager.instance.durationItems[i].name);
+                //Debug.Log(ItemManager.instance.durationItems[i].name);
             }
 
-            Debug.Log(ItemManager.instance.durationItems.Count);
+           // Debug.Log(ItemManager.instance.durationItems.Count);
         }
     }
 }

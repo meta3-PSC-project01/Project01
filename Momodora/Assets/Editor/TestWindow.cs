@@ -121,12 +121,12 @@ public class TestWindow : EditorWindow
                     if (type == 1)
                     {
                         Transform a = before.Find("Grid").Find("EscapeRight");
-                        a.GetComponent<CompositeCollider2D>().isTrigger = true;
+                        //a.GetComponent<CompositeCollider2D>().isTrigger = true;
                     }
                     else if (type == 2)
                     {
                         Transform a = before.Find("Grid").Find("EscapeUp");
-                        a.GetComponent<CompositeCollider2D>().isTrigger = true;
+                       // a.GetComponent<CompositeCollider2D>().isTrigger = true;
 
                     }
                 }
@@ -149,7 +149,7 @@ public class TestWindow : EditorWindow
                     CenterPos = new Vector2Int(0, -(currSize) * height * 2);
 
                 }
-                Debug.Log("CenterPos"+CenterPos);
+                //Debug.Log("CenterPos"+CenterPos);
 
                 //스테이지, 추후 enum으로 관리
                 int stageIndex = 1;
@@ -166,42 +166,7 @@ public class TestWindow : EditorWindow
                 tileGrid.AddComponent<Grid>();
                 tileGrid.transform.parent = map.transform;
                 tileGrid.name = "Grid";
-
-
-                tmpTileMapObject = new GameObject();
-                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
-                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
-                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
-                tmpTilemap.color = new Color(0f, 0f, 0f, 0f);
-                tmpTileMapObject.AddComponent<TilemapRenderer>();
-                tmpTile = tmpTileMapObject.AddComponent<EscapeTile>();
-                tmpTile.fieldIndex = currSize + 1;
-                tmpTile.escapeIndex = 3;
-                tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
-                tilemapCollider.usedByComposite = true;
-                rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
-                rb.bodyType = RigidbodyType2D.Static;
-                compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
-                compositeCollider.isTrigger = true;
-                compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
-                compositeCollider.GenerateGeometry();
-
-                tmpTileMapObject.transform.parent = tileGrid.transform;
-                tmpTileMapObject.name = "EscapeUp";
-
-
-                TileChangeData tileChangeData = new TileChangeData()
-                {
-                    tile = escapeTile,
-                    transform = Matrix4x4.Translate(new Vector3(.5f, -.5f, 0))
-                };
-                for (int dx = CenterPos.x - (width); dx < CenterPos.x + width; dx++)
-                {
-                    Debug.Log("x " + height + "/" + dx);
-                    tileChangeData.position = new Vector3Int(dx, height, 0);
-                    tmpTilemap.SetTile(tileChangeData, false);
-                }
-
+                TileChangeData tileChangeData;
 
                 if (type != 2 || (type == 2 && currSize == 0))
                 {
@@ -213,7 +178,7 @@ public class TestWindow : EditorWindow
                     tmpTileMapObject.AddComponent<TilemapRenderer>();
                     tmpTile = tmpTileMapObject.AddComponent<EscapeTile>();
                     tmpTile.fieldIndex = currSize + 1;
-                    tmpTile.escapeIndex = 2;
+                    tmpTile.escapeIndex = 3;
                     tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
                     tilemapCollider.usedByComposite = true;
                     rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
@@ -224,7 +189,7 @@ public class TestWindow : EditorWindow
                     compositeCollider.GenerateGeometry();
 
                     tmpTileMapObject.transform.parent = tileGrid.transform;
-                    tmpTileMapObject.name = "EscapeDown";
+                    tmpTileMapObject.name = "EscapeUp";
 
 
                     tileChangeData = new TileChangeData()
@@ -234,10 +199,45 @@ public class TestWindow : EditorWindow
                     };
                     for (int dx = CenterPos.x - (width); dx < CenterPos.x + width; dx++)
                     {
-                        Debug.Log("x " + height + "/" + dx);
-                        tileChangeData.position = new Vector3Int(dx, -(height + 1), 0);
+                        //Debug.Log("x " + height + "/" + dx);
+                        tileChangeData.position = new Vector3Int(dx, height, 0);
                         tmpTilemap.SetTile(tileChangeData, false);
                     }
+                }
+
+
+                tmpTileMapObject = new GameObject();
+                tmpTileMapObject.transform.position = tmpTileMapObject.transform.position;
+                tmpTilemap = tmpTileMapObject.AddComponent<Tilemap>();
+                tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+                tmpTilemap.color = new Color(0f, 0f, 0f, 0f);
+                tmpTileMapObject.AddComponent<TilemapRenderer>();
+                tmpTile = tmpTileMapObject.AddComponent<EscapeTile>();
+                tmpTile.fieldIndex = currSize + 1;
+                tmpTile.escapeIndex = 2;
+                tilemapCollider = tmpTileMapObject.AddComponent<TilemapCollider2D>();
+                tilemapCollider.usedByComposite = true;
+                rb = tmpTileMapObject.AddComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Static;
+                compositeCollider = tmpTileMapObject.AddComponent<CompositeCollider2D>();
+                compositeCollider.isTrigger = true;
+                compositeCollider.generationType = CompositeCollider2D.GenerationType.Manual;
+                compositeCollider.GenerateGeometry();
+
+                tmpTileMapObject.transform.parent = tileGrid.transform;
+                tmpTileMapObject.name = "EscapeDown";
+
+
+                tileChangeData = new TileChangeData()
+                {
+                    tile = escapeTile,
+                    transform = Matrix4x4.Translate(new Vector3(.5f, -.5f, 0))
+                };
+                for (int dx = CenterPos.x - (width); dx < CenterPos.x + width; dx++)
+                {
+                   // Debug.Log("x " + height + "/" + dx);
+                    tileChangeData.position = new Vector3Int(dx, CenterPos.y - (height + 1), 0);
+                    tmpTilemap.SetTile(tileChangeData, false);
                 }
 
                 if (type != 1 || (type == 1 && currSize == 0))
@@ -271,7 +271,7 @@ public class TestWindow : EditorWindow
                     };
                     for (int dy = CenterPos.y - (height); dy < CenterPos.y + height; dy++)
                     {
-                        Debug.Log("y " + width + "/" + dy);
+                        //Debug.Log("y " + width + "/" + dy);
                         tileChangeData.position = new Vector3Int(+CenterPos.x - (width + 1), dy, 0);
                         tmpTilemap.SetTile(tileChangeData, false);
                     }
@@ -306,7 +306,7 @@ public class TestWindow : EditorWindow
                 };
                 for (int dy = CenterPos.y - (height); dy < CenterPos.y + height; dy++)
                 {
-                    Debug.Log("y " + width + "/" + dy);
+                    //Debug.Log("y " + width + "/" + dy);
                     tileChangeData.position = new Vector3Int(+CenterPos.x + width, dy, 0);
                     tmpTilemap.SetTile(tileChangeData, false);
                 }
