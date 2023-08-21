@@ -740,18 +740,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == ("Floor") && 0.7f < collision.contacts[0].normal.y)
-        {
-            isGrounded = true;
-            jumpingForce = false;
-            jumping = false;
-            jumpCount = 0;
-            jSpeed[0] = 0f;
-            jSpeed[1] = 0f;
-            isAirBowed = false;
-            isChargeAirBowed = false;
-            isAirAttacked = false;
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -763,6 +751,19 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag == "floor")
+        {
+            isGrounded = true;
+            jumpingForce = false;
+            jumping = false;
+            jumpCount = 0;
+            jSpeed[0] = 0f;
+            jSpeed[1] = 0f;
+            isAirBowed = false;
+            isChargeAirBowed = false;
+            isAirAttacked = false;
+        }
+
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = true; }
 
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
