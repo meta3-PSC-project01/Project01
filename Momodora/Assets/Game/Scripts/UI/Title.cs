@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Title : MonoBehaviour
@@ -30,6 +31,9 @@ public class Title : MonoBehaviour
     public Text[] saveTime = new Text[5];
     public Text[] loadText = new Text[5];
     public Text[] deleteText = new Text[5];
+    public Text[] deleteCheckText = new Text[5];
+    public Text[] deleteYesText = new Text[5];
+    public Text[] deleteNoText = new Text[5];
 
     private float logoAlphaX = default;
 
@@ -39,7 +43,8 @@ public class Title : MonoBehaviour
 
     private bool endTitle = false;
     private bool startTitle = false;
-    private bool[] savedSlot = new bool[5];
+
+    private string saveCheckString = default;
 
     void Awake()
     {
@@ -47,12 +52,6 @@ public class Title : MonoBehaviour
         titleSelect = 0;
         saveSelect = 0;
         selectType = 0;
-
-        savedSlot[0] = true;
-        savedSlot[1] = false;
-        savedSlot[2] = true;
-        savedSlot[3] = false;
-        savedSlot[4] = true;
     }
 
     void Start()
@@ -73,15 +72,11 @@ public class Title : MonoBehaviour
             string1.color = new Color(255, 255, 255, logoAlphaX);
             string2.color = new Color(255, 255, 255, logoAlphaX);
 
-            startTitleBackGround.gameObject.SetActive(true);
-            slotEmptyOn[0].gameObject.SetActive(true);
-            for (int i = 1; i < 7; i++) { slotEmptyOff[i].gameObject.SetActive(true); }
-            for (int i = 5; i < 7; i++) { slotEmptyText[i].gameObject.SetActive(true); }
-            for (int i = 0; i < 4; i++) { startTitleMenuText[i].gameObject.SetActive(true); }
+            SaveCheck();
 
             for (int i = 0; i < 5; i++)
             {
-                if (savedSlot[i] == false)
+                if (GameManager.instance.saveCheck[i] == false)
                 {
                     slotEmptyText[i].gameObject.SetActive(true);
                 }
@@ -92,7 +87,13 @@ public class Title : MonoBehaviour
                     saveTime[i].gameObject.SetActive(true);
                 }
             }
-            
+
+            startTitleBackGround.gameObject.SetActive(true);
+            slotEmptyOn[0].gameObject.SetActive(true);
+            for (int i = 1; i < 7; i++) { slotEmptyOff[i].gameObject.SetActive(true); }
+            for (int i = 5; i < 7; i++) { slotEmptyText[i].gameObject.SetActive(true); }
+            for (int i = 0; i < 4; i++) { startTitleMenuText[i].gameObject.SetActive(true); }
+
             endTitle = false;
             startTitle = true;
         }
@@ -107,7 +108,28 @@ public class Title : MonoBehaviour
 
     public void SaveCheck()
     {
-        GameManager.SaveCheck("save1");
+        for (int i = 0; i < 5; i++)
+        {
+            saveCheckString = "save_" + i;
+            GameManager.instance.SaveFileCheck(saveCheckString, i);
+        }
+    }
+
+    public void SaveDelete()
+    {
+        saveCheckString = "save_" + titleSelect;
+        GameManager.instance.SaveFileDelete(saveCheckString);
+
+        GameManager.instance.saveCheck[titleSelect] = false;
+        saveSlotLeft[titleSelect].gameObject.SetActive(false);
+        saveIcon[titleSelect].gameObject.SetActive(false);
+        deleteCheckText[titleSelect].gameObject.SetActive(false);
+        deleteYesText[titleSelect].gameObject.SetActive(false);
+        deleteNoText[titleSelect].gameObject.SetActive(false);
+        slotEmptyOn[titleSelect].gameObject.SetActive(true);
+        slotEmptyText[titleSelect].gameObject.SetActive(true);
+        selectType = 0;
+        saveSelect = 0;
     }
 
     public void StartTitleUp()
@@ -152,7 +174,7 @@ public class Title : MonoBehaviour
 
     public void StartTitleLeft()
     {
-        if (savedSlot[titleSelect] == true && selectType == 1)
+        if (GameManager.instance.saveCheck[titleSelect] == true && selectType != 0)
         {
             if (saveSelect == 0)
             {
@@ -171,7 +193,7 @@ public class Title : MonoBehaviour
 
     public void StartTitleRight()
     {
-        if (savedSlot[titleSelect] == true && selectType == 1)
+        if (GameManager.instance.saveCheck[titleSelect] == true && selectType != 0)
         {
             if (saveSelect == 0)
             {
@@ -192,7 +214,7 @@ public class Title : MonoBehaviour
     {
         if (titleSelect <= 4)
         {
-            if (savedSlot[titleSelect] == false)
+            if (GameManager.instance.saveCheck[titleSelect] == false)
             {
                 if (selectType == 0)
                 {
@@ -200,6 +222,11 @@ public class Title : MonoBehaviour
                     slotEmptyStart[titleSelect].gameObject.SetActive(true);
                     slotStartText[titleSelect].gameObject.SetActive(true);
                     selectType = 1;
+                }
+                else if (selectType == 1)
+                {
+                    // 세이브 생성 후 게임 시작
+                    GameStart();
                 }
             }
             else
@@ -213,6 +240,36 @@ public class Title : MonoBehaviour
                     deleteText[titleSelect].gameObject.SetActive(true);
                     selectType = 1;
                 }
+                else if (selectType == 1 && saveSelect == 0)
+                {
+                    // 로드 후 게임 시작
+                }
+                else if (selectType == 1 && saveSelect == 1)
+                {
+                    saveSlotNumber[titleSelect].gameObject.SetActive(false);
+                    loadText[titleSelect].gameObject.SetActive(false);
+                    deleteText[titleSelect].gameObject.SetActive(false);
+                    deleteCheckText[titleSelect].gameObject.SetActive(true);
+                    deleteYesText[titleSelect].gameObject.SetActive(true);
+                    deleteNoText[titleSelect].gameObject.SetActive(true);
+                    selectType = 2;
+                }
+                else if (selectType == 2 && saveSelect == 0)
+                {
+                    SaveDelete();
+                }
+                else if (selectType == 2 && saveSelect == 1)
+                {
+                    saveSlotRight[titleSelect].gameObject.SetActive(false);
+                    deleteCheckText[titleSelect].gameObject.SetActive(false);
+                    deleteYesText[titleSelect].gameObject.SetActive(false);
+                    deleteNoText[titleSelect].gameObject.SetActive(false);
+                    slotEmptyOn[titleSelect].gameObject.SetActive(true);
+                    saveSlotNumber[titleSelect].gameObject.SetActive(true);
+                    saveTime[titleSelect].gameObject.SetActive(true);
+                    selectType = 0;
+                    saveSelect = 0;
+                }
             }
         }
     }
@@ -221,7 +278,7 @@ public class Title : MonoBehaviour
     {
         if (titleSelect <= 4)
         {
-            if (savedSlot[titleSelect] == false)
+            if (GameManager.instance.saveCheck[titleSelect] == false)
             {
                 if (selectType == 1)
                 {
@@ -243,8 +300,35 @@ public class Title : MonoBehaviour
                     selectType = 0;
                     saveSelect = 0;
                 }
+                else if (selectType == 2)
+                {
+                    saveSlotRight[titleSelect].gameObject.SetActive(false);
+                    deleteCheckText[titleSelect].gameObject.SetActive(false);
+                    deleteYesText[titleSelect].gameObject.SetActive(false);
+                    deleteNoText[titleSelect].gameObject.SetActive(false);
+                    slotEmptyOn[titleSelect].gameObject.SetActive(true);
+                    saveSlotNumber[titleSelect].gameObject.SetActive(true);
+                    saveTime[titleSelect].gameObject.SetActive(true);
+                    selectType = 0;
+                    saveSelect = 0;
+                }
             }
         }
+    }
+
+    public void GameStart()
+    {
+        GameManager.instance.userSaveServer = titleSelect;
+        saveCheckString = "save_" + titleSelect;
+        GameManager.instance.savePoint[0] = 0;
+        GameManager.instance.savePoint[1] = 0;
+        SaveLoad save = new SaveLoad(0, GameManager.instance.savePoint);
+        GameManager.Save(save, saveCheckString);
+
+        //
+        GameManager.instance.mapName = "Stage1Start";
+        SceneManager.LoadScene("GameScene");
+
     }
 
     IEnumerator Logo1()

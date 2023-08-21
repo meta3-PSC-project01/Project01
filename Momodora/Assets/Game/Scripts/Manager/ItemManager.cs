@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemManager : MonoBehaviour
 {
@@ -22,11 +21,23 @@ public class ItemManager : MonoBehaviour
     // 아이템 관리 베이스
     Dictionary<string, Items> itemDataBase = new Dictionary<string, Items>();
 
-    void Awake()
-    {
-        if (instance == null || instance == default) { instance = this; }
-        else { Destroy(gameObject); }
+    public static ItemManager CreateInstance() 
+    {         
+        GameObject manager = new GameObject("ItemManager");
+        instance = manager.AddComponent<ItemManager>();
 
+        if (instance == null || instance == default) 
+        {
+            return instance;
+        }
+        else { 
+            Destroy(manager); 
+            return instance;
+        }        
+    } 
+
+    void Awake()
+    {        
         for (int i = 0; i < 5; i++) { equipCheck[i] = false; }
 
         activeItems = new List<Items>();
