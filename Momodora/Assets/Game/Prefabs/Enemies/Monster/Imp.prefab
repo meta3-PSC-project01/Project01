@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 2151800844292403614}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -586,6 +586,7 @@ MonoBehaviour:
   isTouch: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  firstPosition: {x: 0, y: 0, z: 0}
   isAttack: 0
   isJump: 0
   jumpPower: 5

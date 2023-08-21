@@ -105,7 +105,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (ItemManager.instance.lookAtInventory == true) { return; }
+        if (ItemManager.instance!=null && ItemManager.instance.lookAtInventory == true) { return; }
 
         //안맞은 상태
         if (hitMoveTime == false)
@@ -722,6 +722,11 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.tag == "Enemy")
+        {
+            Hit(1, flipX?1:-1);
+        }
+
         if (collision.gameObject.tag == ("ThinFloor"))
         {
             thinFloorCheck = true;
@@ -751,7 +756,8 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "floor")
+        Debug.Log("??");
+        if (collision.tag == "Floor")
         {
             isGrounded = true;
             jumpingForce = false;

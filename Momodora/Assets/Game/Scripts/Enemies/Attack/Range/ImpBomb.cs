@@ -45,7 +45,7 @@ public class ImpBomb : EnemyAttackData
     public void OnTriggerStay2D(Collider2D collision)
     {
         //何婬磨 版快 厘魄康开 积己
-        if ((collision.tag == "Player" || collision.tag == "Wall" || collision.tag == "Floor") && !isBoom)
+        if ((collision.tag == "Player" || collision.tag == "ThinFloor" || collision.tag == "Floor") && !isBoom)
         {
             isBoom = true;
             CameraMove.ShakingCamera(Camera.main.GetComponent<CameraMove>());

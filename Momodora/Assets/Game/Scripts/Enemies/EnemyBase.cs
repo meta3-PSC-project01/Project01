@@ -187,24 +187,6 @@ public class EnemyBase : MonoBehaviour
         }        
     }
 
-    //touch용
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            isTouch = true;
-            Touch(collision.collider.GetComponentInParent<PlayerMove>());
-        }
-    }
-
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            isTouch = false;
-        }
-    }
 
     //일정시간동안 스턴이 걸린다.
     public IEnumerator StunDelay(float time)

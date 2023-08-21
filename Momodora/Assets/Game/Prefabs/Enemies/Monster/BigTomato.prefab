@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7908378346444744113}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,6 +289,7 @@ MonoBehaviour:
   isTouch: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  firstPosition: {x: 0, y: 0, z: 0}
   isAttack: 0
 --- !u!1 &954475587919097548
 GameObject:

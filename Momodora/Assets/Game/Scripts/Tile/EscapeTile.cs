@@ -70,8 +70,9 @@ public class EscapeTile : MonoBehaviour
             {
                 if (nextTile != null)
                 {
-                    if (!GameManager.instance.loadingImage.gameObject.activeInHierarchy)
+                    if (!GameManager.instance.isloading)
                     {
+                        GameManager.instance.isloading = true;
                         GameManager.instance.cameraStop = true;
                         //GameManager.instance.loadingImage.gameObject.SetActive(true);
 
@@ -94,22 +95,16 @@ public class EscapeTile : MonoBehaviour
 
     IEnumerator loadingMap(GameObject nextMap, PlayerMove player)
     {
-        //player.transform.localScale = Vector3.zero;
+        
         GameManager.instance.CameraOnceMove(nextTile.fieldIndex, nextMap.GetComponent<MapData>().type);
         yield return new WaitForSeconds(.1f);
-       // Debug.Log(nextMap.name + "��");
-       //Debug.Log(nextTile.fieldIndex+"�ε���");
-       // Debug.Log(nextTile.name+"�̸�");
+       
         Transform tmp = nextMap.GetComponent<MapData>().FindChildTransform(nextTile.fieldIndex, nextTile.name);
-       // Debug.Log(tmp + "tmp");
+       
         EscapeTile _nextTile = tmp.GetComponent<EscapeTile>();
-       // Debug.Log(_nextTile + "EscapeTile");
+
         Vector2 currDiff = GetDistanceVector2();
         Vector2 nextDiff = _nextTile.GetDistanceVector2();
-        Debug.Log(currDiff + " ����diff");
-        Debug.Log(nextDiff + " ����diff");
-        Debug.Log(player.transform.position + " �÷��̾���ġ");
-        Debug.Log((player.transform.position.y + currDiff.y - nextDiff.y) + " ��ȯ��ġ");
 
         //��->��
         if (escapeIndex == 0)
@@ -135,5 +130,6 @@ public class EscapeTile : MonoBehaviour
         Destroy(mapData.gameObject);
         GameManager.instance.loadingImage.gameObject.SetActive(false);
         GameManager.instance.cameraStop = false;
+        GameManager.instance.isloading = false;
     }
 }

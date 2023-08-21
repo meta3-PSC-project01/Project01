@@ -35,6 +35,8 @@ public class BombImp : EnemyBase
         //초기 딜레이 값
         currDelay = attackDelay * .8f;
         enemyAnimator.SetBool("Idle", true);
+
+        target = FindObjectOfType<PlayerMove>();
     }
 
     // Update is called once per frame

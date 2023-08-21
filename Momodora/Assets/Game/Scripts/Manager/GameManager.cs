@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Vector2Int currMapPosition;
     public MapData currMap;
     public Image loadingImage;
+    public bool isloading = false;
 
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
@@ -60,6 +61,22 @@ public class GameManager : MonoBehaviour
             ItemManager.CreateInstance();
             Camera.main.gameObject.AddComponent<CameraMove>();
             mapName = null;
+
+            GameObject canvas = new GameObject();
+            canvas.AddComponent<RectTransform>();
+            canvas.AddComponent<Canvas>();
+            canvas.AddComponent<CanvasScaler>();
+            canvas.AddComponent<GraphicRaycaster>();
+
+            GameObject panel = new GameObject();
+            panel.transform.parent = canvas.transform;
+            panel.AddComponent<RectTransform>();
+            panel.AddComponent<CanvasRenderer>();
+            panel.AddComponent<Image>();
+
+            panel.SetActive(false);
+
+            GameManager.instance.loadingImage = panel.GetComponent<Image>();
         }
         gameTime = Time.time;
     }
