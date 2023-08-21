@@ -38,6 +38,8 @@ public class EscapeTile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("?");
+
         if (collision.CompareTag("Player"))
         {
             PlayerMove player = collision.GetComponentInParent<PlayerMove>();
@@ -50,10 +52,9 @@ public class EscapeTile : MonoBehaviour
                 if (nextTile != null)
                 {
                     GameManager.instance.cameraStop = true;
-                    GameManager.instance.loadingImage.gameObject.SetActive(true);
+                    //GameManager.instance.loadingImage.gameObject.SetActive(true);
 
                     GameObject nextMap = Instantiate(nextTile.GetMapData().gameObject, Vector3Int.zero, Quaternion.identity);
-                    nextMap.transform.localScale = Vector3.zero;
                     GameManager.instance.currMap = nextMap.GetComponent<MapData>();
 
                     StartCoroutine(loadingMap(nextMap, player));
@@ -70,10 +71,8 @@ public class EscapeTile : MonoBehaviour
 
     IEnumerator loadingMap(GameObject nextMap, PlayerMove player)
     {
-        player.transform.localScale = Vector3.zero;
         GameManager.instance.CameraOnceMove(nextTile.fieldIndex, nextMap.GetComponent<MapData>().type);
         yield return new WaitForSeconds(.1f);
-        nextMap.transform.localScale = Vector3.one;
         Transform tmp = nextMap.GetComponent<MapData>().FindChildTransform(nextTile.fieldIndex, nextTile.name);
         EscapeTile _nextTile = tmp.GetComponent<EscapeTile>();
 
@@ -97,6 +96,5 @@ public class EscapeTile : MonoBehaviour
         Destroy(GetMapData().gameObject);
         GameManager.instance.loadingImage.gameObject.SetActive(false);
         GameManager.instance.cameraStop = false;
-        player.transform.localScale = Vector3.one;
     }
 }

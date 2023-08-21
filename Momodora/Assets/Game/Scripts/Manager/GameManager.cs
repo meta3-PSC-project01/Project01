@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int[] savePoint = new int[2];
 
     public float gameTime = default;
+    public string mapName = null;
 
     public static string SavePath => Application.persistentDataPath + "/Save/";
 
@@ -47,11 +49,19 @@ public class GameManager : MonoBehaviour
             mapDatabase.Add(mapData.name, mapData);
         }
 
-        currMap = Instantiate(mapDatabase["Stage1Start"], Vector2.zero, Quaternion.identity);
+        
     }
 
     void Update()
     {
+        //Debug.Log(SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene().name=="GameScene" && mapName != null)
+        {
+            currMap = Instantiate(mapDatabase[mapName], Vector2.zero, Quaternion.identity);
+            ItemManager.CreateInstance();
+            Camera.main.gameObject.AddComponent<CameraMove>();
+            mapName = null;
+        }
         gameTime = Time.time;
     }
 

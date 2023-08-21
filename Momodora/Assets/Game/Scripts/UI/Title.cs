@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Title : MonoBehaviour
@@ -323,6 +324,11 @@ public class Title : MonoBehaviour
         GameManager.instance.savePoint[1] = 0;
         SaveLoad save = new SaveLoad(0, GameManager.instance.savePoint);
         GameManager.Save(save, saveCheckString);
+
+        //
+        GameManager.instance.mapName = "Stage1Start";
+        SceneManager.LoadScene("GameScene");
+
     }
 
     IEnumerator Logo1()
