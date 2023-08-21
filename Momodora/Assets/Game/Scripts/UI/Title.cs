@@ -98,10 +98,10 @@ public class Title : MonoBehaviour
             startTitle = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && startTitle == true) { StartTitleUp(); }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && startTitle == true) { StartTitleDown(); }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && startTitle == true) { StartTitleLeft(); }
-        if (Input.GetKeyDown(KeyCode.RightArrow) && startTitle == true) { StartTitleRight(); }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && startTitle == true && selectType == 0) { StartTitleUp(); }
+        if (Input.GetKeyDown(KeyCode.DownArrow) && startTitle == true && selectType == 0) { StartTitleDown(); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && startTitle == true && selectType != 0) { StartTitleLeft(); }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && startTitle == true && selectType != 0) { StartTitleRight(); }
         if (Input.GetKeyDown(KeyCode.A) && startTitle == true) { StartTitleOn(); }
         if (Input.GetKeyDown(KeyCode.S) && startTitle == true) { StartTitleOut(); }
     }
@@ -225,7 +225,6 @@ public class Title : MonoBehaviour
                 }
                 else if (selectType == 1)
                 {
-                    // 세이브 생성 후 게임 시작
                     GameStart();
                 }
             }
@@ -272,6 +271,15 @@ public class Title : MonoBehaviour
                 }
             }
         }
+        else if (titleSelect == 5)
+        {
+            // 설정
+        }
+        else if (titleSelect == 6)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+        }
     }
 
     public void StartTitleOut()
@@ -292,25 +300,53 @@ public class Title : MonoBehaviour
             {
                 if (selectType == 1)
                 {
-                    saveSlotLeft[titleSelect].gameObject.SetActive(false);
-                    loadText[titleSelect].gameObject.SetActive(false);
-                    deleteText[titleSelect].gameObject.SetActive(false);
-                    slotEmptyOn[titleSelect].gameObject.SetActive(true);
-                    saveTime[titleSelect].gameObject.SetActive(true);
-                    selectType = 0;
-                    saveSelect = 0;
+                    if (saveSelect == 0)
+                    {
+                        saveSlotLeft[titleSelect].gameObject.SetActive(false);
+                        loadText[titleSelect].gameObject.SetActive(false);
+                        deleteText[titleSelect].gameObject.SetActive(false);
+                        slotEmptyOn[titleSelect].gameObject.SetActive(true);
+                        saveTime[titleSelect].gameObject.SetActive(true);
+                        selectType = 0;
+                        saveSelect = 0;
+                    }
+                    else
+                    {
+                        saveSlotRight[titleSelect].gameObject.SetActive(false);
+                        loadText[titleSelect].gameObject.SetActive(false);
+                        deleteText[titleSelect].gameObject.SetActive(false);
+                        slotEmptyOn[titleSelect].gameObject.SetActive(true);
+                        saveTime[titleSelect].gameObject.SetActive(true);
+                        selectType = 0;
+                        saveSelect = 0;
+                    }
                 }
                 else if (selectType == 2)
                 {
-                    saveSlotRight[titleSelect].gameObject.SetActive(false);
-                    deleteCheckText[titleSelect].gameObject.SetActive(false);
-                    deleteYesText[titleSelect].gameObject.SetActive(false);
-                    deleteNoText[titleSelect].gameObject.SetActive(false);
-                    slotEmptyOn[titleSelect].gameObject.SetActive(true);
-                    saveSlotNumber[titleSelect].gameObject.SetActive(true);
-                    saveTime[titleSelect].gameObject.SetActive(true);
-                    selectType = 0;
-                    saveSelect = 0;
+                    if (saveSelect == 0)
+                    {
+                        saveSlotLeft[titleSelect].gameObject.SetActive(false);
+                        deleteCheckText[titleSelect].gameObject.SetActive(false);
+                        deleteYesText[titleSelect].gameObject.SetActive(false);
+                        deleteNoText[titleSelect].gameObject.SetActive(false);
+                        slotEmptyOn[titleSelect].gameObject.SetActive(true);
+                        saveSlotNumber[titleSelect].gameObject.SetActive(true);
+                        saveTime[titleSelect].gameObject.SetActive(true);
+                        selectType = 0;
+                        saveSelect = 0;
+                    }
+                    else
+                    {
+                        saveSlotRight[titleSelect].gameObject.SetActive(false);
+                        deleteCheckText[titleSelect].gameObject.SetActive(false);
+                        deleteYesText[titleSelect].gameObject.SetActive(false);
+                        deleteNoText[titleSelect].gameObject.SetActive(false);
+                        slotEmptyOn[titleSelect].gameObject.SetActive(true);
+                        saveSlotNumber[titleSelect].gameObject.SetActive(true);
+                        saveTime[titleSelect].gameObject.SetActive(true);
+                        selectType = 0;
+                        saveSelect = 0;
+                    }
                 }
             }
         }
@@ -325,10 +361,8 @@ public class Title : MonoBehaviour
         SaveLoad save = new SaveLoad(0, GameManager.instance.savePoint);
         GameManager.Save(save, saveCheckString);
 
-        //
         GameManager.instance.mapName = "Stage1Start";
         SceneManager.LoadScene("GameScene");
-
     }
 
     IEnumerator Logo1()

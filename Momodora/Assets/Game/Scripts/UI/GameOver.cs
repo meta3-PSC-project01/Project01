@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +35,8 @@ public class GameOver : MonoBehaviour
         }
         else if (selectCheck == 2)
         {
-            // Á¾·á
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
         }
     }
 

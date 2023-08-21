@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         {
             mapDatabase.Add(mapData.name, mapData);
         }
-
     }
 
     void Update()
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name=="GameScene" && mapName != null)
         {
             currMap = Instantiate(mapDatabase[mapName], Vector2.zero, Quaternion.identity);
-            ItemManager.CreateInstance();
+            //ItemManager.CreateInstance();
             Camera.main.gameObject.AddComponent<CameraMove>();
             mapName = null;
         }
