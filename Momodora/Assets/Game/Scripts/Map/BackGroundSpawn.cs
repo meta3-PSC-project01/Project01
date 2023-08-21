@@ -9,8 +9,7 @@ public class BackGroundSpawn : MonoBehaviour
 
     void Awake()
     {
-        BoxCollider2D backGroundCollider = GetComponent<BoxCollider2D>();
-        widthX = backGroundCollider.size.x;
+       // widthX = backGroundCollider.size.x;
         width_add = widthX * 2f;
     }
 

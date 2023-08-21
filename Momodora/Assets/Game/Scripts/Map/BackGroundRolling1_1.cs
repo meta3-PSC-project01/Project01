@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackGroundRolling1_1 : MonoBehaviour
 {
-    private float speed = default;
+    public float speed = default;
 
     void Awake()
     {
