@@ -14,24 +14,24 @@ public class CameraMove : MonoBehaviour
     float camHeight;
     float camWidth;
 
-    public float smoothTime = 1f;
+    public float smoothTime = 0.1f;
 
     //카메라 위치 재설정
     public void CameraOnceMove(int fieldIndex, int type)
     {
         if (fieldIndex == 1)
         {
-            transform.position = new Vector3(0, 0, -10) + shaking;
+            transform.position = new Vector3(0, 0, -10);
         }
         else if (fieldIndex >1)
         {
             if (type == 1)
             {
-                transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10) + shaking;
+                transform.position = new Vector3((fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2, transform.position.y, -10);
             }
             else if(type == 2)
             {
-                transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10) + shaking;
+                transform.position = new Vector3(transform.position.x, -(camHeight * (fieldSize.y - 1) * 2), -10);
             }
         }
     }
@@ -82,12 +82,27 @@ public class CameraMove : MonoBehaviour
 
         if (GameManager.instance.cameraStop)
         {
-            return;
+            //
         }
-        float cameraX =Mathf.Clamp(player.transform.position.x, 0, (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2);
-        float cameraY = Mathf.Clamp(player.transform.position.y, -(camHeight * (fieldSize.y - 1) * 2), 0);
-        Vector3 velocity = Vector3.zero;
-        Vector3 targetPosition = new Vector3(cameraX, cameraY, -10)+shaking;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        else
+        {
+            float lastSmoothTime = smoothTime;
+            float cameraX = Mathf.Clamp(player.transform.position.x, 0, (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2);
+            float cameraY = Mathf.Clamp(player.transform.position.y, -(camHeight * (fieldSize.y - 1) * 2), 0);
+
+            if(player.transform.position.x<=0 || player.transform.position.x>= (fieldSize.x - 1) * camWidth * 2 + (fieldSize.x - 1) * (13 - camWidth) * 2)
+            {
+                smoothTime = 0f;
+            }
+            if (player.transform.position.y <= 0 || player.transform.position.y <= -(camHeight * (fieldSize.y - 1) * 2))
+            {
+                smoothTime = 0.01f;
+            }
+
+            Vector3 velocity = Vector3.zero;
+            Vector3 targetPosition = new Vector3(cameraX, cameraY, -10) + shaking;
+
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        }
     }
 }

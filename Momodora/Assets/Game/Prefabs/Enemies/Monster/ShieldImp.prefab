@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6088770598838935418}
   - component: {fileID: 5406029407238229541}
   - component: {fileID: 6220133147502499675}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &6583469055433764201
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,9 +390,9 @@ GameObject:
   - component: {fileID: 8693861337867024015}
   - component: {fileID: 8693861337867024119}
   - component: {fileID: 8693861337867024118}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ShieldImp
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -576,9 +576,11 @@ MonoBehaviour:
   - {fileID: 4222924744831459426, guid: 8833b8489f54f1447baf60c2ac49e160, type: 3}
   sight: {fileID: 6583469055503790280}
   target: {fileID: 0}
+  gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
   enemyHp: 10
   enemySpeed: 5
   direction: -1
+  goldCount: 5
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0
@@ -586,6 +588,7 @@ MonoBehaviour:
   isTouch: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  firstPosition: {x: 0, y: 0, z: 0}
   isAttack: 0
   isDefence: 0
   isMove: 0

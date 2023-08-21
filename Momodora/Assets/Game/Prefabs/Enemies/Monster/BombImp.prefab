@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6795221848355621253}
   - component: {fileID: 5919161869114947813}
   - component: {fileID: 6127395712912483114}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &5572715702790474782
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 5572715702790474783}
   - component: {fileID: 5572715702790474855}
   - component: {fileID: 5572715702790474861}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BombImp
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,9 +279,11 @@ MonoBehaviour:
   - {fileID: -8185298785128257101, guid: f9d927c6416d3d3429044aabde5450e8, type: 3}
   sight: {fileID: 7975208144019507800}
   target: {fileID: 0}
+  gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
   enemyHp: 5
   enemySpeed: 0
   direction: -1
+  goldCount: 5
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0
@@ -289,6 +291,7 @@ MonoBehaviour:
   isTouch: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  firstPosition: {x: 0, y: 0, z: 0}
   isAttack: 0
 --- !u!1 &7975208142761111790
 GameObject:

@@ -9,6 +9,8 @@ public class ArrowMove : MonoBehaviour
     private BoxCollider2D arrowCollider;
     private GameObject monster;
 
+    public int damage = 1;
+
     private float arrowSpeed = default;
 
     void Awake()
@@ -31,7 +33,7 @@ public class ArrowMove : MonoBehaviour
         if (collider.tag == "Enemy")
         {
             monster = collider.gameObject;
-            monster.GetComponent<Test>().Hit(10, 1);
+            monster.GetComponentInParent<EnemyBase>().Hit(damage, -(int)transform.right.x);
 
             this.gameObject.SetActive(false);
             Destroy(this.gameObject, 1f);

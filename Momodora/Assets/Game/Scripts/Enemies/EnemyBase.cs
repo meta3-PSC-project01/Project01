@@ -21,6 +21,7 @@ public class EnemyBase : MonoBehaviour
     protected Animator enemyAnimator;
     protected AudioSource enemyAudio;
 
+
     public EnemyAudioManager enemyAudioManager;
 
     //공격관련 컴포넌트
@@ -33,10 +34,13 @@ public class EnemyBase : MonoBehaviour
     //적 prefab 하단의 sight 스크립트가 해당 변수를 컨트롤한다. 
     public PlayerMove target = null;
 
+    public GameObject gold;
+
     //에너미 속성
     public int enemyHp = default;           //체력
     public float enemySpeed = default;      //속도
     public DirectionHorizen direction = DirectionHorizen.LEFT;   //방향
+    public int goldCount = 5;
 
     private Coroutine stunCoroutine = null;
     public int enemyStunRegistValue = default; //스턴 데미지 한도
@@ -65,6 +69,7 @@ public class EnemyBase : MonoBehaviour
         parentColiider = GetComponent<BoxCollider2D>();
         childColiider = transform.Find("Collider").GetComponent<BoxCollider2D>();
         enemyRigidbody = GetComponent<Rigidbody2D>();
+
 
         Physics2D.IgnoreCollision(parentColiider, childColiider);
     }
@@ -114,6 +119,8 @@ public class EnemyBase : MonoBehaviour
             }
         }
 
+        enemyHp -= damage;
+
         //피격관련 재생(애니메이션, 소리)
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Hit"));
 
@@ -152,6 +159,11 @@ public class EnemyBase : MonoBehaviour
     {
         //죽음관련 재생(애니메이션, 소리)
         enemyAnimator.SetBool("Dead", true);
+        for(int i = 0; i < goldCount; i++)
+        {
+            GameObject tmp = Instantiate(gold, transform.position, Quaternion.identity, GameManager.instance.currMap.transform);
+            tmp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(8f, 10f) * ((Random.Range(0, 2) == 0) ? -1 : 1), -Random.Range(6f, 8f)), ForceMode2D.Impulse) ;
+        }
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Dead"));
 
         //Debug.Log(gameObject.name+"죽음");
@@ -187,24 +199,6 @@ public class EnemyBase : MonoBehaviour
         }        
     }
 
-    //touch용
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            isTouch = true;
-            Touch(collision.collider.GetComponentInParent<PlayerMove>());
-        }
-    }
-
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            isTouch = false;
-        }
-    }
 
     //일정시간동안 스턴이 걸린다.
     public IEnumerator StunDelay(float time)

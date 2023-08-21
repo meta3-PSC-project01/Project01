@@ -4311,7 +4311,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167186026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 26.02, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5048,6 +5048,7 @@ MonoBehaviour:
   currMapPosition: {x: 0, y: 0}
   currMap: {fileID: 0}
   loadingImage: {fileID: 0}
+  isloading: 0
   checkMapUpdate: 0
   cameraStop: 0
   saveCheck: 0000000000
@@ -8259,8 +8260,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076442865}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -15.08, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.099998474, y: -15.08, z: 0}
   m_LocalScale: {x: 1.3029926, y: 2.0367188, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

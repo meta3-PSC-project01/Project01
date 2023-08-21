@@ -19,6 +19,7 @@ public class Poison : MonoBehaviour
         {
             Vector3 random  = Random.insideUnitSphere;
             Instantiate(gasEffect.transform, transform.position+ random, Quaternion.identity, transform);
+            
         }
 
         StartCoroutine(ActiveRoutine());

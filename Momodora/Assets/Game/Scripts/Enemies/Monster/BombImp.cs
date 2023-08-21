@@ -35,6 +35,8 @@ public class BombImp : EnemyBase
         //초기 딜레이 값
         currDelay = attackDelay * .8f;
         enemyAnimator.SetBool("Idle", true);
+
+        target = FindObjectOfType<PlayerMove>();
     }
 
     // Update is called once per frame
@@ -178,6 +180,7 @@ public class BombImp : EnemyBase
     public void AttackStartEvent()
     {
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
+        attackObject.transform.SetParent(GameManager.instance.currMap.transform);
 
     }
 

@@ -16,8 +16,8 @@ public class CustomInspector_EscapeArea : Editor
     List<EscapeTile> escapeList;
     List<string> direction = null;
     string[] listName;
-    int fieldSelect = -1;
-    int escapeSelect = -1;
+    int fieldSelect = 0;
+    int escapeSelect = 0;
 
     void OnEnable()
     {
@@ -69,6 +69,7 @@ public class CustomInspector_EscapeArea : Editor
 
             for (int i = 3; i >= 0; i--)
             {
+                Debug.Log(fieldSelect);
                 Transform t = fieldList[fieldSelect].transform.GetChild(0);
                 t = t.Find(direction[i]);
 

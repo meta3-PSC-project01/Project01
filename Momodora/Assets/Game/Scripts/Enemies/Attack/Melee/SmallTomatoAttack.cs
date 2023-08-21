@@ -21,7 +21,7 @@ public class SmallTomatoAttack : EnemyAttackData
             isActive = false;
             collision.GetComponentInParent<PlayerMove>().playerHp -= damage;
             //플레이어 반응 
-            //player.Hit();
+            collision.GetComponentInParent<PlayerMove>().Hit(damage, (int)transform.right.x);
         }
 
     }

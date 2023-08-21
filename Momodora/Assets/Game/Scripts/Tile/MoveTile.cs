@@ -45,6 +45,8 @@ public class MoveTile : MonoBehaviour
     private Rigidbody2D rb;
     private CompositeCollider2D comCollider;
 
+    public float time;
+
     private void Awake()
     {
         player = FindObjectOfType< PlayerMove >();
@@ -52,6 +54,7 @@ public class MoveTile : MonoBehaviour
         endPos = new Vector2(transform.position.x, transform.position.y) + (new Vector2(dx[(int)direction], dy[(int)direction]) * distance);
         rb = GetComponent<Rigidbody2D>();
         comCollider = GetComponent<CompositeCollider2D>();
+        time = roopTime;
     }
 
     private void Start()
@@ -66,11 +69,26 @@ public class MoveTile : MonoBehaviour
         {
             targetPos = startPos;
             GetDirectionPos();
+            if (time <= roopTime)
+            {
+                directionPos = Vector2.zero;
+            }
         }
         else if (Vector2.Distance(transform.position, startPos) < .05f)
         {
             targetPos = endPos;
             GetDirectionPos();
+            if (time <= roopTime)
+            {
+                directionPos = Vector2.zero;
+            }
+        }
+        else
+        {
+            if (time >= roopTime)
+            {
+                time = 0;
+            }
         }
 
     }
@@ -78,6 +96,7 @@ public class MoveTile : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = directionPos * speed;
+        time += Time.fixedDeltaTime;
     }
 
     private void GetDirectionPos()
