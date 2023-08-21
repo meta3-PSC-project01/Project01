@@ -57,8 +57,6 @@ public class EscapeTile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("?");
-
         if (collision.CompareTag("Player"))
         {
             PlayerMove player = collision.GetComponentInParent<PlayerMove>();

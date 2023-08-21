@@ -1112,7 +1112,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 6978455439305541555, guid: ec0a21ce4491379448608dfccd1591f1, type: 3}
+  nextTile: {fileID: 4173026710945724242, guid: 103f62130e48a714e8aa736ef62d367b, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 2
   escapeIndex: 1

@@ -42,14 +42,15 @@ public class ImpBomb : EnemyAttackData
     }
 
 
-    public void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         //부딫칠 경우 장판영역 생성
-        if ((collision.tag == "Player" || collision.tag == "ThinFloor" || collision.tag == "Floor") && !isBoom)
+        if ((collision.collider.tag == "Player" || collision.collider.tag == "ThinFloor" || collision.collider.tag == "Floor") && !isBoom)
         {
+            Debug.Log("boom");
             isBoom = true;
             CameraMove.ShakingCamera(Camera.main.GetComponent<CameraMove>());
-            PlayerMove player = collision.GetComponentInParent<PlayerMove>();
+            PlayerMove player = collision.collider.GetComponentInParent<PlayerMove>();
             if (player != null)
             {
                 //player.hp -= damage;
@@ -58,13 +59,10 @@ public class ImpBomb : EnemyAttackData
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             Instantiate(poison, transform.position, Quaternion.identity);
+            Debug.Log(transform.position);
             Destroy(gameObject);
 
-            //맞을경우 뭔가 뜨게하는거 추가
-            //플레이어 반응 
         }
-
-
     }
 
 

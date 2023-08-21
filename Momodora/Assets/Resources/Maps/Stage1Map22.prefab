@@ -3987,7 +3987,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 0}
+  nextTile: {fileID: 3411787598720523638, guid: f7add9fc615d70d46baca38a5f19df41, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 2
   escapeIndex: 0
@@ -5809,7 +5809,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 0}
+  nextTile: {fileID: 452722598628612564, guid: 879e48b6cdd70374cb59be90a7289512, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 1
   escapeIndex: 3
@@ -7501,7 +7501,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 0}
+  nextTile: {fileID: 8956722842332136626, guid: a51f7b8ed5d71404c8c2a00be63e079b, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 1
   escapeIndex: 2

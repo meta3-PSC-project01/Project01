@@ -720,31 +720,12 @@ public class PlayerMove : MonoBehaviour
         else if (isMlAttack == 3) { isMlAttack = 0; }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Enemy")
         {
-            Hit(1, flipX?1:-1);
+            Hit(1, flipX ? 1 : -1);
         }
-
-        if (collision.gameObject.tag == ("ThinFloor"))
-        {
-            thinFloorCheck = true;
-            thinFloor = collision.gameObject;
-            if (0.7f < collision.contacts[0].normal.y)
-            {
-                isGrounded = true;
-                jumpingForce = false;
-                jumping = false;
-                jumpCount = 0;
-                jSpeed[0] = 0f;
-                jSpeed[1] = 0f;
-                isAirBowed = false;
-                isChargeAirBowed = false;
-                isAirAttacked = false;
-            }
-        }
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -757,7 +738,7 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("??");
-        if (collision.tag == "Floor")
+        if (collision.tag == "Floor" )
         {
             isGrounded = true;
             jumpingForce = false;
@@ -768,6 +749,23 @@ public class PlayerMove : MonoBehaviour
             isAirBowed = false;
             isChargeAirBowed = false;
             isAirAttacked = false;
+
+        
+        }
+        if ( collision.tag == "ThinFloor")
+        {
+            thinFloorCheck = true;
+            thinFloor = collision.gameObject;
+            isGrounded = true;
+            jumpingForce = false;
+            jumping = false;
+            jumpCount = 0;
+            jSpeed[0] = 0f;
+            jSpeed[1] = 0f;
+            isAirBowed = false;
+            isChargeAirBowed = false;
+            isAirAttacked = false;
+
         }
 
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = true; }
@@ -812,6 +810,11 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if(collision.tag=="ThinFloor" && thinFloor.Equals( collision))
+        {
+            collision = null;
+        }
+
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = false; }
 
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = false; }
@@ -822,9 +825,12 @@ public class PlayerMove : MonoBehaviour
         CompositeCollider2D thinFloorCollider = thinFloor.GetComponent<CompositeCollider2D>();
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
 
-        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
+        if (thinFloor != null)
+        {
+            Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
+        }
         thinFloorCheck = false;
         thinFloor = null;
     }
