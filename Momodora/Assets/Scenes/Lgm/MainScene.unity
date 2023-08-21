@@ -5047,10 +5047,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currMapPosition: {x: 0, y: 0}
   currMap: {fileID: 0}
+  loadingImage: {fileID: 0}
   checkMapUpdate: 0
   cameraStop: 0
-  loadingImage: {fileID: 0}
+  saveCheck: 0000000000
+  userSaveServer: 0
+  savePoint: 0000000000000000
   gameTime: 0
+  mapName: 
 --- !u!4 &1346884733
 Transform:
   m_ObjectHideFlags: 0
@@ -6439,6 +6443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUi: {fileID: 1972802613}
   leaf: 0
+  activeItemNum: 0
   lookAtInventory: 0
   inventoryCheckTime: 0
   equipCheck: 0000000000

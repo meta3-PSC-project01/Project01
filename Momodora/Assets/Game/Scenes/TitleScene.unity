@@ -3762,6 +3762,7 @@ MonoBehaviour:
   userSaveServer: 0
   savePoint: 0000000000000000
   gameTime: 0
+  mapName: 
 --- !u!4 &1111989303
 Transform:
   m_ObjectHideFlags: 0
