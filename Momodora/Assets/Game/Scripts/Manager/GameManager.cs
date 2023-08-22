@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public Dictionary<string, MapData> mapDatabase;
+    public BackGroundController background;
     public Vector2Int currMapPosition;
     public MapData currMap;
     public Image loadingImage;
@@ -49,6 +50,8 @@ public class GameManager : MonoBehaviour
         {
             mapDatabase.Add(mapData.name, mapData);
         }
+
+        background = Instantiate(background);
     }
 
     void Update()

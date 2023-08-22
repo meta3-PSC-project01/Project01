@@ -5746,6 +5746,7 @@ MonoBehaviour:
   fieldSize: {x: 0, y: 0}
   type: 1
   enterArea: {fileID: 0}
+  backGroundType: 0
 --- !u!1 &1859356314207138438
 GameObject:
   m_ObjectHideFlags: 0
@@ -6904,13 +6905,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1859356313686667824}
     m_Modifications:
+    - target: {fileID: 1020664987306138682, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
+      propertyPath: m_TagString
+      value: Save
+      objectReference: {fileID: 0}
     - target: {fileID: 1299599549472097074, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7446721802264109638, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
+      propertyPath: m_TagString
+      value: Bell
+      objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650682, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_Name
       value: SavePoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258160118694650682, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_RootOrder
@@ -6956,10 +6969,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8258160118694650684, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
 --- !u!4 &1859356313164377258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
   m_PrefabInstance: {fileID: 7734688719266729879}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7313004724474794925 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1020664987306138682, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
+  m_PrefabInstance: {fileID: 7734688719266729879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2691847668255116049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313004724474794925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2884080210d197b4fb00fb0a191c990b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1474,6 +1474,7 @@ MonoBehaviour:
   fieldSize: {x: 0, y: 0}
   type: 2
   enterArea: {fileID: 0}
+  backGroundType: 1
 --- !u!1 &970229408563642170
 GameObject:
   m_ObjectHideFlags: 0

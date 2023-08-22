@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 //trigger -> collider체력-공격력
 //collider hit()
-public class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour, IHitControl
 {
     //에너미 기본 컴포넌트
     protected Rigidbody2D enemyRigidbody;
@@ -162,7 +162,9 @@ public class EnemyBase : MonoBehaviour
         for(int i = 0; i < goldCount; i++)
         {
             GameObject tmp = Instantiate(gold, transform.position, Quaternion.identity, GameManager.instance.currMap.transform);
-            tmp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(8f, 10f) * ((Random.Range(0, 2) == 0) ? -1 : 1), -Random.Range(6f, 8f)), ForceMode2D.Impulse) ;
+            tmp.tag = "Gold";
+            tmp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(8f, 10f) * ((Random.Range(0, 2) == 0) ? -1 : 1), -Random.Range(6f, 8f)), ForceMode2D.Impulse);
+            Destroy(tmp, 5f);
         }
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Dead"));
 
@@ -206,7 +208,13 @@ public class EnemyBase : MonoBehaviour
         yield return new WaitForSeconds(time);
         isStun = false;
         enemyAnimator.SetBool("Stun", false);        
-    }    
+    }
+
+    public bool IsHitPossible()
+    {
+
+        return enemyHp<=0  ? false : true;
+    }
 }
 
 

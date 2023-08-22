@@ -33,10 +33,12 @@ public class ArrowMove : MonoBehaviour
         if (collider.tag == "Enemy")
         {
             monster = collider.gameObject;
-            monster.GetComponentInParent<EnemyBase>().Hit(damage, -(int)transform.right.x);
-
-            this.gameObject.SetActive(false);
-            Destroy(this.gameObject, 1f);
+            if(monster.GetComponentInParent<IHitControl>().IsHitPossible())
+            {
+                monster.GetComponentInParent<IHitControl>().Hit(damage, -(int)transform.right.x);
+                this.gameObject.SetActive(false);
+                Destroy(this.gameObject, 1f);
+            }
         }
     }
 }

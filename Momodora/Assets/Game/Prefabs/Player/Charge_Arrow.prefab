@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 414053765168809988}
   - component: {fileID: 6358624879138097953}
   - component: {fileID: -7374701541439798689}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Charge_Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5062625230049573660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 481a1fd27aa12a3409d88bcdc9e4ab28, type: 3}
+  m_Script: {fileID: 11500000, guid: ecb200bd19b9cee47be827616e562f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
 --- !u!50 &-7374701541439798689
 Rigidbody2D:
   serializedVersion: 4

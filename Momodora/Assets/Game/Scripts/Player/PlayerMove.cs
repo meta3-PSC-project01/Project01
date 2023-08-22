@@ -539,8 +539,6 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerBowShot()
     {      // Fix : Vector3 up
-        Debug.Log(playerContainer.position);
-        Debug.Log(playerContainer.position + Vector3.up * .5f);
         GameObject tempObject = Instantiate(arrowPrefab, playerContainer.position+Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
@@ -698,7 +696,7 @@ public class PlayerMove : MonoBehaviour
             if (attackCollider[i].tag == ("Enemy"))
             {
                 monster = attackCollider[i].gameObject;
-                monster.GetComponent<Test>().Hit(5, 1);
+                monster.GetComponent<IHitControl>().Hit(5, 1);
             }
         }
     }
@@ -714,7 +712,7 @@ public class PlayerMove : MonoBehaviour
             if (attackCollider[i].tag == ("Enemy"))
             {
                 monster = attackCollider[i].gameObject;
-                monster.GetComponent<Test>().Hit(5, 1);
+                monster.GetComponent<IHitControl>().Hit(5, 1);
             }
         }
     }
@@ -734,11 +732,52 @@ public class PlayerMove : MonoBehaviour
         else if (isMlAttack == 3) { isMlAttack = 0; }
     }
 
+    public bool canSave = false;
+
+    public void SetInteraction(InteractObjectType type)
+    {
+        switch (type)
+        {
+            //save에 필요한 데이터
+            //Gamemanager.instance.currMap에서 맵 정보 추출(맵 위치)
+            //Gamamanager.instance.eventManager.checkEvent? dictionary에 저장되있는 이벤트들의 현재 상태
+            //item 목록
+            case InteractObjectType.SAVE:
+                canSave = true;
+                break;
+
+            //아이템 획득
+            //Gamemanager.instance.currMap에서 맵 정보 추출
+            //Gamamanager.instance.eventManager.checkEvent? 에서 저장된 데이터 변경
+            //string item name
+            case InteractObjectType.ITEM:
+                break;
+
+            //Gamemanager.instance.currMap에서 맵 정보 추출
+            //Gamamanager.instance.eventManager.checkEvent? 에서 저장된 데이터 변경
+            //npc 대화
+            //npc 이름
+            //npc 대화 스크립트
+            case InteractObjectType.NPC: 
+                break;
+
+            //모든 bool값 false 처리 
+            case InteractObjectType.CLOSE:
+                canSave = false;
+                break;
+        }
+
+        //todo : update에 방향키 누를시 저장하는 코드 작성하기
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Enemy")
         {
-            Hit(1, flipX ? 1 : -1);
+            if (collision.collider.GetComponent<EnemyBase>() != null)
+            {
+                Hit(1, flipX ? 1 : -1);
+            }
         }
     }
 
@@ -765,7 +804,6 @@ public class PlayerMove : MonoBehaviour
         }
         if ( collision.tag == "ThinFloor")
         {
-            Debug.Log(collision.transform.position+"들어감");
             thinFloorCheck = true;
             thinFloor = collision.gameObject;
             isGrounded = true;
@@ -833,7 +871,6 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.tag=="ThinFloor" && thinFloor.Equals(collision))
         {
-            Debug.Log(collision.transform.position + "나감");
             collision = null;
         }
 
@@ -856,4 +893,12 @@ public class PlayerMove : MonoBehaviour
         thinFloorCheck = false;
         thinFloor = null;
     }
+}
+
+public enum InteractObjectType
+{
+    SAVE,
+    ITEM,
+    NPC,
+    CLOSE
 }
