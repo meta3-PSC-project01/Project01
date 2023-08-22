@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
@@ -16,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     public Transform playerContainer;
     private GameObject monster;
     public GameObject playerUi;
+    public GameObject[] playerAttackEffect = new GameObject[4];
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
@@ -81,7 +83,6 @@ public class PlayerMove : MonoBehaviour
         Physics2D.IgnoreCollision(FloorDetectCollider, BorderCollider, true);
         Physics2D.IgnoreCollision(BorderCollider, playerCollider_, true);
 
-
         playerRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
@@ -116,16 +117,15 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (ItemManager.instance!=null && ItemManager.instance.lookAtInventory == true) { return; }
+        if (ItemManager.instance != null && ItemManager.instance.lookAtInventory == true) { return; }
+        if (ItemManager.instance != null && ItemManager.instance.lookAtGameMenu == true) { return; }
 
         //안맞은 상태
         if (hitMoveTime == false)
         {
-
             xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
             
             //버그
-            //1.앉아서 구를시 무한 이동됨
             //2.구르다가 점프 가능
 
             //구르는 키 입력
@@ -270,6 +270,8 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && rollingSlow == false && isGrounded == true)
         {
+            if (isCrouched == true) { isCrouched = false; }
+
             playerRigidbody.velocity = Vector2.zero;
             rollFlipX = flipX;
             xSpeed = 0f;
@@ -365,7 +367,10 @@ public class PlayerMove : MonoBehaviour
                     xSpeed = 0f;
                     xInput = 0f;
 
-                    if (isMlAttack == 0) { isMlAttack = 1; }
+                    if (isMlAttack == 0)
+                    {
+                        isMlAttack = 1;
+                    }
                     else if (isMlAttack == 1) { mlAttackConnect[0] = true; }
                     else if (isMlAttack == 2) { mlAttackConnect[1] = true; }
                 }
@@ -435,6 +440,14 @@ public class PlayerMove : MonoBehaviour
         {
             test = "save" + test2;
            // Debug.Log(test);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (ItemManager.instance.lookAtGameMenu == false)
+            {
+                playerUi.GetComponent<PlayerUi>().GameMenuOn();
+            }
         }
 
         animator.SetBool("Ground", isGrounded);
@@ -664,30 +677,55 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerMlAttack()
     {
-        if (isMlAttack == 3)
-        {
-            if (flipX == false)
-            {
-                playerRigidbody.velocity = new Vector2(+6f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
-            }
-            else
-            {
-                playerRigidbody.velocity = new Vector2(-6f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
-            }
-        }
-        else
+        if (isMlAttack == 1)
         {
             if (flipX == false)
             {
                 playerRigidbody.velocity = new Vector2(+4f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                playerAttackEffect[0].gameObject.SetActive(true);
+                playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = false;
             }
             else
             {
                 playerRigidbody.velocity = new Vector2(-4f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                playerAttackEffect[0].gameObject.SetActive(true);
+                playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = true;
+            }
+        }
+        else if (isMlAttack == 2)
+        {
+            if (flipX == false)
+            {
+                playerRigidbody.velocity = new Vector2(+4f, 0f);
+                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                playerAttackEffect[1].gameObject.SetActive(true);
+                playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = false;
+            }
+            else
+            {
+                playerRigidbody.velocity = new Vector2(-4f, 0f);
+                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                playerAttackEffect[1].gameObject.SetActive(true);
+                playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = true;
+            }
+        }
+        else if (isMlAttack == 3)
+        {
+            if (flipX == false)
+            {
+                playerRigidbody.velocity = new Vector2(+6f, 0f);
+                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                playerAttackEffect[2].gameObject.SetActive(true);
+                playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = false;
+            }
+            else
+            {
+                playerRigidbody.velocity = new Vector2(-6f, 0f);
+                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                playerAttackEffect[2].gameObject.SetActive(true);
+                playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = true;
             }
         }
 
@@ -705,8 +743,18 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerAirAttack()
     {
-        if (flipX == false) { attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y); }
-        else { attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y); }
+        if (flipX == false)
+        {
+            attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+            playerAttackEffect[3].gameObject.SetActive(true);
+            playerAttackEffect[3].GetComponent<AirAttackEffect>().effectRenderer.flipX = false;
+        }
+        else
+        {
+            attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+            playerAttackEffect[3].gameObject.SetActive(true);
+            playerAttackEffect[3].GetComponent<AirAttackEffect>().effectRenderer.flipX = true;
+        }
 
         attackCollider = Physics2D.OverlapBoxAll(attackVector, attackSize, 0f);
         for (int i = 0; i < attackCollider.Length; i++)
@@ -723,15 +771,21 @@ public class PlayerMove : MonoBehaviour
     {
         if (isMlAttack == 1)
         {
+            playerAttackEffect[0].gameObject.SetActive(false);
             if (mlAttackConnect[0] == true) { isMlAttack = 2; mlAttackConnect[0] = false; }
             else { isMlAttack = 0; }
         }
         else if (isMlAttack == 2)
         {
+            playerAttackEffect[1].gameObject.SetActive(false);
             if (mlAttackConnect[1] == true) { isMlAttack = 3; mlAttackConnect[1] = false; }
             else { isMlAttack = 0; }
         }
-        else if (isMlAttack == 3) { isMlAttack = 0; }
+        else if (isMlAttack == 3)
+        {
+            playerAttackEffect[2].gameObject.SetActive(false);
+            isMlAttack = 0;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -761,7 +815,8 @@ public class PlayerMove : MonoBehaviour
             jSpeed[1] = 0f;
             isAirBowed = false;
             isChargeAirBowed = false;
-            isAirAttacked = false;        
+            isAirAttacked = false;
+            playerAttackEffect[3].gameObject.SetActive(false);
         }
         if ( collision.tag == "ThinFloor")
         {
@@ -777,7 +832,7 @@ public class PlayerMove : MonoBehaviour
             isAirBowed = false;
             isChargeAirBowed = false;
             isAirAttacked = false;
-
+            playerAttackEffect[3].gameObject.SetActive(false);
         }
 
         if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
@@ -791,6 +846,11 @@ public class PlayerMove : MonoBehaviour
 
             collision.gameObject.SetActive(false);
             Destroy(collision.gameObject, 1f);
+        }
+
+        if (collision.tag == "Item")
+        {
+
         }
     }
 

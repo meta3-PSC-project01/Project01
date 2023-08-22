@@ -7,18 +7,26 @@ public class SaveLoad
 {
     public int gameTime = default;
     public int[] savePoint = new int[2];
-    //public int leaf;
+    public bool[] eventCheck = new bool[10];
+    public int[] positionX = new int[10];
+    public int[] positionY = new int[10];
+    public int money = default;
+
     //public string[] equipItems = new string[5];
     //public string[] activeItems = new string[5];
     //public int activeItemsX;
     //public string[] durationItems = new string[5];
     //public int durationItemsX;
 
-    public SaveLoad(int gameTime_, int[] savePoint_)
+    public SaveLoad(int gameTime_, int[] savePoint_, bool[] eventCheck_, int[] positionX_, int[] positionY_, int money_)
     {
         gameTime = gameTime_;
-        savePoint[0] = savePoint_[0];
-        savePoint[1] = savePoint_[1];
+        savePoint = savePoint_;
+        eventCheck = eventCheck_;
+        positionX = positionX_;
+        positionY = positionY_;
+        money = money_;
+
         //leaf = leaf_;
         //equipItems = equipItems_;
         //activeItems = activeItems_;
@@ -26,7 +34,4 @@ public class SaveLoad
         //durationItems = durationItems_;
         //durationItemsX = durationItemsX_;
     }
-
-    //public SaveLoad(int leaf_, int time_, string[] equipItems_, string[] activeItems_, int activeItemsX_, string[] durationItems_,
-    //    int durationItemsX_, int[] startingPoint_)
 }
