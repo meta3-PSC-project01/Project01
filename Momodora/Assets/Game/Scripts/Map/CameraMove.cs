@@ -103,6 +103,7 @@ public class CameraMove : MonoBehaviour
             Vector3 targetPosition = new Vector3(cameraX, cameraY, -10) + shaking;
 
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+           // GameManager.instance.background.MoveBackgroundAll(targetPosition);
         }
     }
 }

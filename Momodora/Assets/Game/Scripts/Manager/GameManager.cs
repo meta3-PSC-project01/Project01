@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public EventManager eventManager;
     public Dictionary<string, MapData> mapDatabase;
-
+    public BackGroundController background;
     public Vector2Int currMapPosition;
     public MapData currMap;
     public Image loadingImage;
@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
                 eventManager.eventCheck.Add(mapData.name, mapEvent);
             }
         }
+
+        background = Instantiate(background);
     }
 
     void Update()

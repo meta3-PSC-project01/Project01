@@ -13,6 +13,7 @@ public class MapData : MonoBehaviour
     public Vector2Int fieldSize;
     public int type = 1;
     public EscapeTile enterArea;
+    public BackGroundType backGroundType;
 
     public Transform FindChildTransform(int fieldIndex, string name)
     {
@@ -52,6 +53,8 @@ public class MapData : MonoBehaviour
             }
             compCollider.GenerateGeometry();
         }
+
+        GameManager.instance.background.SetAnchoredPosition(backGroundType);
     }
 
     private void Start()

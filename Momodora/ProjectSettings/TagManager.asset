@@ -17,6 +17,7 @@ TagManager:
   - Item
   - Npc
   - Water
+  - Save
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Water
   - UI
   - Gold
-  - 
-  - 
+  - Bell
+  - PlayerAttack
   - 
   - EnemySight
   - Player
