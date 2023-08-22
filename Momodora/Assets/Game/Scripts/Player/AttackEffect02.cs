@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackEffect01 : MonoBehaviour
+public class AttackEffect02 : MonoBehaviour
 {
     private Animator attackEffect = default;
 
