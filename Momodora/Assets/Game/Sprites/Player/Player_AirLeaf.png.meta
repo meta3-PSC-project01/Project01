@@ -132,12 +132,12 @@ TextureImporter:
       name: Player_AirLeaf_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 99.166664
-        height: 53
+        x: 225
+        y: 3
+        width: 38
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,36 +150,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_AirLeaf_1
+      name: Player_AirLeaf_3
       rect:
         serializedVersion: 2
-        x: 99
-        y: 0
-        width: 99.166664
-        height: 53
+        x: 517
+        y: 3
+        width: 38
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2b7826c70cf4464c92c47c50b33e6d2
-      internalID: 931430836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_AirLeaf_2
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 0
-        width: 99.166664
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,15 +171,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_AirLeaf_3
+      name: Player_AirLeaf_1
       rect:
         serializedVersion: 2
-        x: 297
-        y: 0
-        width: 99.166664
-        height: 53
+        x: 322
+        y: 3
+        width: 38
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,15 +192,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_AirLeaf_4
+      name: Player_AirLeaf_2
       rect:
         serializedVersion: 2
-        x: 396
-        y: 0
-        width: 99.166664
-        height: 53
+        x: 418
+        y: 3
+        width: 38
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -229,27 +208,6 @@ TextureImporter:
       bones: []
       spriteID: c4fdd314bfc67db49a4d4e3149b27740
       internalID: -863104450
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_AirLeaf_5
-      rect:
-        serializedVersion: 2
-        x: 495
-        y: 0
-        width: 99.166664
-        height: 53
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c04ea71f91cebe84e94c589a9774ceae
-      internalID: -992617814
       vertices: []
       indices: 
       edges: []
@@ -266,11 +224,9 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Player_AirLeaf_0: -33126474
-      Player_AirLeaf_1: 931430836
-      Player_AirLeaf_2: 119221434
-      Player_AirLeaf_3: 376856793
-      Player_AirLeaf_4: -863104450
-      Player_AirLeaf_5: -992617814
+      Player_AirLeaf_1: 376856793
+      Player_AirLeaf_2: -863104450
+      Player_AirLeaf_3: 119221434
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

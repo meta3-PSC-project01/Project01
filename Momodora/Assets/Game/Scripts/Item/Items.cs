@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Items
+public class Items : MonoBehaviour
 {
     public string name = default;
     public string effect = default;

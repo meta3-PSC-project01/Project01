@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 
@@ -37,11 +38,7 @@ public class PlayerUi : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-        {
-            if (ItemManager.instance.lookAtGameMenu == false) { GameMenuOn(); }
-        }
-
+        if (Input.GetKeyDown(KeyCode.A) && ItemManager.instance.lookAtGameMenu == true) { GameMenuIn(); }
         if (Input.GetKeyDown(KeyCode.S) && ItemManager.instance.lookAtGameMenu == true) { GameMenuOff(); }
         if (Input.GetKeyDown(KeyCode.LeftArrow) && ItemManager.instance.lookAtGameMenu == true) { GameMenuLeft(); }
         if (Input.GetKeyDown(KeyCode.RightArrow) && ItemManager.instance.lookAtGameMenu == true) { GameMenuRight(); }
@@ -108,6 +105,14 @@ public class PlayerUi : MonoBehaviour
             playerHpEmpty.gameObject.SetActive(true);
             gameMoneyIcon.gameObject.SetActive(true);
             playerMoneyNumber.gameObject.SetActive(true);
+        }
+    }
+
+    public void GameMenuIn()
+    {
+        if (selectCursor == 2)
+        {
+            SceneManager.LoadScene("TitleScene");
         }
     }
 

@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -241,7 +238,7 @@ public class Title : MonoBehaviour
                 }
                 else if (selectType == 1 && saveSelect == 0)
                 {
-                    // 로드 후 게임 시작
+                    LoadStart();
                 }
                 else if (selectType == 1 && saveSelect == 1)
                 {
@@ -355,11 +352,18 @@ public class Title : MonoBehaviour
     public void GameStart()
     {
         GameManager.instance.userSaveServer = titleSelect;
-        saveCheckString = "save_" + titleSelect;
-        GameManager.instance.savePoint[0] = 0;
-        GameManager.instance.savePoint[1] = 0;
-        SaveLoad save = new SaveLoad(0, GameManager.instance.savePoint);
-        GameManager.Save(save, saveCheckString);
+        
+        GameManager.instance.SaveBefore();
+
+        GameManager.instance.mapName = "Stage1Start";
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void LoadStart()
+    {
+        GameManager.instance.userSaveServer = titleSelect;
+
+        GameManager.instance.LoadBefore();
 
         GameManager.instance.mapName = "Stage1Start";
         SceneManager.LoadScene("GameScene");

@@ -132,10 +132,10 @@ TextureImporter:
       name: Player_Leaf1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 98
-        height: 46
+        x: 305
+        y: 2
+        width: 58
+        height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: Player_Leaf1_1
       rect:
         serializedVersion: 2
-        x: 98
-        y: 0
-        width: 98
-        height: 46
+        x: 402
+        y: 2
+        width: 58
+        height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,13 +171,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Leaf1_2
+      name: Player_Leaf1_3
       rect:
         serializedVersion: 2
-        x: 196
-        y: 0
-        width: 98
-        height: 46
+        x: 596
+        y: 2
+        width: 58
+        height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,13 +192,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Leaf1_3
+      name: Player_Leaf1_2
       rect:
         serializedVersion: 2
-        x: 294
-        y: 0
-        width: 98
-        height: 46
+        x: 498
+        y: 2
+        width: 58
+        height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,69 +208,6 @@ TextureImporter:
       bones: []
       spriteID: c7f820f3e44672c4081090c04c47ed99
       internalID: 1309463830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Leaf1_4
-      rect:
-        serializedVersion: 2
-        x: 392
-        y: 0
-        width: 98
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1c647528297a1074bb6ef12efa951e86
-      internalID: -1108779033
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Leaf1_5
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 0
-        width: 98
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8aeec6629828ce04289926884cd94b93
-      internalID: 945302151
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Leaf1_6
-      rect:
-        serializedVersion: 2
-        x: 588
-        y: 0
-        width: 98
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 024fef72ce855b740a3d55996b55893d
-      internalID: -1938473734
       vertices: []
       indices: 
       edges: []
@@ -288,11 +225,8 @@ TextureImporter:
     nameFileIdTable:
       Player_Leaf1_0: -2127223311
       Player_Leaf1_1: -373136991
-      Player_Leaf1_2: -888455993
-      Player_Leaf1_3: 1309463830
-      Player_Leaf1_4: -1108779033
-      Player_Leaf1_5: 945302151
-      Player_Leaf1_6: -1938473734
+      Player_Leaf1_2: 1309463830
+      Player_Leaf1_3: -888455993
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
