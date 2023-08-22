@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
     public bool[] saveCheck = new bool[5];
-    public bool nowLoading = false;
+    public bool isloading = false;
 
     public int userSaveServer = default;
     public int[] savePoint = new int[2];

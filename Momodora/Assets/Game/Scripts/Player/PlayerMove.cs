@@ -42,9 +42,7 @@ public class PlayerMove : MonoBehaviour
     private bool jumping = false;
     private bool jumpingForce = false;
     private bool flipX = false;
-    private bool rollFlipX = false;
     private bool isRolled = false;
-    private bool rollingSlow = false;
     [SerializeField] private bool isGrounded = false;
     private bool isCrouched = false;
     [SerializeField] private bool isLadder = false;
@@ -63,9 +61,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private bool forceLadder = false;
     private bool isHited = false;
     private bool hitMoveTime = false;
-
-    private string test = default;
-    private int test2 = default;
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
@@ -102,9 +97,6 @@ public class PlayerMove : MonoBehaviour
         chargeAddForce = 1f;
         chargeMax = 2000f;
         playerHp = 100;
-
-        test2 = 1;
-
         jumpCount = 0;
         isMlAttack = 0;
         // } 변수 값 선언
@@ -125,51 +117,34 @@ public class PlayerMove : MonoBehaviour
         {
             xInput = Input.GetAxis("Horizontal");     // 수평 입력값 대입
             
-            //버그
-            //2.구르다가 점프 가능
-
             //구르는 키 입력
             if (isRolled == true)
             {
-                //rollslow 삭제 요청
-                //사유 : 애니메이션 속도로 조절해야함
-                if (rollingSlow == false)
+                if (flipX == false)
                 {
-                    //rollflip 삭제 요청
-                    //flip과 rollflip중 하나만 사용
-
-                    //구르기시 마지막에 velocity = vector.zero 추가 요청
-                    if (rollFlipX == false)
+                    rSpeed = rollForce;
+                    //이동식 플랫폼 위에 있는거 처리
+                    //platform 위에 있을 경우 플랫폼 이동 속도만큼 추가로 이동해야함
+                    if (isMovingPlatform)
                     {
-                        //rspeed = rollforce로 변경
-                        //구르는 거리는 항상 동일함
-                        //구르는 속도를 조절하고싶으면 애니메이션에서 처리 
-                        rSpeed = rollForce;     // 수평 입력을 유지한만큼 값이 증가
-                        //if (rSpeed > 13f) { rSpeed = 13f; }
-
-                        //이동식 플랫폼 위에 있는거 처리
-                        //platform 위에 있을 경우 플랫폼 이동 속도만큼 추가로 이동해야함
-                        if (isMovingPlatform)
-                        {
-                            playerRigidbody.velocity = new Vector2(rSpeed + platformBody.velocity.x, playerRigidbody.velocity.y);
-                        }
-                        else
-                        {
-                            playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
-                        }
+                        playerRigidbody.velocity = new Vector2(rSpeed + platformBody.velocity.x, playerRigidbody.velocity.y);
                     }
                     else
                     {
-                        rSpeed = rollForce;     // 수평 입력을 유지한만큼 값이 증가
+                        playerRigidbody.velocity = new Vector2(rSpeed, playerRigidbody.velocity.y);
+                    }
+                }
+                else
+                {
+                    rSpeed = rollForce;
 
-                        if (isMovingPlatform)
-                        {
-                            playerRigidbody.velocity = new Vector2(-rSpeed + platformBody.velocity.x, playerRigidbody.velocity.y);
-                        }
-                        else
-                        {
-                            playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
-                        }
+                    if (isMovingPlatform)
+                    {
+                        playerRigidbody.velocity = new Vector2(-rSpeed + platformBody.velocity.x, playerRigidbody.velocity.y);
+                    }
+                    else
+                    {
+                        playerRigidbody.velocity = new Vector2(-rSpeed, playerRigidbody.velocity.y);
                     }
                 }
             }
@@ -178,11 +153,9 @@ public class PlayerMove : MonoBehaviour
                 //활 차징 상태 아닐경우
                 if (isBowed == false)
                 {
-                    //앉은 상태 아님, 앉아서 차징상태 아님, 공격 상태아님
-                    //중복처리되있던 isbowed 삭제
                     if (isCrouched == false && isCrouchBowed == false && isMlAttack == 0)
                     {
-                        xSpeed = xInput * moveForce;     // 수평 입력을 유지한만큼 값이 증가
+                        xSpeed = xInput * moveForce;
                         Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
 
                         //땅에서 일어나는 velocity이동엔 플랫폼 이동을 고려해야함
@@ -218,8 +191,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-
-        if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false)
+        if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false && isRolled == false && isMlAttack == 0)
         {
             if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
             else
@@ -233,7 +205,6 @@ public class PlayerMove : MonoBehaviour
                 jumpingForce = true;
             }
         }
-
 
         if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true)
         {
@@ -255,25 +226,20 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[0]);
-
-               // Debug.Log(jSpeed[0]);
             }
             else if (jumpCount == 2)
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jSpeed[1]);
-
-               // Debug.Log(jSpeed[1]);
             }
         }
 
         if (Input.GetKeyUp(KeyCode.A)) { jumpingForce = false; }
 
-        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && rollingSlow == false && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0)
         {
             if (isCrouched == true) { isCrouched = false; }
 
             playerRigidbody.velocity = Vector2.zero;
-            rollFlipX = flipX;
             xSpeed = 0f;
             xInput = 0f;
             isRolled = true;
@@ -353,10 +319,6 @@ public class PlayerMove : MonoBehaviour
             playerRenderer.flipX = false;
         }
 
-        //버그 :
-        //1.공격중 점프됨
-        //2.공격중 구리기됨
-
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (isGrounded == true)
@@ -378,9 +340,6 @@ public class PlayerMove : MonoBehaviour
             else if (isAirAttacked == false) { isAirAttacked = true; }
         }
 
-        //버그 :
-        //1.공격중 구르기됨
-
         if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false && isChargeBowed == false && 
             isChargeCrouchBowed == false) { isCharged = true; }
 
@@ -390,7 +349,6 @@ public class PlayerMove : MonoBehaviour
             if (chargeForce >= chargeMax)
             {
                 chargeForce = chargeMax;
-                //Debug.Log("풀차지 상태");
             }
         }
 
@@ -432,14 +390,6 @@ public class PlayerMove : MonoBehaviour
             ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
             ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
             ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
-           // Debug.Log("아이템 획득!");
-        }
-
-        //테스트 코드2
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            test = "save" + test2;
-           // Debug.Log(test);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
@@ -498,8 +448,6 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(InvinTime());
             StartCoroutine(HitMoveTime());
         }
-
-     //   Debug.Log("히트!");
     }
 
     IEnumerator InvinTime()
@@ -513,7 +461,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         isHited = false;
-       // Debug.Log("무적시간 종료");
     }
 
     IEnumerator HitMoveTime()
@@ -529,13 +476,11 @@ public class PlayerMove : MonoBehaviour
         return (isGrounded == false && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false);
     }
 
-    public void PlayerRollingSlow() { rollingSlow = true; }
-
     public void PlayerRollingEnd()
     {
         rSpeed = 0f;
         isRolled = false;
-        rollingSlow = false;
+        playerRigidbody.velocity = Vector2.zero;
     }
 
     IEnumerator RollStartCheck()
@@ -557,12 +502,10 @@ public class PlayerMove : MonoBehaviour
         if (flipX == false)
         {
             tempObject.transform.right = direction;
-            //tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
             tempObject.transform.right = -direction;
-            //tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
@@ -575,12 +518,10 @@ public class PlayerMove : MonoBehaviour
             if (flipX == false)
             {
                 tempObject.transform.right = direction;
-              //  tempObject.transform.position = transform.position + 1f * direction;
             }
             else
             {
                 tempObject.transform.right = -direction;
-              //  tempObject.transform.position = transform.position + 1f * -direction;
             }
         }
     }
@@ -600,12 +541,10 @@ public class PlayerMove : MonoBehaviour
         if (flipX == false)
         {
             tempObject.transform.right = direction;
-           // tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
             tempObject.transform.right = -direction;
-          //  tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
@@ -618,12 +557,10 @@ public class PlayerMove : MonoBehaviour
             if (flipX == false)
             {
                 tempObject.transform.right = direction;
-               // tempObject.transform.position = transform.position + 1f * direction;
             }
             else
             {
                 tempObject.transform.right = -direction;
-               // tempObject.transform.position = transform.position + 1f * -direction;
             }
         }
     }
@@ -643,12 +580,10 @@ public class PlayerMove : MonoBehaviour
         if (flipX == false)
         {
             tempObject.transform.right = direction;
-            //tempObject.transform.position = transform.position + 1f * direction;
         }
         else
         {
             tempObject.transform.right = -direction;
-            //tempObject.transform.position = transform.position + 1f * -direction;
         }
     }
 
@@ -661,12 +596,10 @@ public class PlayerMove : MonoBehaviour
             if (flipX == false)
             {
                 tempObject.transform.right = direction;
-               // tempObject.transform.position = transform.position + 1f * direction;
             }
             else
             {
                 tempObject.transform.right = -direction;
-               // tempObject.transform.position = transform.position + 1f * -direction;
             }
         }
     }
@@ -888,7 +821,7 @@ public class PlayerMove : MonoBehaviour
 
         if (collision.tag == "Item")
         {
-
+            // 아이템 획득 시 진행
         }
     }
 
