@@ -46,6 +46,9 @@ public class ControlBase : MonoBehaviour, IEventControl
         {
             mode = 0;
         }
+
+        GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
+        GameManager.instance.mapDatabase[GameManager.instance.currMap.name].GetComponent<MapEvent>().canActive = false;
     }
 
     public void SetEventPossible()

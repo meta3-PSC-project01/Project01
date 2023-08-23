@@ -5,6 +5,8 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using System.Diagnostics.Tracing;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class GameManager : MonoBehaviour
     public BackGroundController background;
     public Vector2Int currMapPosition;
     public MapData currMap;
-    public Image loadingImage;
+    public SpriteRenderer loadingImage;
 
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
@@ -24,10 +26,6 @@ public class GameManager : MonoBehaviour
     public bool isDeath = false;
 
     public int userSaveServer = default;
-    public int[] savePoint = new int[2];
-    public bool[] eventCheck = new bool[10]; 
-    public int[] positionX = new int[10];
-    public int[] positionY = new int[10];
     public float gameTime = default;
 
     public string mapName = null;
@@ -65,7 +63,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        background = Instantiate(background);
     }
 
     void Update()
@@ -78,6 +75,7 @@ public class GameManager : MonoBehaviour
             Camera.main.gameObject.AddComponent<CameraMove>();
             mapName = null;
 
+            background = Instantiate(background);
 
             //GameManager.instance.loadingImage = panel.GetComponent<Image>();
         }
@@ -87,10 +85,49 @@ public class GameManager : MonoBehaviour
     public void SaveBefore()
     {
         saveCheckString = "save_" + userSaveServer;
-        SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, positionX, positionY, ItemManager.instance.leaf);
+        int eventCount = eventManager.eventCheck.Count;
+
+        bool[] eventCheck = new bool[eventCount];
+        int[] posStage = new int[eventCount];
+        int[] posMap = new int[eventCount];
+
+        int index = 0;
+        foreach (var _event in eventManager.eventCheck) 
+        {
+
+            eventCheck[index] = _event.Value.canActive;
+            posStage[index] = _event.Value.position[0];
+            posMap[index] = _event.Value.position[1];
+
+            index += 1;
+        }
+
+        if (mapName == null)
+        {
+            mapName = currMap.name;
+        }
+
+        int[] savePoint = new int[2];
+        int.TryParse(mapName.Substring(5, 1), out savePoint[0]);
+       
+        if (mapName == "Stage1Start")
+        {
+            savePoint[1] = 1;
+        }
+        else if (mapName.Length == 10)
+        {
+            int.TryParse(mapName.Substring(10, 1), out savePoint[1]);
+        }
+        else if (mapName.Length == 11)
+        {
+            int.TryParse(currMap.name.Substring(10, 2), out savePoint[1]);
+        }
+
+        SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, posStage, posMap, ItemManager.instance.leaf);
+
         GameManager.Save(save, saveCheckString);
         Save(save, saveCheckString);
-    }
+}
 
     public static void Save(SaveLoad saveData, string saveFileName)
     {
@@ -109,10 +146,10 @@ public class GameManager : MonoBehaviour
         Camera.main.GetComponent<CameraMove>().CameraOnceMove(fieldIndex, type);
     }
 
-    public void LoadBefore()
+    public SaveLoad LoadBefore()
     {
         saveCheckString = "save_" + userSaveServer;
-        Load(saveCheckString);
+        return Load(saveCheckString);
     }
 
     public static SaveLoad Load(string saveFileName)
@@ -128,8 +165,6 @@ public class GameManager : MonoBehaviour
         instance.gameTime = saveData.gameTime;
         ItemManager.instance.leaf = saveData.money;
         
-        instance.savePoint = saveData.savePoint;
-        
         instance.MapEventCheck(saveData);
         
         return saveData;
@@ -139,10 +174,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < data.eventCheck.Length; i++) 
         {
-            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i]);
             string stageName = "Stage" + data.positionX[i] + "Map" + data.positionY[i];
+            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i], eventManager.eventCheck[stageName].eventName);
             eventManager.eventCheck[stageName] = _event;
-            Debug.Log(_event.position + "/" + _event.canActive);
+            Destroy(mapDatabase[stageName].GetComponent<MapEvent>());
+            mapDatabase[stageName].AddComponent<MapEvent>().SetActive();
         }
     }
 

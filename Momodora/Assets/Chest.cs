@@ -64,6 +64,7 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
     public virtual void Dead()
     {
         GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
+        GameManager.instance.mapDatabase[GameManager.instance.currMap.name].GetComponent<MapEvent>().canActive = false;
 
         for (int i = 0; i < goldCount; i++)
         {

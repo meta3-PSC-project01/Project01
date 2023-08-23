@@ -6719,7 +6719,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canActive: 0
-  position: 
+  position: 0100000007000000
+  eventName: 
 --- !u!1001 &3934986463270128775
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -251,6 +251,25 @@ public class PlayerMove : MonoBehaviour
             isRolled = true;
         }
 
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && canInteract)
+        {
+            if (canItem)
+            {
+                //아이템 획득시 GameManager.instance.currMap.GetComponent<MapEvent>().eventName;
+            }
+            
+            else if (canSave)
+            {
+                GameManager.instance.SaveBefore();
+            }
+            
+            else if (canTalk)
+            {
+
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (isLadder == true) { forceLadder = true; }
@@ -785,7 +804,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public bool canInteract = false;
     public bool canSave = false;
+    public bool canItem = false;
+    public bool canTalk = false;
 
     public void SetInteraction(InteractObjectType type)
     {
@@ -796,6 +818,7 @@ public class PlayerMove : MonoBehaviour
             //Gamamanager.instance.eventManager.checkEvent? dictionary에 저장되있는 이벤트들의 현재 상태
             //item 목록
             case InteractObjectType.SAVE:
+                canInteract = true;
                 canSave = true;
                 break;
 
@@ -804,6 +827,8 @@ public class PlayerMove : MonoBehaviour
             //Gamamanager.instance.eventManager.checkEvent? 에서 저장된 데이터 변경
             //string item name
             case InteractObjectType.ITEM:
+                canInteract = true;
+                canItem = true;
                 break;
 
             //Gamemanager.instance.currMap에서 맵 정보 추출
@@ -811,11 +836,16 @@ public class PlayerMove : MonoBehaviour
             //npc 대화
             //npc 이름
             //npc 대화 스크립트
-            case InteractObjectType.NPC: 
+            case InteractObjectType.NPC:
+                canInteract = true;
+                canTalk = true;
                 break;
 
             //모든 bool값 false 처리 
             case InteractObjectType.CLOSE:
+                canInteract = false;
+                canTalk = false;
+                canItem = false;
                 canSave = false;
                 break;
         }

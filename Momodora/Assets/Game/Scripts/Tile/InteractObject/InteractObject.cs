@@ -15,6 +15,11 @@ public class InteractObject : MonoBehaviour, IEventControl
 
     private void Start()
     {
+        /*
+        아이템 먹을때 쓸거
+        GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
+        GameManager.instance.mapDatabase[GameManager.instance.currMap.name].GetComponent<MapEvent>().canActive = false;
+         */
         if (interactObjectType == InteractObjectType.ITEM)
         {
             isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
