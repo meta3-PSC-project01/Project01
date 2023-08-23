@@ -9,8 +9,16 @@ public class PopupText : MonoBehaviour
     bool isTouched;
     private void Awake()
     {
-        tmpText = GetComponent<TMP_Text>();
+        tmpText = GetComponentInChildren<TMP_Text>();
         ClosePopup();
+    }
+
+    private void Update()
+    {
+        if (!isTouched)
+        {
+            transform.localScale = Vector3.right;
+        }
     }
 
     public void OpenPopup(string str)
@@ -41,6 +49,13 @@ public class PopupText : MonoBehaviour
             time += .1f;
             yield return wait;
         }
-        transform.localScale = Vector3.one;
+        if (!isTouched)
+        {
+            transform.localScale = Vector3.right;
+        }
+        else
+        {
+            transform.localScale = Vector3.one;
+        }
     }
 }

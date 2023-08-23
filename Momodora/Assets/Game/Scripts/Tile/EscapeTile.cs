@@ -9,6 +9,7 @@ public class EscapeTile : MonoBehaviour
     public bool isActive = false;
     public bool checkMinimap = false;
     public bool canDead = false;
+
     public EscapeTile nextTile = default;
 
     public Vector3 pivot;

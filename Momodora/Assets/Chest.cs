@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : MonoBehaviour, IHitControl
+public class Chest : MonoBehaviour, IHitControl, IEventControl
 {
     bool isActive;
     SpriteRenderer open;
@@ -25,7 +25,7 @@ public class Chest : MonoBehaviour, IHitControl
 
     private void SetStatus()
     {
-        isActive = true;//transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
+        SetEventPossible();
 
         if (isActive)
         {
@@ -39,13 +39,16 @@ public class Chest : MonoBehaviour, IHitControl
     }
     public void Hit(int damage, int direction)
     {
-        chestHp -= damage;
-        HitReaction(direction);
-
-        if (chestHp <= 0)
+        if (chestHp > 0)
         {
-            Dead();
-            return;
+            chestHp -= damage;
+            HitReaction(direction);
+
+            if (chestHp <= 0)
+            {
+                Dead();
+                return;
+            }
         }
     }
 
@@ -60,6 +63,8 @@ public class Chest : MonoBehaviour, IHitControl
     //추후 확장성을 위해서 virtual로 지정(죽을때 효과있는 몬스터)
     public virtual void Dead()
     {
+        GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
+
         for (int i = 0; i < goldCount; i++)
         {
             GameObject tmp = Instantiate(gold, transform.position, Quaternion.identity);
@@ -75,6 +80,11 @@ public class Chest : MonoBehaviour, IHitControl
     public bool IsHitPossible()
     {
         return isActive;
+    }
+
+    public void SetEventPossible()
+    {
+        isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
     }
 }
 

@@ -733,7 +733,7 @@ public class PlayerMove : MonoBehaviour
             if (attackCollider[i].tag == ("Enemy"))
             {
                 monster = attackCollider[i].gameObject;
-                monster.GetComponent<IHitControl>().Hit(5, 1);
+                monster.GetComponentInParent<IHitControl>().Hit(5, flipX ? 1 : -1);
             }
         }
     }
@@ -759,7 +759,7 @@ public class PlayerMove : MonoBehaviour
             if (attackCollider[i].tag == ("Enemy"))
             {
                 monster = attackCollider[i].gameObject;
-                monster.GetComponent<IHitControl>().Hit(5, 1);
+                monster.GetComponentInParent<IHitControl>().Hit(5, flipX ? 1 : -1);
             }
         }
     }
@@ -832,6 +832,7 @@ public class PlayerMove : MonoBehaviour
                 Hit(1, flipX ? 1 : -1);
             }
         }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -876,19 +877,6 @@ public class PlayerMove : MonoBehaviour
 
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
 
-        if (collision.tag == "Gold")
-        {
-            ItemManager.instance.leaf += 1;
-            playerUi.GetComponent<PlayerUi>().PlayerMoney();
-
-            collision.gameObject.SetActive(false);
-            Destroy(collision.gameObject, 1f);
-        }
-
-        if (collision.tag == "Item")
-        {
-            // 아이템 획득 시 진행 (Keep)
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

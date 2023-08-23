@@ -78,21 +78,8 @@ public class GameManager : MonoBehaviour
             Camera.main.gameObject.AddComponent<CameraMove>();
             mapName = null;
 
-            GameObject canvas = new GameObject();
-            canvas.AddComponent<RectTransform>();
-            canvas.AddComponent<Canvas>();
-            canvas.AddComponent<CanvasScaler>();
-            canvas.AddComponent<GraphicRaycaster>();
 
-            GameObject panel = new GameObject();
-            panel.transform.parent = canvas.transform;
-            panel.AddComponent<RectTransform>();
-            panel.AddComponent<CanvasRenderer>();
-            panel.AddComponent<Image>();
-
-            panel.SetActive(false);
-
-            GameManager.instance.loadingImage = panel.GetComponent<Image>();
+            //GameManager.instance.loadingImage = panel.GetComponent<Image>();
         }
         gameTime = Time.time;
     }

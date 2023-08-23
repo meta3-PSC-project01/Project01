@@ -1730,6 +1730,26 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
+      m_TileSpriteIndex: 12
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
+  - first: {x: 39, y: -4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 12
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
+  - first: {x: 40, y: -4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
       m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
@@ -3388,7 +3408,7 @@ Tilemap:
       m_AllTileFlags: 1073741826
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 334
+  - m_RefCount: 336
     m_Data: {fileID: 11400000, guid: 9af1903ba0d06f143abdddda2cf265ff, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3417,12 +3437,12 @@ Tilemap:
     m_Data: {fileID: 6460297, guid: 0f0f5f86f3a0c1542998ba46e1dbd150, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 2141844578, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
-  - m_RefCount: 88
+  - m_RefCount: 90
     m_Data: {fileID: 317347132, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1366188017, guid: 0f0f5f86f3a0c1542998ba46e1dbd150, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 334
+  - m_RefCount: 336
     m_Data:
       e00: 1
       e01: 0
@@ -3459,13 +3479,13 @@ Tilemap:
       e32: 6.81e-43
       e33: 6.81e-43
   m_TileColorArray:
-  - m_RefCount: 334
+  - m_RefCount: 336
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -13, y: -7, z: 0}
-  m_Size: {x: 52, y: 15, z: 1}
+  m_Size: {x: 54, y: 15, z: 1}
   m_TileAnchor: {x: 0, y: 1, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -3612,6 +3632,10 @@ CompositeCollider2D:
       - X: 20000000
         Y: -70000000
     - - X: 390000000
+        Y: -40000000
+      - X: 410000000
+        Y: -40000000
+      - X: 410000000
         Y: -30000000
       - X: 320000000
         Y: -30000000
@@ -4112,6 +4136,7 @@ MonoBehaviour:
   fieldSize: {x: 0, y: 0}
   type: 1
   enterArea: {fileID: 0}
+  backGroundType: 0
 --- !u!1 &4173026710979571947
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,6 @@ public class MapEvent : MonoBehaviour
     public MapEvent(bool eventPossible, int stage, int number)
     {
         canActive = eventPossible;
-        position = new int[2] { stage, number};
+        position = new int[2] { stage, number };
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IEventPlay
+public interface IEventControl
 {
-    void Play(int mode);
+    void SetEventPossible();
 }

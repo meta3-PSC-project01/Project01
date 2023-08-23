@@ -102,47 +102,50 @@ public class EnemyBase : MonoBehaviour, IHitControl
     //데미지 높은 공격시에 스턴에 걸린다.
     public void Hit(int damage, int direction)
     {
-        enemyRigidbody.velocity = Vector3.zero;
-        
-
-        if (enemyStunRegistValue <= damage)
+        if (enemyHp > 0)
         {
-            //Debug.Log("스턴카운트+1");
-            enemyStunRegistCurrCount += 1;
-            if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
+            enemyRigidbody.velocity = Vector3.zero;
+
+
+            if (enemyStunRegistValue <= damage)
             {
-                HitReaction(direction);
-                //Debug.Log("스턴");
-                enemyStunRegistCurrCount = 0;
-                isStun = true;
-                enemyAnimator.SetTrigger("Hit");
+                //Debug.Log("스턴카운트+1");
+                enemyStunRegistCurrCount += 1;
+                if (enemyStunRegistMaxCount <= enemyStunRegistCurrCount)
+                {
+                    HitReaction(direction);
+                    //Debug.Log("스턴");
+                    enemyStunRegistCurrCount = 0;
+                    isStun = true;
+                    enemyAnimator.SetTrigger("Hit");
+                }
             }
-        }
 
-        enemyHp -= damage;
+            enemyHp -= damage;
 
-        //피격관련 재생(애니메이션, 소리)
-        //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Hit"));
+            //피격관련 재생(애니메이션, 소리)
+            //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Hit"));
 
-        //플레이어의 공격으로 체력이 적용된 상태로 온다.
-        if (enemyHp <= 0)
-        {
-            Dead();
-            return;
-        }
-
-        //맞으면 무조건 플레이어 인식
-        target = FindObjectOfType<PlayerMove>();
-
-        if (isStun)
-        {
-            if (stunCoroutine != null)
+            //플레이어의 공격으로 체력이 적용된 상태로 온다.
+            if (enemyHp <= 0)
             {
-                StopCoroutine(stunCoroutine);
+                Dead();
+                return;
             }
-            //일정시간 경직
-            enemyAnimator.SetBool("Stun", true);
-            stunCoroutine = StartCoroutine(StunDelay(1f));
+
+            //맞으면 무조건 플레이어 인식
+            target = FindObjectOfType<PlayerMove>();
+
+            if (isStun)
+            {
+                if (stunCoroutine != null)
+                {
+                    StopCoroutine(stunCoroutine);
+                }
+                //일정시간 경직
+                enemyAnimator.SetBool("Stun", true);
+                stunCoroutine = StartCoroutine(StunDelay(1f));
+            }
         }
     }
 
