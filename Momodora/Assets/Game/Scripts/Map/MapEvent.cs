@@ -8,24 +8,9 @@ public class MapEvent : MonoBehaviour
     public int[] position;
     public string eventName;
 
-    public void SetActive()
+    public MapEvent()
     {
-        IEventControl[] events = transform.GetChild(0).GetChild(0).GetChild(1).GetComponentsInChildren<IEventControl>();
-        if (events != null && events.Length > 0)
-        {
-            foreach (var _event in events)
-            {
-                _event.SetEventPossible();
-            }
-        }
-        events = transform.GetChild(0).GetChild(0).GetChild(2).GetComponentsInChildren<IEventControl>();
-        if (events != null && events.Length > 0)
-        {
-            foreach (var _event in events)
-            {
-                _event.SetEventPossible();
-            }
-        }
+        canActive = true;
     }
 
     public MapEvent(bool eventPossible, int stage, int number, string name)
@@ -33,6 +18,11 @@ public class MapEvent : MonoBehaviour
         canActive = eventPossible;
         position = new int[2] { stage, number };
         eventName = name;
+    }
+
+    public MapEvent Copy()
+    {
+        return (MapEvent)this.MemberwiseClone();
     }
 
 }

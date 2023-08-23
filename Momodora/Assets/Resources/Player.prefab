@@ -567,7 +567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6889628450502011910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.35, y: -2.12, z: 0}
+  m_LocalPosition: {x: -6, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -686,7 +686,10 @@ MonoBehaviour:
   forceLadder: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  canInteract: 0
   canSave: 0
+  canItem: 0
+  canTalk: 0
 --- !u!114 &6889628450502011904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,7 +808,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &8987129093811247318
 GameObject:
   m_ObjectHideFlags: 0

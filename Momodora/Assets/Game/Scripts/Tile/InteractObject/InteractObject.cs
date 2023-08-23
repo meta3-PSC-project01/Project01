@@ -11,14 +11,24 @@ public class InteractObject : MonoBehaviour, IEventControl
 
     public bool isActive = true;
 
+    private void Awake()
+    {
+
+        SetEventPossible();
+    }
 
 
     private void Start()
     {
         /*
         아이템 먹을때 쓸거
-        GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
-        GameManager.instance.mapDatabase[GameManager.instance.currMap.name].GetComponent<MapEvent>().canActive = false;
+        
+            if (!GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.currMap.name.Split("(Clone)")[0]))
+            {
+                MapEvent _event = GameManager.instance.currMap.GetComponent<MapEvent>().Copy();
+                _event.canActive = false;
+                GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
+            }
          */
         if (interactObjectType == InteractObjectType.ITEM)
         {
@@ -43,7 +53,7 @@ public class InteractObject : MonoBehaviour, IEventControl
     {
         if (collision.tag == "Player" && isActive)
         {
-            collision.GetComponentInParent<PlayerMove>().SetInteraction(interactObjectType);
+            collision.GetComponentInParent<PlayerMove>().SetInteraction(InteractObjectType.CLOSE);
             popupText.ClosePopup();
         }
     }
@@ -52,7 +62,16 @@ public class InteractObject : MonoBehaviour, IEventControl
     {
         if (interactObjectType == InteractObjectType.ITEM)
         {
-            isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
+
+            if (GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.nextMapName))
+            {
+                isActive = GameManager.instance.eventManager.eventCheck[GameManager.instance.nextMapName].canActive;
+            }
+            else
+            {
+                isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
+            }
+
             if (!isActive)
             {
                 GetComponent<SpriteRenderer>().enabled = false;

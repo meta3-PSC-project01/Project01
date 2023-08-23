@@ -167,7 +167,7 @@ public class TrapTile : MonoBehaviour
             count += 1;
             if (count > 10)
             {
-                //ต๐น๖วม on
+                collision.GetComponentInParent<PlayerMove>().HitPoison();
             }
         }
     }

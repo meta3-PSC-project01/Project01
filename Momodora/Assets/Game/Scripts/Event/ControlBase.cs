@@ -11,7 +11,7 @@ public class ControlBase : MonoBehaviour, IEventControl
     public bool isPreserve = false;
 
     //실행했는지 안했는지
-    public bool isPlayEnd = false;
+    public bool canActive = true;
 
     //모드 기본값 0
     public int mode = 0;
@@ -21,11 +21,13 @@ public class ControlBase : MonoBehaviour, IEventControl
         mEvents = new List<IEventTilePlay>();
 
         mEvents.AddRange(transform.parent.GetComponentsInChildren<IEventTilePlay>().ToList());
+
+        SetEventPossible();
     }
 
     private void Start()
     {
-        if (isPlayEnd)
+        if (!canActive)
         {
             PlayEvent();
         }
@@ -47,15 +49,20 @@ public class ControlBase : MonoBehaviour, IEventControl
             mode = 0;
         }
 
-        GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
-        GameManager.instance.mapDatabase[GameManager.instance.currMap.name].GetComponent<MapEvent>().canActive = false;
     }
 
     public void SetEventPossible()
     {
         if (!isPreserve)
         {
-            isPlayEnd = !transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
+            if (GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.nextMapName))
+            {
+                canActive = GameManager.instance.eventManager.eventCheck[GameManager.instance.nextMapName].canActive;
+            }
+            else
+            {
+                canActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ public class Gold : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player" && isActive)
+        if (collision.collider.tag == "Player" || collision.collider.tag == "PlayerWall" && isActive)
         {
             Debug.Log(ItemManager.instance.leaf);
             isActive = false;

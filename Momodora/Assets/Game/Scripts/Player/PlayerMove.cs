@@ -86,6 +86,8 @@ public class PlayerMove : MonoBehaviour
         attackSize = new Vector2(2f, 2f);
         poisonHit = PoisonDamage();
 
+        playerUi = GameObject.Find("GamingUiManager");
+
         moveForce = 10f;
         rollForce = 10f;
         jumpForce = 0.3f;
@@ -110,6 +112,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         playerRigidbody.velocity = new Vector2(0f, 0f);
+        
     }
 
     void Update()
@@ -252,24 +255,6 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && canInteract)
-        {
-            if (canItem)
-            {
-                //아이템 획득시 GameManager.instance.currMap.GetComponent<MapEvent>().eventName;
-            }
-            
-            else if (canSave)
-            {
-                GameManager.instance.SaveBefore();
-            }
-            
-            else if (canTalk)
-            {
-
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (isLadder == true) { forceLadder = true; }
@@ -304,7 +289,38 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)) { if (isLadder == true) { forceLadder = true; } }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && canInteract)
+        {
+
+            if (canItem)
+            {
+                ItemManager.instance.GetComponent<Inventory>().GetItem(GameManager.instance.currMap.GetComponent<MapEvent>().eventName);
+
+                MapEvent _event = GameManager.instance.currMap.GetComponent<MapEvent>().Copy();
+                _event.canActive = false;
+                GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
+
+            }
+
+            else if (canSave)
+            {
+                GameManager.instance.SaveBefore();
+            }
+
+            else if (canTalk)
+            {
+
+            }
+        }
+
+        else
+        {
+            if (isLadder == true)
+            {
+                forceLadder = true;
+            }
+        }
 
         if (Input.GetKeyUp(KeyCode.UpArrow))
         {
@@ -420,7 +436,7 @@ public class PlayerMove : MonoBehaviour
         //테스트 코드1
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ItemManager.instance.GetComponent<Inventory>().GetItem("등가의 훈장");
+
             ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
             ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
             ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
@@ -757,6 +773,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
     public void PlayerAirAttack()
     {
         if (flipX == false)
@@ -811,6 +828,7 @@ public class PlayerMove : MonoBehaviour
 
     public void SetInteraction(InteractObjectType type)
     {
+        Debug.Log(type);
         switch (type)
         {
             //save에 필요한 데이터
@@ -946,10 +964,10 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag=="ThinFloor" && thinFloor.Equals(collision))
+      /*  if(collision.tag=="ThinFloor" && collision.gameObject.Equals(thinFloor.gameObject))
         {
-            collision = null;
-        }
+            thinFloor = null;
+        }*/
 
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = false; }
 
@@ -963,10 +981,7 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(.3f);
 
-        if (thinFloor != null)
-        {
-            Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
-        }
+        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
         thinFloorCheck = false;
         thinFloor = null;
     }

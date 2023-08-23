@@ -29,7 +29,7 @@ public class Poison : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         circleCollider.enabled = false;
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 1.5f);
     }
 
     float count = 0;
@@ -40,7 +40,8 @@ public class Poison : MonoBehaviour
             count += 1;
             if (count > 10)
             {
-                //µð¹öÇÁon
+                Debug.Log("zz");
+                collision.GetComponentInParent<PlayerMove>().HitPoison();
             }
         }
     }

@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     public BackGroundController background;
     public Vector2Int currMapPosition;
     public MapData currMap;
-    public SpriteRenderer loadingImage;
+    public string nextMapName;
+    public GameObject loadingImage;
 
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
@@ -56,11 +57,13 @@ public class GameManager : MonoBehaviour
         foreach (MapData mapData in map)
         {
             mapDatabase.Add(mapData.name, mapData);
-            MapEvent mapEvent = mapData.GetComponent<MapEvent>();
+            /*MapEvent mapEvent = mapData.GetComponent<MapEvent>();
             if (mapEvent != null)
             {
                 eventManager.eventCheck.Add(mapData.name, mapEvent);
-            }
+                Debug.Log(mapData.name + " 현재맵");
+                Debug.Log(mapEvent.canActive + " BOOL값");
+            }*/
         }
 
     }
@@ -70,14 +73,13 @@ public class GameManager : MonoBehaviour
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "GameScene" && mapName != null)
         {
+            loadingImage = Instantiate(loadingImage);
             currMap = Instantiate(mapDatabase[mapName], Vector2.zero, Quaternion.identity);
-            //ItemManager.CreateInstance();
-            Camera.main.gameObject.AddComponent<CameraMove>();
-            mapName = null;
-
             background = Instantiate(background);
 
-            //GameManager.instance.loadingImage = panel.GetComponent<Image>();
+            mapName = null;
+
+
         }
         gameTime = Time.time;
     }
@@ -94,38 +96,39 @@ public class GameManager : MonoBehaviour
         int index = 0;
         foreach (var _event in eventManager.eventCheck) 
         {
-
             eventCheck[index] = _event.Value.canActive;
             posStage[index] = _event.Value.position[0];
             posMap[index] = _event.Value.position[1];
 
             index += 1;
         }
-
+        string _mapName = "Stage1Start";
         if (mapName == null)
         {
-            mapName = currMap.name;
+            _mapName = currMap.name;
         }
 
         int[] savePoint = new int[2];
-        int.TryParse(mapName.Substring(5, 1), out savePoint[0]);
-       
-        if (mapName == "Stage1Start")
+        int.TryParse(_mapName.Substring(5, 1), out savePoint[0]);
+
+        Debug.Log(_mapName.Length);
+
+        if (_mapName == "Stage1Start")
         {
             savePoint[1] = 1;
         }
-        else if (mapName.Length == 10)
+
+        else if (_mapName.Length == 10)
         {
-            int.TryParse(mapName.Substring(10, 1), out savePoint[1]);
+            int.TryParse(_mapName.Substring(9, 1), out savePoint[1]);
         }
-        else if (mapName.Length == 11)
+        else if (_mapName.Length == 11)
         {
-            int.TryParse(currMap.name.Substring(10, 2), out savePoint[1]);
+            int.TryParse(_mapName.Substring(9, 2), out savePoint[1]);
         }
 
         SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, posStage, posMap, ItemManager.instance.leaf);
 
-        GameManager.Save(save, saveCheckString);
         Save(save, saveCheckString);
 }
 
@@ -175,10 +178,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < data.eventCheck.Length; i++) 
         {
             string stageName = "Stage" + data.positionX[i] + "Map" + data.positionY[i];
-            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i], eventManager.eventCheck[stageName].eventName);
-            eventManager.eventCheck[stageName] = _event;
-            Destroy(mapDatabase[stageName].GetComponent<MapEvent>());
-            mapDatabase[stageName].AddComponent<MapEvent>().SetActive();
+           
+            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i], mapDatabase[stageName].GetComponent<MapEvent>().eventName);
+            eventManager.eventCheck.Add(stageName, _event);
         }
     }
 

@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 8861876214899988489}
   - component: {fileID: 8861876214899988535}
   - component: {fileID: 8861876214899988534}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1710,7 +1710,7 @@ GameObject:
   - component: {fileID: 8861876215075231057}
   - component: {fileID: 8861876215075231056}
   - component: {fileID: 8861876215075231059}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -2454,7 +2454,7 @@ GameObject:
   - component: {fileID: 8861876215344071217}
   - component: {fileID: 8861876215344071231}
   - component: {fileID: 8861876215344071230}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3134,7 +3134,7 @@ GameObject:
   - component: {fileID: 8861876215585359760}
   - component: {fileID: 8861876215585359774}
   - component: {fileID: 8861876215585359761}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3768,7 +3768,7 @@ GameObject:
   - component: {fileID: 8861876215815359997}
   - component: {fileID: 8861876215815359995}
   - component: {fileID: 8861876215815359994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3892,7 +3892,7 @@ GameObject:
   - component: {fileID: 8861876216180309100}
   - component: {fileID: 8861876216180309103}
   - component: {fileID: 8861876216180309102}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -6463,7 +6463,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 0}
+  nextTile: {fileID: 1450700166757250649, guid: 2b7980de500ecfb44960a75cf396db45, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 1
   escapeIndex: 1
@@ -6547,7 +6547,7 @@ GameObject:
   - component: {fileID: 8861876216582653436}
   - component: {fileID: 8861876216582653434}
   - component: {fileID: 8861876216582653437}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -6671,7 +6671,7 @@ GameObject:
   - component: {fileID: 8861876216596408919}
   - component: {fileID: 8861876216596408918}
   - component: {fileID: 8861876216596409001}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -6882,7 +6882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6952,7 +6952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.z

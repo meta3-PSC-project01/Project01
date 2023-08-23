@@ -64,7 +64,7 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
 
         if (controller.isPreserve)
         {
-            controller.isPlayEnd = false;
+            controller.canActive = true;
         }
     }
 }

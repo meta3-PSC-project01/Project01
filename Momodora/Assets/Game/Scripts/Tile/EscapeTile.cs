@@ -73,10 +73,11 @@ public class EscapeTile : MonoBehaviour
                     {
                         GameManager.instance.isloading = true;
                         GameManager.instance.cameraStop = true;
-                        //GameManager.instance.loadingImage.gameObject.SetActive(true);
-
+                        GameManager.instance.loadingImage.SetActive(true);
+                        GameManager.instance.nextMapName = nextTile.GetMapData().name;
                         GameObject nextMap = Instantiate(GameManager.instance.mapDatabase[nextTile.GetMapData().name].gameObject, Vector3Int.zero, Quaternion.identity);
-                        //nextMap.transform.localScale = Vector3.zero;
+                        nextMap.name = nextMap.name.Split("(Clone)")[0];
+                        mapData.transform.localScale = Vector3.zero;
                         GameManager.instance.currMap = nextMap.GetComponent<MapData>();
 
                         StartCoroutine(loadingMap(nextMap, player));
@@ -90,7 +91,6 @@ public class EscapeTile : MonoBehaviour
             }
         }
     }
-    
 
     IEnumerator loadingMap(GameObject nextMap, PlayerMove player)
     {
