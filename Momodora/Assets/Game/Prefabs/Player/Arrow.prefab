@@ -146,4 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb200bd19b9cee47be827616e562f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowEffect: {fileID: 1575812528473822540, guid: bbdc2d9849db5574a81db70baede6139, type: 3}
   damage: 10

@@ -2757,6 +2757,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 913921368}
     - target: {fileID: 6889628450502011907, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
+      propertyPath: jumpAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 2bb9d81795a438341a1757ecf8f1ddb7, type: 3}
+    - target: {fileID: 6889628450502011907, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
+      propertyPath: player_Jump
+      value: 
+      objectReference: {fileID: 8300000, guid: 2bb9d81795a438341a1757ecf8f1ddb7, type: 3}
+    - target: {fileID: 6889628450502011907, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
+      propertyPath: audioPlayerJump
+      value: 
+      objectReference: {fileID: 8300000, guid: 2bb9d81795a438341a1757ecf8f1ddb7, type: 3}
+    - target: {fileID: 6889628450502011907, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
       propertyPath: playerRigidbody
       value: 
       objectReference: {fileID: 1878407257}
