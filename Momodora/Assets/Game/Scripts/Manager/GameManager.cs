@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "GameScene" && mapName != null)
         {
             loadingImage = Instantiate(loadingImage);
+            loadingImage.GetComponent<Canvas>().worldCamera = Camera.main;
+            loadingImage.SetActive(false);
             currMap = Instantiate(mapDatabase[mapName], Vector2.zero, Quaternion.identity);
             background = Instantiate(background);
 

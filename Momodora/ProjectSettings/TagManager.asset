@@ -18,7 +18,7 @@ TagManager:
   - Npc
   - Water
   - Save
-  - PlayerWall
+  - PlayerDynamic
   layers:
   - Default
   - TransparentFX

@@ -96,7 +96,7 @@ public class EscapeTile : MonoBehaviour
     {
         
         GameManager.instance.CameraOnceMove(nextTile.fieldIndex, nextMap.GetComponent<MapData>().type);
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.05f);
        
         Transform tmp = nextMap.GetComponent<MapData>().FindChildTransform(nextTile.fieldIndex, nextTile.name);
        
@@ -104,7 +104,7 @@ public class EscapeTile : MonoBehaviour
 
         Vector2 currDiff = GetDistanceVector2();
         Vector2 nextDiff = _nextTile.GetDistanceVector2();
-
+        
         //��->��
         if (escapeIndex == 0)
         {
@@ -118,16 +118,16 @@ public class EscapeTile : MonoBehaviour
         //��->��
         else if(escapeIndex == 2)
         {
-            player.transform.position = new Vector3(player.transform.position.x + currDiff.x - nextDiff.x, _nextTile.pivot.y - 2, 0);
+            player.transform.position = new Vector3(player.transform.position.x - currDiff.x + nextDiff.x, _nextTile.pivot.y - 2, 0);
         }
         //��->��
         else if (escapeIndex == 3)
         {
-            player.transform.position = new Vector3(player.transform.position.x + currDiff.x - nextDiff.x, _nextTile.pivot.y+2, 0);
+            player.transform.position = new Vector3(player.transform.position.x - currDiff.x + nextDiff.x, _nextTile.pivot.y+2, 0);
 
         }
         Destroy(mapData.gameObject);
-        GameManager.instance.loadingImage.gameObject.SetActive(false);
+        GameManager.instance.loadingImage.SetActive(false);
         GameManager.instance.cameraStop = false;
         GameManager.instance.isloading = false;
     }

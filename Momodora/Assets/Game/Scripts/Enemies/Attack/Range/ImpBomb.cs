@@ -45,11 +45,11 @@ public class ImpBomb : EnemyAttackData
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //何婬磨 版快 厘魄康开 积己
-        if ((collision.collider.tag == "Player" || collision.collider.tag == "ThinFloor" || collision.collider.tag == "Floor") && !isBoom)
+        if ((collision.collider.tag == "Player" || collision.gameObject.layer == 9) && !isBoom)
         {
-            Debug.Log("boom");
+            Debug.Log(collision.collider.name);
             isBoom = true;
-            CameraMove.ShakingCamera(Camera.main.GetComponent<CameraMove>());
+            CameraMove.ShakingCamera(Camera.main, .15f, 1.5f);
             PlayerMove player = collision.collider.GetComponentInParent<PlayerMove>();
             if (player != null)
             {

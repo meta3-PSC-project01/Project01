@@ -159,14 +159,24 @@ public class TrapTile : MonoBehaviour
     }
 
     float count = 0;
-
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
+            count = 0;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log(collision.name);
+        if (collision.tag == "Player")
+        {
+            Debug.Log(count);
             count += 1;
-            if (count > 10)
+            if (count > 100)
             {
+                count=0;
                 collision.GetComponentInParent<PlayerMove>().HitPoison();
             }
         }
