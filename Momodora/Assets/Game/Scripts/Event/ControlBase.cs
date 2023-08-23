@@ -18,14 +18,16 @@ public class ControlBase : MonoBehaviour
 
     private void Awake()
     {
-        mEvents = transform.parent.GetComponentsInChildren<IEventPlay>().ToList();
+        mEvents = new List<IEventPlay>();
+
+        mEvents.AddRange(transform.parent.GetComponentsInChildren<IEventPlay>().ToList());
     }
 
     protected virtual void PlayEvent()
     {
         foreach (var mEvent in mEvents) 
         {
-            mEvent.Play(mode);
+            mEvent.Play(this);
         }
     }
 }

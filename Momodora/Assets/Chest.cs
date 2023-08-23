@@ -39,13 +39,16 @@ public class Chest : MonoBehaviour, IHitControl
     }
     public void Hit(int damage, int direction)
     {
-        chestHp -= damage;
-        HitReaction(direction);
-
-        if (chestHp <= 0)
+        if (chestHp > 0)
         {
-            Dead();
-            return;
+            chestHp -= damage;
+            HitReaction(direction);
+
+            if (chestHp <= 0)
+            {
+                Dead();
+                return;
+            }
         }
     }
 

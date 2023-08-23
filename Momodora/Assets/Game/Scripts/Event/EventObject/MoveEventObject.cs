@@ -9,6 +9,7 @@ public class MoveEventObject : MonoBehaviour, IEventPlay
     private Vector3 startPos;
     private Vector3 endPos;
     public float playTime;
+    public bool isPlaying = false;
     public BoxCollider2D boxCollider2D;
 
     private void Awake()
@@ -18,12 +19,16 @@ public class MoveEventObject : MonoBehaviour, IEventPlay
         endPos = end.position;
     }
 
-    public void Play(int mode)
+    public void Play(ControlBase controller)
     {
-        StartCoroutine(MoveObjectRoutine(mode));
+        if (!isPlaying)
+        {
+            isPlaying = true;
+            StartCoroutine(MoveObjectRoutine(controller));
+        }
     }
 
-    IEnumerator MoveObjectRoutine(int mode)
+    IEnumerator MoveObjectRoutine(ControlBase controller)
     {
         float time = 0;
         while (time != playTime)
@@ -34,16 +39,32 @@ public class MoveEventObject : MonoBehaviour, IEventPlay
                 time = playTime;
             }
 
-            if (mode == 0)
+            if (controller.mode == 0)
             {
                 transform.position = Vector2.Lerp(startPos, endPos, time / playTime);
 
             }
-            else if (mode == 1)
+            else if (controller.mode == 1)
             {
                 transform.position = Vector2.Lerp(endPos, startPos, time / playTime);
             }
             yield return Time.deltaTime;
+        }
+
+        isPlaying = false;
+
+        if (controller.mode == 0)
+        {
+            controller.mode = 1;
+        }
+        else if (controller.mode == 1)
+        {
+            controller.mode = 0;
+        }
+
+        if (controller.isPreserve)
+        {
+            controller.isPlay = false;
         }
     }
 }
