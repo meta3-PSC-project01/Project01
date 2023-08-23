@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveEventObject : MonoBehaviour, IEventPlay
+public class MoveEventObject : MonoBehaviour, IEventTilePlay
 {
     public Transform start;
     public Transform end;
@@ -31,6 +31,22 @@ public class MoveEventObject : MonoBehaviour, IEventPlay
     IEnumerator MoveObjectRoutine(ControlBase controller)
     {
         float time = 0;
+        Vector2 _endPos = endPos;
+        Vector2 _startPos = startPos;
+
+        if (controller.mode == 0)
+        {
+            _endPos = endPos;
+            _startPos = startPos;
+
+        }
+        else if (controller.mode == 1)
+        {
+            _endPos = startPos;
+            _startPos = endPos;
+        }
+
+
         while (time != playTime)
         {
             time += Time.deltaTime;
@@ -39,32 +55,16 @@ public class MoveEventObject : MonoBehaviour, IEventPlay
                 time = playTime;
             }
 
-            if (controller.mode == 0)
-            {
-                transform.position = Vector2.Lerp(startPos, endPos, time / playTime);
+            transform.position = Vector2.Lerp(_startPos, _endPos, time / playTime);
 
-            }
-            else if (controller.mode == 1)
-            {
-                transform.position = Vector2.Lerp(endPos, startPos, time / playTime);
-            }
             yield return Time.deltaTime;
         }
 
-        isPlaying = false;
-
-        if (controller.mode == 0)
-        {
-            controller.mode = 1;
-        }
-        else if (controller.mode == 1)
-        {
-            controller.mode = 0;
-        }
+        isPlaying = false;        
 
         if (controller.isPreserve)
         {
-            controller.isPlay = false;
+            controller.isPlayEnd = false;
         }
     }
 }

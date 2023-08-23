@@ -10,11 +10,7 @@ public class AttackReactionController : ControlBase, IHitControl
         {
             PlayEvent();
 
-            if (!isPreserve)
-            {
-                isPlay = true;
-                //이벤트 dictionary on/off
-            }
+            //이벤트 dictionary on/off
         }
     }
 
@@ -24,7 +20,7 @@ public class AttackReactionController : ControlBase, IHitControl
 
     public bool IsHitPossible()
     {
-        return !isPlay;
+        return !isPlayEnd;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

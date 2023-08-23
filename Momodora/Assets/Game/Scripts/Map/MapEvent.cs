@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MapEvent : MonoBehaviour
 {
-    bool canActive = true;
-    
-    public MapEvent(bool b, int[] p)
+    public bool canActive = true;
+
+    public int[] position;
+
+    public MapEvent(bool eventPossible, int stage, int number)
     {
-        //canActive = b;
-        //position = p;
+        canActive = eventPossible;
+        position = new int[2] { stage, number };
     }
 }

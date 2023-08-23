@@ -5834,7 +5834,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 11
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5863,8 +5863,8 @@ Tilemap:
     m_Data: {fileID: -90957060, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 51778046, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 2141844578, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 1909056643, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 34
@@ -5877,8 +5877,8 @@ Tilemap:
     m_Data: {fileID: -705767612, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 2141844578, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1323753354, guid: 0f0f5f86f3a0c1542998ba46e1dbd150, type: 3}
   m_TileMatrixArray:
@@ -6662,6 +6662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3934986465272337522}
   - component: {fileID: 3934986465272337525}
+  - component: {fileID: 6508645158769127143}
   m_Layer: 0
   m_Name: Stage1Map7
   m_TagString: Untagged
@@ -6705,6 +6706,20 @@ MonoBehaviour:
   type: 1
   enterArea: {fileID: 0}
   backGroundType: 0
+--- !u!114 &6508645158769127143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3934986465272337524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde7eeb07f85b5845845cfe2fd4b808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canActive: 0
+  position: 
 --- !u!1001 &3934986463270128775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6930,6 +6945,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3934986463950992834}
     m_Modifications:
+    - target: {fileID: 2090289182, guid: a64f3248bcdabac4190ea53111a79b3b, type: 3}
+      propertyPath: isPlayEnd
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9059547999058919888, guid: a64f3248bcdabac4190ea53111a79b3b, type: 3}
       propertyPath: m_RootOrder
       value: 0

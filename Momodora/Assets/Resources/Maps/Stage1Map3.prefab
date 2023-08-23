@@ -5650,6 +5650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4571696707081732757}
   - component: {fileID: 4571696707081732756}
+  - component: {fileID: 728775916069110722}
   m_Layer: 0
   m_Name: Stage1Map3
   m_TagString: Untagged
@@ -5692,6 +5693,20 @@ MonoBehaviour:
   type: 1
   enterArea: {fileID: 0}
   backGroundType: 0
+--- !u!114 &728775916069110722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4571696707081732755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde7eeb07f85b5845845cfe2fd4b808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canActive: 0
+  position: 
 --- !u!1 &4571696707239292002
 GameObject:
   m_ObjectHideFlags: 0
@@ -6768,6 +6783,18 @@ PrefabInstance:
     - target: {fileID: 2990823830523501964, guid: 46200e948134d7b40b148f3bbae695a5, type: 3}
       propertyPath: m_Name
       value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990823831099526002, guid: 46200e948134d7b40b148f3bbae695a5, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990823831099526013, guid: 46200e948134d7b40b148f3bbae695a5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990823831099526013, guid: 46200e948134d7b40b148f3bbae695a5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46200e948134d7b40b148f3bbae695a5, type: 3}
