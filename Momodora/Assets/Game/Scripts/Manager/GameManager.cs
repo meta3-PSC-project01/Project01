@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public bool cameraStop = false;
     public bool[] saveCheck = new bool[5];
     public bool isloading = false;
+    public bool isDeath = false;
 
     public int userSaveServer = default;
     public int[] savePoint = new int[2];
@@ -138,23 +139,24 @@ public class GameManager : MonoBehaviour
         string saveFile = File.ReadAllText(saveFilePath);
         SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
         instance.gameTime = saveData.gameTime;
-        instance.savePoint = saveData.savePoint;
-        instance.eventCheck = saveData.eventCheck;
-        instance.positionX = saveData.positionX;
-        instance.positionY = saveData.positionY;
         ItemManager.instance.leaf = saveData.money;
-        instance.LoadTest();
+        
+        instance.savePoint = saveData.savePoint;
+        
+        instance.MapEventCheck(saveData);
+        
         return saveData;
     }
 
-    public void LoadTest()
+    public void MapEventCheck(SaveLoad data)
     {
-        Debug.LogFormat("게임 타임 : {0}", (int)gameTime);
-        Debug.LogFormat("세이브 포인트 : {0}", savePoint);
-        Debug.LogFormat("이벤트 체크 : {0}", eventCheck);
-        Debug.LogFormat("포지션 X : {0}", positionX);
-        Debug.LogFormat("포지션 Y : {0}", positionY);
-        Debug.LogFormat("머니 : {0}", ItemManager.instance.leaf);
+        for (int i = 0; i < data.eventCheck.Length; i++) 
+        {
+            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i]);
+            string stageName = "Stage" + data.positionX[i] + "Map" + data.positionY[i];
+            eventManager.eventCheck[stageName] = _event;
+            Debug.Log(_event.position + "/" + _event.canActive);
+        }
     }
 
     public void SaveFileCheck(string saveFileName, int checkCount)

@@ -1,14 +1,12 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
     public Rigidbody2D playerRigidbody = default;
     private SpriteRenderer playerRenderer = null;
+    public SpriteRenderer[] playerDeathScreen = new SpriteRenderer[2];
     private Animator animator = default;
     private Collider2D[] attackCollider;
     public GameObject arrowPrefab;
@@ -19,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject playerUi;
     public GameObject[] playerAttackEffect = new GameObject[4];
 
+    private IEnumerator poisonHit;
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
 
@@ -34,10 +33,12 @@ public class PlayerMove : MonoBehaviour
     private float chargeForce = default;
     private float chargeAddForce = default;
     private float chargeMax = default;
+    private float playerAlpha = default;
 
     private int jumpCount = default;
     private int isMlAttack = default;
     public int playerHp = default;
+    private int poisonCount = default;
 
     private bool jumping = false;
     private bool jumpingForce = false;
@@ -61,6 +62,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private bool forceLadder = false;
     private bool isHited = false;
     private bool hitMoveTime = false;
+    private bool isPoison = false;
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
@@ -82,6 +84,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
 
         attackSize = new Vector2(2f, 2f);
+        poisonHit = PoisonDamage();
 
         moveForce = 10f;
         rollForce = 10f;
@@ -96,9 +99,11 @@ public class PlayerMove : MonoBehaviour
         chargeForce = 0f;
         chargeAddForce = 1f;
         chargeMax = 2000f;
-        playerHp = 100;
+        playerHp = 30;
         jumpCount = 0;
         isMlAttack = 0;
+        playerAlpha = 1f;
+        poisonCount = 0;
         // } 변수 값 선언
     }     // End Awake()
 
@@ -111,6 +116,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (ItemManager.instance != null && ItemManager.instance.lookAtInventory == true) { return; }
         if (ItemManager.instance != null && ItemManager.instance.lookAtGameMenu == true) { return; }
+        if (GameManager.instance != null && GameManager.instance.isDeath == true) { return; }
 
         //안맞은 상태
         if (hitMoveTime == false)
@@ -321,6 +327,15 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
+            /*
+            일반공격 1타 : 1
+            일반공격 2타 : 2
+            일반공격 3타 : 3
+            점프 공격 : 2
+            화살 : 1
+            충전 화살 : 2
+            */
+
             if (isGrounded == true)
             {
                 if (isMlAttack < 3)
@@ -400,6 +415,11 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            StartCoroutine(PlayerDeath());
+        }
+
         animator.SetBool("Ground", isGrounded);
         animator.SetBool("Roll", isRolled);
         animator.SetBool("Crouch", isCrouched);
@@ -426,7 +446,7 @@ public class PlayerMove : MonoBehaviour
 
         if (playerHp <= 0)
         {
-            // 게임 오버 씬 실행
+            StartCoroutine(PlayerDeath());
         }
         else
         {
@@ -448,6 +468,52 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(InvinTime());
             StartCoroutine(HitMoveTime());
         }
+    }
+
+    public void HitPoison()
+    {
+        if (isPoison == false) { StartCoroutine(poisonHit); }
+        else
+        {
+            StopCoroutine(poisonHit);
+            StartCoroutine(poisonHit);
+        }
+    }
+
+    IEnumerator PoisonDamage()
+    {
+        poisonCount = 0;
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (poisonCount < 10)
+            {
+
+            }
+        }
+        
+
+    }
+
+    IEnumerator PlayerDeath()
+    {
+        GameManager.instance.isDeath = true;
+        animator.SetTrigger("Death");
+        playerDeathScreen[0].gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        playerDeathScreen[0].gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        playerDeathScreen[1].gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < 20; i++)
+        {
+            playerAlpha -= 0.05f;
+            playerRenderer.color = new Color(255, 255, 255, playerAlpha);
+            yield return new WaitForSeconds(0.03f);
+        }
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("GameOverScene");
     }
 
     IEnumerator InvinTime()
@@ -821,7 +887,7 @@ public class PlayerMove : MonoBehaviour
 
         if (collision.tag == "Item")
         {
-            // 아이템 획득 시 진행
+            // 아이템 획득 시 진행 (Keep)
         }
     }
 
