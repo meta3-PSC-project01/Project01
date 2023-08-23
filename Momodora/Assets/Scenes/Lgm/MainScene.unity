@@ -4947,6 +4947,7 @@ MonoBehaviour:
   cameraStop: 0
   saveCheck: 0000000000
   isloading: 0
+  isDeath: 0
   userSaveServer: 0
   savePoint: 0000000000000000
   eventCheck: 00000000000000000000

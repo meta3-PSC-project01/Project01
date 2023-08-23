@@ -5,7 +5,6 @@ using UnityEngine;
 public class MapEvent : MonoBehaviour
 {
     public bool canActive = true;
-
     public int[] position;
 
     public MapEvent(bool eventPossible, int stage, int number)

@@ -666,7 +666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3396650f03458864bbd3212409d7a2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidbody: {fileID: 0}
+  playerRigidbody: {fileID: 1553168212}
+  playerDeathScreen:
+  - {fileID: 0}
+  - {fileID: 0}
   arrowPrefab: {fileID: 5716301537474485006, guid: e29ab16689129134b9117c004990228b, type: 3}
   playerCollider_: {fileID: 0}
   playerContainer: {fileID: 6889628450502011906}

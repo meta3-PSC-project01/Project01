@@ -132,10 +132,10 @@ TextureImporter:
       name: Player_Death_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 12
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: Player_Death_1
       rect:
         serializedVersion: 2
-        x: 50
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 62
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: Player_Death_2
       rect:
         serializedVersion: 2
-        x: 100
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 110
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,10 +195,10 @@ TextureImporter:
       name: Player_Death_3
       rect:
         serializedVersion: 2
-        x: 150
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 160
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: Player_Death_4
       rect:
         serializedVersion: 2
-        x: 200
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 214
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: Player_Death_5
       rect:
         serializedVersion: 2
-        x: 250
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 265
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,10 +258,10 @@ TextureImporter:
       name: Player_Death_6
       rect:
         serializedVersion: 2
-        x: 300
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 314
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,10 +279,10 @@ TextureImporter:
       name: Player_Death_7
       rect:
         serializedVersion: 2
-        x: 350
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 364
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: Player_Death_8
       rect:
         serializedVersion: 2
-        x: 400
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 414
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,10 +321,10 @@ TextureImporter:
       name: Player_Death_9
       rect:
         serializedVersion: 2
-        x: 450
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 464
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +342,10 @@ TextureImporter:
       name: Player_Death_10
       rect:
         serializedVersion: 2
-        x: 500
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 514
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,10 +363,10 @@ TextureImporter:
       name: Player_Death_11
       rect:
         serializedVersion: 2
-        x: 550
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 564
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,10 +384,10 @@ TextureImporter:
       name: Player_Death_12
       rect:
         serializedVersion: 2
-        x: 600
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 614
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,10 +405,10 @@ TextureImporter:
       name: Player_Death_13
       rect:
         serializedVersion: 2
-        x: 650
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 665
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,10 +426,10 @@ TextureImporter:
       name: Player_Death_14
       rect:
         serializedVersion: 2
-        x: 700
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 715
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -447,10 +447,10 @@ TextureImporter:
       name: Player_Death_15
       rect:
         serializedVersion: 2
-        x: 750
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 765
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -468,10 +468,10 @@ TextureImporter:
       name: Player_Death_16
       rect:
         serializedVersion: 2
-        x: 800
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 814
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -489,10 +489,10 @@ TextureImporter:
       name: Player_Death_17
       rect:
         serializedVersion: 2
-        x: 850
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 863
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -510,10 +510,10 @@ TextureImporter:
       name: Player_Death_18
       rect:
         serializedVersion: 2
-        x: 900
-        y: 44
-        width: 50.31579
-        height: 44
+        x: 912
+        y: 47
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -531,10 +531,10 @@ TextureImporter:
       name: Player_Death_19
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 50.31579
-        height: 44
+        x: 10
+        y: 2
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -552,10 +552,10 @@ TextureImporter:
       name: Player_Death_20
       rect:
         serializedVersion: 2
-        x: 50
-        y: 0
-        width: 50.31579
-        height: 44
+        x: 63
+        y: 2
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -573,10 +573,10 @@ TextureImporter:
       name: Player_Death_21
       rect:
         serializedVersion: 2
-        x: 100
-        y: 0
-        width: 50.31579
-        height: 44
+        x: 113
+        y: 2
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -594,10 +594,10 @@ TextureImporter:
       name: Player_Death_22
       rect:
         serializedVersion: 2
-        x: 150
-        y: 0
-        width: 50.31579
-        height: 44
+        x: 163
+        y: 2
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -615,10 +615,10 @@ TextureImporter:
       name: Player_Death_23
       rect:
         serializedVersion: 2
-        x: 200
-        y: 0
-        width: 50.31579
-        height: 44
+        x: 213
+        y: 2
+        width: 28
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
