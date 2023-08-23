@@ -53,6 +53,7 @@ public class PlayerMove : MonoBehaviour
     private int jumpCount = default;
     private int isMlAttack = default;
     public int playerHp = default;
+    public int playerMaxHp = default;
     private int poisonCount = default;
 
     private bool jumping = false;
@@ -116,6 +117,7 @@ public class PlayerMove : MonoBehaviour
         chargeAddForce = 1f;
         chargeMax = 2000f;
         playerHp = 30;
+        playerMaxHp = 30;
         jumpCount = 0;
         isMlAttack = 0;
         playerAlpha = 1f;
@@ -346,7 +348,7 @@ public class PlayerMove : MonoBehaviour
             playerRigidbody.gravityScale = 3f;
             isLadder = false;
             jumping = true;
-            jumpingForce = true; 
+            jumpingForce = true;
             jumpCount += 1;
             xSpeed = 50f;
             flipX = false;
@@ -418,6 +420,11 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 0f;
         }
 
+        if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum != 0)
+        {
+            UseItem();
+        }
+
         if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
         {
             ItemManager.instance.lookAtInventory = true;
@@ -482,6 +489,21 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         test2.gameObject.SetActive(false);
         Destroy(test2, 1f);
+    }
+
+    public void UseItem()
+    {
+        if (ItemManager.instance.activeItemNum == 1 && ItemManager.instance.activeItemCount[1] > 0)
+        {
+            if (playerHp + 10 <= playerMaxHp)
+            {
+                playerHp += 10;
+            }
+            else
+            {
+                playerHp = playerMaxHp;
+            }
+        }
     }
 
     //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
