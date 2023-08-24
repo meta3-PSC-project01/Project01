@@ -49,6 +49,7 @@ public class PlayerMove : MonoBehaviour
     private float chargeAddForce = default;
     private float chargeMax = default;
     private float playerAlpha = default;
+    private float jumpMax = default;
 
     private int jumpCount = default;
     private int isMlAttack = default;
@@ -59,9 +60,9 @@ public class PlayerMove : MonoBehaviour
     private bool jumping = false;
     private bool jumpingForce = false;
     private bool flipX = false;
-    private bool isRolled = false;
+    [SerializeField] private bool isRolled = false;
     [SerializeField] private bool isGrounded = false;
-    private bool isCrouched = false;
+    [SerializeField] private bool isCrouched = false;
     [SerializeField] private bool isLadder = false;
     private bool isAirAttacked = false;
     private bool isBowed = false;
@@ -74,12 +75,13 @@ public class PlayerMove : MonoBehaviour
     private bool onLadderTop = false;
     private bool onLadderBot = false;
     private bool isCharged = false;
-    [SerializeField] private bool thinFloorCheck = false;
-    [SerializeField] private bool forceLadder = false;
+    private bool thinFloorCheck = false;
+    private bool forceLadder = false;
     private bool isHited = false;
     private bool hitMoveTime = false;
     private bool isPoison = false;
     private bool walkAudioCheck = false;
+    [SerializeField] private bool crouchEndCheck = false;
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
@@ -104,9 +106,9 @@ public class PlayerMove : MonoBehaviour
         attackSize = new Vector2(2f, 2f);
 
 
-        moveForce = 10f;
+        moveForce = 7.5f;
         rollForce = 10f;
-        jumpForce = 0.3f;
+        jumpForce = 0.2f;
         xInput = 0f;
         xSpeed = 0f;
         rSpeed = 0f;
@@ -123,6 +125,7 @@ public class PlayerMove : MonoBehaviour
         isMlAttack = 0;
         playerAlpha = 1f;
         poisonCount = 0;
+        jumpMax = 7f;
         // } 변수 값 선언
     }     // End Awake()
 
@@ -180,7 +183,7 @@ public class PlayerMove : MonoBehaviour
                 //활 차징 상태 아닐경우
                 if (isBowed == false)
                 {
-                    if (isCrouched == false && isCrouchBowed == false && isMlAttack == 0)
+                    if (isCrouched == false && isCrouchBowed == false && isMlAttack == 0 && crouchEndCheck == false)
                     {
                         xSpeed = xInput * moveForce;
                         Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
@@ -227,19 +230,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false && isRolled == false && isMlAttack == 0)
         {
-            if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
-            else
-            {
-                playerAudio.clip = jumpAudio;
-                playerAudio.Play();
-                //2단 점프시 파워 제한
-                if (jumpCount == 0) { jSpeed[0] = 7; }
-                else if (jumpCount == 1) { jSpeed[1] = 7 * 0.8f; }
-
-                jumpCount += 1;
-                jumping = true;
-                jumpingForce = true;
-            }
+            PlayerJumping(jumpMax);
         }
 
         if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true)
@@ -247,13 +238,13 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 jSpeed[0] += jumpForce;
-                if (jSpeed[0] > 12f) { jSpeed[0] = 12f; jumpingForce = false; }
+                if (jSpeed[0] > 10f) { jSpeed[0] = 10f; jumpingForce = false; }
             }
             //2단 점프시 파워 제한
             else if (jumpCount == 2)
             {
                 jSpeed[1] += jumpForce;
-                if (jSpeed[1] > 12f*0.8f) { jSpeed[1] = 12*0.8f; jumpingForce = false; }
+                if (jSpeed[1] > 10f * 0.8f) { jSpeed[1] = 10 * 0.8f; jumpingForce = false; }
             }
         }
 
@@ -271,7 +262,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.A)) { jumpingForce = false; }
 
-        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0)
+        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0 && isHited == false)
         {
             if (isCrouched == true) { isCrouched = false; }
 
@@ -286,16 +277,15 @@ public class PlayerMove : MonoBehaviour
             Physics2D.IgnoreLayerCollision(11, 12);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded == true)
         {
             if (isLadder == true) { forceLadder = true; }
             else
             {
                 playerRigidbody.velocity = Vector2.zero;
                 xSpeed = 0f;
-                xInput = 0f;
                 isCrouched = true;
+                crouchEndCheck = true;
             }
         }
 
@@ -311,7 +301,8 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             isCrouched = false;
-            if (isCrouchBowed == true) { isCrouchBowed = false; }
+            isCrouchBowed = false;
+            StartCoroutine(CrouchEndCheck());
 
             if (isLadder == true)
             {
@@ -321,10 +312,8 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-
         if (Input.GetKeyDown(KeyCode.UpArrow) && canInteract)
         {
-
             if (canItem)
             {
                 ItemManager.instance.GetComponent<Inventory>().GetItem(GameManager.instance.currMap.GetComponent<MapEvent>().eventName);
@@ -336,18 +325,15 @@ public class PlayerMove : MonoBehaviour
                 currInteract.isActive = false;
                 currInteract.popupText.ClosePopup();
             }
-
             else if (canSave)
             {
                 GameManager.instance.SaveBefore();
             }
-
             else if (canTalk)
             {
-
+                // ???
             }
         }
-
         else
         {
             if (isLadder == true)
@@ -438,6 +424,8 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.D) && isCharged == true)
         {
+            playerRigidbody.velocity = Vector2.zero;
+            xSpeed = 0f;
             if (isCrouched == true)
             {
                 if (chargeForce >= chargeMax) { isChargeCrouchBowed = true; }
@@ -523,6 +511,30 @@ public class PlayerMove : MonoBehaviour
         if (playerHp <= 0) { StartCoroutine(PlayerDeath()); }
     }
 
+    public void PlayerCrouchEnd()
+    {
+        crouchEndCheck = false;
+    }
+
+    public void PlayerJumping(float force)
+    {
+        if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
+        else
+        {
+            playerAudio.clip = jumpAudio;
+            playerAudio.Play();
+            //2단 점프시 파워 제한
+            if (jumpCount == 0) { jSpeed[0] = force; }
+            else if (jumpCount == 1) { jSpeed[1] = force * 0.8f; }
+
+            jumpCount += 1;
+            jumping = true;
+            jumpingForce = true;
+        }
+
+        if (isCrouched == true) { isCrouched = false; }
+    }
+
     IEnumerator ArrowEffectEnd()
     {
         yield return new WaitForSeconds(0.5f);
@@ -591,6 +603,12 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(PoisonDamage());
         }
         else { poisonCount = 0; }
+    }
+
+    IEnumerator CrouchEndCheck()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (isCrouched == false && crouchEndCheck == true) { crouchEndCheck = false; }
     }
 
     IEnumerator PoisonDamage()
@@ -675,6 +693,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerRollingEnd()
     {
+        playerRigidbody.velocity = Vector2.zero;
+        xSpeed = 0f;
         rSpeed = 0f;
         isRolled = false;
         playerRigidbody.velocity = Vector2.zero;
