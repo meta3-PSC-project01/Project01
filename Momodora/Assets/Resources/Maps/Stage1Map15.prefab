@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7554046211072778138}
   - component: {fileID: 7554046211072778137}
   - component: {fileID: 7554046211072778136}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 7554046211172279885}
   - component: {fileID: 7554046211172279884}
   - component: {fileID: 7554046211172279875}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -2351,7 +2351,7 @@ GameObject:
   - component: {fileID: 7554046211442671436}
   - component: {fileID: 7554046211442671438}
   - component: {fileID: 7554046211442671437}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3952,7 +3952,7 @@ GameObject:
   - component: {fileID: 7554046211822473434}
   - component: {fileID: 7554046211822473444}
   - component: {fileID: 7554046211822473435}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4073,7 +4073,7 @@ GameObject:
   - component: {fileID: 7554046211881237425}
   - component: {fileID: 7554046211881237427}
   - component: {fileID: 7554046211881237426}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4243,7 +4243,7 @@ GameObject:
   - component: {fileID: 7554046212111760761}
   - component: {fileID: 7554046212111760760}
   - component: {fileID: 7554046212111760767}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -5302,7 +5302,7 @@ GameObject:
   - component: {fileID: 7554046212332486837}
   - component: {fileID: 7554046212332486839}
   - component: {fileID: 7554046212332486838}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5478,9 +5478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7eeb07f85b5845845cfe2fd4b808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canActive: 1
-  position: 010000000f000000
-  eventName: "\uC544\uC2A4\uD2B8\uB784 \uBD80\uC801"
 --- !u!1 &7554046212790203170
 GameObject:
   m_ObjectHideFlags: 0
@@ -6408,7 +6405,7 @@ GameObject:
   - component: {fileID: 7554046212838914289}
   - component: {fileID: 7554046212838914291}
   - component: {fileID: 7554046212838914290}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}

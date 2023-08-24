@@ -80,7 +80,7 @@ MonoBehaviour:
   endTime: 2
   waitTime: 1
   y: 7
-  yOffset: 0.5
+  yOffset: 0
   bossType: 0
 --- !u!1 &6311826672063757127
 GameObject:

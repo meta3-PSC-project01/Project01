@@ -103,8 +103,6 @@ public class PlayerMove : MonoBehaviour
 
         attackSize = new Vector2(2f, 2f);
 
-        playerUi = GameObject.Find("GamingUiManager");
-
         moveForce = 10f;
         rollForce = 10f;
         jumpForce = 0.3f;
@@ -130,7 +128,6 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         playerRigidbody.velocity = new Vector2(0f, 0f);
-        
     }
 
     void Update()
@@ -284,7 +281,6 @@ public class PlayerMove : MonoBehaviour
             isRolled = true;
         }
 
-
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (isLadder == true) { forceLadder = true; }
@@ -319,38 +315,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) && canInteract)
-        {
-
-            if (canItem)
-            {
-                ItemManager.instance.GetComponent<Inventory>().GetItem(GameManager.instance.currMap.GetComponent<MapEvent>().eventName);
-
-                MapEvent _event = GameManager.instance.currMap.GetComponent<MapEvent>().Copy();
-                _event.canActive = false;
-                GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
-
-            }
-
-            else if (canSave)
-            {
-                GameManager.instance.SaveBefore();
-            }
-
-            else if (canTalk)
-            {
-
-            }
-        }
-
-        else
-        {
-            if (isLadder == true)
-            {
-                forceLadder = true;
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)) { if (isLadder == true) { forceLadder = true; } }
 
         if (Input.GetKeyUp(KeyCode.UpArrow))
         {
@@ -471,7 +436,7 @@ public class PlayerMove : MonoBehaviour
         //테스트 코드1
         if (Input.GetKeyDown(KeyCode.I))
         {
-
+            ItemManager.instance.GetComponent<Inventory>().GetItem("등가의 훈장");
             ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
             ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
             ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
@@ -885,7 +850,6 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
     public void PlayerAirAttack()
     {
         playerAudio.clip = melee2Audio;
@@ -935,14 +899,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public bool canInteract = false;
     public bool canSave = false;
-    public bool canItem = false;
-    public bool canTalk = false;
 
     public void SetInteraction(InteractObjectType type)
     {
-        Debug.Log(type);
         switch (type)
         {
             //save에 필요한 데이터
@@ -950,7 +910,6 @@ public class PlayerMove : MonoBehaviour
             //Gamamanager.instance.eventManager.checkEvent? dictionary에 저장되있는 이벤트들의 현재 상태
             //item 목록
             case InteractObjectType.SAVE:
-                canInteract = true;
                 canSave = true;
                 break;
 
@@ -959,8 +918,6 @@ public class PlayerMove : MonoBehaviour
             //Gamamanager.instance.eventManager.checkEvent? 에서 저장된 데이터 변경
             //string item name
             case InteractObjectType.ITEM:
-                canInteract = true;
-                canItem = true;
                 break;
 
             //Gamemanager.instance.currMap에서 맵 정보 추출
@@ -968,16 +925,11 @@ public class PlayerMove : MonoBehaviour
             //npc 대화
             //npc 이름
             //npc 대화 스크립트
-            case InteractObjectType.NPC:
-                canInteract = true;
-                canTalk = true;
+            case InteractObjectType.NPC: 
                 break;
 
             //모든 bool값 false 처리 
             case InteractObjectType.CLOSE:
-                canInteract = false;
-                canTalk = false;
-                canItem = false;
                 canSave = false;
                 break;
         }
@@ -1079,10 +1031,10 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-      /*  if(collision.tag=="ThinFloor" && collision.gameObject.Equals(thinFloor.gameObject))
+        if(collision.tag=="ThinFloor" && thinFloor.Equals(collision))
         {
-            thinFloor = null;
-        }*/
+            collision = null;
+        }
 
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = false; }
 
@@ -1096,7 +1048,10 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(.3f);
 
-        Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
+        if (thinFloor != null)
+        {
+            Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
+        }
         thinFloorCheck = false;
         thinFloor = null;
     }

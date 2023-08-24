@@ -15,9 +15,10 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
 
     private void Awake()
     {
-        isActive = true;
         open = transform.Find("OpenSprite").GetComponent<SpriteRenderer>();
+        Debug.Log(open);
         close = transform.Find("CloseSprite").GetComponent<SpriteRenderer>();
+        Debug.Log(close);
         box = GetComponent<BoxCollider2D>();
         SetStatus();
     }
@@ -33,8 +34,7 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
         }
         else
         {
-            close.gameObject.SetActive(false);
-            open.gameObject.SetActive(true);
+            Dead();
         }
     }
     public void Hit(int damage, int direction)
@@ -46,10 +46,6 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
 
             if (chestHp <= 0)
             {
-                MapEvent _event = GameManager.instance.currMap.GetComponent<MapEvent>().Copy();
-                _event.canActive = false;
-                GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
-                
                 Dead();
                 return;
             }
@@ -67,6 +63,7 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
     //추후 확장성을 위해서 virtual로 지정(죽을때 효과있는 몬스터)
     public virtual void Dead()
     {
+        GameManager.instance.eventManager.eventCheck[GameManager.instance.currMap.name].canActive = false;
 
         for (int i = 0; i < goldCount; i++)
         {
@@ -87,14 +84,7 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
 
     public void SetEventPossible()
     {
-        if (GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.nextMapName))
-        {
-            isActive = GameManager.instance.eventManager.eventCheck[GameManager.instance.nextMapName].canActive;
-        }
-        else
-        {
-            isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
-        }
+        isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
     }
 }
 

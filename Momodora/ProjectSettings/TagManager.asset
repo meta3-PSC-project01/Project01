@@ -18,7 +18,6 @@ TagManager:
   - Npc
   - Water
   - Save
-  - PlayerDynamic
   layers:
   - Default
   - TransparentFX
@@ -29,7 +28,7 @@ TagManager:
   - Gold
   - Bell
   - PlayerAttack
-  - Terrain
+  - 
   - EnemySight
   - Player
   - Enemy

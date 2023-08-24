@@ -5,8 +5,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
-using System.Diagnostics.Tracing;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +15,7 @@ public class GameManager : MonoBehaviour
     public BackGroundController background;
     public Vector2Int currMapPosition;
     public MapData currMap;
-    public string nextMapName;
-    public GameObject loadingImage;
+    public Image loadingImage;
 
     public bool checkMapUpdate = false;
     public bool cameraStop = false;
@@ -27,6 +24,10 @@ public class GameManager : MonoBehaviour
     public bool isDeath = false;
 
     public int userSaveServer = default;
+    public int[] savePoint = new int[2];
+    public bool[] eventCheck = new bool[10]; 
+    public int[] positionX = new int[10];
+    public int[] positionY = new int[10];
     public float gameTime = default;
 
     public string mapName = null;
@@ -57,15 +58,14 @@ public class GameManager : MonoBehaviour
         foreach (MapData mapData in map)
         {
             mapDatabase.Add(mapData.name, mapData);
-            /*MapEvent mapEvent = mapData.GetComponent<MapEvent>();
+            MapEvent mapEvent = mapData.GetComponent<MapEvent>();
             if (mapEvent != null)
             {
                 eventManager.eventCheck.Add(mapData.name, mapEvent);
-                Debug.Log(mapData.name + " 현재맵");
-                Debug.Log(mapEvent.canActive + " BOOL값");
-            }*/
+            }
         }
 
+        background = Instantiate(background);
     }
 
     void Update()
@@ -73,15 +73,13 @@ public class GameManager : MonoBehaviour
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "GameScene" && mapName != null)
         {
-            loadingImage = Instantiate(loadingImage);
-            loadingImage.GetComponent<Canvas>().worldCamera = Camera.main;
-            loadingImage.SetActive(false);
             currMap = Instantiate(mapDatabase[mapName], Vector2.zero, Quaternion.identity);
-            background = Instantiate(background);
-
+            //ItemManager.CreateInstance();
+            Camera.main.gameObject.AddComponent<CameraMove>();
             mapName = null;
 
 
+            //GameManager.instance.loadingImage = panel.GetComponent<Image>();
         }
         gameTime = Time.time;
     }
@@ -89,50 +87,10 @@ public class GameManager : MonoBehaviour
     public void SaveBefore()
     {
         saveCheckString = "save_" + userSaveServer;
-        int eventCount = eventManager.eventCheck.Count;
-
-        bool[] eventCheck = new bool[eventCount];
-        int[] posStage = new int[eventCount];
-        int[] posMap = new int[eventCount];
-
-        int index = 0;
-        foreach (var _event in eventManager.eventCheck) 
-        {
-            eventCheck[index] = _event.Value.canActive;
-            posStage[index] = _event.Value.position[0];
-            posMap[index] = _event.Value.position[1];
-
-            index += 1;
-        }
-        string _mapName = "Stage1Start";
-        if (mapName == null)
-        {
-            _mapName = currMap.name;
-        }
-
-        int[] savePoint = new int[2];
-        int.TryParse(_mapName.Substring(5, 1), out savePoint[0]);
-
-        Debug.Log(_mapName.Length);
-
-        if (_mapName == "Stage1Start")
-        {
-            savePoint[1] = 1;
-        }
-
-        else if (_mapName.Length == 10)
-        {
-            int.TryParse(_mapName.Substring(9, 1), out savePoint[1]);
-        }
-        else if (_mapName.Length == 11)
-        {
-            int.TryParse(_mapName.Substring(9, 2), out savePoint[1]);
-        }
-
-        SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, posStage, posMap, ItemManager.instance.leaf);
-
-        Save(save, saveCheckString);
-}
+        //SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, positionX, positionY, ItemManager.instance.leaf);
+        //GameManager.Save(save, saveCheckString);
+        //Save(save, saveCheckString);
+    }
 
     public static void Save(SaveLoad saveData, string saveFileName)
     {
@@ -151,10 +109,10 @@ public class GameManager : MonoBehaviour
         Camera.main.GetComponent<CameraMove>().CameraOnceMove(fieldIndex, type);
     }
 
-    public SaveLoad LoadBefore()
+    public void LoadBefore()
     {
         saveCheckString = "save_" + userSaveServer;
-        return Load(saveCheckString);
+        Load(saveCheckString);
     }
 
     public static SaveLoad Load(string saveFileName)
@@ -170,6 +128,8 @@ public class GameManager : MonoBehaviour
         instance.gameTime = saveData.gameTime;
         ItemManager.instance.leaf = saveData.money;
         
+        instance.savePoint = saveData.savePoint;
+        
         instance.MapEventCheck(saveData);
         
         return saveData;
@@ -179,10 +139,10 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < data.eventCheck.Length; i++) 
         {
+            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i]);
             string stageName = "Stage" + data.positionX[i] + "Map" + data.positionY[i];
-           
-            MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i], mapDatabase[stageName].GetComponent<MapEvent>().eventName);
-            eventManager.eventCheck.Add(stageName, _event);
+            eventManager.eventCheck[stageName] = _event;
+            Debug.Log(_event.position + "/" + _event.canActive);
         }
     }
 

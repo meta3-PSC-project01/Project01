@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 7046123316507654802}
   - component: {fileID: 7046123316507654803}
   - component: {fileID: 7046123316507654796}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 7046123316525310083}
   - component: {fileID: 7046123316525310081}
   - component: {fileID: 7046123316525310082}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 7046123316763045334}
   - component: {fileID: 7046123316763045332}
   - component: {fileID: 7046123316763045333}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1256,7 +1256,7 @@ GameObject:
   - component: {fileID: 7046123316792630513}
   - component: {fileID: 7046123316792630519}
   - component: {fileID: 7046123316792630512}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1770,7 +1770,7 @@ GameObject:
   - component: {fileID: 7046123316998134724}
   - component: {fileID: 7046123316998134730}
   - component: {fileID: 7046123316998134731}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1894,7 +1894,7 @@ GameObject:
   - component: {fileID: 7046123317136007692}
   - component: {fileID: 7046123317136007693}
   - component: {fileID: 7046123317136007694}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -2778,7 +2778,7 @@ GameObject:
   - component: {fileID: 7046123317693571053}
   - component: {fileID: 7046123317693571059}
   - component: {fileID: 7046123317693571052}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4838,7 +4838,7 @@ GameObject:
   - component: {fileID: 7046123318032853291}
   - component: {fileID: 7046123318032853284}
   - component: {fileID: 7046123318032853285}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}

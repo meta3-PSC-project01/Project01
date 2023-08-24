@@ -73,11 +73,10 @@ public class EscapeTile : MonoBehaviour
                     {
                         GameManager.instance.isloading = true;
                         GameManager.instance.cameraStop = true;
-                        GameManager.instance.loadingImage.SetActive(true);
-                        GameManager.instance.nextMapName = nextTile.GetMapData().name;
+                        //GameManager.instance.loadingImage.gameObject.SetActive(true);
+
                         GameObject nextMap = Instantiate(GameManager.instance.mapDatabase[nextTile.GetMapData().name].gameObject, Vector3Int.zero, Quaternion.identity);
-                        nextMap.name = nextMap.name.Split("(Clone)")[0];
-                        mapData.transform.localScale = Vector3.zero;
+                        //nextMap.transform.localScale = Vector3.zero;
                         GameManager.instance.currMap = nextMap.GetComponent<MapData>();
 
                         StartCoroutine(loadingMap(nextMap, player));
@@ -91,12 +90,13 @@ public class EscapeTile : MonoBehaviour
             }
         }
     }
+    
 
     IEnumerator loadingMap(GameObject nextMap, PlayerMove player)
     {
         
         GameManager.instance.CameraOnceMove(nextTile.fieldIndex, nextMap.GetComponent<MapData>().type);
-        yield return new WaitForSeconds(.05f);
+        yield return new WaitForSeconds(.1f);
        
         Transform tmp = nextMap.GetComponent<MapData>().FindChildTransform(nextTile.fieldIndex, nextTile.name);
        
@@ -104,7 +104,7 @@ public class EscapeTile : MonoBehaviour
 
         Vector2 currDiff = GetDistanceVector2();
         Vector2 nextDiff = _nextTile.GetDistanceVector2();
-        
+
         //��->��
         if (escapeIndex == 0)
         {
@@ -118,16 +118,16 @@ public class EscapeTile : MonoBehaviour
         //��->��
         else if(escapeIndex == 2)
         {
-            player.transform.position = new Vector3(player.transform.position.x - currDiff.x + nextDiff.x, _nextTile.pivot.y - 2, 0);
+            player.transform.position = new Vector3(player.transform.position.x + currDiff.x - nextDiff.x, _nextTile.pivot.y - 2, 0);
         }
         //��->��
         else if (escapeIndex == 3)
         {
-            player.transform.position = new Vector3(player.transform.position.x - currDiff.x + nextDiff.x, _nextTile.pivot.y+2, 0);
+            player.transform.position = new Vector3(player.transform.position.x + currDiff.x - nextDiff.x, _nextTile.pivot.y+2, 0);
 
         }
         Destroy(mapData.gameObject);
-        GameManager.instance.loadingImage.SetActive(false);
+        GameManager.instance.loadingImage.gameObject.SetActive(false);
         GameManager.instance.cameraStop = false;
         GameManager.instance.isloading = false;
     }

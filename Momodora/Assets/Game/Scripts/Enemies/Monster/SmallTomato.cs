@@ -22,7 +22,7 @@ public class SmallTomato : EnemyBase
     private bool onDashAttack = false;
     private bool upFloor = true;
     private float dashDistance = 4;
-    private float dashSpeed = 15;
+    private float dashSpeed = 10;
     private float dashJump = 3;
 
     //이동 가속도
@@ -62,7 +62,7 @@ public class SmallTomato : EnemyBase
                 {
                     if (!isStun)
                     {
-                        if (Random.Range(0, 100) >=90)
+                        if (Random.Range(0, 100) >= 90)
                         {
                             onDashAttack = true;
                         }
@@ -294,11 +294,12 @@ public class SmallTomato : EnemyBase
     public void AttackStartEvent()
     {
         attackObject = Instantiate(attackData[0].gameObject, attackPosition.position, transform.rotation).GetComponent<EnemyAttackData>();
-        attackObject.transform.SetParent(transform);
+        attackObject.transform.SetParent(GameManager.instance.currMap.transform);
 
     }
 
     //애니메이션 중 이펙트 세팅 = 이펙트 발생
+    //스몰토마토는 이펙트 대신 날라가는 모션
     public void AttackEffectEvent()
     {
         if (onDashAttack)

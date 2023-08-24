@@ -5,44 +5,23 @@ using UnityEngine;
 public class Gold : MonoBehaviour
 {
     public bool isActive = true;
-    SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), FindObjectOfType<PlayerMove>().transform.Find("CrashCollider").GetComponent<BoxCollider2D>());
-    }
-
-    private void Start()
-    {
-        StartCoroutine(DestroyRoutine());
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Gold"), LayerMask.NameToLayer("Gold"), true);
+        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), FindObjectOfType<PlayerMove>().transform.Find("BorderCollider").GetComponent<BoxCollider2D>());
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.collider.name);
         if (collision.collider.tag == "Player" && isActive)
         {
-            Debug.Log(collision.collider.name + "ÀÌ°Å");
+            Debug.Log(ItemManager.instance.leaf);
             isActive = false;
             ItemManager.instance.leaf += 1;
             //playerUi.GetComponent<PlayerUi>().PlayerMoney();
 
             Destroy(gameObject);
         }
-    }
-
-    IEnumerator DestroyRoutine()
-    {
-        float count = 0;
-        yield return new WaitForSeconds(3);
-        while (count<=1)
-        {
-            spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-            yield return new WaitForSeconds(.15f);
-            spriteRenderer.color = new Color(1f, 1f, 1f, .5f);
-            yield return new WaitForSeconds(.1f);
-            count += .25f;
-        }
-        Destroy(gameObject);
     }
 }

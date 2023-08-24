@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 970229407935016249}
   - component: {fileID: 970229407935016251}
   - component: {fileID: 970229407935016248}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,7 +1072,7 @@ GameObject:
   - component: {fileID: 970229408228955772}
   - component: {fileID: 970229408228955774}
   - component: {fileID: 970229408228955775}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 970229408284829429}
   - component: {fileID: 970229408284829431}
   - component: {fileID: 970229408284829428}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1312,7 +1312,7 @@ GameObject:
   - component: {fileID: 970229408379117721}
   - component: {fileID: 970229408379117723}
   - component: {fileID: 970229408379117720}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1888,7 +1888,7 @@ GameObject:
   - component: {fileID: 970229408621410543}
   - component: {fileID: 970229408621410540}
   - component: {fileID: 970229408621410541}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -11060,7 +11060,7 @@ GameObject:
   - component: {fileID: 970229409274596950}
   - component: {fileID: 970229409274596944}
   - component: {fileID: 970229409274596945}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12224,7 +12224,7 @@ GameObject:
   - component: {fileID: 970229409486286183}
   - component: {fileID: 970229409486286180}
   - component: {fileID: 970229409486286181}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -12866,7 +12866,7 @@ GameObject:
   - component: {fileID: 970229409845022007}
   - component: {fileID: 970229409845022004}
   - component: {fileID: 970229409845022005}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}

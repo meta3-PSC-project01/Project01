@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 6809375965827318013}
   - component: {fileID: 6809375965827318011}
   - component: {fileID: 6809375965827318012}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 6809375965877044037}
   - component: {fileID: 6809375965877044038}
   - component: {fileID: 6809375965877044039}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -565,9 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7eeb07f85b5845845cfe2fd4b808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canActive: 1
-  position: 0100000015000000
-  eventName: "\uC784\uD504"
 --- !u!1 &6809375966251277406
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +580,7 @@ GameObject:
   - component: {fileID: 6809375966251277402}
   - component: {fileID: 6809375966251277403}
   - component: {fileID: 6809375966251277404}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -3987,7 +3984,7 @@ GameObject:
   - component: {fileID: 6809375966858968661}
   - component: {fileID: 6809375966858968659}
   - component: {fileID: 6809375966858968660}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -5195,7 +5192,7 @@ GameObject:
   - component: {fileID: 6809375967246980844}
   - component: {fileID: 6809375967246980842}
   - component: {fileID: 6809375967246980843}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5316,7 +5313,7 @@ GameObject:
   - component: {fileID: 6809375967410388879}
   - component: {fileID: 6809375967410388877}
   - component: {fileID: 6809375967410388878}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5440,7 +5437,7 @@ GameObject:
   - component: {fileID: 6809375967440601634}
   - component: {fileID: 6809375967440601635}
   - component: {fileID: 6809375967440601636}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -5640,7 +5637,7 @@ GameObject:
   - component: {fileID: 6809375967462687165}
   - component: {fileID: 6809375967462687163}
   - component: {fileID: 6809375967462687164}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

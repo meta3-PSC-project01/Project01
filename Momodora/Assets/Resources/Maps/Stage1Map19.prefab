@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 6587131218911175140}
   - component: {fileID: 6587131218911175142}
   - component: {fileID: 6587131218911175143}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 6587131219029151642}
   - component: {fileID: 6587131219029151644}
   - component: {fileID: 6587131219029151645}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 6587131219060158940}
   - component: {fileID: 6587131219060158942}
   - component: {fileID: 6587131219060158943}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 6587131219133809326}
   - component: {fileID: 6587131219133809360}
   - component: {fileID: 6587131219133809361}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1986,7 +1986,7 @@ GameObject:
   - component: {fileID: 6587131219568617095}
   - component: {fileID: 6587131219568617092}
   - component: {fileID: 6587131219568617093}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -3418,11 +3418,7 @@ CompositeCollider2D:
       - X: -130000000
         Y: 80000000
   m_CompositePaths:
-    m_Paths:
-    - - {x: 12.99997, y: 7}
-      - {x: 12.99997, y: 8}
-      - {x: -13, y: 7.9999704}
-      - {x: -12.99997, y: 7}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &6587131219633263723
@@ -3986,7 +3982,7 @@ GameObject:
   - component: {fileID: 6587131219749152039}
   - component: {fileID: 6587131219749152036}
   - component: {fileID: 6587131219749152037}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -4670,7 +4666,7 @@ GameObject:
   - component: {fileID: 6587131220614252724}
   - component: {fileID: 6587131220614252725}
   - component: {fileID: 6587131220614252722}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -5695,7 +5691,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -8610,11 +8606,11 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 50
     m_Data: {fileID: 317347132, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 4
     m_Data: {fileID: -660269876, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 49
     m_Data: {fileID: -90957060, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
-  - m_RefCount: 41
+  - m_RefCount: 42
     m_Data: {fileID: 51778046, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 2141844578, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
@@ -9020,7 +9016,7 @@ GameObject:
   - component: {fileID: 6587131220819255875}
   - component: {fileID: 6587131220819255877}
   - component: {fileID: 6587131220819255874}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

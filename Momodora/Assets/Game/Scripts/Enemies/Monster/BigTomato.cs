@@ -116,11 +116,6 @@ public class BigTomato : EnemyBase
         routine = null;
     }
 
-    public void Stormping()
-    {
-        CameraMove.ShakingCamera(Camera.main, .1f, 2f);
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4173026710799730269}
   - component: {fileID: 4173026710799730268}
   - component: {fileID: 4173026710799730595}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026710799730264
 Tilemap:
@@ -1750,7 +1750,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 12
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3421,7 +3421,7 @@ Tilemap:
     m_Data: {fileID: -90957060, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 16
     m_Data: {fileID: 51778046, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 5
     m_Data: {fileID: -705767612, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3437,7 +3437,7 @@ Tilemap:
     m_Data: {fileID: 6460297, guid: 0f0f5f86f3a0c1542998ba46e1dbd150, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 2141844578, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
-  - m_RefCount: 91
+  - m_RefCount: 90
     m_Data: {fileID: 317347132, guid: 21bec7b1d3464c1489e41dc948de6f57, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1366188017, guid: 0f0f5f86f3a0c1542998ba46e1dbd150, type: 3}
@@ -4227,7 +4227,7 @@ GameObject:
   - component: {fileID: 4173026711137352822}
   - component: {fileID: 4173026711137352816}
   - component: {fileID: 4173026711137352823}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4250,7 +4250,7 @@ Transform:
   - {fileID: 61711366518600071}
   - {fileID: 4706082923051070159}
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026711137352816
 Tilemap:
@@ -4385,26 +4385,6 @@ Tilemap:
   m_GameObject: {fileID: 4173026711168068310}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 11, y: -7, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 12, y: -7, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 13, y: -7, z: 0}
     second:
       serializedVersion: 2
@@ -4547,13 +4527,13 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 16
+  - m_RefCount: 14
     m_Data: {fileID: 11400000, guid: 7c72490fa6dc14348b9fcb7a7f9ec39a, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 16
+  - m_RefCount: 14
     m_Data: {fileID: 21300000, guid: cb755114c6803834f9d5483e179001a0, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 16
+  - m_RefCount: 14
     m_Data:
       e00: 1
       e01: 0
@@ -4573,24 +4553,24 @@ Tilemap:
       e33: 1
   - m_RefCount: 0
     m_Data:
-      e00: 1.0353559e-16
-      e01: 1.5e-44
-      e02: -1.3943618e-19
+      e00: -211691.5
+      e01: 1.8e-44
+      e02: -2.524092e-12
       e03: 0
-      e10: 3.5e-44
-      e11: NaN
+      e10: 1e-43
+      e11: 8e-45
       e12: 4.5904e-41
       e13: 0
-      e20: 1e-40
+      e20: NaN
       e21: 0
-      e22: 1.03535484e-16
+      e22: -211691.25
       e23: 0
       e30: 0
       e31: 7.34684e-40
-      e32: 3.5e-44
+      e32: 1e-43
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 16
+  - m_RefCount: 14
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -4741,24 +4721,16 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 4173026711168068306}
     m_ColliderPaths:
-    - - X: 110000000
-        Y: -60000000
-      - X: 110000000
-        Y: -70000000
-      - X: 140000000
+    - - X: 140000000
         Y: -70000000
       - X: 140000000
         Y: 70000000
       - X: 130000000
         Y: 70000000
       - X: 130000000
-        Y: -60000000
+        Y: -70000000
   m_CompositePaths:
-    m_Paths:
-    - - {x: 13.999971, y: -7}
-      - {x: 13.999971, y: 7}
-      - {x: 13, y: 6.9999704}
-      - {x: 13.00003, y: -7}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &4173026711186538355
@@ -4790,6 +4762,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4173026710799730594}
   - {fileID: 4173026711137352822}
   - {fileID: 4173026712194298288}
   - {fileID: 4173026712155387108}
@@ -4797,7 +4770,6 @@ Transform:
   - {fileID: 4173026712006100678}
   - {fileID: 4173026712003508213}
   - {fileID: 4173026712032629442}
-  - {fileID: 4173026710799730594}
   m_Father: {fileID: 4173026711067651963}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5932,11 +5904,7 @@ CompositeCollider2D:
       - X: -130000000
         Y: 80000000
   m_CompositePaths:
-    m_Paths:
-    - - {x: 12.99997, y: 7}
-      - {x: 12.99997, y: 8}
-      - {x: -13, y: 7.9999704}
-      - {x: -12.99997, y: 7}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &4173026711753544833
@@ -5954,7 +5922,7 @@ GameObject:
   - component: {fileID: 4173026711753544893}
   - component: {fileID: 4173026711753544892}
   - component: {fileID: 4173026711753544835}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -5974,7 +5942,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026711753544888
 Tilemap:
@@ -6754,11 +6722,7 @@ CompositeCollider2D:
       - X: -140000000
         Y: -70000000
   m_CompositePaths:
-    m_Paths:
-    - - {x: -13.00003, y: -7}
-      - {x: -13.00003, y: 7}
-      - {x: -14, y: 6.9999704}
-      - {x: -13.999971, y: -7}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &4173026712003508212
@@ -6772,7 +6736,7 @@ GameObject:
   - component: {fileID: 4173026712003508213}
   - component: {fileID: 4173026712003508215}
   - component: {fileID: 4173026712003508214}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6792,7 +6756,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026712003508215
 Tilemap:
@@ -6892,7 +6856,7 @@ GameObject:
   - component: {fileID: 4173026712006100678}
   - component: {fileID: 4173026712006100672}
   - component: {fileID: 4173026712006100679}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -6912,7 +6876,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026712006100672
 Tilemap:
@@ -7012,7 +6976,7 @@ GameObject:
   - component: {fileID: 4173026712032629442}
   - component: {fileID: 4173026712032629500}
   - component: {fileID: 4173026712032629443}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7032,7 +6996,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026712032629500
 Tilemap:
@@ -7632,11 +7596,7 @@ CompositeCollider2D:
       - X: -130000000
         Y: -70000000
   m_CompositePaths:
-    m_Paths:
-    - - {x: 12.99997, y: -8}
-      - {x: 12.99997, y: -7}
-      - {x: -13, y: -7.0000296}
-      - {x: -12.99997, y: -8}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &4173026712155387115
@@ -7654,7 +7614,7 @@ GameObject:
   - component: {fileID: 4173026712155387111}
   - component: {fileID: 4173026712155387110}
   - component: {fileID: 4173026712155387109}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -7674,7 +7634,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026712155387106
 Tilemap:
@@ -7847,7 +7807,7 @@ GameObject:
   - component: {fileID: 4173026712194298288}
   - component: {fileID: 4173026712194298290}
   - component: {fileID: 4173026712194298289}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7871,7 +7831,7 @@ Transform:
   - {fileID: 1162045811245311940}
   - {fileID: 1162045810622977706}
   m_Father: {fileID: 4173026711186538348}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &4173026712194298290
 Tilemap:
@@ -8789,7 +8749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.z

@@ -36,25 +36,23 @@ public class CameraMove : MonoBehaviour
         }
     }
 
-    public static void ShakingCamera(Camera camera, float time, float powerLimit)
+    public static void ShakingCamera(CameraMove camera)
     {
-        CameraMove _camera = camera.GetComponent<CameraMove>();
-        if (_camera.coroutine != null)
+        if (camera.coroutine != null)
         {
-            _camera.StopCoroutine(_camera.coroutine);
+            camera.StopCoroutine(camera.coroutine);
         }
 
-        _camera.coroutine = _camera.StartCoroutine(_camera.ShakeCoroutine(time, powerLimit));
+        camera.coroutine = camera.StartCoroutine(camera.ShakeCoroutine());
     }
 
-    IEnumerator ShakeCoroutine(float time, float powerLimit)
+    IEnumerator ShakeCoroutine()
     {
-        while(time>0)
+        for (int i = 0; i < 8; i++)
         {
-            shaking = Random.insideUnitCircle*Random.Range(0f, powerLimit);
-            yield return new WaitForSeconds(Time.deltaTime);
+            shaking = Random.insideUnitCircle;
+            yield return new WaitForEndOfFrame();
             shaking = Vector3.zero;
-            time-=Time.deltaTime;
         }
         shaking = Vector3.zero;
     }
@@ -96,13 +94,9 @@ public class CameraMove : MonoBehaviour
             {
                 smoothTime = 0f;
             }
-            else if (player.transform.position.y <= 0 || player.transform.position.y <= -(camHeight * (fieldSize.y - 1) * 2))
+            if (player.transform.position.y <= 0 || player.transform.position.y <= -(camHeight * (fieldSize.y - 1) * 2))
             {
-                smoothTime = 0f;
-            }
-            else
-            {
-                smoothTime = .01f;
+                smoothTime = 0.01f;
             }
 
             Vector3 velocity = Vector3.zero;

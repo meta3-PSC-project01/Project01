@@ -33,15 +33,6 @@ public class MapData : MonoBehaviour
             player.gameObject.SetActive(false);
             player.gameObject.SetActive(true);
         }
-        else
-        {
-            if (FindObjectOfType<PlayerMove>() == null)
-            {
-                GameObject player = Resources.Load("Player") as GameObject;
-                player.transform.position = transform.GetChild(0).GetChild(0).GetChild(2).Find("SavePoint").position;
-                player = Instantiate(player, player.transform.position, Quaternion.identity);
-            }
-        }
 
         if (type == 1)
         {
@@ -62,13 +53,13 @@ public class MapData : MonoBehaviour
             }
             compCollider.GenerateGeometry();
         }
+
+        GameManager.instance.background.SetAnchoredPosition(backGroundType);
     }
 
     private void Start()
     {
-        GameManager.instance.background.SetAnchoredPosition(backGroundType);
         isLoadEnd = true;
-
     }
 
     // Update is called once per frame

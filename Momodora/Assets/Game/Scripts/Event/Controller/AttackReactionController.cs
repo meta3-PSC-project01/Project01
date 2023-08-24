@@ -9,12 +9,8 @@ public class AttackReactionController : ControlBase, IHitControl
         if (IsHitPossible())
         {
             PlayEvent();
-            if (!GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.currMap.name.Split("(Clone)")[0]))
-            {
-                MapEvent _event = GameManager.instance.currMap.GetComponent<MapEvent>().Copy();
-                _event.canActive = false;
-                GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
-            }
+
+            //¿Ã∫•∆Æ dictionary on/off
         }
     }
 
@@ -24,7 +20,7 @@ public class AttackReactionController : ControlBase, IHitControl
 
     public bool IsHitPossible()
     {
-        return canActive;
+        return !isPlayEnd;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

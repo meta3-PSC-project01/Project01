@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 6195053775537647851}
   - component: {fileID: 6195053775537647852}
   - component: {fileID: 6195053775537647853}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   - component: {fileID: 6195053775844963156}
   - component: {fileID: 6195053775844963157}
   - component: {fileID: 6195053775844963158}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -1117,9 +1117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7eeb07f85b5845845cfe2fd4b808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canActive: 1
-  position: 0100000010000000
-  eventName: 
 --- !u!1 &6195053776087059655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1618,7 @@ GameObject:
   - component: {fileID: 6195053776171469692}
   - component: {fileID: 6195053776171469693}
   - component: {fileID: 6195053776171469694}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -5708,7 +5705,7 @@ GameObject:
   - component: {fileID: 6195053776507611748}
   - component: {fileID: 6195053776507611746}
   - component: {fileID: 6195053776507611747}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7282,7 +7279,7 @@ GameObject:
   - component: {fileID: 6195053777243756435}
   - component: {fileID: 6195053777243756433}
   - component: {fileID: 6195053777243756434}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7406,7 +7403,7 @@ GameObject:
   - component: {fileID: 6195053777270522259}
   - component: {fileID: 6195053777270522257}
   - component: {fileID: 6195053777270522258}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7578,7 +7575,7 @@ GameObject:
   - component: {fileID: 6195053777383042660}
   - component: {fileID: 6195053777383042658}
   - component: {fileID: 6195053777383042659}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7702,7 +7699,7 @@ GameObject:
   - component: {fileID: 6195053777405054626}
   - component: {fileID: 6195053777405054624}
   - component: {fileID: 6195053777405054625}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -8774,14 +8771,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrbTile
       objectReference: {fileID: 0}
-    - target: {fileID: 9059547999058919894, guid: a64f3248bcdabac4190ea53111a79b3b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9059547999058919894, guid: a64f3248bcdabac4190ea53111a79b3b, type: 3}
-      propertyPath: m_TagString
-      value: Floor
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a64f3248bcdabac4190ea53111a79b3b, type: 3}
 --- !u!4 &8085960224011522110 stripped
@@ -8914,14 +8903,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneTile
       objectReference: {fileID: 0}
-    - target: {fileID: 5407799982827011646, guid: b8ff6a102905af4418352823228272ac, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5407799982827011646, guid: b8ff6a102905af4418352823228272ac, type: 3}
-      propertyPath: m_TagString
-      value: Floor
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ff6a102905af4418352823228272ac, type: 3}
 --- !u!4 &6675579999058575755 stripped
@@ -8950,7 +8931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.5
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 7803448314795627574, guid: 35ae5566bd1d23048ab7c0ce0a4cc32c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9063,14 +9044,6 @@ PrefabInstance:
     - target: {fileID: 8554807329686155901, guid: 50c973124ed2c43418512e1aa9cf39ec, type: 3}
       propertyPath: m_Name
       value: JumpTile
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554807329686155901, guid: 50c973124ed2c43418512e1aa9cf39ec, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554807329686155901, guid: 50c973124ed2c43418512e1aa9cf39ec, type: 3}
-      propertyPath: m_TagString
-      value: Floor
       objectReference: {fileID: 0}
     - target: {fileID: 8554807329686155903, guid: 50c973124ed2c43418512e1aa9cf39ec, type: 3}
       propertyPath: m_RootOrder
@@ -9247,14 +9220,6 @@ PrefabInstance:
     - target: {fileID: 5407799982827011646, guid: b8ff6a102905af4418352823228272ac, type: 3}
       propertyPath: m_Name
       value: StoneTile
-      objectReference: {fileID: 0}
-    - target: {fileID: 5407799982827011646, guid: b8ff6a102905af4418352823228272ac, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5407799982827011646, guid: b8ff6a102905af4418352823228272ac, type: 3}
-      propertyPath: m_TagString
-      value: Floor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ff6a102905af4418352823228272ac, type: 3}

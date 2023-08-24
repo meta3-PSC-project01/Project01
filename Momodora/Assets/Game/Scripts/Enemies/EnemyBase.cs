@@ -166,7 +166,8 @@ public class EnemyBase : MonoBehaviour, IHitControl
         {
             GameObject tmp = Instantiate(gold, transform.position, Quaternion.identity, GameManager.instance.currMap.transform);
             tmp.tag = "Gold";
-            tmp.GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle*Random.Range(4f,5f), ForceMode2D.Impulse);
+            tmp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(8f, 10f) * ((Random.Range(0, 2) == 0) ? -1 : 1), -Random.Range(6f, 8f)), ForceMode2D.Impulse);
+            Destroy(tmp, 5f);
         }
         //enemyAudio.PlayOneShot(enemyAudioManager.GetAudioClip(gameObject.name, "Dead"));
 

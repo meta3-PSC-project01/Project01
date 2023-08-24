@@ -10,8 +10,7 @@ public class JumpTile : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log(collision.collider.name);
-        if (collision.collider.tag == "PlayerDynamic")
+        if (collision.collider.tag == "Player")
         {
             if (!isChewing)
             {
