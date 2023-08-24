@@ -4942,6 +4942,7 @@ MonoBehaviour:
   background: {fileID: 0}
   currMapPosition: {x: 0, y: 0}
   currMap: {fileID: 0}
+  nextMapName: 
   loadingImage: {fileID: 0}
   checkMapUpdate: 0
   cameraStop: 0
@@ -4949,10 +4950,6 @@ MonoBehaviour:
   isloading: 0
   isDeath: 0
   userSaveServer: 0
-  savePoint: 0000000000000000
-  eventCheck: 00000000000000000000
-  positionX: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  positionY: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   gameTime: 0
   mapName: 
 --- !u!4 &1346884733
@@ -7352,7 +7349,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 7
   m_TargetDisplay: 0
 --- !u!222 &1972802618
 CanvasRenderer:
@@ -8116,7 +8113,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6889628450502011904, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 763faafe3be225a43bb1eb19ff2ae099, type: 3}
 --- !u!1001 &8464607982013687753
 PrefabInstance:
