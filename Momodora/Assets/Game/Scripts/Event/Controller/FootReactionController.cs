@@ -8,13 +8,13 @@ public class FootReactionController : ControlBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isPlayEnd)
+        if (canActive)
         {
             if (collision.tag == "Player")
             {
-                PlayEvent();                
+                PlayEvent();
 
-                isPlayEnd = true;
+                canActive = false;
                 
             }
 

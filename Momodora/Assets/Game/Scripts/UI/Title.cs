@@ -353,9 +353,9 @@ public class Title : MonoBehaviour
     {
         GameManager.instance.userSaveServer = titleSelect;
         
+        GameManager.instance.mapName = "Stage1Start";
         GameManager.instance.SaveBefore();
 
-        GameManager.instance.mapName = "Stage1Start";
         SceneManager.LoadScene("GameScene");
     }
 
@@ -363,9 +363,9 @@ public class Title : MonoBehaviour
     {
         GameManager.instance.userSaveServer = titleSelect;
 
-        GameManager.instance.LoadBefore();
+        SaveLoad loadData = GameManager.instance.LoadBefore();
 
-        GameManager.instance.mapName = "Stage1Start";
+        GameManager.instance.mapName = "Stage"+loadData.savePoint[0]+"Map"+ loadData.savePoint[1];
         SceneManager.LoadScene("GameScene");
     }
 

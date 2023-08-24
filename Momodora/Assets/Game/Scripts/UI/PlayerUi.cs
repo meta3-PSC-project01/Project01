@@ -179,20 +179,7 @@ public class PlayerUi : MonoBehaviour
 
     public void PlayerMoney()
     {
-        if (ItemManager.instance.leaf < 10)
-        {
-            playerMoneyNumberResult = "00" + ItemManager.instance.leaf;
-            playerMoneyNumber.text = string.Format(playerMoneyNumberResult);
-        }
-        else if (ItemManager.instance.leaf < 100)
-        {
-            playerMoneyNumberResult = "0" + ItemManager.instance.leaf;
-            playerMoneyNumber.text = string.Format(playerMoneyNumberResult);
-        }
-        else
-        {
-            playerMoneyNumber.text = string.Format(ItemManager.instance.leaf.ToString());
-        }
+            playerMoneyNumber.text = $"{ ItemManager.instance.leaf:000}";
     }
 
     public void PlayerItemChange()
