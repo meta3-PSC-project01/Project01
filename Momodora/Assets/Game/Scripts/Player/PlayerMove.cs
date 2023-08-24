@@ -107,7 +107,6 @@ public class PlayerMove : MonoBehaviour
 
         attackSize = new Vector2(2f, 2f);
 
-
         moveForce = 7.5f;
         rollForce = 10f;
         jumpForce = 0.2f;
@@ -137,8 +136,8 @@ public class PlayerMove : MonoBehaviour
 
         playerUi = GameObject.Find("GamingUiManager");
         GameObject deathScreen = GameObject.Find("PlayerDeathUis");
-        playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
+        //playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        //playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -409,7 +408,6 @@ public class PlayerMove : MonoBehaviour
                     if (isMlAttack == 0)
                     {
                         isMlAttack = 1;
-                        isMlAttack = 1;
                     }
                     else if (isMlAttack == 1) { mlAttackConnect[0] = true; }
                     else if (isMlAttack == 2) { mlAttackConnect[1] = true; }
@@ -507,7 +505,6 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Jump", jumpingForce);
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
-
     }
 
     public void PlayerCrouchEnd()
@@ -601,11 +598,10 @@ public class PlayerMove : MonoBehaviour
     //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
     public void Hit(int damage, int location)
     {
-
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
 
-        if (playerHp>0)
+        if (playerHp > 0)
         {
             Physics2D.IgnoreLayerCollision(11, 12);
             playerAudio.clip = hurtAudio;
@@ -884,21 +880,21 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerMlAttack()
     {
-        if (isCrouched )
+        //if (isCrouched == true) { isCrouched = false; }
         if (isMlAttack == 1)
         {
             playerAudio.clip = melee1Audio;
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+4f, 0f);
+                playerRigidbody.velocity = new Vector2(+2f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
                 playerAttackEffect[0].gameObject.SetActive(true);
                 playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-4f, 0f);
+                playerRigidbody.velocity = new Vector2(-2f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
                 playerAttackEffect[0].gameObject.SetActive(true);
                 playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = true;
@@ -910,14 +906,14 @@ public class PlayerMove : MonoBehaviour
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+4f, 0f);
+                playerRigidbody.velocity = new Vector2(+2f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
                 playerAttackEffect[1].gameObject.SetActive(true);
                 playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-4f, 0f);
+                playerRigidbody.velocity = new Vector2(-2f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
                 playerAttackEffect[1].gameObject.SetActive(true);
                 playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = true;
@@ -929,14 +925,14 @@ public class PlayerMove : MonoBehaviour
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+6f, 0f);
+                playerRigidbody.velocity = new Vector2(+3f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
                 playerAttackEffect[2].gameObject.SetActive(true);
                 playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-6f, 0f);
+                playerRigidbody.velocity = new Vector2(-3f, 0f);
                 attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
                 playerAttackEffect[2].gameObject.SetActive(true);
                 playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = true;
