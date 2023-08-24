@@ -217,6 +217,17 @@ public class EnemyBase : MonoBehaviour, IHitControl
 
         return enemyHp<=0  ? false : true;
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.name == "BorderCollider")
+        {
+            if (collision.collider.GetComponentInParent<PlayerMove>() != null)
+            {
+                Touch(collision.collider.GetComponentInParent<PlayerMove>());
+            }
+        }
+    }
 }
 
 

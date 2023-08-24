@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class Chest : MonoBehaviour, IHitControl, IEventControl
 {
@@ -20,6 +21,11 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
         close = transform.Find("CloseSprite").GetComponent<SpriteRenderer>();
         box = GetComponent<BoxCollider2D>();
         SetStatus();
+        foreach(var tmp in FindObjectOfType<PlayerMove>().GetComponentsInChildren<BoxCollider2D>())
+        {
+            Physics2D.IgnoreCollision(transform.GetComponent<BoxCollider2D>(), tmp);
+
+        }
     }
 
     private void SetStatus()
@@ -71,7 +77,7 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
         for (int i = 0; i < goldCount; i++)
         {
             GameObject tmp = Instantiate(gold, transform.position, Quaternion.identity);
-            tmp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(8f, 10f) * ((Random.Range(0, 2) == 0) ? -1 : 1), -Random.Range(6f, 8f)), ForceMode2D.Impulse);
+            tmp.GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle * Random.Range(4f, 5f), ForceMode2D.Impulse);
             Destroy(tmp,3f);
         }
 

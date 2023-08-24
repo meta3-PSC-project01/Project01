@@ -23,7 +23,7 @@ public class Gold : MonoBehaviour
         {
             isActive = false;
             ItemManager.instance.leaf += 1;
-            collision.collider.GetComponent<PlayerMove>().playerUi.GetComponent<PlayerUi>().PlayerMoney();
+            collision.collider.GetComponentInParent<PlayerMove>().playerUi.GetComponent<PlayerUi>().PlayerMoney();
 
             Destroy(gameObject);
         }

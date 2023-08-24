@@ -38,8 +38,8 @@ public class ArrowMove : MonoBehaviour
             {
                 monster.GetComponentInParent<IHitControl>().Hit(damage, -(int)transform.right.x);
                 GameObject arrowEffect_ = Instantiate(arrowEffect, monster.transform.position, Quaternion.identity);
-                this.gameObject.SetActive(false);
-                Destroy(this.gameObject, 1f);
+                Destroy(this.gameObject);
+                Destroy(arrowEffect_,1f);
             }
         }
     }
