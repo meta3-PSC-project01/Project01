@@ -1353,7 +1353,7 @@ PrefabInstance:
       objectReference: {fileID: 616152143}
     - target: {fileID: 8464607982405106329, guid: 37dff54fcae0c0545bbcfe9b74904437, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8464607982405106329, guid: 37dff54fcae0c0545bbcfe9b74904437, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2927,7 +2927,7 @@ RectTransform:
   - {fileID: 573031538}
   - {fileID: 1296417201}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3120,7 +3120,7 @@ RectTransform:
   m_Children:
   - {fileID: 1266148058}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3460,7 +3460,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &861991956
 GameObject:
@@ -3494,6 +3494,7 @@ MonoBehaviour:
   background: {fileID: 0}
   currMapPosition: {x: 0, y: 0}
   currMap: {fileID: 0}
+  nextMapName: 
   loadingImage: {fileID: 0}
   checkMapUpdate: 0
   cameraStop: 0
@@ -3501,10 +3502,6 @@ MonoBehaviour:
   isloading: 0
   isDeath: 0
   userSaveServer: 0
-  savePoint: 0000000000000000
-  eventCheck: 00000000000000000000
-  positionX: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  positionY: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   gameTime: 0
   mapName: 
 --- !u!4 &861991958
@@ -3520,7 +3517,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &913921368
 GameObject:
@@ -4514,50 +4511,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1320284969
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1320284971}
-  - component: {fileID: 1320284970}
-  m_Layer: 0
-  m_Name: EventManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1320284970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320284969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82363e83d6bfa245be3f36190850d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1320284971
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320284969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.428374, y: -2.4778512, z: -3.10356}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1363997385
 GameObject:
   m_ObjectHideFlags: 0
@@ -5212,6 +5165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1502448871}
   - component: {fileID: 1502448870}
+  - component: {fileID: 1502448872}
   - component: {fileID: 1502448869}
   m_Layer: 0
   m_Name: Main Camera
@@ -5286,6 +5240,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1502448872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502448868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ccbf7798cc29fa46b34ad28b1c41908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldSize: {x: 1, y: 1}
+  smoothTime: 0.1
 --- !u!1 &1534998519
 GameObject:
   m_ObjectHideFlags: 0

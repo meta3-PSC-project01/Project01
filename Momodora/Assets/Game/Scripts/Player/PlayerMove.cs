@@ -103,7 +103,6 @@ public class PlayerMove : MonoBehaviour
 
         attackSize = new Vector2(2f, 2f);
 
-        playerUi = GameObject.Find("GamingUiManager");
 
         moveForce = 10f;
         rollForce = 10f;
@@ -130,7 +129,8 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         playerRigidbody.velocity = new Vector2(0f, 0f);
-        
+
+        playerUi = GameObject.Find("GamingUiManager");
     }
 
     void Update()
@@ -282,6 +282,8 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 0f;
             xInput = 0f;
             isRolled = true;
+
+            Physics2D.IgnoreLayerCollision(11, 12);
         }
 
 
@@ -331,6 +333,8 @@ public class PlayerMove : MonoBehaviour
                 _event.canActive = false;
                 GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
 
+                currInteract.isActive = false;
+                currInteract.popupText.ClosePopup();
             }
 
             else if (canSave)
@@ -547,6 +551,7 @@ public class PlayerMove : MonoBehaviour
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
 
+        Physics2D.IgnoreLayerCollision(11, 12);
         playerAudio.clip = hurtAudio;
         playerAudio.Play();
 
@@ -645,6 +650,7 @@ public class PlayerMove : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+        Physics2D.IgnoreLayerCollision(11, 12, false);
         isHited = false;
     }
 
@@ -672,6 +678,7 @@ public class PlayerMove : MonoBehaviour
         rSpeed = 0f;
         isRolled = false;
         playerRigidbody.velocity = Vector2.zero;
+        Physics2D.IgnoreLayerCollision(11, 12, false);
     }
 
     IEnumerator RollStartCheck()
@@ -939,7 +946,7 @@ public class PlayerMove : MonoBehaviour
     public bool canSave = false;
     public bool canItem = false;
     public bool canTalk = false;
-
+    public InteractObject currInteract = null;
     public void SetInteraction(InteractObjectType type)
     {
         Debug.Log(type);
@@ -986,13 +993,6 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Enemy")
-        {
-            if (collision.collider.GetComponent<EnemyBase>() != null)
-            {
-                Hit(1, flipX ? 1 : -1);
-            }
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)

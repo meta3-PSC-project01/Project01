@@ -29,6 +29,7 @@ public class MapData : MonoBehaviour
     {
         if (player != null)
         {
+            player.position = transform.GetChild(0).GetChild(0).GetChild(2).Find("SavePoint").position;
             player = Instantiate(player, player.position, Quaternion.identity);
             player.gameObject.SetActive(false);
             player.gameObject.SetActive(true);

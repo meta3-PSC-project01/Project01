@@ -40,20 +40,34 @@ public class InteractObject : MonoBehaviour, IEventControl
         }
     }
 
+    private void Update()
+    {
+        if (interactObjectType == InteractObjectType.ITEM)
+        {
+
+            if (!isActive)
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player" && isActive)
         {
             collision.GetComponentInParent<PlayerMove>().SetInteraction(interactObjectType);
+            collision.GetComponentInParent<PlayerMove>().currInteract = this;
             popupText.OpenPopup(str);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && isActive)
+        if (collision.tag == "Player")
         {
             collision.GetComponentInParent<PlayerMove>().SetInteraction(InteractObjectType.CLOSE);
+            collision.GetComponentInParent<PlayerMove>().currInteract = null;
             popupText.ClosePopup();
         }
     }
@@ -70,11 +84,6 @@ public class InteractObject : MonoBehaviour, IEventControl
             else
             {
                 isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
-            }
-
-            if (!isActive)
-            {
-                GetComponent<SpriteRenderer>().enabled = false;
             }
         }
         else if(interactObjectType == InteractObjectType.NPC)

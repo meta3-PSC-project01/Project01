@@ -6,24 +6,24 @@ using UnityEngine.Tilemaps;
 public class SpikeTile : MonoBehaviour
 {
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {
             Debug.Log(collision.transform.name);
 
-            PlayerMove test = collision.transform.GetComponentInParent<PlayerMove>();
+            PlayerMove player = collision.transform.GetComponentInParent<PlayerMove>();
             TileBase tile = transform.GetComponent<Tilemap>().GetTile(Vector3Int.FloorToInt(collision.transform.position - new Vector3Int(0, 1, 0)));
 
             if (tile == null) return;
-            if (transform.name == "DeathSpike")
+            if (tile.name == "DeathSpike")
             {
-                test.playerHp -= 10;
+                player.Hit(100, player.transform.right.x > 0 ? 1 : -1);
                 //플레이어 히트
             }
-            else if (transform.tag == "DeathSpike")
+            else if (tile.name == "DamageSpike")
             {
-                test.playerHp = -100;
+                player.Hit(5, player.transform.right.x > 0 ? 1 : -1);
                 //플레이어 히트
             }
         }
