@@ -23,6 +23,8 @@ public class GameOver : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A)) { KeyOn(); }
     }
 
+    //¼ºÃ³¸®
+
     public void KeyOn()
     {
         if (selectCheck == 0)
