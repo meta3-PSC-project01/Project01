@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -2127223311, guid: 276553b55e2e751498a700041a110a55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -252,7 +252,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1613060318, guid: ef61961448c020944ba41349cdd0b0a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -372,7 +372,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -33126474, guid: 0c1f93cd6966a054793052cbe9e312ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -492,7 +492,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -673448905, guid: 8d7ef38cf42e7ec4791280bdb702d76d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -622,7 +622,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1206514751, guid: 2d0e57cce361b534080b1043f424f79e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -693,16 +693,18 @@ MonoBehaviour:
   test: {fileID: 1575812528473822540, guid: bbdc2d9849db5574a81db70baede6139, type: 3}
   playerHp: 0
   playerMaxHp: 0
+  isRolled: 0
   isGrounded: 0
+  isCrouched: 0
   isLadder: 0
-  thinFloorCheck: 0
-  forceLadder: 0
+  crouchEndCheck: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
   canInteract: 0
   canSave: 0
   canItem: 0
   canTalk: 0
+  currInteract: {fileID: 0}
 --- !u!50 &1553168212
 Rigidbody2D:
   serializedVersion: 4

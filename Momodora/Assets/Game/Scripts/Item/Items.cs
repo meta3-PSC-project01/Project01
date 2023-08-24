@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Items : MonoBehaviour
 {
-    public string name = default;
+    public string itemName = default;
     public string effect = default;
     public string[] explanation = new string[5];
     public int explanationX = default;

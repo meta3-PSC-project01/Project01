@@ -588,6 +588,7 @@ MonoBehaviour:
   isTouch: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  isGround: 1
   firstPosition: {x: 0, y: 0, z: 0}
   isAttack: 0
   isJump: 0

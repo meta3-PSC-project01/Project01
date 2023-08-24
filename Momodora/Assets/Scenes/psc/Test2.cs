@@ -5,7 +5,6 @@ using UnityEngine;
 public class Test2 : MonoBehaviour
 {
     Rigidbody2D rb;
-    int direction = 1;
     public GameObject target;
 
     public Vector2 updown;

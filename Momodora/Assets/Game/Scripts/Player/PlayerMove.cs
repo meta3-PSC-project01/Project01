@@ -136,6 +136,9 @@ public class PlayerMove : MonoBehaviour
         playerRigidbody.velocity = new Vector2(0f, 0f);
 
         playerUi = GameObject.Find("GamingUiManager");
+        GameObject deathScreen = GameObject.Find("PlayerDeathUis");
+        playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -466,23 +469,6 @@ public class PlayerMove : MonoBehaviour
             UseItem();
         }
 
-        if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
-        {
-            ItemManager.instance.lookAtInventory = true;
-            ItemManager.instance.GetComponent<Inventory>().enabled = true;
-            ItemManager.instance.inventoryUi.SetActive(true);
-            Time.timeScale = 0f;
-        }
-
-        //테스트 코드1
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-
-            ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
-        }
-
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             if (ItemManager.instance.lookAtGameMenu == false)
@@ -522,7 +508,6 @@ public class PlayerMove : MonoBehaviour
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
 
-        if (playerHp <= 0) { StartCoroutine(PlayerDeath()); }
     }
 
     public void PlayerCrouchEnd()
@@ -616,40 +601,42 @@ public class PlayerMove : MonoBehaviour
     //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
     public void Hit(int damage, int location)
     {
+
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
 
-        HitCheck();
-
-        Physics2D.IgnoreLayerCollision(11, 12);
-        playerAudio.clip = hurtAudio;
-        playerAudio.Play();
-
-        playerHp -= damage;
-
-        if (playerHp <= 0)
+        if (playerHp>0)
         {
-            StartCoroutine(PlayerDeath());
-        }
-        else
-        {
-            playerRigidbody.velocity = Vector2.zero;
-            xSpeed = 0f;
-            jSpeed[0] = 0f;
-            jSpeed[1] = 0f;
-            isHited = true;
-            hitMoveTime = true;
-            isMlAttack = 0;
-            mlAttackConnect[0] = false;
-            mlAttackConnect[1] = false;
-            chargeForce = 0f;
+            Physics2D.IgnoreLayerCollision(11, 12);
+            playerAudio.clip = hurtAudio;
+            playerAudio.Play();
 
-            if (location == 1) { playerRigidbody.velocity = new Vector2(-6f, 11f); }
-            else if (location == -1) { playerRigidbody.velocity = new Vector2(6f, 11f); }
+            playerHp -= damage;
 
-            playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
-            StartCoroutine(InvinTime());
-            StartCoroutine(HitMoveTime());
+            if (playerHp <= 0)
+            {
+                StartCoroutine(PlayerDeath());
+            }
+            else
+            {
+                playerRigidbody.velocity = Vector2.zero;
+                xSpeed = 0f;
+                jSpeed[0] = 0f;
+                jSpeed[1] = 0f;
+                isHited = true;
+                hitMoveTime = true;
+                isMlAttack = 0;
+                mlAttackConnect[0] = false;
+                mlAttackConnect[1] = false;
+                chargeForce = 0f;
+
+                if (location == 1) { playerRigidbody.velocity = new Vector2(-6f, 11f); }
+                else if (location == -1) { playerRigidbody.velocity = new Vector2(6f, 11f); }
+
+                playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
+                StartCoroutine(InvinTime());
+                StartCoroutine(HitMoveTime());
+            }
         }
     }
 

@@ -47,9 +47,11 @@ public class SmallTomato : EnemyBase
         currDelay = attackDelay * .8f;
     }
 
+
     // Update is called once per frame
     void Update()
     {
+        
 
         //플레이어 타겟 지정
         if (target != null)

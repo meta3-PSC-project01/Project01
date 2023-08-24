@@ -18,8 +18,6 @@ public class PlayerUi : MonoBehaviour
     public Image playerHpFilled;
     public Text playerMoneyNumber;
 
-    private string playerMoneyNumberResult = default;
-    private int playerHp = default;
     private int activeItemCheck = default;
     private int selectCursor = default;
     private int selectType = default;
@@ -29,8 +27,6 @@ public class PlayerUi : MonoBehaviour
     {
         playerHpFilled.fillAmount = 1f;
         playerHpCount = 100f;
-        playerMoneyNumberResult = "\0";
-        playerHp = 100;
         activeItemCheck = 0;
         selectCursor = 0;
         selectType = 0;
@@ -48,6 +44,7 @@ public class PlayerUi : MonoBehaviour
     {
         ItemManager.instance.lookAtGameMenu = true;
         Time.timeScale = 0f;
+        selectCursor = 0;
 
         playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
         playerHpFilled.gameObject.SetActive(false);
@@ -110,7 +107,18 @@ public class PlayerUi : MonoBehaviour
 
     public void GameMenuIn()
     {
-        if (selectCursor == 2)
+        if (selectCursor == 0)
+        {
+            ItemManager.instance.lookAtInventory = true;
+            ItemManager.instance.GetComponent<Inventory>().enabled = true;
+            ItemManager.instance.inventoryUi.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else if (selectCursor == 1)
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
+        else if (selectCursor == 2)
         {
             SceneManager.LoadScene("TitleScene");
         }
