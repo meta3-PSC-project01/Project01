@@ -14,6 +14,7 @@ public class ItemManager : MonoBehaviour
 
     public int leaf = default;
     public int activeItemNum = default;
+    public int[] activeItemCount = default;
 
     public bool lookAtInventory = false;
     public bool lookAtGameMenu = false;
@@ -23,19 +24,17 @@ public class ItemManager : MonoBehaviour
     // 아이템 관리 베이스
     Dictionary<string, Items> itemDataBase = new Dictionary<string, Items>();
 
-    //public static ItemManager CreateInstance() 
+    //public static ItemManager CreateInstance()
     //{
     //    GameObject manager = new GameObject("ItemManager");
     //    instance = manager.AddComponent<ItemManager>();
 
     //    if (instance == null || instance == default)
     //    {
-    //        
     //        return instance;
     //    }
     //    else
     //    {
-    //        
     //        Destroy(manager);
     //        return instance;
     //    }

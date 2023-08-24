@@ -87,9 +87,9 @@ public class GameManager : MonoBehaviour
     public void SaveBefore()
     {
         saveCheckString = "save_" + userSaveServer;
-        SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, positionX, positionY, ItemManager.instance.leaf);
-        GameManager.Save(save, saveCheckString);
-        Save(save, saveCheckString);
+        //SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, positionX, positionY, ItemManager.instance.leaf);
+        //GameManager.Save(save, saveCheckString);
+        //Save(save, saveCheckString);
     }
 
     public static void Save(SaveLoad saveData, string saveFileName)
