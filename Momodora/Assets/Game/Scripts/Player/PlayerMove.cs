@@ -409,7 +409,6 @@ public class PlayerMove : MonoBehaviour
                     if (isMlAttack == 0)
                     {
                         isMlAttack = 1;
-                        isMlAttack = 1;
                     }
                     else if (isMlAttack == 1) { mlAttackConnect[0] = true; }
                     else if (isMlAttack == 2) { mlAttackConnect[1] = true; }
@@ -884,7 +883,6 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerMlAttack()
     {
-        if (isCrouched )
         if (isMlAttack == 1)
         {
             playerAudio.clip = melee1Audio;
@@ -1160,7 +1158,7 @@ public class PlayerMove : MonoBehaviour
         CompositeCollider2D thinFloorCollider = thinFloor.GetComponent<CompositeCollider2D>();
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
 
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.6f);
 
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
         thinFloorCheck = false;

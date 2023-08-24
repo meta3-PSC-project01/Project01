@@ -123,6 +123,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
+
                 ItemManager.instance.equipItems[selectSlot] = list[selectInventory];
                 list.RemoveAt(selectInventory);
                 ItemManager.instance.equipCheck[selectSlot] = true;
