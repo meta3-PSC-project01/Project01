@@ -103,6 +103,8 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
 
+        StartCoroutine(RollStartCheck());
+
         attackSize = new Vector2(2f, 2f);
 
 
@@ -262,7 +264,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.A)) { jumpingForce = false; }
 
-        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0 && isHited == false)
+        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0 && hitMoveTime == false)
         {
             if (isCrouched == true) { isCrouched = false; }
 
@@ -277,7 +279,16 @@ public class PlayerMove : MonoBehaviour
             Physics2D.IgnoreLayerCollision(11, 12);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isLadder == true && onLadderBot == true)
+        {
+            playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            playerRigidbody.gravityScale = 3f;
+            isLadder = false;
+            forceLadder = false;
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow) && jumping == false)
         {
             if (isLadder == true) { forceLadder = true; }
             else
@@ -287,15 +298,6 @@ public class PlayerMove : MonoBehaviour
                 isCrouched = true;
                 crouchEndCheck = true;
             }
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) && isLadder == true && onLadderBot == true)
-        {
-            playerRigidbody.constraints = RigidbodyConstraints2D.None;
-            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            playerRigidbody.gravityScale = 3f;
-            isLadder = false;
-            forceLadder = false;
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow))
@@ -395,12 +397,15 @@ public class PlayerMove : MonoBehaviour
             {
                 if (isMlAttack < 3)
                 {
+                    if (isCrouched == true) { isCrouched = false; }
+
                     playerRigidbody.velocity = Vector2.zero;
                     xSpeed = 0f;
                     xInput = 0f;
 
                     if (isMlAttack == 0)
                     {
+                        isMlAttack = 1;
                         isMlAttack = 1;
                     }
                     else if (isMlAttack == 1) { mlAttackConnect[0] = true; }
@@ -410,8 +415,11 @@ public class PlayerMove : MonoBehaviour
             else if (isAirAttacked == false) { isAirAttacked = true; }
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false && isChargeBowed == false && 
-            isChargeCrouchBowed == false) { isCharged = true; }
+        if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isCrouchBowed == false && isAirBowed == false)
+        {
+            isCharged = true;
+            //bowMiddleEnd = true;
+        }
 
         if (Input.GetKey(KeyCode.D) && isCharged == true)
         {
@@ -424,8 +432,15 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.D) && isCharged == true)
         {
-            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
             xSpeed = 0f;
+
+            //if (isBowed == true || isCrouchBowed == true || isAirBowed == true || isChargeBowed == true || isChargeCrouchBowed == true ||
+            //    isChargeAirBowed == true)
+            //{
+            //    animator.Play("Bow", -1, 0f);
+            //}
+
             if (isCrouched == true)
             {
                 if (chargeForce >= chargeMax) { isChargeCrouchBowed = true; }
@@ -441,10 +456,9 @@ public class PlayerMove : MonoBehaviour
                 if (chargeForce >= chargeMax) { isChargeBowed = true; }
                 else { isBowed = true; }
             }
-            
+
             isCharged = false;
             chargeForce = 0f;
-            xSpeed = 0f;
         }
 
         if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum != 0)
@@ -556,12 +570,56 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
+    
+    public void HitCheck()
+    {
+        if (isMlAttack > 0)
+        {
+            isMlAttack = 0;
+            mlAttackConnect[0] = false;
+            mlAttackConnect[1] = false;
+            playerAttackEffect[0].gameObject.SetActive(false);
+            playerAttackEffect[1].gameObject.SetActive(false);
+            playerAttackEffect[2].gameObject.SetActive(false);
+        }
+        if (isBowed == true || isChargeBowed == true)
+        {
+            isBowed = false;
+            isChargeBowed = false;
+        }
+        if (isCrouchBowed == true || isChargeCrouchBowed == true)
+        {
+            isCrouchBowed = false;
+            isChargeCrouchBowed = false;
+        }
+        if (isAirBowed == true || isChargeAirBowed == true)
+        {
+            isAirBowed = false;
+            isChargeAirBowed = false;
+        }
+        if (isAirAttacked == true)
+        {
+            isAirAttacked = false;
+            playerAttackEffect[3].gameObject.SetActive(false);
+        }
+        if (isCrouched == true) { isCrouched = false; }
+        if (isLadder == true)
+        {
+            playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            playerRigidbody.gravityScale = 3f;
+            isLadder = false;
+            forceLadder = false;
+        }
+    }
 
     //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
     public void Hit(int damage, int location)
     {
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
+
+        HitCheck();
 
         Physics2D.IgnoreLayerCollision(11, 12);
         playerAudio.clip = hurtAudio;
@@ -675,7 +733,6 @@ public class PlayerMove : MonoBehaviour
     IEnumerator HitMoveTime()
     {
         yield return new WaitForSeconds(0.5f);
-
         hitMoveTime = false;
     }
 
@@ -748,7 +805,9 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void PlayerBowEnd() { isBowed = false; isChargeBowed = false; }
+    public void PlayerBowEnd() { isBowed = false; isChargeBowed = false; isAirBowed = false; }
+
+    //public void PlayerBowMiddleEnd() { bowMiddleEnd = false; }
 
     public void PlayerAirBowCheck()
     {
@@ -838,6 +897,7 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerMlAttack()
     {
+        if (isCrouched )
         if (isMlAttack == 1)
         {
             playerAudio.clip = melee1Audio;
@@ -911,7 +971,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
-
 
     public void PlayerAirAttack()
     {

@@ -80,9 +80,6 @@ public class PlayerUi : MonoBehaviour
     {
         if (selectType == 0)
         {
-            ItemManager.instance.lookAtGameMenu = false;
-            Time.timeScale = 1f;
-
             for (int i = 0; i < 5; i++)
             {
                 gameMenuGround[i].gameObject.SetActive(false);
@@ -105,6 +102,9 @@ public class PlayerUi : MonoBehaviour
             playerHpEmpty.gameObject.SetActive(true);
             gameMoneyIcon.gameObject.SetActive(true);
             playerMoneyNumber.gameObject.SetActive(true);
+
+            Time.timeScale = 1f;
+            ItemManager.instance.lookAtGameMenu = false;
         }
     }
 
