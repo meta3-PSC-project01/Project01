@@ -48,7 +48,10 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
 
         while (time != playTime)
         {
-            CameraMove.ShakingCamera(Camera.main, .1f, .2f);
+            if (transform.name != "Elavater")
+            {
+                CameraMove.ShakingCamera(Camera.main, .1f, .2f);
+            }
             time += Time.deltaTime;
             if(time > playTime)
             {
