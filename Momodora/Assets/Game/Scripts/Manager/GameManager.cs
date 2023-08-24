@@ -168,7 +168,6 @@ public class GameManager : MonoBehaviour
         string saveFile = File.ReadAllText(saveFilePath);
         SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
         instance.gameTime = saveData.gameTime;
-        ItemManager.instance.leaf = saveData.money;
         
         instance.MapEventCheck(saveData);
         
