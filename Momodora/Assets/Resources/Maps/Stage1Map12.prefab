@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9204889612409093477}
   - component: {fileID: 1139351897053735738}
   - component: {fileID: 544874878341408209}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -1792,7 +1792,7 @@ GameObject:
   - component: {fileID: 5109569040603337946}
   - component: {fileID: 8511492596803921281}
   - component: {fileID: 4907287482794572714}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2068,7 @@ GameObject:
   - component: {fileID: 1611190005563355804}
   - component: {fileID: 1591282023915628846}
   - component: {fileID: 3069203550759239683}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -2687,7 +2687,7 @@ GameObject:
   - component: {fileID: 1280192260554288953}
   - component: {fileID: 5796868947632857477}
   - component: {fileID: 8183644417348927249}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -8009,7 +8009,7 @@ GameObject:
   - component: {fileID: 2999781695194272090}
   - component: {fileID: 5103070915408494275}
   - component: {fileID: 465854774806992873}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Elavater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8171,7 +8171,7 @@ GameObject:
   - component: {fileID: 5900994239120884094}
   - component: {fileID: 8270098794816379971}
   - component: {fileID: 1093348358325836960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -8427,7 +8427,7 @@ GameObject:
   - component: {fileID: 1923873776747304811}
   - component: {fileID: 7994671768364252059}
   - component: {fileID: 3190347670619583393}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8547,7 +8547,7 @@ GameObject:
   - component: {fileID: 7550325573088807129}
   - component: {fileID: 2818418754912651529}
   - component: {fileID: 7140182043881020998}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8774,7 +8774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPreserve: 1
-  isPlay: 0
+  canActive: 1
   mode: 0
 --- !u!1 &7235658228404586451
 GameObject:
@@ -8787,7 +8787,7 @@ GameObject:
   - component: {fileID: 8388908294768742990}
   - component: {fileID: 7358262029255659995}
   - component: {fileID: 6727923150811389234}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3753,20 +3753,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f25404062eeeb4ebc4e5a7c0a21f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 0}
+  background: {fileID: 106783746299207334, guid: c6200cf278096754c8b0a5f2804df77d, type: 3}
   currMapPosition: {x: 0, y: 0}
   currMap: {fileID: 0}
-  loadingImage: {fileID: 0}
+  loadingImage: {fileID: 2190202586745652964, guid: b34000f56a9db2142b69daf757ea61c2, type: 3}
   checkMapUpdate: 0
   cameraStop: 0
   saveCheck: 0000000000
   isloading: 0
   isDeath: 0
   userSaveServer: 0
-  savePoint: 0000000000000000
-  eventCheck: 00000000000000000000
-  positionX: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  positionY: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   gameTime: 0
   mapName: 
 --- !u!4 &1111989303

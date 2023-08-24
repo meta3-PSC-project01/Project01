@@ -165,7 +165,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.11}
+  m_Offset: {x: 0, y: -1.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -568,7 +568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6889628450502011910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.35, y: -2.12, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -700,7 +700,10 @@ MonoBehaviour:
   forceLadder: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  canInteract: 0
   canSave: 0
+  canItem: 0
+  canTalk: 0
 --- !u!114 &6889628450502011904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,7 +852,7 @@ GameObject:
   - component: {fileID: 1608969346203129706}
   m_Layer: 11
   m_Name: BorderCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -882,7 +885,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.41}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -893,7 +896,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1.6}
   m_EdgeRadius: 0
 --- !u!50 &1608969346203129706
 Rigidbody2D:
@@ -915,7 +918,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &8987129093811247318
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +931,7 @@ GameObject:
   - component: {fileID: 1035540445648625884}
   m_Layer: 11
   m_Name: CrashCollider
-  m_TagString: Player
+  m_TagString: PlayerDynamic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

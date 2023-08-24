@@ -33,7 +33,6 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
         float time = 0;
         Vector2 _endPos = endPos;
         Vector2 _startPos = startPos;
-
         if (controller.mode == 0)
         {
             _endPos = endPos;
@@ -49,6 +48,10 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
 
         while (time != playTime)
         {
+            if (transform.name != "Elavater")
+            {
+                CameraMove.ShakingCamera(Camera.main, .1f, .2f);
+            }
             time += Time.deltaTime;
             if(time > playTime)
             {
@@ -64,7 +67,7 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
 
         if (controller.isPreserve)
         {
-            controller.isPlayEnd = false;
+            controller.canActive = true;
         }
     }
 }
