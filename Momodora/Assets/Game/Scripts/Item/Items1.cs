@@ -11,7 +11,7 @@ public class Items1 : Items
 
     public override void Init()
     {
-        name = "등가의 훈장";
+        itemName = "등가의 훈장";
         effect = "지속효과 : 천천히 HP 를 회복합니다.";
         explanation[0] = "크로미니아 지방에서 온 훈장.";
         explanation[1] = "사슴을 타고 평생을 먼 지방까지";
@@ -23,7 +23,7 @@ public class Items1 : Items
 
     public override void Print()
     {
-        Debug.LogFormat(name);
+        Debug.LogFormat(itemName);
         Debug.LogFormat(effect);
         for (int i = 0; i < explanationX; i++)
         {

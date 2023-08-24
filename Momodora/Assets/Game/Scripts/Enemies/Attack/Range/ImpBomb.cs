@@ -47,7 +47,6 @@ public class ImpBomb : EnemyAttackData
         //何婬磨 版快 厘魄康开 积己
         if ((collision.collider.tag == "Player" || collision.gameObject.layer == 9) && !isBoom)
         {
-            Debug.Log(collision.collider.name);
             isBoom = true;
             CameraMove.ShakingCamera(Camera.main, .15f, 1.5f);
             PlayerMove player = collision.collider.GetComponentInParent<PlayerMove>();
@@ -59,7 +58,6 @@ public class ImpBomb : EnemyAttackData
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             Instantiate(poison, transform.position, Quaternion.identity, GameManager.instance.currMap.transform);
-            Debug.Log(transform.position);
             Destroy(gameObject);
         }
     }

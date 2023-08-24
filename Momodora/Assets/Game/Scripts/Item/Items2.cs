@@ -11,7 +11,7 @@ public class Items2 : Items
 
     public override void Init()
     {
-        name = "세공 반지";
+        itemName = "세공 반지";
         effect = "지속효과 : 부적 시간이 늘어나고 방어력이 상승합니다.";
         explanation[0] = "푸른 강 깊은 곳에서 발견한 돌을";
         explanation[1] = "손으로 세공했습니다. 새긴 것을 보니 중서부 제국에서";
@@ -23,7 +23,7 @@ public class Items2 : Items
 
     public override void Print()
     {
-        Debug.LogFormat(name);
+        Debug.LogFormat(itemName);
         Debug.LogFormat(effect);
         for (int i = 0; i < explanationX; i++)
         {

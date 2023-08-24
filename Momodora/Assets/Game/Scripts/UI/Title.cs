@@ -1,10 +1,12 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Title : MonoBehaviour
 {
+    public SpriteRenderer currImage;
     public SpriteRenderer logoImage1;
     public SpriteRenderer logoImage2;
     public SpriteRenderer titleBackGround;
@@ -41,6 +43,7 @@ public class Title : MonoBehaviour
     private bool endTitle = false;
     private bool startTitle = false;
 
+
     private string saveCheckString = default;
 
     void Awake()
@@ -51,13 +54,30 @@ public class Title : MonoBehaviour
         selectType = 0;
     }
 
+    Coroutine screen = null;
+    bool isSkip = false;
+
+    void EndRoutine()
+    {
+        StopCoroutine(screen);
+        currImage.color = new Color(255, 255, 255, 255);
+    }
+
     void Start()
     {
-        StartCoroutine(TitleScreen());
+        //screen = StartCoroutine(Logo1());
+        screen = StartCoroutine(TitleScreen());
+        StopCoroutine(screen);
+        endTitle = true;
     }
 
     void Update()
     {
+        if (Input.anyKeyDown && !endTitle && !isSkip)
+        {
+            isSkip = true;
+        }
+
         if (Input.anyKeyDown && endTitle == true && startTitle == false)
         {
             logoAlphaX = 0f;
@@ -369,6 +389,8 @@ public class Title : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    
+
     IEnumerator Logo1()
     {
         yield return new WaitForSeconds(1f);
@@ -388,7 +410,7 @@ public class Title : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-        StartCoroutine(Logo2());
+        screen = StartCoroutine(Logo2());
     }
 
     IEnumerator Logo2()
@@ -409,7 +431,7 @@ public class Title : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-        StartCoroutine(TitleScreen());
+        screen = StartCoroutine(TitleScreen());
     }
 
     IEnumerator TitleScreen()

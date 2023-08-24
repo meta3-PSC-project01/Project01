@@ -39,7 +39,6 @@ public class MoveTile : MonoBehaviour
     public Vector2 endPos;
     private Vector3 targetPos;
     private Vector2 directionPos;
-    private bool isReverse = false;
 
     private PlayerMove player;
     private Rigidbody2D rb;

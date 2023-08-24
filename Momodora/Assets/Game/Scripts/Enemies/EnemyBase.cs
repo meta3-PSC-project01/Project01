@@ -53,6 +53,7 @@ public class EnemyBase : MonoBehaviour, IHitControl
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
+    public bool isGround = true;
 
     public Vector3 firstPosition;
 
@@ -218,6 +219,7 @@ public class EnemyBase : MonoBehaviour, IHitControl
         return enemyHp<=0  ? false : true;
     }
 
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.name == "BorderCollider")
@@ -227,6 +229,11 @@ public class EnemyBase : MonoBehaviour, IHitControl
                 Touch(collision.collider.GetComponentInParent<PlayerMove>());
             }
         }
+    }
+
+    public void StopWhenDash()
+    {
+        enemyRigidbody.velocity = Vector3.zero;
     }
 }
 
