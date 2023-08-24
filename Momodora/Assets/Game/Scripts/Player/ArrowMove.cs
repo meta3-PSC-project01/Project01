@@ -8,6 +8,7 @@ public class ArrowMove : MonoBehaviour
     private Rigidbody2D arrowRigidbody;
     private BoxCollider2D arrowCollider;
     private GameObject monster;
+    public GameObject arrowEffect;
 
     public int damage = 1;
 
@@ -36,6 +37,7 @@ public class ArrowMove : MonoBehaviour
             if(monster.GetComponentInParent<IHitControl>().IsHitPossible())
             {
                 monster.GetComponentInParent<IHitControl>().Hit(damage, -(int)transform.right.x);
+                GameObject arrowEffect_ = Instantiate(arrowEffect, monster.transform.position, Quaternion.identity);
                 this.gameObject.SetActive(false);
                 Destroy(this.gameObject, 1f);
             }

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.ParticleSystem;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -16,8 +17,22 @@ public class PlayerMove : MonoBehaviour
     private GameObject monster;
     public GameObject playerUi;
     public GameObject[] playerAttackEffect = new GameObject[4];
+    public ParticleSystem attackParticle;
+    public AudioClip jumpAudio;
+    public AudioClip melee1Audio;
+    public AudioClip melee2Audio;
+    public AudioClip melee3Audio;
+    public AudioClip walkAudio;
+    public AudioClip shootArrowAudio;
+    public AudioClip hurtAudio;
+    public AudioClip rollAudio;
+    public AudioClip deathAudio;
+    private AudioSource playerAudio = default;
 
-    private IEnumerator poisonHit;
+    // 화살 이펙트 테스트
+    public GameObject test;
+    private GameObject test2;
+
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
 
@@ -38,6 +53,7 @@ public class PlayerMove : MonoBehaviour
     private int jumpCount = default;
     private int isMlAttack = default;
     public int playerHp = default;
+    public int playerMaxHp = default;
     private int poisonCount = default;
 
     private bool jumping = false;
@@ -63,6 +79,7 @@ public class PlayerMove : MonoBehaviour
     private bool isHited = false;
     private bool hitMoveTime = false;
     private bool isPoison = false;
+    private bool walkAudioCheck = false;
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
@@ -82,9 +99,9 @@ public class PlayerMove : MonoBehaviour
 
         playerRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
 
         attackSize = new Vector2(2f, 2f);
-        poisonHit = PoisonDamage();
 
         playerUi = GameObject.Find("GamingUiManager");
 
@@ -102,6 +119,7 @@ public class PlayerMove : MonoBehaviour
         chargeAddForce = 1f;
         chargeMax = 2000f;
         playerHp = 30;
+        playerMaxHp = 30;
         jumpCount = 0;
         isMlAttack = 0;
         playerAlpha = 1f;
@@ -167,6 +185,13 @@ public class PlayerMove : MonoBehaviour
                         xSpeed = xInput * moveForce;
                         Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
 
+                        if (xSpeed != 0 && isGrounded == true && walkAudioCheck == false)
+                        {
+                            walkAudioCheck = true;
+                            playerAudio.clip = walkAudio;
+                            playerAudio.Play();
+                            StartCoroutine(WalkAudioDelay());
+                        }
                         //땅에서 일어나는 velocity이동엔 플랫폼 이동을 고려해야함
                         if (isMovingPlatform)
                         {
@@ -205,6 +230,8 @@ public class PlayerMove : MonoBehaviour
             if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
             else
             {
+                playerAudio.clip = jumpAudio;
+                playerAudio.Play();
                 //2단 점프시 파워 제한
                 if (jumpCount == 0) { jSpeed[0] = 7; }
                 else if (jumpCount == 1) { jSpeed[1] = 7 * 0.8f; }
@@ -247,6 +274,9 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0)
         {
             if (isCrouched == true) { isCrouched = false; }
+
+            playerAudio.clip = rollAudio;
+            playerAudio.Play();
 
             playerRigidbody.velocity = Vector2.zero;
             xSpeed = 0f;
@@ -353,7 +383,7 @@ public class PlayerMove : MonoBehaviour
             playerRigidbody.gravityScale = 3f;
             isLadder = false;
             jumping = true;
-            jumpingForce = true; 
+            jumpingForce = true;
             jumpCount += 1;
             xSpeed = 50f;
             flipX = false;
@@ -425,6 +455,11 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 0f;
         }
 
+        if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum != 0)
+        {
+            UseItem();
+        }
+
         if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
         {
             ItemManager.instance.lookAtInventory = true;
@@ -452,7 +487,18 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            StartCoroutine(PlayerDeath());
+            test2 = Instantiate(test, playerContainer.position + Vector3.down * .2f, Quaternion.identity);
+            StartCoroutine(ArrowEffectEnd());
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            attackParticle.gameObject.SetActive(true);
+            if (!attackParticle.isPlaying)
+            {
+                attackParticle.transform.position = transform.position;
+                attackParticle.Play();
+            }
         }
 
         animator.SetBool("Ground", isGrounded);
@@ -469,6 +515,30 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Jump", jumpingForce);
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
+
+        if (playerHp <= 0) { StartCoroutine(PlayerDeath()); }
+    }
+
+    IEnumerator ArrowEffectEnd()
+    {
+        yield return new WaitForSeconds(0.5f);
+        test2.gameObject.SetActive(false);
+        Destroy(test2, 1f);
+    }
+
+    public void UseItem()
+    {
+        if (ItemManager.instance.activeItemNum == 1 && ItemManager.instance.activeItemCount[1] > 0)
+        {
+            if (playerHp + 10 <= playerMaxHp)
+            {
+                playerHp += 10;
+            }
+            else
+            {
+                playerHp = playerMaxHp;
+            }
+        }
     }
 
     //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
@@ -476,6 +546,9 @@ public class PlayerMove : MonoBehaviour
     {
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
+
+        playerAudio.clip = hurtAudio;
+        playerAudio.Play();
 
         playerHp -= damage;
 
@@ -507,33 +580,44 @@ public class PlayerMove : MonoBehaviour
 
     public void HitPoison()
     {
-        if (isPoison == false) { StartCoroutine(poisonHit); }
-        else
+        if (isPoison == false)
         {
-            StopCoroutine(poisonHit);
-            StartCoroutine(poisonHit);
+            poisonCount = 0;
+            StartCoroutine(PoisonDamage());
         }
+        else { poisonCount = 0; }
     }
 
     IEnumerator PoisonDamage()
     {
-        poisonCount = 0;
-        while (true)
+        isPoison = true;
+        while (isPoison == true)
         {
             yield return new WaitForSeconds(1f);
-
             if (poisonCount < 10)
             {
-
+                playerHp -= 1;
+                playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
+                Debug.Log("독 데미지");
+                Debug.Log(poisonCount);
+                poisonCount += 1;
+            }
+            else
+            {
+                Debug.Log("독 데미지 종료");
+                isPoison = false;
+                break;
             }
         }
-        
-
     }
 
     IEnumerator PlayerDeath()
     {
         GameManager.instance.isDeath = true;
+
+        playerAudio.clip = deathAudio;
+        playerAudio.Play();
+
         animator.SetTrigger("Death");
         playerDeathScreen[0].gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
@@ -571,6 +655,12 @@ public class PlayerMove : MonoBehaviour
         hitMoveTime = false;
     }
 
+    IEnumerator WalkAudioDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        walkAudioCheck = false;
+    }
+
     // Fix : 플레이어 행동 조건 요약
     public bool IsJump()
     {
@@ -598,6 +688,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerBowShot()
     {      // Fix : Vector3 up
+        playerAudio.clip = shootArrowAudio;
+        playerAudio.Play();
         GameObject tempObject = Instantiate(arrowPrefab, playerContainer.position+Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
@@ -612,6 +704,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerChargeBowShot()
     {
+        playerAudio.clip = shootArrowAudio;
+        playerAudio.Play();
         for (int i = 0; i < 3; i++)
         {
             GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position + Vector3.up * .5f, Quaternion.identity);
@@ -637,6 +731,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerAirBowShot()
     {
+        playerAudio.clip = shootArrowAudio;
+        playerAudio.Play();
         GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position + Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
@@ -651,6 +747,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerChargeAirBowShot()
     {
+        playerAudio.clip = shootArrowAudio;
+        playerAudio.Play();
         for (int i = 0; i < 3; i++)
         {
             GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position + Vector3.up * .5f, Quaternion.identity);
@@ -676,6 +774,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerCrouchBowShot()
     {
+        playerAudio.clip = shootArrowAudio;
+        playerAudio.Play();
         GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position - Vector3.up * .5f, Quaternion.identity);
         Vector3 direction = new Vector2(Mathf.Cos((0) * Mathf.Deg2Rad), Mathf.Sin((0) * Mathf.Deg2Rad));
         if (flipX == false)
@@ -690,6 +790,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerChargeCrouchBowShot()
     {
+        playerAudio.clip = shootArrowAudio;
+        playerAudio.Play();
         for (int i = 0; i < 3; i++)
         {
             GameObject tempObject = Instantiate(arrowPrefab, playerContainer.transform.position - Vector3.up * .5f, Quaternion.identity);
@@ -711,6 +813,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (isMlAttack == 1)
         {
+            playerAudio.clip = melee1Audio;
+            playerAudio.Play();
             if (flipX == false)
             {
                 playerRigidbody.velocity = new Vector2(+4f, 0f);
@@ -728,6 +832,8 @@ public class PlayerMove : MonoBehaviour
         }
         else if (isMlAttack == 2)
         {
+            playerAudio.clip = melee2Audio;
+            playerAudio.Play();
             if (flipX == false)
             {
                 playerRigidbody.velocity = new Vector2(+4f, 0f);
@@ -745,6 +851,8 @@ public class PlayerMove : MonoBehaviour
         }
         else if (isMlAttack == 3)
         {
+            playerAudio.clip = melee3Audio;
+            playerAudio.Play();
             if (flipX == false)
             {
                 playerRigidbody.velocity = new Vector2(+6f, 0f);
@@ -769,6 +877,10 @@ public class PlayerMove : MonoBehaviour
             {
                 monster = attackCollider[i].gameObject;
                 monster.GetComponentInParent<IHitControl>().Hit(5, flipX ? 1 : -1);
+                if (!attackParticle.isPlaying)
+                {
+                    attackParticle.Play();
+                }
             }
         }
     }
@@ -776,6 +888,8 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerAirAttack()
     {
+        playerAudio.clip = melee2Audio;
+        playerAudio.Play();
         if (flipX == false)
         {
             attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
@@ -867,7 +981,6 @@ public class PlayerMove : MonoBehaviour
                 canSave = false;
                 break;
         }
-
         //todo : update에 방향키 누를시 저장하는 코드 작성하기
     }
 
@@ -880,7 +993,6 @@ public class PlayerMove : MonoBehaviour
                 Hit(1, flipX ? 1 : -1);
             }
         }
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -894,6 +1006,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.tag == "Floor" )
         {
+            playerAudio.clip = walkAudio;
+            playerAudio.Play();
             isGrounded = true;
             jumpingForce = false;
             jumping = false;
@@ -907,6 +1021,8 @@ public class PlayerMove : MonoBehaviour
         }
         if ( collision.tag == "ThinFloor")
         {
+            playerAudio.clip = walkAudio;
+            playerAudio.Play();
             thinFloorCheck = true;
             thinFloor = collision.gameObject;
             isGrounded = true;
@@ -924,20 +1040,19 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
 
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
-
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == ("Ladder") && isLadder == true)
-        {
-            forceLadder = false;
-            isLadder = false;
-            playerRigidbody.constraints = RigidbodyConstraints2D.None;
-            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            playerRigidbody.gravityScale = 3f;
-            playerRigidbody.velocity = Vector2.zero;
-        }
+        //if (collision.gameObject.tag == ("Ladder") && isLadder == true)
+        //{
+        //    forceLadder = false;
+        //    isLadder = false;
+        //    playerRigidbody.constraints = RigidbodyConstraints2D.None;
+        //    playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        //    playerRigidbody.gravityScale = 3f;
+        //    playerRigidbody.velocity = Vector2.zero;
+        //}
 
         if (collision.gameObject.tag == ("Ladder") && Input.GetKey(KeyCode.UpArrow) && isLadder == false && onLadderTop == false)
         {

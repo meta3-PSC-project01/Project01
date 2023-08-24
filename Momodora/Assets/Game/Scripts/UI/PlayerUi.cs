@@ -173,7 +173,7 @@ public class PlayerUi : MonoBehaviour
     public void PlayerHpBar(int playerHp_)
     {
         playerHpCount = playerHp_;
-        playerHpCount /= 100f;
+        playerHpCount /= 30f;
         playerHpFilled.fillAmount = playerHpCount;
     }
 
