@@ -550,7 +550,6 @@ GameObject:
   - component: {fileID: 6889628450502011909}
   - component: {fileID: 6889628450502011908}
   - component: {fileID: 6889628450502011907}
-  - component: {fileID: 6889628450502011904}
   - component: {fileID: 1553168212}
   - component: {fileID: 1723696742}
   m_Layer: 0
@@ -700,25 +699,10 @@ MonoBehaviour:
   forceLadder: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  canInteract: 0
   canSave: 0
---- !u!114 &6889628450502011904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6889628450502011910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe603c38e663c4499d7a60cd1c0de92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveEquipItems:
-  - 
-  - 
-  - 
-  - 
-  - 
+  canItem: 0
+  canTalk: 0
 --- !u!50 &1553168212
 Rigidbody2D:
   serializedVersion: 4
@@ -849,7 +833,7 @@ GameObject:
   - component: {fileID: 1608969346203129706}
   m_Layer: 11
   m_Name: BorderCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -928,7 +912,7 @@ GameObject:
   - component: {fileID: 1035540445648625884}
   m_Layer: 11
   m_Name: CrashCollider
-  m_TagString: Player
+  m_TagString: PlayerDynamic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
