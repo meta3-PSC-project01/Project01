@@ -86,6 +86,11 @@ public class Imp : EnemyBase
                 currDelay = attackDelay * .6f;
             }
         }
+
+        if (!isGround)
+        {
+            enemyAnimator.SetFloat("height", enemyRigidbody.velocity.normalized.y);
+        }
     }
 
     //몬스터 루틴

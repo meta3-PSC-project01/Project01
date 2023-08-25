@@ -889,6 +889,7 @@ public class PlayerMove : MonoBehaviour
     
     public void PlayerMlAttack()
     {
+        float attackMove = 10f;
         attackRange = 1;
         attackSize = new Vector2(attackRange * 2, 2);
         //if (isCrouched == true) { isCrouched = false; }
@@ -898,14 +899,14 @@ public class PlayerMove : MonoBehaviour
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+2f, playerRigidbody.velocity.y);
+                playerRigidbody.velocity = new Vector2(+attackMove, playerRigidbody.velocity.y);
                 attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
                 playerAttackEffect[0].gameObject.SetActive(true);
                 playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-2f, playerRigidbody.velocity.y);
+                playerRigidbody.velocity = new Vector2(-attackMove, playerRigidbody.velocity.y);
                 attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
                 playerAttackEffect[0].gameObject.SetActive(true);
                 playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = true;
@@ -917,14 +918,14 @@ public class PlayerMove : MonoBehaviour
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+2f, playerRigidbody.velocity.y);
+                playerRigidbody.velocity = new Vector2(+attackMove, playerRigidbody.velocity.y);
                 attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
                 playerAttackEffect[1].gameObject.SetActive(true);
                 playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-2f, playerRigidbody.velocity.y);
+                playerRigidbody.velocity = new Vector2(-attackMove, playerRigidbody.velocity.y);
                 attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
                 playerAttackEffect[1].gameObject.SetActive(true);
                 playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = true;
@@ -932,18 +933,19 @@ public class PlayerMove : MonoBehaviour
         }
         else if (isMlAttack == 3)
         {
+            attackMove = 50f;
             playerAudio.clip = melee3Audio;
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+3f, playerRigidbody.velocity.y);
+                playerRigidbody.velocity = new Vector2(+attackMove, playerRigidbody.velocity.y);
                 attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
                 playerAttackEffect[2].gameObject.SetActive(true);
                 playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-3f, playerRigidbody.velocity.y);
+                playerRigidbody.velocity = new Vector2(-attackMove, playerRigidbody.velocity.y);
                 attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
                 playerAttackEffect[2].gameObject.SetActive(true);
                 playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = true;
@@ -1087,8 +1089,13 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Floor" )
+        if (collision.gameObject.layer == 9 )
         {
+            if (collision.tag == "ThinFloor")
+            {
+                thinFloor = collision.gameObject;
+                thinFloorCheck = true;
+            }
             playerAudio.clip = walkAudio;
             playerAudio.Play();
             isGrounded = true;
@@ -1100,26 +1107,10 @@ public class PlayerMove : MonoBehaviour
             isAirBowed = false;
             isChargeAirBowed = false;
             isAirAttacked = false;
-            playerAttackEffect[3].gameObject.SetActive(false);
-        }
-        if ( collision.tag == "ThinFloor")
-        {
-            playerAudio.clip = walkAudio;
-            playerAudio.Play();
-            thinFloorCheck = true;
-            thinFloor = collision.gameObject;
-            isGrounded = true;
-            jumpingForce = false;
-            jumping = false;
-            jumpCount = 0;
-            jSpeed[0] = 0f;
-            jSpeed[1] = 0f;
-            isAirBowed = false;
-            isChargeAirBowed = false;
-            isAirAttacked = false;
-            playerAttackEffect[3].gameObject.SetActive(false);
-        }
 
+            playerAttackEffect[3].gameObject.SetActive(false);
+        }
+       
         if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
 
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
@@ -1127,6 +1118,13 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log(((Vector2)transform.position - collision.ClosestPoint(transform.position)).normalized.y);
+        Debug.Log((Vector2)transform.position - collision.ClosestPoint(transform.position));
+        if (collision.gameObject.layer == 9 && ((Vector2)transform.position - collision.ClosestPoint(transform.position)).normalized.y> .99f)
+        {
+            playerRigidbody.velocity = Vector3.zero;
+            
+        }
         //if (collision.gameObject.tag == ("Ladder") && isLadder == true)
         //{
         //    forceLadder = false;
