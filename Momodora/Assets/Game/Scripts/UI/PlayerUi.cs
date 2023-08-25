@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Windows.Speech;
 
 public class PlayerUi : MonoBehaviour
 {
@@ -34,6 +33,8 @@ public class PlayerUi : MonoBehaviour
 
     void Update()
     {
+        if (ItemManager.instance.lookAtGameMenu == false) { return; }
+
         if (Input.GetKeyDown(KeyCode.A) && ItemManager.instance.lookAtGameMenu == true) { GameMenuIn(); }
         if (Input.GetKeyDown(KeyCode.S) && ItemManager.instance.lookAtGameMenu == true) { GameMenuOff(); }
         if (Input.GetKeyDown(KeyCode.LeftArrow) && ItemManager.instance.lookAtGameMenu == true) { GameMenuLeft(); }
@@ -46,7 +47,8 @@ public class PlayerUi : MonoBehaviour
         Time.timeScale = 0f;
         selectCursor = 0;
 
-        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
+        // 여기 수정중이었음 메뉴 열때 현재 장착 아이템 확인이 안되는 버그 발생 Fix 예정
+        playerSetItem[activeItemCheck].gameObject.SetActive(false);
         playerHpFilled.gameObject.SetActive(false);
         playerHpEmpty.gameObject.SetActive(false);
         gameMoneyIcon.gameObject.SetActive(false);
@@ -94,7 +96,7 @@ public class PlayerUi : MonoBehaviour
 
             gameMenuText[selectCursor].gameObject.SetActive(false);
 
-            playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
+            playerSetItem[ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting]].gameObject.SetActive(true);
             playerHpFilled.gameObject.SetActive(true);
             playerHpEmpty.gameObject.SetActive(true);
             gameMoneyIcon.gameObject.SetActive(true);
@@ -109,10 +111,10 @@ public class PlayerUi : MonoBehaviour
     {
         if (selectCursor == 0)
         {
-            ItemManager.instance.lookAtInventory = true;
             ItemManager.instance.GetComponent<Inventory>().enabled = true;
             ItemManager.instance.inventoryUi.SetActive(true);
-            Time.timeScale = 0f;
+            ItemManager.instance.lookAtGameMenu = false;
+            ItemManager.instance.lookAtInventory = true;
         }
         else if (selectCursor == 1)
         {
@@ -189,13 +191,13 @@ public class PlayerUi : MonoBehaviour
 
     public void PlayerMoney()
     {
-            playerMoneyNumber.text = $"{ ItemManager.instance.leaf:000}";
+        playerMoneyNumber.text = $"{ ItemManager.instance.leaf:000}";
     }
 
     public void PlayerItemChange()
     {
         playerSetItem[activeItemCheck].gameObject.SetActive(false);
-        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
-        activeItemCheck = ItemManager.instance.activeItemNum;
+        playerSetItem[ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting]].gameObject.SetActive(true);
+        activeItemCheck = ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting];
     }
 }

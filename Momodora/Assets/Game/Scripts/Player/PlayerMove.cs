@@ -289,10 +289,10 @@ public class PlayerMove : MonoBehaviour
             isLadder = false;
             forceLadder = false;
         }
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
+        else if(Input.GetKeyDown(KeyCode.DownArrow) && !isGrounded)
         {
             playerRigidbody.velocity = Vector2.zero;
-        }   
+        }
 
         if (Input.GetKey(KeyCode.DownArrow) && jumping == false)
         {
@@ -465,7 +465,7 @@ public class PlayerMove : MonoBehaviour
             chargeForce = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum != 0)
+        if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting] != 0)
         {
             UseItem();
         }
@@ -543,7 +543,7 @@ public class PlayerMove : MonoBehaviour
 
     public void UseItem()
     {
-        if (ItemManager.instance.activeItemNum == 1 && ItemManager.instance.activeItemCount[1] > 0)
+        if (ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting] == 1 && ItemManager.instance.activeItemCount[1] > 0)
         {
             if (playerHp + 10 <= playerMaxHp)
             {
@@ -553,6 +553,8 @@ public class PlayerMove : MonoBehaviour
             {
                 playerHp = playerMaxHp;
             }
+
+            ItemManager.instance.activeItemCount[1] -= 1;
         }
     }
     
@@ -964,7 +966,6 @@ public class PlayerMove : MonoBehaviour
                 }
             }
         }
-    
     }
 
     private void OnDrawGizmosSelected()
@@ -1121,12 +1122,16 @@ public class PlayerMove : MonoBehaviour
         }
 
         if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
-
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == 9)
+        {
+            playerRigidbody.velocity = Vector3.zero;
+        }
+
         //if (collision.gameObject.tag == ("Ladder") && isLadder == true)
         //{
         //    forceLadder = false;
