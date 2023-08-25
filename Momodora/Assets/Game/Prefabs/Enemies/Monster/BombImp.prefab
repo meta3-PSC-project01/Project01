@@ -280,10 +280,10 @@ MonoBehaviour:
   sight: {fileID: 7975208144019507800}
   target: {fileID: 0}
   gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
-  enemyHp: 5
+  enemyHp: 2
   enemySpeed: 0
   direction: -1
-  goldCount: 5
+  goldCount: 3
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0

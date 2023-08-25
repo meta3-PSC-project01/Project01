@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4696256741161296221}
   - component: {fileID: 7310472203302791124}
   m_Layer: 12
-  m_Name: GameObject
+  m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -542,10 +542,10 @@ MonoBehaviour:
   sight: {fileID: 7803448314443162997}
   target: {fileID: 0}
   gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
-  enemyHp: 10
+  enemyHp: 6
   enemySpeed: 4
   direction: -1
-  goldCount: 5
+  goldCount: 3
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0

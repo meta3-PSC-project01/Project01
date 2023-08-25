@@ -66,7 +66,18 @@ public class Chest : MonoBehaviour, IHitControl, IEventControl
     //기본은 색 바뀌기
     public void HitReaction(int direction)
     {
-        //색 바뀌는 리액션
+        StartCoroutine(HitReactionRoutine());
+    }
+
+    IEnumerator HitReactionRoutine()
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            transform.localScale = Random.insideUnitCircle + Vector2.one;
+            yield return new WaitForSeconds(.01f);
+            transform.localScale = Vector2.one;
+        }
+        transform.localScale = Vector2.one;
     }
 
     //몬스터 죽을시

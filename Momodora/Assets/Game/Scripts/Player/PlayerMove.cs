@@ -1177,7 +1177,7 @@ public class PlayerMove : MonoBehaviour
         CompositeCollider2D thinFloorCollider = thinFloor.GetComponent<CompositeCollider2D>();
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
 
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.6f);
 
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
         thinFloorCheck = false;

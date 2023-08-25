@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldImp : EnemyBase
+public class ShieldImp : EnemyBase, IHitControl
 {
     //플레이어를 인식한곳, 배치된 위치에서 크게 벗어나지않은 범위내에서 앞뒤로 랜덤하게 움직인다.
     //이동->방어->공격 식의 루틴
@@ -21,7 +21,7 @@ public class ShieldImp : EnemyBase
     //행동 딜레이
     private float wait = 1f;
     //방어 딜레이
-    private float defenceTime = .5F;
+    private float defenceTime = 2F;
     //이동 딜레이
     private float moveTime = .5F;
 
@@ -31,6 +31,8 @@ public class ShieldImp : EnemyBase
     public bool isDefence = false;
     //이동중인지
     public bool isMove = false;
+
+    public bool isBack = false;
 
     Vector2 firstPoint;
 
@@ -94,15 +96,9 @@ public class ShieldImp : EnemyBase
                         direction = DirectionHorizen.RIGHT;
                         turn();
                     }
-
-                    if (isTouch) 
-                    {
-                        enemyRigidbody.velocity = new Vector2(0,enemyRigidbody.velocity.y);
-                    }
-                    else
-                    {
-                        Move();
-                    }
+                    
+                    Move();
+                    
                 }
             }
 
@@ -114,6 +110,22 @@ public class ShieldImp : EnemyBase
         }
     }
 
+    public void Hit(int damage, int direction)
+    {
+        //공격중일때만 공격 받음
+
+
+        //플레이어보다 왼쪽에 있을 때(-1) 왼쪽(-1) 보면 공격 받음 
+        if (isAttack || direction * (int)this.direction < 0)
+        {
+            base.Hit(damage, direction);
+            Debug.Log(!isAttack);
+            Debug.Log(direction);
+            Debug.Log((int)this.direction);
+            //방어 성공
+        }
+
+    }
     //몬스터 루틴
     IEnumerator MonsterRoutine()
     {
@@ -144,6 +156,7 @@ public class ShieldImp : EnemyBase
                             isAttack = true;
                             isMove = false;
                             isDefence = false;
+                            isBack = false;
                             AttackStart();
                             break;
                         }
@@ -156,6 +169,11 @@ public class ShieldImp : EnemyBase
                         currDelay = 0;
                         yield return new WaitForEndOfFrame();
                         //루틴 초기화
+
+                        if (Mathf.Abs(transform.position.x - firstPoint.x) >= 2.5f && !isBack)
+                        {
+                            isBack = true;
+                        }
                         continue;
                     }
 
@@ -176,10 +194,7 @@ public class ShieldImp : EnemyBase
 
                 }
 
-                else
-                {
-                    yield return new WaitForEndOfFrame();
-                }
+                yield return new WaitForEndOfFrame();
             }
         }
     }
@@ -194,23 +209,38 @@ public class ShieldImp : EnemyBase
     //이동 재정의
     public override void Move()
     {
-        if(Mathf.Abs(transform.position.x - firstPoint.x) >= 2)
+        int directionResult = 1;
+
+        if (isBack)
         {
-            enemyRigidbody.velocity = new Vector2(firstPoint.x - transform.position.x, enemyRigidbody.velocity.y);
+            if (Mathf.Abs(firstPoint.x-transform.position.x) > 0)
+            {
+                directionResult = -1;
+            }
+            else if (Mathf.Abs(firstPoint.x - transform.position.x) > 0)
+            {
+                directionResult = 1;
+            }
         }
+
+        else if (Random.Range(0, 10) < 3)
+        {
+            directionResult = -1;
+        }
+
+        float enemyMoveResult = enemySpeed * (int)direction * directionResult;
+
+        if (isMovingPlatform)
+        {
+            enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction + platformBody.velocity.x, enemyRigidbody.velocity.y);
+        }
+        //기본 플랫폼에서의 움직임
         else
         {
-            if (isMovingPlatform)
-            {
-                enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction + platformBody.velocity.x, enemyRigidbody.velocity.y);
-            }
-            //기본 플랫폼에서의 움직임
-            else
-            {
-                enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
-            }
-
+            enemyRigidbody.velocity = new Vector2(enemySpeed * (int)direction, enemyRigidbody.velocity.y);
         }
+
+
     }
 
     Coroutine hitReactionCoroutine = null;
