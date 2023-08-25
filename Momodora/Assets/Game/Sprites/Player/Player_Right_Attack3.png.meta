@@ -132,12 +132,12 @@ TextureImporter:
       name: Player_Right_Attack3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 4
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -153,12 +153,12 @@ TextureImporter:
       name: Player_Right_Attack3_1
       rect:
         serializedVersion: 2
-        x: 49
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 51
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,12 +174,12 @@ TextureImporter:
       name: Player_Right_Attack3_2
       rect:
         serializedVersion: 2
-        x: 98
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 99
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -196,11 +196,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 147
-        y: 0
-        width: 49.363636
-        height: 46
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -216,12 +216,12 @@ TextureImporter:
       name: Player_Right_Attack3_4
       rect:
         serializedVersion: 2
-        x: 196
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 205
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -237,12 +237,12 @@ TextureImporter:
       name: Player_Right_Attack3_5
       rect:
         serializedVersion: 2
-        x: 245
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 256
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -258,12 +258,12 @@ TextureImporter:
       name: Player_Right_Attack3_6
       rect:
         serializedVersion: 2
-        x: 294
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 301
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -279,12 +279,12 @@ TextureImporter:
       name: Player_Right_Attack3_7
       rect:
         serializedVersion: 2
-        x: 343
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 349
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -300,12 +300,12 @@ TextureImporter:
       name: Player_Right_Attack3_8
       rect:
         serializedVersion: 2
-        x: 392
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 398
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -321,12 +321,12 @@ TextureImporter:
       name: Player_Right_Attack3_9
       rect:
         serializedVersion: 2
-        x: 441
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 449
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -342,12 +342,12 @@ TextureImporter:
       name: Player_Right_Attack3_10
       rect:
         serializedVersion: 2
-        x: 490
-        y: 0
-        width: 49.363636
-        height: 46
+        x: 497
+        y: 2
+        width: 35
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
