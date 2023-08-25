@@ -80,8 +80,6 @@ public class GameManager : MonoBehaviour
             background = Instantiate(background);
 
             mapName = null;
-
-
         }
         gameTime = Time.time;
     }

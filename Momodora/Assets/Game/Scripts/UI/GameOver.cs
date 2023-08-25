@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
@@ -29,10 +30,17 @@ public class GameOver : MonoBehaviour
     {
         if (selectCheck == 0)
         {
+            //세이브 파일에서 불러온뒤 로드하기
             // 재시도
         }
         else if (selectCheck == 1)
         {
+            if(GameManager.instance!=null)
+                Destroy(GameManager.instance.gameObject);
+            if(ItemManager.instance!=null)  
+                Destroy(ItemManager.instance.gameObject);
+
+            SceneManager.LoadScene("TitleScene");
             // 시작 화면으로 돌아가기
         }
         else if (selectCheck == 2)

@@ -116,10 +116,12 @@ public class PlayerUi : MonoBehaviour
         }
         else if (selectCursor == 1)
         {
-            SceneManager.LoadScene("TitleScene");
+
         }
         else if (selectCursor == 2)
         {
+            Destroy(GameManager.instance.gameObject);
+            Destroy(ItemManager.instance.gameObject);
             SceneManager.LoadScene("TitleScene");
         }
     }
