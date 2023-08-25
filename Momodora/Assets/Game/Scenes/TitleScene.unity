@@ -3756,6 +3756,7 @@ MonoBehaviour:
   background: {fileID: 106783746299207334, guid: c6200cf278096754c8b0a5f2804df77d, type: 3}
   currMapPosition: {x: 0, y: 0}
   currMap: {fileID: 0}
+  nextMapName: 
   loadingImage: {fileID: 2190202586745652964, guid: b34000f56a9db2142b69daf757ea61c2, type: 3}
   checkMapUpdate: 0
   cameraStop: 0
@@ -8690,6 +8691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f26ded87fe732245b3044ee3e144be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currImage: {fileID: 0}
   logoImage1: {fileID: 1593293866}
   logoImage2: {fileID: 842733947}
   titleBackGround: {fileID: 49248555}

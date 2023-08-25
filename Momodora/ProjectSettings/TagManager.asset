@@ -53,6 +53,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 375732037
+    locked: 0
+  - name: Terrain
+    uniqueID: 1105555677
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackObject
+    uniqueID: 921040835
+    locked: 0
+  - name: Player
+    uniqueID: 3706645477
+    locked: 0
+  - name: FrontObject
+    uniqueID: 1206791621
+    locked: 0
+  - name: ForeGround
+    uniqueID: 3832042793
+    locked: 0
+  - name: UI
+    uniqueID: 1206845729
     locked: 0

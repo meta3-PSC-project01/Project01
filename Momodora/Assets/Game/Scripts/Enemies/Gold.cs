@@ -19,13 +19,11 @@ public class Gold : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.collider.name);
         if (collision.collider.tag == "Player" && isActive)
         {
-            Debug.Log(collision.collider.name + "ÀÌ°Å");
             isActive = false;
             ItemManager.instance.leaf += 1;
-            //playerUi.GetComponent<PlayerUi>().PlayerMoney();
+            collision.collider.GetComponentInParent<PlayerMove>().playerUi.GetComponent<PlayerUi>().PlayerMoney();
 
             Destroy(gameObject);
         }

@@ -11,6 +11,6 @@ public class None : Items
 
     public override void Init()
     {
-        name = "[None]";
+        itemName = "[None]";
     }
 }

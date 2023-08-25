@@ -42,7 +42,7 @@ public class EnemyBase : MonoBehaviour, IHitControl
     public DirectionHorizen direction = DirectionHorizen.LEFT;   //방향
     public int goldCount = 5;
 
-    private Coroutine stunCoroutine = null;
+    protected Coroutine stunCoroutine = null;
     public int enemyStunRegistValue = default; //스턴 데미지 한도
     public int enemyStunRegistMaxCount = default; //스턴 데미지 횟수
     public int enemyStunRegistCurrCount = default; //스턴 데미지 횟수
@@ -53,6 +53,7 @@ public class EnemyBase : MonoBehaviour, IHitControl
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
+    public bool isGround = true;
 
     public Vector3 firstPosition;
 
@@ -153,7 +154,18 @@ public class EnemyBase : MonoBehaviour, IHitControl
     //기본은 색 바뀌기
     public virtual void HitReaction(int direction)
     {
-        //색 바뀌는 리액션
+        StartCoroutine(HitReactionRoutine());
+    }
+
+    IEnumerator HitReactionRoutine()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            enemyRenderer.color = new Color(255,0,0,200);
+            yield return new WaitForSeconds(.05f);
+            enemyRenderer.color = new Color(255, 255, 255, 255);
+            yield return new WaitForSeconds(.05f);
+        }
     }
 
     //몬스터 죽을시
@@ -216,6 +228,23 @@ public class EnemyBase : MonoBehaviour, IHitControl
     {
 
         return enemyHp<=0  ? false : true;
+    }
+
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.name == "BorderCollider")
+        {
+            if (collision.collider.GetComponentInParent<PlayerMove>() != null)
+            {
+                Touch(collision.collider.GetComponentInParent<PlayerMove>());
+            }
+        }
+    }
+
+    public void StopWhenDash()
+    {
+        enemyRigidbody.velocity = Vector3.zero;
     }
 }
 

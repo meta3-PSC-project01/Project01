@@ -147,4 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowEffect: {fileID: 1575812528473822540, guid: bbdc2d9849db5574a81db70baede6139, type: 3}
-  damage: 10
+  damage: 1

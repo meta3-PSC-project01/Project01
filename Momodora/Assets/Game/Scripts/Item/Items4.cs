@@ -11,7 +11,7 @@ public class Items4 : Items
 
     public override void Init()
     {
-        name = "초롱꽃";
+        itemName = "초롱꽃";
         effect = "발동효과 : 쓸 때마다 HP 를 소량 회복합니다";
         explanation[0] = "회복력이 있는 꽃이 썩었습니다.";
         explanationX = 3;
@@ -21,7 +21,7 @@ public class Items4 : Items
 
     public override void Print()
     {
-        Debug.LogFormat(name);
+        Debug.LogFormat(itemName);
         Debug.LogFormat(effect);
         for (int i = 0; i < explanationX; i++)
         {

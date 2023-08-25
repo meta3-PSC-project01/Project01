@@ -35,6 +35,7 @@ public class PlayerMove : MonoBehaviour
 
     private Vector2 attackSize = default;
     private Vector2 attackVector = default;
+    private float attackRange = 1f;
 
     private float moveForce = default;     // 캐릭터가 움직일 힘 수치
     private float rollForce = default;
@@ -49,6 +50,7 @@ public class PlayerMove : MonoBehaviour
     private float chargeAddForce = default;
     private float chargeMax = default;
     private float playerAlpha = default;
+    private float jumpMax = default;
 
     private int jumpCount = default;
     private int isMlAttack = default;
@@ -59,9 +61,9 @@ public class PlayerMove : MonoBehaviour
     private bool jumping = false;
     private bool jumpingForce = false;
     private bool flipX = false;
-    private bool isRolled = false;
+    [SerializeField] private bool isRolled = false;
     [SerializeField] private bool isGrounded = false;
-    private bool isCrouched = false;
+    [SerializeField] private bool isCrouched = false;
     [SerializeField] private bool isLadder = false;
     private bool isAirAttacked = false;
     private bool isBowed = false;
@@ -74,12 +76,13 @@ public class PlayerMove : MonoBehaviour
     private bool onLadderTop = false;
     private bool onLadderBot = false;
     private bool isCharged = false;
-    [SerializeField] private bool thinFloorCheck = false;
-    [SerializeField] private bool forceLadder = false;
+    private bool thinFloorCheck = false;
+    private bool forceLadder = false;
     private bool isHited = false;
     private bool hitMoveTime = false;
     private bool isPoison = false;
     private bool walkAudioCheck = false;
+    [SerializeField] private bool crouchEndCheck = false;
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
@@ -101,13 +104,13 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
 
-        attackSize = new Vector2(2f, 2f);
+        StartCoroutine(RollStartCheck());
 
-        playerUi = GameObject.Find("GamingUiManager");
+        attackSize = new Vector2(1f, 1f);
 
-        moveForce = 10f;
+        moveForce = 7.5f;
         rollForce = 10f;
-        jumpForce = 0.3f;
+        jumpForce = 0.2f;
         xInput = 0f;
         xSpeed = 0f;
         rSpeed = 0f;
@@ -124,13 +127,18 @@ public class PlayerMove : MonoBehaviour
         isMlAttack = 0;
         playerAlpha = 1f;
         poisonCount = 0;
+        jumpMax = 7f;
         // } 변수 값 선언
     }     // End Awake()
 
     void Start()
     {
         playerRigidbody.velocity = new Vector2(0f, 0f);
-        
+
+        playerUi = GameObject.Find("GamingUiManager");
+        GameObject deathScreen = GameObject.Find("PlayerDeathUis");
+        //playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        //playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -180,7 +188,7 @@ public class PlayerMove : MonoBehaviour
                 //활 차징 상태 아닐경우
                 if (isBowed == false)
                 {
-                    if (isCrouched == false && isCrouchBowed == false && isMlAttack == 0)
+                    if (isCrouched == false && isCrouchBowed == false && isMlAttack == 0 && crouchEndCheck == false)
                     {
                         xSpeed = xInput * moveForce;
                         Vector2 newVelocity = new Vector2(xSpeed, playerRigidbody.velocity.y);     // 수평, 수직 입력값만큼 플레이어 이동 좌표 설정
@@ -209,8 +217,7 @@ public class PlayerMove : MonoBehaviour
         if (isRolled == false && hitMoveTime == false)
         {
             if (xSpeed > 0f) { if (flipX == true) { flipX = false; playerRenderer.flipX = false; } }
-
-            if (xSpeed < 0f) { if (flipX == false) { flipX = true; playerRenderer.flipX = true; } }
+            else if (xSpeed < 0f) { if (flipX == false) { flipX = true; playerRenderer.flipX = true; } }
         }
 
         if (forceLadder == true && isLadder == true)
@@ -227,19 +234,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false && isRolled == false && isMlAttack == 0)
         {
-            if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
-            else
-            {
-                playerAudio.clip = jumpAudio;
-                playerAudio.Play();
-                //2단 점프시 파워 제한
-                if (jumpCount == 0) { jSpeed[0] = 7; }
-                else if (jumpCount == 1) { jSpeed[1] = 7 * 0.8f; }
-
-                jumpCount += 1;
-                jumping = true;
-                jumpingForce = true;
-            }
+            PlayerJumping(jumpMax);
         }
 
         if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true)
@@ -247,13 +242,13 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 1)
             {
                 jSpeed[0] += jumpForce;
-                if (jSpeed[0] > 12f) { jSpeed[0] = 12f; jumpingForce = false; }
+                if (jSpeed[0] > 10f) { jSpeed[0] = 10f; jumpingForce = false; }
             }
             //2단 점프시 파워 제한
             else if (jumpCount == 2)
             {
                 jSpeed[1] += jumpForce;
-                if (jSpeed[1] > 12f*0.8f) { jSpeed[1] = 12*0.8f; jumpingForce = false; }
+                if (jSpeed[1] > 10f * 0.8f) { jSpeed[1] = 10 * 0.8f; jumpingForce = false; }
             }
         }
 
@@ -271,7 +266,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.A)) { jumpingForce = false; }
 
-        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0)
+        if (Input.GetKeyDown(KeyCode.Q) && isRolled == false && isGrounded == true && isMlAttack == 0 && hitMoveTime == false)
         {
             if (isCrouched == true) { isCrouched = false; }
 
@@ -282,22 +277,11 @@ public class PlayerMove : MonoBehaviour
             xSpeed = 0f;
             xInput = 0f;
             isRolled = true;
+
+            Physics2D.IgnoreLayerCollision(11, 12);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (isLadder == true) { forceLadder = true; }
-            else
-            {
-                playerRigidbody.velocity = Vector2.zero;
-                xSpeed = 0f;
-                xInput = 0f;
-                isCrouched = true;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) && isLadder == true && onLadderBot == true)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isLadder == true && onLadderBot == true)
         {
             playerRigidbody.constraints = RigidbodyConstraints2D.None;
             playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -305,11 +289,27 @@ public class PlayerMove : MonoBehaviour
             isLadder = false;
             forceLadder = false;
         }
+        else if(Input.GetKeyDown(KeyCode.DownArrow) && !isGrounded)
+        {
+            playerRigidbody.velocity = Vector2.zero;
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow) && jumping == false)
+        {
+            if (isLadder == true) { forceLadder = true; }
+            else
+            {
+                xSpeed = 0f;
+                isCrouched = true;
+                crouchEndCheck = true;
+            }
+        }
 
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             isCrouched = false;
-            if (isCrouchBowed == true) { isCrouchBowed = false; }
+            isCrouchBowed = false;
+            StartCoroutine(CrouchEndCheck());
 
             if (isLadder == true)
             {
@@ -319,10 +319,8 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-
         if (Input.GetKeyDown(KeyCode.UpArrow) && canInteract)
         {
-
             if (canItem)
             {
                 ItemManager.instance.GetComponent<Inventory>().GetItem(GameManager.instance.currMap.GetComponent<MapEvent>().eventName);
@@ -331,19 +329,18 @@ public class PlayerMove : MonoBehaviour
                 _event.canActive = false;
                 GameManager.instance.eventManager.eventCheck.Add(GameManager.instance.currMap.name.Split("(Clone)")[0], _event);
 
+                currInteract.isActive = false;
+                currInteract.popupText.ClosePopup();
             }
-
             else if (canSave)
             {
                 GameManager.instance.SaveBefore();
             }
-
             else if (canTalk)
             {
-
+                // ???
             }
         }
-
         else
         {
             if (isLadder == true)
@@ -390,7 +387,7 @@ public class PlayerMove : MonoBehaviour
             playerRenderer.flipX = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && isRolled == false)
         {
             /*
             일반공격 1타 : 1
@@ -405,6 +402,8 @@ public class PlayerMove : MonoBehaviour
             {
                 if (isMlAttack < 3)
                 {
+                    if (isCrouched == true) { isCrouched = false; }
+
                     playerRigidbody.velocity = Vector2.zero;
                     xSpeed = 0f;
                     xInput = 0f;
@@ -420,8 +419,11 @@ public class PlayerMove : MonoBehaviour
             else if (isAirAttacked == false) { isAirAttacked = true; }
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isAirBowed == false && isCrouchBowed == false && isChargeBowed == false && 
-            isChargeCrouchBowed == false) { isCharged = true; }
+        if (Input.GetKeyDown(KeyCode.D) && isBowed == false && isCrouchBowed == false && isAirBowed == false)
+        {
+            isCharged = true;
+            //bowMiddleEnd = true;
+        }
 
         if (Input.GetKey(KeyCode.D) && isCharged == true)
         {
@@ -434,6 +436,15 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.D) && isCharged == true)
         {
+            playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
+            xSpeed = 0f;
+
+            //if (isBowed == true || isCrouchBowed == true || isAirBowed == true || isChargeBowed == true || isChargeCrouchBowed == true ||
+            //    isChargeAirBowed == true)
+            //{
+            //    animator.Play("Bow", -1, 0f);
+            //}
+
             if (isCrouched == true)
             {
                 if (chargeForce >= chargeMax) { isChargeCrouchBowed = true; }
@@ -449,32 +460,14 @@ public class PlayerMove : MonoBehaviour
                 if (chargeForce >= chargeMax) { isChargeBowed = true; }
                 else { isBowed = true; }
             }
-            
+
             isCharged = false;
             chargeForce = 0f;
-            xSpeed = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum != 0)
+        if (Input.GetKeyDown(KeyCode.W) && ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting] != 0)
         {
             UseItem();
-        }
-
-        if (Input.GetKeyDown(KeyCode.T) && ItemManager.instance.lookAtInventory == false)
-        {
-            ItemManager.instance.lookAtInventory = true;
-            ItemManager.instance.GetComponent<Inventory>().enabled = true;
-            ItemManager.instance.inventoryUi.SetActive(true);
-            Time.timeScale = 0f;
-        }
-
-        //테스트 코드1
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-
-            ItemManager.instance.GetComponent<Inventory>().GetItem("세공 반지");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("아스트랄 부적");
-            ItemManager.instance.GetComponent<Inventory>().GetItem("초롱꽃");
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
@@ -515,8 +508,30 @@ public class PlayerMove : MonoBehaviour
         animator.SetBool("Jump", jumpingForce);
         animator.SetInteger("MlAttack", isMlAttack);
         animator.SetInteger("Run", (int)xSpeed);
+    }
 
-        if (playerHp <= 0) { StartCoroutine(PlayerDeath()); }
+    public void PlayerCrouchEnd()
+    {
+        crouchEndCheck = false;
+    }
+
+    public void PlayerJumping(float force)
+    {
+        if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
+        else
+        {
+            playerAudio.clip = jumpAudio;
+            playerAudio.Play();
+            //2단 점프시 파워 제한
+            if (jumpCount == 0) { jSpeed[0] = force; }
+            else if (jumpCount == 1) { jSpeed[1] = force * 0.8f; }
+
+            jumpCount += 1;
+            jumping = true;
+            jumpingForce = true;
+        }
+
+        if (isCrouched == true) { isCrouched = false; }
     }
 
     IEnumerator ArrowEffectEnd()
@@ -528,7 +543,7 @@ public class PlayerMove : MonoBehaviour
 
     public void UseItem()
     {
-        if (ItemManager.instance.activeItemNum == 1 && ItemManager.instance.activeItemCount[1] > 0)
+        if (ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting] == 1 && ItemManager.instance.activeItemCount[1] > 0)
         {
             if (playerHp + 10 <= playerMaxHp)
             {
@@ -538,6 +553,50 @@ public class PlayerMove : MonoBehaviour
             {
                 playerHp = playerMaxHp;
             }
+
+            ItemManager.instance.activeItemCount[1] -= 1;
+        }
+    }
+    
+    public void HitCheck()
+    {
+        if (isMlAttack > 0)
+        {
+            isMlAttack = 0;
+            mlAttackConnect[0] = false;
+            mlAttackConnect[1] = false;
+            playerAttackEffect[0].gameObject.SetActive(false);
+            playerAttackEffect[1].gameObject.SetActive(false);
+            playerAttackEffect[2].gameObject.SetActive(false);
+        }
+        if (isBowed == true || isChargeBowed == true)
+        {
+            isBowed = false;
+            isChargeBowed = false;
+        }
+        if (isCrouchBowed == true || isChargeCrouchBowed == true)
+        {
+            isCrouchBowed = false;
+            isChargeCrouchBowed = false;
+        }
+        if (isAirBowed == true || isChargeAirBowed == true)
+        {
+            isAirBowed = false;
+            isChargeAirBowed = false;
+        }
+        if (isAirAttacked == true)
+        {
+            isAirAttacked = false;
+            playerAttackEffect[3].gameObject.SetActive(false);
+        }
+        if (isCrouched == true) { isCrouched = false; }
+        if (isLadder == true)
+        {
+            playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            playerRigidbody.gravityScale = 3f;
+            isLadder = false;
+            forceLadder = false;
         }
     }
 
@@ -547,6 +606,9 @@ public class PlayerMove : MonoBehaviour
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
 
+        HitCheck();
+
+        Physics2D.IgnoreLayerCollision(11, 12);
         playerAudio.clip = hurtAudio;
         playerAudio.Play();
 
@@ -586,6 +648,12 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(PoisonDamage());
         }
         else { poisonCount = 0; }
+    }
+
+    IEnumerator CrouchEndCheck()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (isCrouched == false && crouchEndCheck == true) { crouchEndCheck = false; }
     }
 
     IEnumerator PoisonDamage()
@@ -637,7 +705,7 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator InvinTime()
     {
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 20; i++)
         {
             playerRenderer.enabled = false;
             yield return new WaitForSeconds(0.05f);
@@ -645,13 +713,13 @@ public class PlayerMove : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+        Physics2D.IgnoreLayerCollision(11, 12, false);
         isHited = false;
     }
 
     IEnumerator HitMoveTime()
     {
         yield return new WaitForSeconds(0.5f);
-
         hitMoveTime = false;
     }
 
@@ -669,9 +737,12 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerRollingEnd()
     {
+        playerRigidbody.velocity = Vector2.zero;
+        xSpeed = 0f;
         rSpeed = 0f;
         isRolled = false;
         playerRigidbody.velocity = Vector2.zero;
+        Physics2D.IgnoreLayerCollision(11, 12, false);
     }
 
     IEnumerator RollStartCheck()
@@ -721,7 +792,15 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void PlayerBowEnd() { isBowed = false; isChargeBowed = false; }
+    public void PlayerBowEnd()
+    {
+        isBowed = false;
+        isChargeBowed = false;
+        isAirBowed = false;
+        isChargeAirBowed = false;
+        isCrouchBowed = false;
+        isChargeCrouchBowed = false;
+    }
 
     public void PlayerAirBowCheck()
     {
@@ -809,23 +888,27 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerCrouchBowEnd() { isCrouchBowed = false; isChargeCrouchBowed = false; }
 
+    
     public void PlayerMlAttack()
     {
+        attackRange = 1;
+        attackSize = new Vector2(attackRange * 2, 2);
+        //if (isCrouched == true) { isCrouched = false; }
         if (isMlAttack == 1)
         {
             playerAudio.clip = melee1Audio;
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+4f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                playerRigidbody.velocity = new Vector2(+2f, playerRigidbody.velocity.y);
+                attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
                 playerAttackEffect[0].gameObject.SetActive(true);
                 playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-4f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                playerRigidbody.velocity = new Vector2(-2f, playerRigidbody.velocity.y);
+                attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
                 playerAttackEffect[0].gameObject.SetActive(true);
                 playerAttackEffect[0].GetComponent<AttackEffect01>().effectRenderer.flipX = true;
             }
@@ -836,15 +919,15 @@ public class PlayerMove : MonoBehaviour
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+4f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                playerRigidbody.velocity = new Vector2(+2f, playerRigidbody.velocity.y);
+                attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
                 playerAttackEffect[1].gameObject.SetActive(true);
                 playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-4f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                playerRigidbody.velocity = new Vector2(-2f, playerRigidbody.velocity.y);
+                attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
                 playerAttackEffect[1].gameObject.SetActive(true);
                 playerAttackEffect[1].GetComponent<AttackEffect02>().effectRenderer.flipX = true;
             }
@@ -855,15 +938,15 @@ public class PlayerMove : MonoBehaviour
             playerAudio.Play();
             if (flipX == false)
             {
-                playerRigidbody.velocity = new Vector2(+6f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+                playerRigidbody.velocity = new Vector2(+3f, playerRigidbody.velocity.y);
+                attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
                 playerAttackEffect[2].gameObject.SetActive(true);
                 playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = false;
             }
             else
             {
-                playerRigidbody.velocity = new Vector2(-6f, 0f);
-                attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+                playerRigidbody.velocity = new Vector2(-3f, playerRigidbody.velocity.y);
+                attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
                 playerAttackEffect[2].gameObject.SetActive(true);
                 playerAttackEffect[2].GetComponent<AttackEffect03>().effectRenderer.flipX = true;
             }
@@ -885,20 +968,28 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y), attackSize);
+    }
 
     public void PlayerAirAttack()
     {
+        attackRange = .75f;
+        attackSize = new Vector2(attackRange * 2, 3);
+
         playerAudio.clip = melee2Audio;
         playerAudio.Play();
         if (flipX == false)
         {
-            attackVector = new Vector2(playerRigidbody.position.x + 2f, playerRigidbody.position.y);
+            attackVector = new Vector2(playerRigidbody.position.x + attackRange, playerRigidbody.position.y);
             playerAttackEffect[3].gameObject.SetActive(true);
             playerAttackEffect[3].GetComponent<AirAttackEffect>().effectRenderer.flipX = false;
         }
         else
         {
-            attackVector = new Vector2(playerRigidbody.position.x - 2f, playerRigidbody.position.y);
+            attackVector = new Vector2(playerRigidbody.position.x - attackRange, playerRigidbody.position.y);
             playerAttackEffect[3].gameObject.SetActive(true);
             playerAttackEffect[3].GetComponent<AirAttackEffect>().effectRenderer.flipX = true;
         }
@@ -939,7 +1030,7 @@ public class PlayerMove : MonoBehaviour
     public bool canSave = false;
     public bool canItem = false;
     public bool canTalk = false;
-
+    public InteractObject currInteract = null;
     public void SetInteraction(InteractObjectType type)
     {
         Debug.Log(type);
@@ -986,13 +1077,6 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Enemy")
-        {
-            if (collision.collider.GetComponent<EnemyBase>() != null)
-            {
-                Hit(1, flipX ? 1 : -1);
-            }
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -1038,12 +1122,16 @@ public class PlayerMove : MonoBehaviour
         }
 
         if (collision.gameObject.name == ("LadderDown")) { onLadderTop = true; }
-
         if (collision.gameObject.name == ("LadderBot")) { onLadderBot = true; }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == 9)
+        {
+            playerRigidbody.velocity = Vector3.zero;
+        }
+
         //if (collision.gameObject.tag == ("Ladder") && isLadder == true)
         //{
         //    forceLadder = false;
@@ -1094,7 +1182,7 @@ public class PlayerMove : MonoBehaviour
         CompositeCollider2D thinFloorCollider = thinFloor.GetComponent<CompositeCollider2D>();
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider);
 
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.6f);
 
         Physics2D.IgnoreCollision(playerCollider_, thinFloorCollider, false);
         thinFloorCheck = false;

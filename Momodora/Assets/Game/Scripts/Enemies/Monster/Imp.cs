@@ -20,7 +20,6 @@ public class Imp : EnemyBase
     //공격중인지 판별
     public bool isAttack = false;
     //점프 파워
-    public bool isJump = false;
     public float jumpPower = 5f;
 
     //공격 이펙트
@@ -52,7 +51,6 @@ public class Imp : EnemyBase
                 {
                     //루틴 시작
                     routine = StartCoroutine(MonsterRoutine());
-                    enemyAnimator.SetBool("Move", true);
                 }
             }
 
@@ -75,17 +73,11 @@ public class Imp : EnemyBase
                     turn();
                 }
 
-                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up * -1, .52f);
-
-                foreach (var hit in hits)
+                if(isGround)
                 {
-                    //바닥에 닿을 경우
-                    if (hit.collider.tag == "Floor")
-                    {
-                        isJump = false;
-                        Move();
-                    }
-
+                    isGround = false;
+                    enemyAnimator.SetBool("Move", true);
+                    Move();
                 }
             }
 
@@ -136,12 +128,9 @@ public class Imp : EnemyBase
                         //루틴 초기화
                         continue;
                     }
-                    yield return new WaitForEndOfFrame();
                 }
-                else
-                {
-                    yield return new WaitForEndOfFrame();
-                }
+
+
                 yield return new WaitForEndOfFrame();
 
             }
@@ -161,27 +150,32 @@ public class Imp : EnemyBase
     //이동 재정의
     public override void Move()
     {
-        isJump = true;
         float jumpResult = enemyRigidbody.velocity.y + jumpPower;
-        
-        if(jumpResult > 5f)
+        float directionResult = -1f;
+
+        if (jumpResult > 5f)
         {
             jumpResult = 5f;
         }
 
         if (isTouch)
         {
-            enemySpeed = 0f;
+            directionResult = 0f;
+        }
+
+        if(Random.Range(0,10) <= 2)
+        {
+            directionResult = 1f;
         }
 
         if (isMovingPlatform)
         {
-            enemyRigidbody.velocity = new Vector2(-enemySpeed * (int)direction + platformBody.velocity.x, jumpResult);
+            enemyRigidbody.velocity = new Vector2(directionResult * enemySpeed * (int)direction + platformBody.velocity.x, jumpResult);
         }
         //기본 플랫폼에서의 움직임
         else
         {
-            enemyRigidbody.velocity = new Vector2(-enemySpeed * (int)direction, jumpResult);
+            enemyRigidbody.velocity = new Vector2(directionResult * enemySpeed * (int)direction, jumpResult);
         }
     }
 

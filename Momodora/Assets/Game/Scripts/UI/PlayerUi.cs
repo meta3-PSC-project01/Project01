@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Windows.Speech;
 
 public class PlayerUi : MonoBehaviour
 {
@@ -18,8 +17,6 @@ public class PlayerUi : MonoBehaviour
     public Image playerHpFilled;
     public Text playerMoneyNumber;
 
-    private string playerMoneyNumberResult = default;
-    private int playerHp = default;
     private int activeItemCheck = default;
     private int selectCursor = default;
     private int selectType = default;
@@ -29,8 +26,6 @@ public class PlayerUi : MonoBehaviour
     {
         playerHpFilled.fillAmount = 1f;
         playerHpCount = 100f;
-        playerMoneyNumberResult = "\0";
-        playerHp = 100;
         activeItemCheck = 0;
         selectCursor = 0;
         selectType = 0;
@@ -38,6 +33,8 @@ public class PlayerUi : MonoBehaviour
 
     void Update()
     {
+        if (ItemManager.instance.lookAtGameMenu == false) { return; }
+
         if (Input.GetKeyDown(KeyCode.A) && ItemManager.instance.lookAtGameMenu == true) { GameMenuIn(); }
         if (Input.GetKeyDown(KeyCode.S) && ItemManager.instance.lookAtGameMenu == true) { GameMenuOff(); }
         if (Input.GetKeyDown(KeyCode.LeftArrow) && ItemManager.instance.lookAtGameMenu == true) { GameMenuLeft(); }
@@ -48,8 +45,10 @@ public class PlayerUi : MonoBehaviour
     {
         ItemManager.instance.lookAtGameMenu = true;
         Time.timeScale = 0f;
+        selectCursor = 0;
 
-        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
+        // 여기 수정중이었음 메뉴 열때 현재 장착 아이템 확인이 안되는 버그 발생 Fix 예정
+        playerSetItem[activeItemCheck].gameObject.SetActive(false);
         playerHpFilled.gameObject.SetActive(false);
         playerHpEmpty.gameObject.SetActive(false);
         gameMoneyIcon.gameObject.SetActive(false);
@@ -80,9 +79,6 @@ public class PlayerUi : MonoBehaviour
     {
         if (selectType == 0)
         {
-            ItemManager.instance.lookAtGameMenu = false;
-            Time.timeScale = 1f;
-
             for (int i = 0; i < 5; i++)
             {
                 gameMenuGround[i].gameObject.SetActive(false);
@@ -100,18 +96,34 @@ public class PlayerUi : MonoBehaviour
 
             gameMenuText[selectCursor].gameObject.SetActive(false);
 
-            playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
+            playerSetItem[ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting]].gameObject.SetActive(true);
             playerHpFilled.gameObject.SetActive(true);
             playerHpEmpty.gameObject.SetActive(true);
             gameMoneyIcon.gameObject.SetActive(true);
             playerMoneyNumber.gameObject.SetActive(true);
+
+            Time.timeScale = 1f;
+            ItemManager.instance.lookAtGameMenu = false;
         }
     }
 
     public void GameMenuIn()
     {
-        if (selectCursor == 2)
+        if (selectCursor == 0)
         {
+            ItemManager.instance.GetComponent<Inventory>().enabled = true;
+            ItemManager.instance.inventoryUi.SetActive(true);
+            ItemManager.instance.lookAtGameMenu = false;
+            ItemManager.instance.lookAtInventory = true;
+        }
+        else if (selectCursor == 1)
+        {
+
+        }
+        else if (selectCursor == 2)
+        {
+            Destroy(GameManager.instance.gameObject);
+            Destroy(ItemManager.instance.gameObject);
             SceneManager.LoadScene("TitleScene");
         }
     }
@@ -179,26 +191,13 @@ public class PlayerUi : MonoBehaviour
 
     public void PlayerMoney()
     {
-        if (ItemManager.instance.leaf < 10)
-        {
-            playerMoneyNumberResult = "00" + ItemManager.instance.leaf;
-            playerMoneyNumber.text = string.Format(playerMoneyNumberResult);
-        }
-        else if (ItemManager.instance.leaf < 100)
-        {
-            playerMoneyNumberResult = "0" + ItemManager.instance.leaf;
-            playerMoneyNumber.text = string.Format(playerMoneyNumberResult);
-        }
-        else
-        {
-            playerMoneyNumber.text = string.Format(ItemManager.instance.leaf.ToString());
-        }
+        playerMoneyNumber.text = $"{ ItemManager.instance.leaf:000}";
     }
 
     public void PlayerItemChange()
     {
         playerSetItem[activeItemCheck].gameObject.SetActive(false);
-        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
-        activeItemCheck = ItemManager.instance.activeItemNum;
+        playerSetItem[ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting]].gameObject.SetActive(true);
+        activeItemCheck = ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting];
     }
 }

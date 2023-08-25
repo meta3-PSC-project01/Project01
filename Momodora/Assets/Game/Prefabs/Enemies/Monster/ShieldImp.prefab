@@ -577,10 +577,10 @@ MonoBehaviour:
   sight: {fileID: 6583469055503790280}
   target: {fileID: 0}
   gold: {fileID: 4557982473624708962, guid: fcae2388b2d0bfc419a3223e564673a0, type: 3}
-  enemyHp: 10
+  enemyHp: 6
   enemySpeed: 5
   direction: -1
-  goldCount: 5
+  goldCount: 4
   enemyStunRegistValue: 2
   enemyStunRegistMaxCount: 1
   enemyStunRegistCurrCount: 0
@@ -588,7 +588,9 @@ MonoBehaviour:
   isTouch: 0
   platformBody: {fileID: 0}
   isMovingPlatform: 0
+  isGround: 1
   firstPosition: {x: 0, y: 0, z: 0}
   isAttack: 0
   isDefence: 0
   isMove: 0
+  isBack: 0

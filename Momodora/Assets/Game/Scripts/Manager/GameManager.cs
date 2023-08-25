@@ -80,8 +80,6 @@ public class GameManager : MonoBehaviour
             background = Instantiate(background);
 
             mapName = null;
-
-
         }
         gameTime = Time.time;
     }
@@ -129,7 +127,7 @@ public class GameManager : MonoBehaviour
             int.TryParse(_mapName.Substring(9, 2), out savePoint[1]);
         }
 
-        SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, posStage, posMap, ItemManager.instance.leaf);
+        SaveLoad save = new SaveLoad((int)gameTime, savePoint, eventCheck, posStage, posMap, 0);
 
         Save(save, saveCheckString);
 }
@@ -168,7 +166,6 @@ public class GameManager : MonoBehaviour
         string saveFile = File.ReadAllText(saveFilePath);
         SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
         instance.gameTime = saveData.gameTime;
-        ItemManager.instance.leaf = saveData.money;
         
         instance.MapEventCheck(saveData);
         
