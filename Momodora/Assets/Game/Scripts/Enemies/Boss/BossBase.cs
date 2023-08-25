@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BossBase : MonoBehaviour
 {
-    public BossWall wall;
     public BossState state;
 
     Rigidbody2D bossRigidbody;

@@ -6775,7 +6775,7 @@ GameObject:
   - component: {fileID: 1621944852056961190}
   - component: {fileID: 3510965255771858258}
   m_Layer: 9
-  m_Name: GameObject
+  m_Name: ActiveEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6822,7 +6822,7 @@ GameObject:
   - component: {fileID: 7563521341673255203}
   - component: {fileID: 1342495336174362264}
   m_Layer: 0
-  m_Name: CameraObject
+  m_Name: CameraMoving
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
