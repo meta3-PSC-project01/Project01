@@ -125,7 +125,7 @@ MonoBehaviour:
   attackSprite: {fileID: 0}
   animator: {fileID: 0}
   isActive: 0
-  damage: 0
+  damage: 10
   poison: {fileID: 2918881771806016020, guid: e1e6f54c993945b4785767a0db19c4ff, type: 3}
   isBoom: 0
   speed: 10

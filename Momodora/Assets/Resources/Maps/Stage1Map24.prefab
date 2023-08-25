@@ -3974,7 +3974,7 @@ MonoBehaviour:
   isActive: 0
   checkMinimap: 0
   canDead: 0
-  nextTile: {fileID: 0}
+  nextTile: {fileID: 1191891828793030482, guid: 8a6635c97dfa0754fa0b30fe3e643825, type: 3}
   pivot: {x: 0, y: 0, z: 0}
   fieldIndex: 1
   escapeIndex: 0

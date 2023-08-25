@@ -234,7 +234,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && jumpCount < 2 && isLadder == false && isAirAttacked == false && isBowed == false && hitMoveTime == false && isRolled == false && isMlAttack == 0)
         {
-            PlayerJumping(jumpMax);
+            PlayerJumping(jumpMax, 1);
         }
 
         if (Input.GetKey(KeyCode.A) && jumping == true && jumpingForce == true)
@@ -289,7 +289,7 @@ public class PlayerMove : MonoBehaviour
             isLadder = false;
             forceLadder = false;
         }
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
+        else if(Input.GetKeyDown(KeyCode.DownArrow) && thinFloorCheck)
         {
             playerRigidbody.velocity = Vector2.zero;
         }   
@@ -515,7 +515,16 @@ public class PlayerMove : MonoBehaviour
         crouchEndCheck = false;
     }
 
-    public void PlayerJumping(float force)
+    public int GetJumpCount()
+    {
+        return jumpCount;
+    }
+    public void SetJumpCount(int count)
+    {
+        jumpCount = count;
+    }
+
+    public void PlayerJumping(float force, int _jumpCount)
     {
         if (isCrouched == true && thinFloorCheck == true && thinFloor != null) { StartCoroutine(ThinFloorEnter()); }
         else
@@ -526,7 +535,7 @@ public class PlayerMove : MonoBehaviour
             if (jumpCount == 0) { jSpeed[0] = force; }
             else if (jumpCount == 1) { jSpeed[1] = force * 0.8f; }
 
-            jumpCount += 1;
+            jumpCount += _jumpCount;
             jumping = true;
             jumpingForce = true;
         }
@@ -598,11 +607,13 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
     //히트시에 모든 행동 bool값 초기화 된게 맞는지 확인
     public void Hit(int damage, int location)
     {
         if (isRolled == true) { return; }
         if (isHited == true) { return; }
+        if (GameManager.instance.isDeath == true) { return; }
 
         HitCheck();
 
@@ -636,6 +647,7 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(InvinTime());
             StartCoroutine(HitMoveTime());
         }
+        
     }
 
     public void HitPoison()
@@ -664,13 +676,10 @@ public class PlayerMove : MonoBehaviour
             {
                 playerHp -= 1;
                 playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
-                Debug.Log("독 데미지");
-                Debug.Log(poisonCount);
                 poisonCount += 1;
             }
             else
             {
-                Debug.Log("독 데미지 종료");
                 isPoison = false;
                 break;
             }
@@ -1118,12 +1127,9 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(((Vector2)transform.position - collision.ClosestPoint(transform.position)).normalized.y);
-        Debug.Log((Vector2)transform.position - collision.ClosestPoint(transform.position));
         if (collision.gameObject.layer == 9 && ((Vector2)transform.position - collision.ClosestPoint(transform.position)).normalized.y> .99f)
         {
-            playerRigidbody.velocity = Vector3.zero;
-            
+            playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
         }
         //if (collision.gameObject.tag == ("Ladder") && isLadder == true)
         //{
@@ -1160,10 +1166,11 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-      /*  if(collision.tag=="ThinFloor" && collision.gameObject.Equals(thinFloor.gameObject))
+        if (collision.tag == "ThinFloor")
         {
             thinFloor = null;
-        }*/
+            thinFloorCheck = false;
+        }
 
         if (collision.gameObject.name == ("LadderTop")) { onLadderTop = false; }
 

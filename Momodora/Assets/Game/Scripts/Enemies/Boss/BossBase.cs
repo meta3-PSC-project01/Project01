@@ -40,7 +40,7 @@ public class BossBase : MonoBehaviour
         bombCopy = Instantiate(_bomb, position, Quaternion.identity);
         BossAttack tmp = bombCopy.GetComponent<BossAttack>();
         Rigidbody2D rb = tmp.GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(-5,0);
+        rb.velocity = new Vector2(-10,-10);
     }
 
     public void AttackVomit()

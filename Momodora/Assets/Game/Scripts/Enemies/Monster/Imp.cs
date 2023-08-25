@@ -155,17 +155,13 @@ public class Imp : EnemyBase
     //이동 재정의
     public override void Move()
     {
-        float jumpResult = enemyRigidbody.velocity.y + jumpPower;
+        float jumpResult = enemyRigidbody.velocity.y + jumpPower * Random.Range(.5f, 1f);
+        float speedResult = enemySpeed * (int)direction * Random.Range(.5f, 1f);
         float directionResult = -1f;
 
         if (jumpResult > 5f)
         {
             jumpResult = 5f;
-        }
-
-        if (isTouch)
-        {
-            directionResult = 0f;
         }
 
         if(Random.Range(0,10) <= 2)
@@ -175,12 +171,12 @@ public class Imp : EnemyBase
 
         if (isMovingPlatform)
         {
-            enemyRigidbody.velocity = new Vector2(directionResult * enemySpeed * (int)direction + platformBody.velocity.x, jumpResult);
+            enemyRigidbody.velocity = new Vector2(directionResult * speedResult + platformBody.velocity.x, jumpResult);
         }
         //기본 플랫폼에서의 움직임
         else
         {
-            enemyRigidbody.velocity = new Vector2(directionResult * enemySpeed * (int)direction, jumpResult);
+            enemyRigidbody.velocity = new Vector2(directionResult * speedResult, jumpResult);
         }
     }
 

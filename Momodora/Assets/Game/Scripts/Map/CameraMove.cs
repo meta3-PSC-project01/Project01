@@ -14,6 +14,8 @@ public class CameraMove : MonoBehaviour
     float camHeight;
     float camWidth;
 
+    public bool autoMove = true;
+
     public float smoothTime = 0.1f;
 
     //카메라 위치 재설정

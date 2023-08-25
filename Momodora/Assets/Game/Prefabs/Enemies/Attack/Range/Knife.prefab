@@ -151,7 +151,7 @@ MonoBehaviour:
   attackSprite: {fileID: 0}
   animator: {fileID: 0}
   isActive: 1
-  damage: 5
+  damage: 8
   speed: 10
 --- !u!114 &-1484469607115291993
 MonoBehaviour:
