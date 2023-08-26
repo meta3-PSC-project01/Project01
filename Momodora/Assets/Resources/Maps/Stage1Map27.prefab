@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4540847304032276468}
   - component: {fileID: 4540847304032276466}
   - component: {fileID: 4540847304032276469}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WaterArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 4540847304204700884}
   - component: {fileID: 4540847304204700887}
   - component: {fileID: 4540847304204700886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamagerTile
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -935,7 +935,7 @@ GameObject:
   - component: {fileID: 4540847304408553561}
   - component: {fileID: 4540847304408553559}
   - component: {fileID: 4540847304408553558}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ScriptTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 883719295147460826}
   m_Father: {fileID: 4540847304808631413}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1091,7 +1092,7 @@ GameObject:
   - component: {fileID: 4540847304550778892}
   - component: {fileID: 4540847304550778895}
   - component: {fileID: 4540847304550778894}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BaseTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -3462,6 +3463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4540847304551487288}
   - component: {fileID: 4540847304551487291}
+  - component: {fileID: 3984200988562537218}
   m_Layer: 0
   m_Name: Stage1Map27
   m_TagString: Untagged
@@ -3505,6 +3507,21 @@ MonoBehaviour:
   type: 1
   enterArea: {fileID: 0}
   backGroundType: 0
+--- !u!114 &3984200988562537218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540847304551487290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde7eeb07f85b5845845cfe2fd4b808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canActive: 1
+  position: 010000001b000000
+  eventName: 
 --- !u!1 &4540847304720099654
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,7 +3581,7 @@ GameObject:
   - component: {fileID: 4540847304739846940}
   - component: {fileID: 4540847304739846938}
   - component: {fileID: 4540847304739846941}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaintTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3740,7 +3757,7 @@ GameObject:
   - component: {fileID: 4540847304996547894}
   - component: {fileID: 4540847304996547897}
   - component: {fileID: 4540847304996547896}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ThineTile
   m_TagString: ThinFloor
   m_Icon: {fileID: 0}
@@ -3758,8 +3775,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5593106040118387542}
+  m_Children: []
   m_Father: {fileID: 4540847304808631413}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4029,7 +4045,7 @@ GameObject:
   - component: {fileID: 4540847305098267737}
   - component: {fileID: 4540847305098267735}
   - component: {fileID: 4540847305098267734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LadderTile
   m_TagString: Ladder
   m_Icon: {fileID: 0}
@@ -6359,7 +6375,7 @@ GameObject:
   - component: {fileID: 4540847305780349645}
   - component: {fileID: 4540847305780349643}
   - component: {fileID: 4540847305780349642}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ObjectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7028,12 +7044,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 1
---- !u!1001 &4540847304119058539
+--- !u!1001 &9140472002316594151
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4540847304996547899}
+    m_TransformParent: {fileID: 4540847304408553561}
     m_Modifications:
     - target: {fileID: 8258160118694650682, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_Name
@@ -7045,11 +7061,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17
+      value: 16.959375
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7061,15 +7077,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7085,8 +7101,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
---- !u!4 &5593106040118387542 stripped
+--- !u!4 &883719295147460826 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8258160118694650685, guid: 3f9f7816a7e825545bf4880d2743cb14, type: 3}
-  m_PrefabInstance: {fileID: 4540847304119058539}
+  m_PrefabInstance: {fileID: 9140472002316594151}
   m_PrefabAsset: {fileID: 0}

@@ -157,7 +157,7 @@ MonoBehaviour:
   attackSprite: {fileID: 0}
   animator: {fileID: 0}
   isActive: 0
-  damage: 15
+  damage: 18
 --- !u!114 &4938066316447642723
 MonoBehaviour:
   m_ObjectHideFlags: 0

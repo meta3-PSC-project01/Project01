@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BossBody : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int currPoint = -1;
+    public BoxCollider2D box;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        box = GetComponent<BoxCollider2D>();
     }
 }

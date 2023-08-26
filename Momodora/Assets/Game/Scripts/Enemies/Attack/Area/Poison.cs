@@ -37,12 +37,9 @@ public class Poison : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log(count);
             count += 1;
             if (count > 10)
             {
-
-                Debug.Log("µ¶");
                 collision.GetComponentInParent<PlayerMove>().HitPoison();
             }
         }

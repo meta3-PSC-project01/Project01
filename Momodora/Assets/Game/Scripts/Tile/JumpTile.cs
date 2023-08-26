@@ -6,19 +6,25 @@ public class JumpTile : MonoBehaviour
 {
 
     bool isChewing = false;
-    float power=30f;
+    public float power=30f;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         Debug.Log(collision.collider.name);
         if (collision.collider.tag == "PlayerDynamic")
         {
+            PlayerMove player = collision.collider.GetComponentInParent<PlayerMove>();
             if (!isChewing)
             {
                 isChewing = true;
                 StartCoroutine(Chewing());
-                collision.collider.GetComponentInParent<PlayerMove>().playerRigidbody.AddForce(new Vector2(0, power), ForceMode2D.Impulse);
+                player.playerRigidbody.AddForce(new Vector2(0, power), ForceMode2D.Impulse);
+                if (player.playerRigidbody.velocity.y > 20)
+                {
+                    player.playerRigidbody.velocity = new Vector2(player.playerRigidbody.velocity.x, 20);
+                }
                 //추후 player jump로 변경
+                player.SetJumpCount(1);
             }
         }
     }

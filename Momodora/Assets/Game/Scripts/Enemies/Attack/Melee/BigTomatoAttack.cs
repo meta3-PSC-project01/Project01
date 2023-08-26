@@ -19,7 +19,6 @@ public class BigTomatoAttack : EnemyAttackData
         if (isActive && collision.tag == "Player")
         {
             isActive = false;
-            collision.GetComponentInParent<PlayerMove>().playerHp -= damage;
             //플레이어 반응 
             collision.GetComponentInParent<PlayerMove>().Hit(damage, (int)transform.right.x);
         }

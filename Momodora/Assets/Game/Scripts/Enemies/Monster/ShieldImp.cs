@@ -113,16 +113,10 @@ public class ShieldImp : EnemyBase, IHitControl
     public void Hit(int damage, int direction)
     {
         //공격중일때만 공격 받음
-
-
         //플레이어보다 왼쪽에 있을 때(-1) 왼쪽(-1) 보면 공격 받음 
         if (isAttack || direction * (int)this.direction < 0)
         {
             base.Hit(damage, direction);
-            Debug.Log(!isAttack);
-            Debug.Log(direction);
-            Debug.Log((int)this.direction);
-            //방어 성공
         }
 
     }
@@ -184,10 +178,12 @@ public class ShieldImp : EnemyBase, IHitControl
                 if (!isAttack)
                 {
                     //이동
+                    enemyAnimator.SetBool("Move", true);
                     isMove = true;
                     yield return new WaitForSeconds(moveTime);
                     enemyRigidbody.velocity = new Vector2(0, enemyRigidbody.velocity.y);
                     isMove = false;
+                    enemyAnimator.SetBool("Move", false);
 
                     //방어타임
                     yield return new WaitForSeconds(defenceTime);

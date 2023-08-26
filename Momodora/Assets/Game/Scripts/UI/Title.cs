@@ -294,7 +294,9 @@ public class Title : MonoBehaviour
         }
         else if (titleSelect == 6)
         {
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
+#endif
             Application.Quit();
         }
     }
