@@ -28,6 +28,38 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
         }
     }
 
+    PlayerMove player ;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        foreach (var tmp in collision.contacts)
+        {
+            // Debug.Log(collision.contacts[0].point.x + "  " + comCollider.bounds.min + "/" + comCollider.bounds.max +"/" + comCollider.bounds.size);
+
+        }
+
+        if (collision.transform.tag == "Player" &&
+            (collision.contacts[0].point.y > transform.position.y))
+
+        {
+
+            player = collision.collider.GetComponent<PlayerMove>();
+            //Debug.Log("in");
+            player.isMovingPlatform = true;
+            player.playerRigidbody.gravityScale *= 4;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Player" && player.isMovingPlatform)
+        {
+            //Debug.Log("out");
+            player.isMovingPlatform = false;
+            player.playerRigidbody.gravityScale *= .25f;
+        }
+    }
+
     IEnumerator MoveObjectRoutine(ControlBase controller)
     {
         float time = 0;

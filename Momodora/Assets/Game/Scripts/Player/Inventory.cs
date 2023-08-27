@@ -33,7 +33,6 @@ public class Inventory : MonoBehaviour
         Items item = new Items();
         ItemManager.instance.ItemData(name, out item);
 
-        Debug.Log(item);
 
         if (item == null)
         {

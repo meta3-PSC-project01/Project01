@@ -8,21 +8,19 @@ public class InteractObject : MonoBehaviour, IEventControl
     public InteractObjectType interactObjectType;
     public PopupText popupText;
     public string str;
+    public ParticleSystem subEffect;
 
     public bool isActive = true;
 
     private void Awake()
     {
-
         SetEventPossible();
     }
-
 
     private void Start()
     {
         /*
         아이템 먹을때 쓸거
-        
             if (!GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.currMap.name.Split("(Clone)")[0]))
             {
                 MapEvent _event = GameManager.instance.currMap.GetComponent<MapEvent>().Copy();
@@ -32,10 +30,13 @@ public class InteractObject : MonoBehaviour, IEventControl
          */
         if (interactObjectType == InteractObjectType.ITEM)
         {
-            isActive = transform.parent.parent.parent.parent.GetComponent<MapEvent>().canActive;
             if (!isActive)
             {
                 GetComponent<SpriteRenderer>().enabled = false;
+                if (subEffect != null)
+                {
+                    subEffect.Stop();
+                }
             }
         }
     }
@@ -44,10 +45,13 @@ public class InteractObject : MonoBehaviour, IEventControl
     {
         if (interactObjectType == InteractObjectType.ITEM)
         {
-
             if (!isActive)
             {
                 GetComponent<SpriteRenderer>().enabled = false;
+                if (subEffect != null)
+                {
+                    subEffect.Stop();
+                }
             }
         }
     }
@@ -76,7 +80,6 @@ public class InteractObject : MonoBehaviour, IEventControl
     {
         if (interactObjectType == InteractObjectType.ITEM)
         {
-
             if (GameManager.instance.eventManager.eventCheck.ContainsKey(GameManager.instance.nextMapName))
             {
                 isActive = GameManager.instance.eventManager.eventCheck[GameManager.instance.nextMapName].canActive;

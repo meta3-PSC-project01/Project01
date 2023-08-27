@@ -6810,7 +6810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d268a21f9e95c6a40a5950c16fefa8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 3742683856886173307}
+  targets:
+  - {fileID: 3742683856886173307}
+  - {fileID: 1972731451060716529}
   isPlaying: 0
 --- !u!1 &6510860661530167581
 GameObject:
@@ -6860,8 +6862,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 9220950688667320347}
   target: {fileID: 3158340277233266476}
-  moveTime: 1
-  waitTime: 5
+  moveTime: 0.5
+  waitTime: 3
   uturn: 1
   isPlaying: 0
 --- !u!1001 &7268473728213757431
@@ -6871,6 +6873,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1621944852056961190}
     m_Modifications:
+    - target: {fileID: 5472231375436856591, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
+      propertyPath: hp
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 9204867896189627909, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -6919,20 +6925,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 9204867896189627910, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9204867896876475534, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9204867897545381196, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
+--- !u!1 &1972731451060716529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9204867896189627910, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}
+  m_PrefabInstance: {fileID: 7268473728213757431}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1972731451060716530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9204867896189627909, guid: 9ddcdef439950c643970e3b01bb7604c, type: 3}

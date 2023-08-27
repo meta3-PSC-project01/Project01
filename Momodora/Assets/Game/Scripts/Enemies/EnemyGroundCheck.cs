@@ -16,7 +16,6 @@ public class EnemyGroundCheck : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
-            Debug.Log(enemy.name + " ¶¥¹Ù´Ú");
             enemy.isGround = true;
             enemy.StopWhenDash();
         }
@@ -26,7 +25,6 @@ public class EnemyGroundCheck : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
-            Debug.Log(enemy.name + " °øÁß");
             enemy.isGround = false;
         }
 

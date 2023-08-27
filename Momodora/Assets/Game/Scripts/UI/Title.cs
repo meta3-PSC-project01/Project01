@@ -48,6 +48,7 @@ public class Title : MonoBehaviour
 
     void Awake()
     {
+        GameManager.userSaveServer = 0;
         logoAlphaX = 0f;
         titleSelect = 0;
         saveSelect = 0;
@@ -373,7 +374,7 @@ public class Title : MonoBehaviour
 
     public void GameStart()
     {
-        GameManager.instance.userSaveServer = titleSelect;
+        GameManager.userSaveServer = titleSelect;
         
         GameManager.instance.mapName = "Stage1Start";
         GameManager.instance.SaveBefore();
@@ -383,7 +384,7 @@ public class Title : MonoBehaviour
 
     public void LoadStart()
     {
-        GameManager.instance.userSaveServer = titleSelect;
+        GameManager.userSaveServer = titleSelect;
 
         SaveLoad loadData = GameManager.instance.LoadBefore();
 
