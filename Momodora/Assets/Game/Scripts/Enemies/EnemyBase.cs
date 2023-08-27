@@ -174,7 +174,18 @@ public class EnemyBase : MonoBehaviour, IHitControl
     {
         //죽음관련 재생(애니메이션, 소리)
         enemyAnimator.SetBool("Dead", true);
-        for(int i = 0; i < goldCount; i++)
+
+        int countResult = goldCount;
+        if (ItemManager.instance.IsEquipItem("아스트랄 부적"))
+        {
+            if (Random.Range(0, 10) >= 7)
+            {
+                countResult = goldCount * 2;
+            }
+        }
+
+
+        for(int i = 0; i < countResult; i++)
         {
             GameObject tmp = Instantiate(gold, transform.position, Quaternion.identity, GameManager.instance.currMap.transform);
             tmp.tag = "Gold";

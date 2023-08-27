@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossIdle : StateMachineBehaviour
 {
-    float LIMIT_LEFT = 3;
+    float LIMIT_LEFT = 6;
     float LIMIT_RIGHT = 14;
 
     BossBase boss;

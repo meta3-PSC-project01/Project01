@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4182892389892025801}
   - component: {fileID: 4182892389892025800}
   - component: {fileID: 4182892389892025803}
-  - component: {fileID: 4182892389892025796}
-  - component: {fileID: 4182892389892025841}
+  - component: {fileID: -8076043882255757446}
+  - component: {fileID: 6893065526304445875}
   m_Layer: 0
   m_Name: BossBomb
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4182892389892025806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.04, y: -1.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108,8 +108,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &4182892389892025796
-BoxCollider2D:
+--- !u!58 &-8076043882255757446
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,23 +118,13 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.13}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6875, y: 0.875}
-    newSize: {x: 0.6875, y: 0.3125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: -0.1}
   serializedVersion: 2
-  m_Size: {x: 0.6875, y: 0.6}
-  m_EdgeRadius: 0
---- !u!114 &4182892389892025841
+  m_Radius: 0.4
+--- !u!114 &6893065526304445875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,8 +133,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4182892389892025806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bed13a4b1bd7c64dba1b0c600dc094b, type: 3}
+  m_Script: {fileID: 11500000, guid: aedfbc7794adfc745b3e4d5fe81b0b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poison: {fileID: 2918881771806016020, guid: e1e6f54c993945b4785767a0db19c4ff, type: 3}
+  isBoom: 0
+  speed: 10
   damage: 10
-  effect: {fileID: 8315220255247931079, guid: f49a292a3df5263448b66d92348342b0, type: 3}

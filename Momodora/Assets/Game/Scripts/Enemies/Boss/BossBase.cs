@@ -8,7 +8,7 @@ public class BossBase : MonoBehaviour
 
     Rigidbody2D bossRigidbody;
     PlayerMove player;
-    Transform body;
+    public Transform body;
     Animator animator;
 
     public GameObject _bomb;
@@ -19,27 +19,35 @@ public class BossBase : MonoBehaviour
     GameObject vomitCopy;
     GameObject ClawEffectCopy;
 
+    public GameObject intro1;
+    public GameObject intro2;
+    public GameObject battle;
+
+    private void Awake()
+    {
+        intro1.SetActive(true);
+        intro2.SetActive(false);
+        battle.SetActive(false);
+
+    }
+
     void Start()
     {
         animator = GetComponent<Animator>();
         player = FindObjectOfType<PlayerMove>();
         bossRigidbody = GetComponent<Rigidbody2D>();
-        body = transform.Find("Body");
     }
 
     public void AttackClaw() 
     {
-        Vector2 position = body.position + Vector3.up * .5f + Vector3.right * -.5f;
+        Vector2 position = body.position + Vector3.up * .75f + Vector3.right * -1f;
         ClawEffectCopy = Instantiate(_ClawEffect, position, Quaternion.identity);
     }
 
     public void AttackBomb()
     {
-        Vector2 position = body.position + Vector3.up * .5f + Vector3.right * -.5f;
+        Vector2 position = body.position + Vector3.up * .6f + Vector3.right * -.7f;
         bombCopy = Instantiate(_bomb, position, Quaternion.identity);
-        BossAttack tmp = bombCopy.GetComponent<BossAttack>();
-        Rigidbody2D rb = tmp.GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(-10,-10);
     }
 
     public void AttackVomit()
@@ -63,6 +71,14 @@ public class BossBase : MonoBehaviour
         Destroy(vomitCopy, 1f);
     }
 
+    public void EndIntro()
+    {
+        intro1.SetActive(false); 
+        intro2.SetActive(false);
+        battle.SetActive(true);
+
+        animator.SetBool("Idle", true);
+    }
 }
 
 public enum BossState
