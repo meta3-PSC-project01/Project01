@@ -118,7 +118,7 @@ public class PlayerMove : MonoBehaviour
         jSpeed[1] = 0f;
         chargeForce = 0f;
         chargeAddForce = 1f;
-        chargeMax = 2000f;
+        chargeMax = 200f;
         playerHp = 30;
         playerMaxHp = 30;
         jumpCount = 0;
@@ -509,6 +509,7 @@ public class PlayerMove : MonoBehaviour
 
             ItemManager.instance.activeItemCount -= 1;
             playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
+            playerUi.GetComponent<PlayerUi>().ItemCountChange();
         }
     }
 
@@ -518,6 +519,7 @@ public class PlayerMove : MonoBehaviour
         playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
 
         ItemManager.instance.activeItemCount = 3;
+        playerUi.GetComponent<PlayerUi>().ItemCountChange();
     }
     
     public void HitCheck()
@@ -1083,6 +1085,7 @@ public class PlayerMove : MonoBehaviour
                 thinFloor = collision.gameObject;
                 thinFloorCheck = true;
             }
+
             playerAudio.clip = walkAudio;
             playerAudio.Play();
             isGrounded = true;
