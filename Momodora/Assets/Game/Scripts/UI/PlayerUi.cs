@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class PlayerUi : MonoBehaviour
@@ -16,6 +17,7 @@ public class PlayerUi : MonoBehaviour
     public Text[] gameMenuText = new Text[3];
     public Image playerHpFilled;
     public Text playerMoneyNumber;
+    public Text playerItemCount;
 
     private int selectCursor = default;
     private int selectType = default;
@@ -27,6 +29,11 @@ public class PlayerUi : MonoBehaviour
         playerHpCount = 100f;
         selectCursor = 0;
         selectType = 0;
+    }
+
+    void Start()
+    {
+        PlayerMoney();
     }
 
     void Update()
@@ -46,6 +53,11 @@ public class PlayerUi : MonoBehaviour
         playerHpEmpty.gameObject.SetActive(false);
         gameMoneyIcon.gameObject.SetActive(false);
         playerMoneyNumber.gameObject.SetActive(false);
+        if (ItemManager.instance.activeItemNum != 0)
+        {
+            playerItemCount.gameObject.SetActive(false);
+        }
+        
     }
 
     public void GameMenuOn()
@@ -58,6 +70,10 @@ public class PlayerUi : MonoBehaviour
         playerHpEmpty.gameObject.SetActive(false);
         gameMoneyIcon.gameObject.SetActive(false);
         playerMoneyNumber.gameObject.SetActive(false);
+        if (ItemManager.instance.activeItemNum != 0)
+        {
+            playerItemCount.gameObject.SetActive(false);
+        }
 
         for (int i = 0; i < 5; i++)
         {
@@ -106,6 +122,10 @@ public class PlayerUi : MonoBehaviour
             playerHpEmpty.gameObject.SetActive(true);
             gameMoneyIcon.gameObject.SetActive(true);
             playerMoneyNumber.gameObject.SetActive(true);
+            if (ItemManager.instance.activeItemNum != 0)
+            {
+                playerItemCount.gameObject.SetActive(true);
+            }
 
             Time.timeScale = 1f;
             ItemManager.instance.lookAtGameMenu = false;
@@ -204,6 +224,8 @@ public class PlayerUi : MonoBehaviour
         playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
         ItemManager.instance.activeItemNum = 1;
         playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
+        playerItemCount.gameObject.SetActive(true);
+        playerItemCount.text = string.Format("{0}", ItemManager.instance.activeItemCount);
     }
 
     public void PlayerItemChangeOff()
@@ -211,5 +233,11 @@ public class PlayerUi : MonoBehaviour
         playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
         ItemManager.instance.activeItemNum = 0;
         playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
+        playerItemCount.gameObject.SetActive(false);
+    }
+
+    public void ItemCountChange()
+    {
+        playerItemCount.text = string.Format("{0}", ItemManager.instance.activeItemCount);
     }
 }

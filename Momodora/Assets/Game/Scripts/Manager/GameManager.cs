@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     public static int userSaveServer = default;
     public float gameTime = default;
 
+    public int[] gameTimeCheck = new int[5];
+
     public string mapName = null;
 
     private string saveCheckString = default;
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour
 
             mapName = null;
         }
+
         gameTime = Time.time;
     }
 
@@ -199,7 +202,7 @@ public class GameManager : MonoBehaviour
 
     public void MapEventCheck(SaveLoad data)
     {
-        for (int i = 0; i < data.eventCheck.Length; i++) 
+        for (int i = 0; i < data.eventCheck.Length; i++)
         {
             string stageName = "Stage" + data.positionX[i] + "Map" + data.positionY[i];
            
@@ -216,6 +219,9 @@ public class GameManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             saveCheck[checkCount] = true;
+            string saveFile = File.ReadAllText(saveFilePath);
+            SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
+            instance.gameTimeCheck[checkCount] = saveData.gameTime;
         }
         else
         {
