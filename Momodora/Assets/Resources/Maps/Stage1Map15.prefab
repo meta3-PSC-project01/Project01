@@ -7376,10 +7376,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7554046212332486837}
     m_Modifications:
-    - target: {fileID: 8132091270502525128, guid: 2be8400bff3c738449e1497ddeec6f6d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8132091270502525140, guid: 2be8400bff3c738449e1497ddeec6f6d, type: 3}
       propertyPath: m_Name
       value: ItemGetTile

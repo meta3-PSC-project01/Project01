@@ -17,7 +17,6 @@ public class PlayerUi : MonoBehaviour
     public Image playerHpFilled;
     public Text playerMoneyNumber;
 
-    private int activeItemCheck = default;
     private int selectCursor = default;
     private int selectType = default;
     private float playerHpCount = default;
@@ -26,7 +25,6 @@ public class PlayerUi : MonoBehaviour
     {
         playerHpFilled.fillAmount = 1f;
         playerHpCount = 100f;
-        activeItemCheck = 0;
         selectCursor = 0;
         selectType = 0;
     }
@@ -41,14 +39,21 @@ public class PlayerUi : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow) && ItemManager.instance.lookAtGameMenu == true) { GameMenuRight(); }
     }
 
+    public void PlayerDead()
+    {
+        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
+        playerHpFilled.gameObject.SetActive(false);
+        playerHpEmpty.gameObject.SetActive(false);
+        gameMoneyIcon.gameObject.SetActive(false);
+        playerMoneyNumber.gameObject.SetActive(false);
+    }
+
     public void GameMenuOn()
     {
         ItemManager.instance.lookAtGameMenu = true;
         Time.timeScale = 0f;
         selectCursor = 0;
-
-        // 여기 수정중이었음 메뉴 열때 현재 장착 아이템 확인이 안되는 버그 발생 Fix 예정
-        playerSetItem[activeItemCheck].gameObject.SetActive(false);
+        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
         playerHpFilled.gameObject.SetActive(false);
         playerHpEmpty.gameObject.SetActive(false);
         gameMoneyIcon.gameObject.SetActive(false);
@@ -96,7 +101,7 @@ public class PlayerUi : MonoBehaviour
 
             gameMenuText[selectCursor].gameObject.SetActive(false);
 
-            playerSetItem[ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting]].gameObject.SetActive(true);
+            playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
             playerHpFilled.gameObject.SetActive(true);
             playerHpEmpty.gameObject.SetActive(true);
             gameMoneyIcon.gameObject.SetActive(true);
@@ -194,10 +199,17 @@ public class PlayerUi : MonoBehaviour
         playerMoneyNumber.text = $"{ ItemManager.instance.leaf:000}";
     }
 
-    public void PlayerItemChange()
+    public void PlayerItemChangeOn()
     {
-        playerSetItem[activeItemCheck].gameObject.SetActive(false);
-        playerSetItem[ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting]].gameObject.SetActive(true);
-        activeItemCheck = ItemManager.instance.activeItemNum[ItemManager.instance.activeItemSeleting];
+        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
+        ItemManager.instance.activeItemNum = 1;
+        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
+    }
+
+    public void PlayerItemChangeOff()
+    {
+        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(false);
+        ItemManager.instance.activeItemNum = 0;
+        playerSetItem[ItemManager.instance.activeItemNum].gameObject.SetActive(true);
     }
 }

@@ -14,9 +14,9 @@ public class ItemManager : MonoBehaviour
     public List<Items> durationItems;
 
     public int leaf = default;
-    public int[] activeItemNum = new int[5];
+    public int activeItemNum = default;
     public int activeItemSeleting = default;
-    public int[] activeItemCount = default;
+    public int activeItemCount = default;
 
     public bool lookAtInventory = false;
     public bool lookAtGameMenu = false;
@@ -34,14 +34,14 @@ public class ItemManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             equipCheck[i] = false;
-            activeItemNum[i] = 0;
         }
 
+        activeItemNum = 0;
         activeItems = new List<Items>();
         durationItems = new List<Items>();
         leaf = 0;
         activeItemSeleting = 0;
-        activeItemCount[1] = 3;
+        activeItemCount = 30;
 
     }
 
@@ -53,7 +53,7 @@ public class ItemManager : MonoBehaviour
     // æ∆¿Ã≈€ »πµÊ Ω√ ¡§∫∏ πﬁ±‚ (2)
     public Items ItemData(string name, out Items item)
     {
-        if (itemDataBase.ContainsKey(name)) 
+        if (itemDataBase.ContainsKey(name))
         {
             item = itemDataBase[name];
             return item;
