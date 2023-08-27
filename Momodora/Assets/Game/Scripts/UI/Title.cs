@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -49,7 +48,7 @@ public class Title : MonoBehaviour
 
     void Awake()
     {
-        GameManager.userSaveServer = 0;
+        GameManager.userSaveServer = -1;
         logoAlphaX = 0f;
         titleSelect = 0;
         saveSelect = 0;
@@ -67,8 +66,8 @@ public class Title : MonoBehaviour
 
     void Start()
     {
-        //screen = StartCoroutine(Logo1());
-        screen = StartCoroutine(TitleScreen());
+        screen = StartCoroutine(Logo1());
+        //screen = StartCoroutine(TitleScreen());
         StopCoroutine(screen);
         endTitle = true;
     }
@@ -377,7 +376,7 @@ public class Title : MonoBehaviour
     {
         GameManager.userSaveServer = titleSelect;
         
-        GameManager.mapName = "Stage1Start";
+        GameManager.instance.mapName = "Stage1Start";
         GameManager.instance.SaveBefore();
 
         SceneManager.LoadScene("GameScene");
@@ -389,7 +388,7 @@ public class Title : MonoBehaviour
 
         SaveLoad loadData = GameManager.instance.LoadBefore();
 
-        GameManager.mapName = "Stage"+loadData.savePoint[0]+"Map"+ loadData.savePoint[1];
+        GameManager.instance.mapName = "Stage"+loadData.savePoint[0]+"Map"+ loadData.savePoint[1];
         SceneManager.LoadScene("GameScene");
     }
 

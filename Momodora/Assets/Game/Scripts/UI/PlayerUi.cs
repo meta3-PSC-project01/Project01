@@ -147,6 +147,8 @@ public class PlayerUi : MonoBehaviour
         }
         else if (selectCursor == 2)
         {
+            GameManager.instance.mapName = null;
+            GameManager.userSaveServer = -1;
             Destroy(GameManager.instance.gameObject);
             Destroy(ItemManager.instance.gameObject);
             SceneManager.LoadScene("TitleScene");

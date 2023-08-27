@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor.PackageManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,10 +23,11 @@ public class GameManager : MonoBehaviour
     public bool isloading = false;
     public bool isDeath = false;
 
-    public static int userSaveServer = default;
+    public static int userSaveServer = -1;
     public float gameTime = default;
 
-    public static string mapName = null;
+    public static string restarMap = null;
+    public string mapName = null;
     public int[] gameTimeCheck = new int[5];
 
 
@@ -40,7 +39,7 @@ public class GameManager : MonoBehaviour
     public void ReStart()
     {
         SaveLoad loadData = instance.LoadBefore();
-        GameManager.mapName = "Stage" + loadData.savePoint[0] + "Map" + loadData.savePoint[1];
+        restarMap = "Stage" + loadData.savePoint[0] + "Map" + loadData.savePoint[1];
 
         if (GameManager.instance != null)
             Destroy(GameManager.instance.gameObject);
@@ -83,14 +82,19 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(GameManager.mapName != null)
+        if(restarMap!=null)
         {
+            Debug.Log("너냐?");
             SaveLoad loadData = instance.LoadBefore();
+            instance.mapName = restarMap;
+            restarMap = null;
         }
     }
 
     void Update()
     {
+
+
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "GameScene" && mapName != null)
         {
@@ -188,6 +192,7 @@ public class GameManager : MonoBehaviour
     public static SaveLoad Load(string saveFileName)
     {
         string saveFilePath = SavePath + saveFileName + ".json";
+        Debug.Log(saveFilePath);
         if (!File.Exists(saveFilePath))
         {
             return null;
@@ -222,6 +227,9 @@ public class GameManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             saveCheck[checkCount] = true;
+            /*string saveFile = File.ReadAllText(saveFilePath);
+            SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
+            instance.gameTimeCheck[checkCount] = saveData.gameTime;*/
         }
         else
         {
