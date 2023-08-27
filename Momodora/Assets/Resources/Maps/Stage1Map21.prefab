@@ -124,6 +124,7 @@ MonoBehaviour:
   interactObjectType: 2
   popupText: {fileID: 6113700353060404949}
   str: "\uB9D0\uD558\uAE30"
+  subEffect: {fileID: 0}
   isActive: 1
 --- !u!61 &64228583
 BoxCollider2D:
