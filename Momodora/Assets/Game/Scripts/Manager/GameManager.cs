@@ -5,8 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
-using System.Diagnostics.Tracing;
+using UnityEditor.PackageManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class GameManager : MonoBehaviour
     public bool isloading = false;
     public bool isDeath = false;
 
-    public int userSaveServer = default;
+    public static int userSaveServer = default;
     public float gameTime = default;
 
     public string mapName = null;
@@ -34,6 +33,22 @@ public class GameManager : MonoBehaviour
     private string saveCheckString = default;
 
     public static string SavePath => Application.persistentDataPath + "/Save/";
+
+
+    public void ReStart()
+    {
+        SaveLoad loadData = instance.LoadBefore();
+
+        GameManager.instance.mapName = "Stage" + loadData.savePoint[0] + "Map" + loadData.savePoint[1];
+
+        if (GameManager.instance != null)
+            Destroy(GameManager.instance.gameObject);
+        if (ItemManager.instance != null)
+            Destroy(ItemManager.instance.gameObject);
+
+        SceneManager.LoadScene("GameScene");
+    }
+
 
     void Awake()
     {
@@ -57,15 +72,15 @@ public class GameManager : MonoBehaviour
         foreach (MapData mapData in map)
         {
             mapDatabase.Add(mapData.name, mapData);
-            /*MapEvent mapEvent = mapData.GetComponent<MapEvent>();
+            MapEvent mapEvent = mapData.GetComponent<MapEvent>();
             if (mapEvent != null)
             {
-                eventManager.eventCheck.Add(mapData.name, mapEvent);
-                Debug.Log(mapData.name + " 현재맵");
-                Debug.Log(mapEvent.canActive + " BOOL값");
-            }*/
+               /* if(mapEvent.eventName=="초롱꽃" || mapEvent.eventName == "아스트랄 부적")
+                {
+                    ItemManager.instance.GetComponent<Inventory>().GetItem(mapEvent.eventName);
+                }*/
+            }
         }
-
     }
 
     void Update()
@@ -73,6 +88,16 @@ public class GameManager : MonoBehaviour
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "GameScene" && mapName != null)
         {
+            Time.timeScale = 1f;
+            foreach (var _event in eventManager.eventCheck)
+            {
+                if (_event.Value.eventName == "초롱꽃" || _event.Value.eventName == "아스트랄 부적")
+                {
+                    ItemManager.instance.GetComponent<Inventory>().GetItem(_event.Value.eventName);
+                }
+
+            }
+
             loadingImage = Instantiate(loadingImage);
             loadingImage.GetComponent<Canvas>().worldCamera = Camera.main;
             loadingImage.SetActive(false);
@@ -180,6 +205,7 @@ public class GameManager : MonoBehaviour
            
             MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i], mapDatabase[stageName].GetComponent<MapEvent>().eventName);
             eventManager.eventCheck.Add(stageName, _event);
+
         }
     }
 

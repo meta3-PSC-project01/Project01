@@ -23,7 +23,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - Gold
@@ -34,7 +34,7 @@ TagManager:
   - Player
   - Enemy
   - Title
-  - 
+  - Boss
   - 
   - 
   - 

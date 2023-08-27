@@ -10,6 +10,9 @@ public class GameOver : MonoBehaviour
     public Text[] gameOverText = new Text[3];
 
     private int selectCheck = default;
+    private GameObject gameManager;
+
+    int currSaveSlot;
 
     void Awake()
     {
@@ -29,6 +32,9 @@ public class GameOver : MonoBehaviour
     {
         if (selectCheck == 0)
         {
+
+            GameManager.instance.ReStart();
+
             //세이브 파일에서 불러온뒤 로드하기
             // 재시도
         }

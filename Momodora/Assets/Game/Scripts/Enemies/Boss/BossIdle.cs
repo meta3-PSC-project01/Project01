@@ -28,6 +28,7 @@ public class BossIdle : StateMachineBehaviour
 
             if (boss.state == BossState.MOVE)
             {
+                Debug.Log(boss.transform.position.x);
                 int random = Random.Range(0, 1);
                 if (random == 0 && boss.transform.position.x > LIMIT_LEFT && boss.transform.position.x < LIMIT_RIGHT)
                 {

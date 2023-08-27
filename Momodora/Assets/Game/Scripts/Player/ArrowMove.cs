@@ -31,7 +31,7 @@ public class ArrowMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Enemy")
+        if (collider.tag == "Enemy" || collider.gameObject.layer==14)
         {
             monster = collider.gameObject;
             if(monster.GetComponentInParent<IHitControl>().IsHitPossible())

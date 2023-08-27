@@ -5133,6 +5133,7 @@ MonoBehaviour:
   interactObjectType: 1
   popupText: {fileID: 4819917396252060576}
   str: "\uC870\uC0AC\uD558\uAE30"
+  subEffect: {fileID: 5218720969505540128}
   isActive: 1
 --- !u!61 &8132091270502525141
 BoxCollider2D:

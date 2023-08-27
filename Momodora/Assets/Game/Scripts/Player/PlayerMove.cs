@@ -317,6 +317,7 @@ public class PlayerMove : MonoBehaviour
             }
             else if (canSave)
             {
+                SavePlayerForm();
                 GameManager.instance.SaveBefore();
             }
             else if (canTalk)
@@ -409,10 +410,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Hit(30, 1);
-        }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -505,7 +502,7 @@ public class PlayerMove : MonoBehaviour
         playerHp = playerMaxHp;
         playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
 
-        ItemManager.instance.activeItemCount = 30;
+        ItemManager.instance.activeItemCount = 3;
     }
     
     public void HitCheck()
@@ -556,6 +553,9 @@ public class PlayerMove : MonoBehaviour
         if (GameManager.instance.isDeath == true) { return; }
 
         HitCheck();
+
+        Debug.Log(damage+"데미지");
+
 
         Physics2D.IgnoreLayerCollision(11, 12);
         playerAudio.clip = hurtAudio;
@@ -984,7 +984,6 @@ public class PlayerMove : MonoBehaviour
 
     public void SetInteraction(InteractObjectType type)
     {
-        Debug.Log(type);
         switch (type)
         {
             //save에 필요한 데이터

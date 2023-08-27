@@ -39,7 +39,7 @@ public class MapData : MonoBehaviour
             if (FindObjectOfType<PlayerMove>() == null)
             {
                 GameObject player = Resources.Load("Player") as GameObject;
-                player.transform.position = transform.GetChild(0).GetChild(0).GetChild(2).Find("SavePoint").position+ Vector3.up*-2;
+                player.transform.position = transform.GetChild(0).GetChild(0).GetChild(2).Find("SavePoint").position+ Vector3.up*-1.9f;
                 player = Instantiate(player, player.transform.position, Quaternion.identity);
             }
         }

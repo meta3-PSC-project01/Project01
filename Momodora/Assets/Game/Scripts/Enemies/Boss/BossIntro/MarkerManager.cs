@@ -30,7 +30,6 @@ public class MarkerManager : MonoBehaviour
     {
         if (gameObject.name.Split("(Clone)")[0] != "Tail")
         {
-            Debug.Log(gameObject.name + "(" + markers.Count + ")");
             {
                 UpdateMarkerList();
             }
