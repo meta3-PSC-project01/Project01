@@ -173,7 +173,7 @@ public class TrapTile : MonoBehaviour
         {
             Debug.Log(count);
             count += 1;
-            if (count > 100)
+            if (count > 50)
             {
                 count=0;
                 collision.GetComponentInParent<PlayerMove>().HitPoison();

@@ -40,7 +40,10 @@ public class GameOver : MonoBehaviour
         }
         else if (selectCheck == 1)
         {
-            if(GameManager.instance!=null)
+            GameManager.instance.mapName = null;
+            GameManager.userSaveServer = -1;
+
+            if (GameManager.instance!=null)
                 Destroy(GameManager.instance.gameObject);
             if(ItemManager.instance!=null)  
                 Destroy(ItemManager.instance.gameObject);
