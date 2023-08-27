@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     public AudioClip deathAudio;
     private AudioSource playerAudio = default;
 
+    // Fix
     // 화살 이펙트 테스트
     public GameObject test;
     private GameObject test2;
