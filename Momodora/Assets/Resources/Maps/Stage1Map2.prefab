@@ -1287,9 +1287,9 @@ GameObject:
   - component: {fileID: 2677417004948553517}
   - component: {fileID: 2677417004948553491}
   - component: {fileID: 2677417004948553516}
-  - component: {fileID: 6672268625189414593}
-  - component: {fileID: 6635617335708552891}
-  - component: {fileID: 2796058517432992872}
+  - component: {fileID: 4527835604680350494}
+  - component: {fileID: 6930619694163785124}
+  - component: {fileID: 735934668711621257}
   m_Layer: 9
   m_Name: LadderTile
   m_TagString: Ladder
@@ -1545,8 +1545,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!19719996 &6672268625189414593
-TilemapCollider2D:
+--- !u!19719996 &45278356046803 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1561,7 +1560,28 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
---- !u!66 &6635617335708552891
+--- !u!50 &6930619694163785124
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2677417004948553518}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!66 &735934668711621257
 CompositeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1579,7 +1599,7 @@ CompositeCollider2D:
   m_GenerationType: 1
   m_EdgeRadius: 0
   m_ColliderPaths:
-  - m_Collider: {fileID: 6672268625189414593}
+  - m_Collider: {fileID: 4527835604680350494}
     m_ColliderPaths:
     - - X: 230001264
         Y: 0
@@ -1625,27 +1645,6 @@ CompositeCollider2D:
       - {x: 2.0000293, y: -7}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
---- !u!50 &2796058517432992872
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2677417004948553518}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &2677417005120556363
 GameObject:
   m_ObjectHideFlags: 0
