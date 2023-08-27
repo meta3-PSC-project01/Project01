@@ -101,40 +101,32 @@ public class MoveTile : MonoBehaviour
     private void GetDirectionPos()
     {
         directionPos = (targetPos - transform.position).normalized;
-    } 
+    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        foreach(var tmp in collision.contacts)
+        if (collision.name == "FloorDetectCollider")
         {
-           // Debug.Log(collision.contacts[0].point.x + "  " + comCollider.bounds.min + "/" + comCollider.bounds.max +"/" + comCollider.bounds.size);
-
-        }
-
-        if (collision.transform.tag == "Player" &&
-            (collision.contacts[0].point.y>transform.position.y) &&
-            comCollider.bounds.min.x+.01f < collision.contacts[0].point.x &&
-            comCollider.bounds.max.x + .01f > collision.contacts[0].point.x)
-
-        {
-            //Debug.Log("in");
-            player.isMovingPlatform = true;
-            player.platformBody = rb;
-            player.playerRigidbody.gravityScale *= 4;
+            player.playerRigidbody.gravityScale *= 5;
+            if (rb != null)
+            {
+                player.isMovingPlatform = true;
+                player.platformBody = rb;
+            }
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Player" && player.isMovingPlatform)
+        if (collision.name == "FloorDetectCollider")
         {
-            //Debug.Log("out");
-            player.isMovingPlatform = false;
-            player.playerRigidbody.gravityScale *= .25f;
-
+            if (rb != null)
+            {
+                player.isMovingPlatform = false;
+            }
+            player.playerRigidbody.gravityScale *= .2f;
         }
     }
-
 
 
 

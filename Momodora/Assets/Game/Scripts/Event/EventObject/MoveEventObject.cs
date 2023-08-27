@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveEventObject : MonoBehaviour, IEventTilePlay
@@ -14,7 +15,9 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
 
     private void Awake()
     {
+        player = FindObjectOfType<PlayerMove>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+
         startPos = start.position;
         endPos = end.position;
     }
@@ -30,35 +33,24 @@ public class MoveEventObject : MonoBehaviour, IEventTilePlay
 
     PlayerMove player ;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        foreach (var tmp in collision.contacts)
+        if (collision.name == "FloorDetectCollider")
         {
-            // Debug.Log(collision.contacts[0].point.x + "  " + comCollider.bounds.min + "/" + comCollider.bounds.max +"/" + comCollider.bounds.size);
-
-        }
-
-        if (collision.transform.tag == "Player" &&
-            (collision.contacts[0].point.y > transform.position.y))
-
-        {
-
-            player = collision.collider.GetComponent<PlayerMove>();
-            //Debug.Log("in");
-            player.isMovingPlatform = true;
-            player.playerRigidbody.gravityScale *= 4;
+            Debug.LogWarning(player.playerRigidbody.gravityScale);
+            player.playerRigidbody.gravityScale *= 5;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Player" && player.isMovingPlatform)
+        if (collision.name == "FloorDetectCollider")
         {
-            //Debug.Log("out");
-            player.isMovingPlatform = false;
-            player.playerRigidbody.gravityScale *= .25f;
+            Debug.LogWarning(player.playerRigidbody.gravityScale);
+            player.playerRigidbody.gravityScale *= .2f;
         }
     }
+
 
     IEnumerator MoveObjectRoutine(ControlBase controller)
     {

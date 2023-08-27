@@ -86,6 +86,7 @@ public class PlayerMove : MonoBehaviour
 
     public Rigidbody2D platformBody;
     public bool isMovingPlatform = false;
+    GameObject deathScreen = null;
 
     void Awake()
     {
@@ -95,6 +96,11 @@ public class PlayerMove : MonoBehaviour
         playerCollider_ = transform.Find("CrashCollider").GetComponent<BoxCollider2D>();
         BoxCollider2D FloorDetectCollider = transform.Find("FloorDetectCollider").GetComponent<BoxCollider2D>();
         BoxCollider2D BorderCollider = transform.Find("BorderCollider").GetComponent<BoxCollider2D>();
+
+        playerUi = GameObject.Find("GamingUiManager");
+        deathScreen = GameObject.Find("PlayerDeathUis");
+        playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
 
         Physics2D.IgnoreCollision(playerCollider_, FloorDetectCollider, true);
         Physics2D.IgnoreCollision(FloorDetectCollider, BorderCollider, true);
@@ -135,8 +141,6 @@ public class PlayerMove : MonoBehaviour
     {
         playerRigidbody.velocity = new Vector2(0f, 0f);
 
-        playerUi = GameObject.Find("GamingUiManager");
-        GameObject deathScreen = GameObject.Find("PlayerDeathUis");
     }
 
     void Update()

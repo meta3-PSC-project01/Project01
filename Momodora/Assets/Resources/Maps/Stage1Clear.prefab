@@ -4330,7 +4330,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 8468311273728159161}
   m_maskType: 0
 --- !u!1 &5134689445110479362
@@ -4378,5 +4378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d268a21f9e95c6a40a5950c16fefa8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2779941983432666982}
+  targets:
+  - {fileID: 2779941983432666982}
   isPlaying: 0

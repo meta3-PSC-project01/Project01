@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8827002965630334467}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: start
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 5407799982827011647}
   - component: {fileID: 5407799982827011641}
   - component: {fileID: 485329908}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StoneTile
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   start: {fileID: 8827002965630334467}
   end: {fileID: 1261816009551640036}
   playTime: 2
+  isPlaying: 0
   boxCollider2D: {fileID: 5407799982827011641}
 --- !u!1 &7284369993003335832
 GameObject:
@@ -170,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1261816009551640036}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: end
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
