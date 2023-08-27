@@ -81,4 +81,17 @@ public class ItemManager : MonoBehaviour
         ItemManager.instance.GetComponent<Inventory>().enabled = false;
         inventoryCheckTime = false;
     }
+
+    public bool IsEquipItem(string name)
+    {
+
+        for(int i  = 3; i < 5; i++)
+        {
+            if (equipItems[i]!=null && equipItems[i].itemName == name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

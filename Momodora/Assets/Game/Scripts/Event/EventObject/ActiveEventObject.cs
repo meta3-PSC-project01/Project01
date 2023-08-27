@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActiveEventObject : MonoBehaviour, IEventTilePlay
 {
-    public GameObject target;
+    public GameObject[] targets;
 
     public bool isPlaying = false;
 
@@ -13,7 +13,10 @@ public class ActiveEventObject : MonoBehaviour, IEventTilePlay
         if (!isPlaying)
         {
             isPlaying = true;
-            target.SetActive(true);
+            foreach(GameObject target in targets)
+            {
+                target.SetActive(true);
+            }
         }
     }
 

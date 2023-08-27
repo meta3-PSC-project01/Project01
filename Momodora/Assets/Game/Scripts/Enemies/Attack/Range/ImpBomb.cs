@@ -49,11 +49,16 @@ public class ImpBomb : EnemyAttackData
         {
             isBoom = true;
             CameraMove.ShakingCamera(Camera.main, .15f, 1.5f);
-            PlayerMove player = collision.collider.GetComponentInParent<PlayerMove>();
-            if (player != null)
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(collision.collider.ClosestPoint(transform.position),1);
+            foreach(var collider in colliders)
             {
-                //player.hp -= damage;
-                player.Hit(damage, -direction);
+                if (collider.tag=="Player")
+                {
+                    //player.hp -= damage;
+                    collider.GetComponentInParent<PlayerMove>().Hit(damage, -direction);
+                }
+
             }
             bulletRigidbody.velocity = Vector3.zero;
             bulletRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;

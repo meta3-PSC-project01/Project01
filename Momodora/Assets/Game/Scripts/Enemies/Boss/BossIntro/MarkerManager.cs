@@ -9,14 +9,17 @@ public class MarkerManager : MonoBehaviour
         public Vector3 position;
         public Quaternion rotation;
 
+
         public Marker(Vector3 position, Quaternion rotation)
         {
             this.position = position;
             this.rotation = rotation;
         }
+
     }
 
     public List<Marker> markers = new List<Marker>();
+    public GameObject nextSegment;
 
     private void Start()
     {
@@ -45,4 +48,9 @@ public class MarkerManager : MonoBehaviour
         markers.Add(new Marker(transform.position, transform.rotation));
 
     }
+    public void SetNextSegment(GameObject Segment)
+    {
+        nextSegment = Segment;
+    }
+
 }

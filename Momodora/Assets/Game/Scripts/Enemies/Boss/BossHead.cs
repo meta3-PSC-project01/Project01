@@ -33,7 +33,7 @@ public class BossHead : MonoBehaviour
 
             if (parts[i].currPoint >=0 && parts[i].currPoint < points.Count-1)
             {
-                parts[i].box.transform.position = Vector2.Lerp(points[parts[i].currPoint].transform.position, points[parts[i].currPoint+1].transform.position, (count/(1+ parts[i].currPoint))/100);X`
+                parts[i].box.transform.position = Vector2.Lerp(points[parts[i].currPoint].transform.position, points[parts[i].currPoint+1].transform.position, (count/(1+ parts[i].currPoint))/100);
                 parts[i].transform.rotation = points[parts[i].currPoint].transform.rotation;
                 
             }
