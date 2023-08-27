@@ -81,6 +81,7 @@ public class PlayerMove : MonoBehaviour
     private bool hitMoveTime = false;
     private bool isPoison = false;
     private bool walkAudioCheck = false;
+    private bool chargeMaxCheck = false;
     [SerializeField] private bool crouchEndCheck = false;
 
     public Rigidbody2D platformBody;
@@ -123,7 +124,7 @@ public class PlayerMove : MonoBehaviour
         jSpeed[1] = 0f;
         chargeForce = 0f;
         chargeAddForce = 1f;
-        chargeMax = 2000f;
+        chargeMax = 200f;
         playerHp = 30;
         playerMaxHp = 30;
         jumpCount = 0;
@@ -373,13 +374,21 @@ public class PlayerMove : MonoBehaviour
             if (chargeForce >= chargeMax)
             {
                 chargeForce = chargeMax;
+                if (chargeMaxCheck == false)
+                {
+                    chargeMaxCheck = true;
+                    ChargeMaxEffect();
+                }
             }
+
+            Debug.Log(chargeForce);
         }
 
         if (Input.GetKeyUp(KeyCode.D) && isCharged == true)
         {
             playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
             xSpeed = 0f;
+            xInput = 0f;
 
             if (isCrouched == true)
             {
@@ -443,6 +452,12 @@ public class PlayerMove : MonoBehaviour
         animator.SetInteger("Ladding", (int)yResult);
     }
 
+    public void ChargeMaxEffect()
+    {
+        Color fullColor = new Color32(255, 135, 135, 255);
+        playerRenderer.color = fullColor;
+    }
+
     public void PlayerCrouchEnd()
     {
         crouchEndCheck = false;
@@ -498,6 +513,7 @@ public class PlayerMove : MonoBehaviour
 
             ItemManager.instance.activeItemCount -= 1;
             playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
+            playerUi.GetComponent<PlayerUi>().ItemCountChange();
         }
     }
 
@@ -507,10 +523,23 @@ public class PlayerMove : MonoBehaviour
         playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
 
         ItemManager.instance.activeItemCount = 3;
+        playerUi.GetComponent<PlayerUi>().ItemCountChange();
     }
     
     public void HitCheck()
     {
+        if (isCharged == true)
+        {
+            isCharged = false;
+            chargeForce = 0f;
+            if (chargeMaxCheck == true)
+            {
+                Color cancleColor = new Color32(255, 255, 255, 255);
+                playerRenderer.color = cancleColor;
+                chargeMaxCheck = false;
+            }
+        }
+
         if (isMlAttack > 0)
         {
             isMlAttack = 0;
@@ -641,10 +670,13 @@ public class PlayerMove : MonoBehaviour
 
         animator.SetTrigger("Death");
         playerDeathScreen[0].gameObject.SetActive(true);
+        Debug.Log(playerDeathScreen[0].name);
         yield return new WaitForSeconds(0.2f);
         playerDeathScreen[0].gameObject.SetActive(false);
+        Debug.Log(playerDeathScreen[0].name);
         yield return new WaitForSeconds(0.2f);
         playerDeathScreen[1].gameObject.SetActive(true);
+        Debug.Log(playerDeathScreen[1].name);
         yield return new WaitForSeconds(3f);
         for (int i = 0; i < 20; i++)
         {
@@ -743,6 +775,10 @@ public class PlayerMove : MonoBehaviour
                 tempObject.transform.right = -direction;
             }
         }
+
+        Color cancleColor = new Color32(255, 255, 255, 255);
+        playerRenderer.color = cancleColor;
+        chargeMaxCheck = false;
     }
 
     public void PlayerBowEnd()
@@ -794,6 +830,10 @@ public class PlayerMove : MonoBehaviour
                 tempObject.transform.right = -direction;
             }
         }
+
+        Color cancleColor = new Color32(255, 255, 255, 255);
+        playerRenderer.color = cancleColor;
+        chargeMaxCheck = false;
     }
 
     public void PlayerAirBowEnd() { isAirBowed = false; isChargeAirBowed = false; }
@@ -837,6 +877,10 @@ public class PlayerMove : MonoBehaviour
                 tempObject.transform.right = -direction;
             }
         }
+
+        Color cancleColor = new Color32(255, 255, 255, 255);
+        playerRenderer.color = cancleColor;
+        chargeMaxCheck = false;
     }
 
     public void PlayerCrouchBowEnd() { isCrouchBowed = false; isChargeCrouchBowed = false; }
@@ -1038,11 +1082,6 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == ("Ladder"))
-        {
-            isLadder = true;
-        }
-
         if (collision.gameObject.layer == 9 )
         {
             if (collision.tag == "ThinFloor")
@@ -1050,6 +1089,7 @@ public class PlayerMove : MonoBehaviour
                 thinFloor = collision.gameObject;
                 thinFloorCheck = true;
             }
+
             playerAudio.clip = walkAudio;
             playerAudio.Play();
             isGrounded = true;
@@ -1075,6 +1115,18 @@ public class PlayerMove : MonoBehaviour
 
         if (collision.tag == ("Ladder") && Input.GetKey(KeyCode.UpArrow) && isLadder == false)
         {
+            if (isCharged == true)
+            {
+                isCharged = false;
+                chargeForce = 0f;
+                if (chargeMaxCheck == true)
+                {
+                    Color cancleColor = new Color32(255, 255, 255, 255);
+                    playerRenderer.color = cancleColor;
+                    chargeMaxCheck = false;
+                }
+            }
+
             isLadder = true;
         }
     }

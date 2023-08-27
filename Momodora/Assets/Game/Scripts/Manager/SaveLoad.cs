@@ -7,11 +7,9 @@ public class SaveLoad
 {
     public int gameTime = default;
     public int[] savePoint = new int[2];
-
     public bool[] eventCheck;
     public int[] positionX;
     public int[] positionY;
-    
     public int money = default;
 
     //public string[] equipItems = new string[5];

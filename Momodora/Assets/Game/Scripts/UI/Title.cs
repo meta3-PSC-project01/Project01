@@ -39,6 +39,7 @@ public class Title : MonoBehaviour
     private int titleSelect = default;
     private int saveSelect = default;
     private int selectType = default;
+    private int[] gameTimeCheck = new int[3];
 
     private bool endTitle = false;
     private bool startTitle = false;
