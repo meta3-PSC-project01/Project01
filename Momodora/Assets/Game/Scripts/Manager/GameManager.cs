@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public static int userSaveServer = default;
     public float gameTime = default;
 
-    public string mapName = null;
+    public static string mapName = null;
 
     private string saveCheckString = default;
 
@@ -38,8 +38,7 @@ public class GameManager : MonoBehaviour
     public void ReStart()
     {
         SaveLoad loadData = instance.LoadBefore();
-
-        GameManager.instance.mapName = "Stage" + loadData.savePoint[0] + "Map" + loadData.savePoint[1];
+        GameManager.mapName = "Stage" + loadData.savePoint[0] + "Map" + loadData.savePoint[1];
 
         if (GameManager.instance != null)
             Destroy(GameManager.instance.gameObject);
@@ -80,6 +79,11 @@ public class GameManager : MonoBehaviour
                     ItemManager.instance.GetComponent<Inventory>().GetItem(mapEvent.eventName);
                 }*/
             }
+        }
+
+        if(GameManager.mapName != null)
+        {
+            SaveLoad loadData = instance.LoadBefore();
         }
     }
 
@@ -135,8 +139,6 @@ public class GameManager : MonoBehaviour
 
         int[] savePoint = new int[2];
         int.TryParse(_mapName.Substring(5, 1), out savePoint[0]);
-
-        Debug.Log(_mapName.Length);
 
         if (_mapName == "Stage1Start")
         {
@@ -204,7 +206,8 @@ public class GameManager : MonoBehaviour
             string stageName = "Stage" + data.positionX[i] + "Map" + data.positionY[i];
            
             MapEvent _event = new MapEvent(data.eventCheck[i], data.positionX[i], data.positionY[i], mapDatabase[stageName].GetComponent<MapEvent>().eventName);
-            eventManager.eventCheck.Add(stageName, _event);
+            if (!eventManager.eventCheck.ContainsKey(stageName))
+                eventManager.eventCheck.Add(stageName, _event);
 
         }
     }

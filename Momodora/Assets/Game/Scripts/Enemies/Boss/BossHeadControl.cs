@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class BossHeadControl : MonoBehaviour, IHitControl
@@ -8,12 +9,15 @@ public class BossHeadControl : MonoBehaviour, IHitControl
     private SpriteRenderer spriteRenderer;
     public BossHeadState currState;
 
+    public BossBase boss;
+
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         currState = BossHeadState.IDLE;
+        boss = transform.parent.parent.GetComponent<BossBase>();
     }
 
     // Update is called once per frame
@@ -66,6 +70,7 @@ public class BossHeadControl : MonoBehaviour, IHitControl
     {
         if (IsHitPossible())
         {
+            Debug.Log(hp);
             HitReaction(direction);
             hp -= damage;
 
@@ -99,15 +104,17 @@ public class BossHeadControl : MonoBehaviour, IHitControl
 
     public bool IsHitPossible()
     {
-        if(hp>0)
+        if(hp>=0)
             return true;
 
         else 
             return false;
     }
-    public bool Die()
+
+    public void Die()
     {
-        throw new System.NotImplementedException();
+           boss.isDie = true;
+       // Destroy(boss.gameObject);
     }
 }
 

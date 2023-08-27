@@ -10,7 +10,6 @@ public class SpikeTile : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log(collision.transform.name);
 
             PlayerMove player = collision.transform.GetComponentInParent<PlayerMove>();
             TileBase tile = transform.GetComponent<Tilemap>().GetTile(Vector3Int.FloorToInt(collision.transform.position - new Vector3Int(0, 1, 0)));

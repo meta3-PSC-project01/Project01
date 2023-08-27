@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossIdle : StateMachineBehaviour
 {
-    float LIMIT_LEFT = 6;
+    float LIMIT_LEFT = 0;
     float LIMIT_RIGHT = 14;
 
     BossBase boss;
@@ -21,6 +21,12 @@ public class BossIdle : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (boss.isDie)
+        {
+            animator.SetTrigger("Dead");
+            return;
+        }
+
         count += 1;
         if (count >= 50)
         {
@@ -61,9 +67,14 @@ public class BossIdle : StateMachineBehaviour
                     count = 0;
                 }
                 else
-                if (random == 1)
+                if (random == 1 && boss.transform.position.x > LIMIT_LEFT-4)
                 {
                     animator.SetTrigger("Tail");
+                    count = 0;
+                }
+                else if (random == 1 && boss.transform.position.x <= LIMIT_LEFT - 4)
+                {
+                    animator.SetTrigger("Bomb");
                     count = 0;
                 }
                 else

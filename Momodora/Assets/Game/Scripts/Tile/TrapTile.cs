@@ -169,7 +169,6 @@ public class TrapTile : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.tag == "Player")
         {
             Debug.Log(count);

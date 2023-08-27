@@ -44,6 +44,7 @@ public class MapData : MonoBehaviour
             }
         }
 
+
         if (type == 1)
         {
             fieldSize = new Vector2Int(transform.childCount-1, 1);

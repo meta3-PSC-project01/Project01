@@ -6,6 +6,8 @@ public class BossBase : MonoBehaviour
 {
     public BossState state;
 
+    public bool isDie = false;
+
     Rigidbody2D bossRigidbody;
     PlayerMove player;
     public Transform body;
@@ -52,7 +54,7 @@ public class BossBase : MonoBehaviour
 
     public void AttackVomit()
     {
-        Vector2 position = body.position + Vector3.up * -1f + Vector3.right * -.5f;
+        Vector2 position = body.position + Vector3.up * 0f + Vector3.right * -.5f;
         vomitCopy = Instantiate(_vomit, position, Quaternion.identity);
     }
 
