@@ -133,7 +133,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 17
-        y: 3
+        y: 2
         width: 17
         height: 37
       alignment: 0
@@ -143,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09e59760a00eeb54184abd2cdf5fe0bc
-      internalID: -1481387894
+      spriteID: a98b4bd01451e114cb1ca74ee2d6a901
+      internalID: 1726152289
       vertices: []
       indices: 
       edges: []
@@ -153,14 +153,14 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_LadderStay_0: -1481387894
+      Player_LadderStay_0: 1726152289
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

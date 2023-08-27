@@ -32,9 +32,12 @@ public class Inventory : MonoBehaviour
     {
         Items item = new Items();
         ItemManager.instance.ItemData(name, out item);
+
+        Debug.Log(item);
+
         if (item == null)
         {
-            return; 
+            return;
         }
 
         if (item.itemName == "[None]")
@@ -113,8 +116,7 @@ public class Inventory : MonoBehaviour
                 color.a = 0f;
                 itemSpace[selectSlot].GetComponent<Image>().color = color;
 
-                ItemManager.instance.activeItemNum[selectSlot] = 0;
-                ItemManager.instance.activeItemSeleting = selectSlot;
+                playerUI.GetComponent<PlayerUi>().PlayerItemChangeOff();
             }
         }
         else
@@ -132,7 +134,6 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-
                 ItemManager.instance.equipItems[selectSlot] = list[selectInventory];
                 list.RemoveAt(selectInventory);
                 ItemManager.instance.equipCheck[selectSlot] = true;
@@ -143,13 +144,8 @@ public class Inventory : MonoBehaviour
                 color.a = 1f;
                 itemSpace[selectSlot].GetComponent<Image>().color = color;
                 itemSpace[selectSlot].sprite = itemImage[ItemManager.instance.equipItems[selectSlot].itemImage].sprite;
-            }
 
-            if (ItemManager.instance.equipItems[selectSlot].itemName == "√ ∑’≤…")
-            {
-                ItemManager.instance.activeItemNum[selectSlot] = 1;
-                ItemManager.instance.activeItemSeleting = selectSlot;
-                playerUI.GetComponent<PlayerUi>().PlayerItemChange();
+                playerUI.GetComponent<PlayerUi>().PlayerItemChangeOn();
             }
         }
 
