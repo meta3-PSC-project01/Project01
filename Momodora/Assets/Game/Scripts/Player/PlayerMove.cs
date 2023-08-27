@@ -99,8 +99,8 @@ public class PlayerMove : MonoBehaviour
 
         playerUi = GameObject.Find("GamingUiManager");
         deathScreen = GameObject.Find("PlayerDeathUis");
-        playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
+        //playerDeathScreen[0] = deathScreen.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        //playerDeathScreen[1] = deathScreen.transform.GetChild(1).GetComponent<SpriteRenderer>();
 
         Physics2D.IgnoreCollision(playerCollider_, FloorDetectCollider, true);
         Physics2D.IgnoreCollision(FloorDetectCollider, BorderCollider, true);

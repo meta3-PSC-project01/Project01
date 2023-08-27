@@ -222,9 +222,6 @@ public class GameManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             saveCheck[checkCount] = true;
-            string saveFile = File.ReadAllText(saveFilePath);
-            SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
-            instance.gameTimeCheck[checkCount] = saveData.gameTime;
         }
         else
         {
