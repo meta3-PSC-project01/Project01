@@ -41,7 +41,7 @@ public class ItemManager : MonoBehaviour
         durationItems = new List<Items>();
         leaf = 0;
         activeItemSeleting = 0;
-        activeItemCount = 3;
+        activeItemCount = 9;
 
     }
 

@@ -522,7 +522,7 @@ public class PlayerMove : MonoBehaviour
         playerHp = playerMaxHp;
         playerUi.GetComponent<PlayerUi>().PlayerHpBar(playerHp);
 
-        ItemManager.instance.activeItemCount = 3;
+        ItemManager.instance.activeItemCount = 9;
         playerUi.GetComponent<PlayerUi>().ItemCountChange();
     }
     
@@ -670,13 +670,10 @@ public class PlayerMove : MonoBehaviour
 
         animator.SetTrigger("Death");
         playerDeathScreen[0].gameObject.SetActive(true);
-        Debug.Log(playerDeathScreen[0].name);
         yield return new WaitForSeconds(0.2f);
         playerDeathScreen[0].gameObject.SetActive(false);
-        Debug.Log(playerDeathScreen[0].name);
         yield return new WaitForSeconds(0.2f);
         playerDeathScreen[1].gameObject.SetActive(true);
-        Debug.Log(playerDeathScreen[1].name);
         yield return new WaitForSeconds(3f);
         for (int i = 0; i < 20; i++)
         {

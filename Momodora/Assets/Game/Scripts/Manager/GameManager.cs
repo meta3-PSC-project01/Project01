@@ -93,8 +93,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "GameScene" && mapName != null)
         {
@@ -227,9 +225,6 @@ public class GameManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             saveCheck[checkCount] = true;
-            /*string saveFile = File.ReadAllText(saveFilePath);
-            SaveLoad saveData = JsonUtility.FromJson<SaveLoad>(saveFile);
-            instance.gameTimeCheck[checkCount] = saveData.gameTime;*/
         }
         else
         {
